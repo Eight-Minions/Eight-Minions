@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Eight Minions", "Eight Minions\Eight Minions.vcproj", "{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}.Debug|Win32.Build.0 = Debug|Win32
+		{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}.Release|Win32.ActiveCfg = Release|Win32
+		{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
