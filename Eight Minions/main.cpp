@@ -11,12 +11,16 @@ int main(void){
 		game_host server;
 		printf("enter port to host on:");
 		cin >> port;
+		//error check this number
 		server.setPort(port);
 		//do other server things, namely...
 		server.run();
 	}
 	if(c == 2)
 	{
+		string addr;
+		client player;
+
 
 	}
 	return 0;
