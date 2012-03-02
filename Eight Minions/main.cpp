@@ -1,4 +1,5 @@
-#include "resources.h"
+#include "game_host.h"
+#include "client.h"
 
 int main(void){
 	

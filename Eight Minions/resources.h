@@ -2,11 +2,14 @@
 #define RESOURCES_H
 
 #include <iostream>
-#include "game_host.h"
-#include "client.h"
+#include <string>
+#include "networking.h"
 
-using std::cout;
+/*using std::cout;
 using std::cin;
 using std::endl;
+using std::string;*/
+
+using namespace std;
 
 #endif

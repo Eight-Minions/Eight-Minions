@@ -175,10 +175,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\linkedlist.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>

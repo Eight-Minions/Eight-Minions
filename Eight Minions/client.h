@@ -1,8 +1,7 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include <iostream>
-#include "networking.h"
+#include "resources.h"
 
 #define CONNECTION_SUCCESSFUL 1
 #define CONNECTION_FAILURE 0 //generic error

@@ -1,8 +1,7 @@
 #ifndef GAME_HOST_H
 #define GAME_HOST_H
 
-#include <iostream>
-#include "networking.h"
+#include "resources.h"
 
 class game_host
 {
