@@ -8,7 +8,7 @@ class game_host
 {
 private:
 	unsigned int port;
-	
+	int something;
 	//also need objects for two socket connections, possibly four, i/o for each player
 
 public:
