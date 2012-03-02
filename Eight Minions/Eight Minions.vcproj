@@ -193,7 +193,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\client.h"
+				>
+			</File>
+			<File
 				RelativePath=".\game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\game_host.h"
 				>
 			</File>
 			<File
