@@ -4,6 +4,10 @@
 #include <iostream>
 #include "networking.h"
 
+#define CONNECTION_SUCCESSFUL 1
+#define CONNECTION_FAILURE 0 //generic error
+#define SERVER_NOT_FOUND -1
+
 class client
 {
 private:
@@ -16,5 +20,6 @@ public:
 	int run();
 	void setServerAddress(string);
 	void setPort(unsigned int);
+	int connect();
 
 };

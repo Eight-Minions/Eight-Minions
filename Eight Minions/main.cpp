@@ -27,7 +27,10 @@ int main(void){
 		cin >> port;
 		player.setPort(port);
 		player.setServerAddress(addr);
-		player.run();
+		if(player.connect() == CONNECTION_SUCCESSFUL)
+			player.run();
+		else
+			cout << "connection failed";
 	}
 	return 0;
 }
