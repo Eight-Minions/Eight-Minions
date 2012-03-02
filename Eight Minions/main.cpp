@@ -9,7 +9,7 @@ int main(void){
 	{
 		unsigned int port;
 		game_host server;
-		printf("enter port to host on:");
+		cout << "enter port to host on:";
 		cin >> port;
 		//error check this number
 		server.setPort(port);
@@ -19,9 +19,15 @@ int main(void){
 	if(c == 2)
 	{
 		string addr;
+		unsigned int port;
 		client player;
-
-
+		cout << "Address of server:";
+		cin >> addr;
+		cout << "port of server:";
+		cin >> port;
+		player.setPort(port);
+		player.setServerAddress(addr);
+		player.run();
 	}
 	return 0;
 }

@@ -5,4 +5,8 @@
 #include "game_host.h"
 #include "client.h"
 
+using std::cout;
+using std::cin;
+using std::endl;
+
 #endif
