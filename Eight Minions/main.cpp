@@ -1,7 +1,7 @@
 #include "game_host.h"
 #include "client.h"
 
-int main(void){
+int main(int argc, char* argv[]){
 	
 	printf("Host or Connect to host? (host-1, connect-2)\n>");
 	int c = 0;
