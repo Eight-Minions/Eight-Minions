@@ -1,5 +1,8 @@
 #include "game.h"
-
+location::location(){
+	x = 0;
+	y = 0;
+}
 int location::getX(){
 	return this->x;
 }
@@ -12,3 +15,4 @@ void location::setX(int new_x){
 void location::setY(int new_y){
 	this->y = new_y;
 }
+

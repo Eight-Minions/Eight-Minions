@@ -3,6 +3,7 @@
 class location
 {
 private:
+	location();
 	int x;
 	int y;
 public:
@@ -16,8 +17,13 @@ public:
 class object : public location 
 {
 private:
-
+	/*
+	object();
+	~object();
+	double health;
 public:
-
+	double getHealth();
+	void setHealth(double new_health);
+	*/
 };
 
