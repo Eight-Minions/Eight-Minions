@@ -4,13 +4,12 @@
 #include <iostream>
 #include <string>
 #include "SDL.h"
-#include "networking.h"
 
 /*using std::cout;
 using std::cin;
 using std::endl;
 using std::string;*/
 
-using namespace std;
+using namespace std; //  Oh really?
 
 #endif
