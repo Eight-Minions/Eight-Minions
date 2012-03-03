@@ -10,6 +10,6 @@ using std::cin;
 using std::endl;
 using std::string;*/
 
-using namespace std; //  Oh really?
+using namespace std; //Oh really?
 
 #endif
