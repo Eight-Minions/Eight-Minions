@@ -1,4 +1,6 @@
-#include "game.h"
+#include "resources.h"
+
+
 location::location(){
 	x = 0;
 	y = 0;

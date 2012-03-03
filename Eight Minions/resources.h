@@ -4,12 +4,28 @@
 #include <iostream>
 #include <string>
 #include <winsock2.h>
+#include <conio.h>
 #include "SDL.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+
+
+class location
+{
+private:
+	int x;
+	int y;
+public:
+	location();
+	int getX();
+	int getY();
+	void setX(int new_x);
+	void setY(int new_y);
+};
+
 
 //using namespace std; //Oh really? - it was just to test something, forgot to change back
 
