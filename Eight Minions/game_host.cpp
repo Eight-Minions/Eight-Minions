@@ -2,7 +2,24 @@
 
 int game_host::init()
 {
+	
+	if (SDLNet_Init() < 0)
+	{
+		fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
 
+	if (SDLNet_ResolveHost(&ip, NULL, this->port) < 0)
+	{
+		fprintf(stderr, "SDLNet_ResolveHost: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
+
+	if (!(sd = SDLNet_TCP_Open(&ip)))
+	{
+		fprintf(stderr, "SDLNet_TCP_Open: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
 
 	return 0; // temporary
 }

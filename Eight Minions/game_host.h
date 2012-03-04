@@ -8,6 +8,10 @@ class game_host
 {
 private:
 	unsigned int port;
+	IPaddress ip;
+	TCPsocket sd;
+	TCPsocket player1sd, player2sd;
+
 	//also need objects for two socket connections, possibly four, i/o for each player
 
 public:
