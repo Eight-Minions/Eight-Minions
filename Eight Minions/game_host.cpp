@@ -25,6 +25,9 @@ int game_host::init()
 	bind(sock, (struct sockaddr*)&local, sizeof(local));
 	listen(sock,MAXWAITINGCONNECTIONS);
 
+
+
+	return 0; // temporary
 }
 
 int game_host::waitForClients()
