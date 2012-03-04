@@ -12,6 +12,9 @@ class client
 private:
 	string server_addr;
 	unsigned int port;
+	IPaddress ip;
+	TCPsocket sd;
+
 
 public:
 	int init();

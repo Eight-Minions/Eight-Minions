@@ -26,14 +26,19 @@ int game_host::init()
 
 int game_host::waitForClients()
 {
+	cout << "waiting for first player to connect...\n";
+	while(!(player1sd = SDLNet_TCP_Accept(sd)));
+	cout << "waiting for second player to connect...\n";
+	while(!(player2sd = SDLNet_TCP_Accept(sd)));
 
+	cout << "both clients connected, continuing...\n";
 	return 1;
 }
 
 int game_host::run()
 {
 	this->init();
-
+	this->waitForClients();
 	//runs the game itself
 	return 0;
 }
