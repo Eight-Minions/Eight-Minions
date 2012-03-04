@@ -10,9 +10,12 @@ private:
 	int level;
 	int type;
 	int attack;
+	
 public:
 	creep(int type, int level, int x, int y);
 	~creep();
+
+
 };
 
 #endif

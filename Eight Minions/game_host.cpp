@@ -51,8 +51,33 @@ void game_host::setPort(unsigned int setPort)
 	//error checking, ensure input is valid
 	this->port = setPort;
 }
+
+
 int game_host::sendUpdate()
 {
 	//send updates about the game to each player
 	return 0;
+}
+
+int game_host::sendToClients(string buff)
+{
+	if(!this->player1sd || !this->player2sd)
+	{
+		cout << "No Connection!\n";
+		return -1;
+	}
+	else
+	{
+		if(SDLNet_TCP_Send(player1sd, (void *)buff.c_str(), buff.length()+1) < buff.length() + 1)
+		{
+			cout << "Message to client 1 failed to send...\n";
+			return -1;
+		}
+		if(SDLNet_TCP_Send(player2sd, (void *)buff.c_str(), buff.length()+1) < buff.length() + 1)
+		{
+			cout << "Message to client 2 failed to send...\n";
+			return -1;
+		}
+	}
+	return 1;
 }

@@ -9,6 +9,8 @@ private:
 	int health;
 	int level;
 	int type;
+	int attackSpeed;
+	int attackType;
 public:
 	tower(int health, int level, int type, int x , int y);
 	~tower();
