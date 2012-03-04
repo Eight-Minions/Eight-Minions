@@ -14,6 +14,7 @@ int main(int argc, char* argv[]){
 		cin >> port;
 		//error check this number
 		server.setPort(port);
+		cout << "port set\n";
 		//do other server things, namely...
 		server.run();
 	}

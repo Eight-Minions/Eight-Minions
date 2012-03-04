@@ -6,6 +6,7 @@
 #include <winsock2.h>
 #include <conio.h>
 #include "SDL.h"
+#include "SDL_net.h"
 
 using std::cout;
 using std::cin;

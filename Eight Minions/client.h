@@ -12,12 +12,6 @@ class client
 private:
 	string server_addr;
 	unsigned int port;
-	SOCKET sock;
-	WSADATA wsaData;
-	struct sockaddr_in server;
-	struct hostent *hp;
-	int socketType;
-	unsigned int addr;
 
 public:
 	int init();
