@@ -33,7 +33,14 @@ int game_host::init()
 int game_host::waitForClients()
 {
 	//waits for two clients to connect
-	return 0;
+	p1_len = sizeof(p1_addr);
+	p2_len = sizeof(p2_addr);
+	cout << "waiting for player 1 to connect...\n";
+	player1 = accept(sock, (struct sockaddr*)&p1_addr, p1_len);
+	cout << "player 1 connected! now waiting on player 2...\n";
+	player2 = accept(sock, (struct sockaddr*)&p2_addr, p2_len);
+	cout << "player 2 connected! continuing with startup.\n"
+	return 1;
 }
 
 int game_host::run()
