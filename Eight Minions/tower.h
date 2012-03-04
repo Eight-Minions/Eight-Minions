@@ -5,7 +5,7 @@
 
 class tower : public location
 {
-	/*
+	
 private:
 	int health;
 	int level;
@@ -20,7 +20,7 @@ public:
 
 	int getType();
 	void setType(int);
-	*/
+	
 };
 
 

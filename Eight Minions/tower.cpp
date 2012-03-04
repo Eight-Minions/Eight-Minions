@@ -1,11 +1,11 @@
 #include "tower.h"
-/*
+
 tower::tower(int h, int l, int t, int set_x, int set_y){
 	health = h;
 	level = l;
 	type = t;
-	x = set_x;
-	y = set_y;
+	this->setX(set_x);
+	this->setY(set_y);
 }
 int tower::getHealth(){
 	return this->health;
@@ -16,7 +16,7 @@ void tower::setHealth(int h){
 int tower::getLevel(){
 	return this->level;
 }
-void tower::getLevel(int l){
+void tower::setLevel(int l){
 	this->level = l;
 }
 int tower::getType(){
@@ -25,6 +25,3 @@ int tower::getType(){
 void tower::setType(int t){
 	this->type = t;
 }
-// I don't think we should have a set position
-
-*/
