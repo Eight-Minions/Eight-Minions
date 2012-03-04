@@ -28,10 +28,10 @@ int main(int argc, char* argv[]){
 		cin >> port;
 		player.setPort(port);
 		player.setServerAddress(addr);
-		if(player.connect() == CONNECTION_SUCCESSFUL)
+		if(player.connectToServer() == CONNECTION_SUCCESSFUL)
 			player.run();
 		else
-			cout << "connection failed";
+			cout << "connection failed\n";
 	}
 	return 0;
 }

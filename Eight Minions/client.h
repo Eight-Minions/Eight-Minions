@@ -26,7 +26,7 @@ public:
 	int run();
 	void setServerAddress(string);
 	void setPort(unsigned int);
-	int connect();
+	int connectToServer();
 	int sendToServer(string);
 
 };
