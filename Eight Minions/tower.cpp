@@ -25,3 +25,5 @@ int tower::getType(){
 void tower::setType(int t){
 	this->type = t;
 }
+tower::~tower(){
+}

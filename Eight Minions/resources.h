@@ -13,7 +13,6 @@ using std::cin;
 using std::endl;
 using std::string;
 
-
 class location
 {
 private:
@@ -28,6 +27,6 @@ public:
 };
 
 
-//using namespace std; //Oh really? - it was just to test something, forgot to change back
+//using namespace std; //Oh really? - it was just to test something, forgot to change back  -- haha okay I was gonna have a chat with you :P
 
 #endif
