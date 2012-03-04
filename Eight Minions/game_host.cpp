@@ -36,10 +36,10 @@ int game_host::waitForClients()
 	p1_len = sizeof(p1_addr);
 	p2_len = sizeof(p2_addr);
 	cout << "waiting for player 1 to connect...\n";
-	player1 = accept(sock, (struct sockaddr*)&p1_addr, p1_len);
+	player1 = accept(sock, (struct sockaddr*)&p1_addr, &p1_len);
 	cout << "player 1 connected! now waiting on player 2...\n";
-	player2 = accept(sock, (struct sockaddr*)&p2_addr, p2_len);
-	cout << "player 2 connected! continuing with startup.\n"
+	player2 = accept(sock, (struct sockaddr*)&p2_addr, &p2_len);
+	cout << "player 2 connected! continuing with startup.\n";
 	return 1;
 }
 
