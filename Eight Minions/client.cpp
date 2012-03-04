@@ -1,5 +1,25 @@
 #include "client.h"
 
+
+int client::init()
+{
+	if(WSAStartup(0x202, &wsaData) != 0)
+	{
+		//fail
+		WSACleanup();
+		return -1;
+	}
+	addr = inet_addr(server_addr.c_str());
+	hp = gethostbyaddr((char *)&addr, 4, AF_INET);
+
+	memset(&server, 0, sizeof(server));
+	memcpy(&(server.sin_addr), hp->h_addr, hp->h_length);
+	server.sin_family = hp->h_addrtype;
+	server.sin_port = htons(port);
+
+
+
+}
 void client::display()
 {
 
@@ -10,6 +30,7 @@ void client::processInput()
 }
 int client::run()
 {
+	this->init();
 	//main run loop
 	return 0;
 }
