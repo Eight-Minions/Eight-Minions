@@ -1,5 +1,6 @@
 #include "tower.h"
 
+/*
 tower::tower(int h, int l, int t, int set_x, int set_y){
 	health = h;
 	level = l;
@@ -27,3 +28,4 @@ void tower::setType(int t){
 }
 tower::~tower(){
 }
+*/

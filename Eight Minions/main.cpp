@@ -17,8 +17,9 @@ int main(int argc, char* argv[]){
 		cout << "port set\n";
 		//do other server things, namely...
 		server.run();
+		cout << "finished running\n";
 	}
-	if(c == 2)
+	else if(c == 2)
 	{
 		string addr;
 		unsigned int port;

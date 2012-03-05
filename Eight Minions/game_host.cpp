@@ -39,6 +39,8 @@ int game_host::run()
 {
 	this->init();
 	this->waitForClients();
+	this->sendToClients("testing!!!");
+	system("pause");
 	//runs the game itself
 	return 0;
 }

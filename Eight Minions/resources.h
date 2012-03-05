@@ -27,6 +27,4 @@ public:
 };
 
 
-//using namespace std; //Oh really? - it was just to test something, forgot to change back  -- haha okay I was gonna have a chat with you :P
-
 #endif

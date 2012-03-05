@@ -2,6 +2,7 @@
 #define GAME_HOST_H
 
 #include "resources.h"
+
 #define REQSOCKVER 2
 #define MAXWAITINGCONNECTIONS 3
 class game_host
@@ -20,7 +21,7 @@ public:
 	int run(); //runs the game itself
 	void setPort(unsigned int);
 	int sendUpdate(); //called by run() to send information to each player about changes in what they need to display
-	int sendToClient(string);
+	int sendToClients(string);
 };
 
 #endif
