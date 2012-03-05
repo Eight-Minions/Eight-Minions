@@ -2,7 +2,7 @@
 
 int game_host::init()
 {
-	
+
 	if (SDLNet_Init() < 0)
 	{
 		fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
@@ -28,8 +28,10 @@ int game_host::waitForClients()
 {
 	cout << "waiting for first player to connect...\n";
 	while(!(player1sd = SDLNet_TCP_Accept(sd)));
+	cout << this->recieveMessagep1() << "\n";
 	cout << "waiting for second player to connect...\n";
 	while(!(player2sd = SDLNet_TCP_Accept(sd)));
+	cout << this->recieveMessagep2() << "\n";
 
 	cout << "both clients connected, continuing...\n";
 	return 1;
@@ -46,10 +48,11 @@ int game_host::run()
 }
 void game_host::setPort(unsigned int setPort)
 {
-	//Last Changed: 3-5-12 @ 10:53
+	//Last Changed: 3-5-12 @ 12:13
 	//changelog:
 	//made function set port
 	//validated the input
+	//added confirmation
 	//todo:
 	//
 	if(setPort > 65535)
@@ -57,8 +60,11 @@ void game_host::setPort(unsigned int setPort)
 		cout << "INVALID PORT!\n";
 		system("pause");
 		exit(1);
+	}else
+	{
+		this->port = setPort;
+		cout << "Port Set!\n";
 	}
-	this->port = setPort;
 }
 
 

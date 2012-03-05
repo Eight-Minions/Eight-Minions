@@ -6,10 +6,14 @@
 class tower : public location
 {	
 private:
+	int health;
 	int level;
+	//to go along with level, do we want towers to have experience?
+	//and then once they have enough experience, you can upgrade them along a few different specialization trees?
 	int type;
 	int attackSpeed;
 	int attackType;
+	SDL_Surface *img;
 public:
 	tower(int health, int level, int type, int x , int y);
 	~tower();

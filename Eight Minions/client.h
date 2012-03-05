@@ -17,10 +17,12 @@ private:
 	//MessageQueue mess; -typename not set in stone, its really whatever we want to make it, just for reference
 
 	SDL_Surface* screen;
+	SDL_Surface* background;
 
 
 public:
 	int init();
+	void cleanup();
 	void display();
 	void processInput();
 	int run();
@@ -30,6 +32,7 @@ public:
 	int sendToServer(string);
 	string recieveMessage();
 	void recieveMessageToQueue();
+	void parseQueue();
 };
 
 #endif

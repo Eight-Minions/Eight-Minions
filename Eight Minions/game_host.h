@@ -13,7 +13,6 @@ private:
 	TCPsocket sd;
 	TCPsocket player1sd, player2sd;
 
-	//also need objects for two socket connections, possibly four, i/o for each player
 
 public:
 	int init();
@@ -25,6 +24,7 @@ public:
 	string recieveMessagep1();
 	string recieveMessagep2();
 	void recieveMessageToQueue();
+	void parseQueue();
 };
 
 #endif

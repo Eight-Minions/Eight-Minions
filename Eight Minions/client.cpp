@@ -3,34 +3,59 @@
 
 int client::init()
 {
-	//i kinda want something to happen here, i feel all naked having empty functions	
+	//Start SDL
+	if(SDL_Init( SDL_INIT_EVERYTHING ) == -1)
+	{
+		cout << "SDL Failed to initialize...\n";
+		return -1;
+	}
+
+	//Sets window caption
+	SDL_WM_SetCaption( "Eight Minions", NULL );
+	//create screen, params are width in pixels, height in pixels, bpp, and flags
+	screen = SDL_SetVideoMode(840,550,32,SDL_SWSURFACE);
 
 
- return 0;
+	return 1;
+}
+
+void client::cleanup()
+{
+	//do all freeing of memory and cleanup type stuff here
+
+	SDL_Quit();
 }
 void client::display()
 {
 
+
+	SDL_Flip(screen);
 }
 void client::processInput()
 {
-	
+
 }
 int client::run()
 {
-	this->init();
-	/*
-	this->recieveMessage();
-	system("pause");*/
-
+	if(this->init() == -1)
+	{
+		cout << "Function Init failed to complete.\n";
+		return -1;
+	}
 	//main run loop
+	int run = 1;
+	while(run)
+	{
+		//gather input
+		this->display();
 
-	//Start SDL
-	SDL_Init( SDL_INIT_EVERYTHING );
+		//temp
+		SDL_Delay(2000);
+		run = 0;
+		//end temp
+	}
 
-	screen = SDL_SetVideoMode(600,600,32,SDL_SWSURFACE);
-
-	SDL_Delay(2000);
+	this->cleanup();
 	return 0;
 }
 
@@ -47,10 +72,11 @@ void client::setServerAddress(string address)
 
 void client::setPort(unsigned int setPort)
 {
-	//Last Changed: 3-2-12 @ 5:16
+	//Last Changed: 3-5-12 @ 12:13
 	//changelog:
 	//made function set port
 	//validated the input
+	//added confirmation
 	//todo:
 	//
 	if(setPort > 65535)
@@ -58,8 +84,11 @@ void client::setPort(unsigned int setPort)
 		cout << "INVALID PORT!\n";
 		system("pause");
 		exit(1);
+	}else
+	{
+		this->port = setPort;
+		cout << "Port Set!\n";
 	}
-	this->port = setPort;
 }
 
 int client::connectToServer()
@@ -81,7 +110,7 @@ int client::connectToServer()
 		fprintf(stderr, "SDLNet_TCP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
-	
+
 
 	/* test sending something to the server */
 	string buff = "Client Connected!";
