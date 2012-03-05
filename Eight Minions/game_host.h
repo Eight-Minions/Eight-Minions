@@ -22,6 +22,9 @@ public:
 	void setPort(unsigned int);
 	int sendUpdate(); //called by run() to send information to each player about changes in what they need to display
 	int sendToClients(string);
+	string recieveMessagep1();
+	string recieveMessagep2();
+	void recieveMessageToQueue();
 };
 
 #endif

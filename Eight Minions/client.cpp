@@ -19,9 +19,18 @@ void client::processInput()
 int client::run()
 {
 	this->init();
+	/*
 	this->recieveMessage();
-	system("pause");
+	system("pause");*/
+
 	//main run loop
+
+	//Start SDL
+	SDL_Init( SDL_INIT_EVERYTHING );
+
+	screen = SDL_SetVideoMode(600,600,32,SDL_SWSURFACE);
+
+	SDL_Delay(2000);
 	return 0;
 }
 
@@ -41,8 +50,15 @@ void client::setPort(unsigned int setPort)
 	//Last Changed: 3-2-12 @ 5:16
 	//changelog:
 	//made function set port
+	//validated the input
 	//todo:
-	//error checking, ensure input is valid
+	//
+	if(setPort > 65535)
+	{
+		cout << "INVALID PORT!\n";
+		system("pause");
+		exit(1);
+	}
 	this->port = setPort;
 }
 
@@ -95,10 +111,16 @@ int client::sendToServer(string buff)
 	return 1;
 }
 
-int client::recieveMessage()
+string client::recieveMessage()
 {
 	char buff[512];
 	while(!SDLNet_TCP_Recv(this->sd, buff, 512));
-	cout << buff << "\n";
-	return 0;
+	//cout << buff << "\n";
+	string ret = buff;
+	return buff;
+}
+
+void client::recieveMessageToQueue()
+{
+
 }

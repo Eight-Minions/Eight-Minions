@@ -14,6 +14,9 @@ private:
 	unsigned int port;
 	IPaddress ip;
 	TCPsocket sd;
+	//MessageQueue mess; -typename not set in stone, its really whatever we want to make it, just for reference
+
+	SDL_Surface* screen;
 
 
 public:
@@ -25,8 +28,8 @@ public:
 	void setPort(unsigned int);
 	int connectToServer();
 	int sendToServer(string);
-	int recieveMessage();
-
+	string recieveMessage();
+	void recieveMessageToQueue();
 };
 
 #endif

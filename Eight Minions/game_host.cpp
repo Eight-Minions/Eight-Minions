@@ -46,11 +46,18 @@ int game_host::run()
 }
 void game_host::setPort(unsigned int setPort)
 {
-	//Last Changed: 3-2-12 @ 5:21
+	//Last Changed: 3-5-12 @ 10:53
 	//changelog:
 	//made function set port
+	//validated the input
 	//todo:
-	//error checking, ensure input is valid
+	//
+	if(setPort > 65535)
+	{
+		cout << "INVALID PORT!\n";
+		system("pause");
+		exit(1);
+	}
 	this->port = setPort;
 }
 
@@ -82,4 +89,32 @@ int game_host::sendToClients(string buff)
 		}
 	}
 	return 1;
+}
+
+string game_host::recieveMessagep1()
+{
+	char buff[512];
+	while(!SDLNet_TCP_Recv(this->player1sd, buff, 512));
+	//cout << buff << "\n";
+	string ret = buff;
+	return ret;
+}
+
+string game_host::recieveMessagep2()
+{
+	char buff[512];
+	while(!SDLNet_TCP_Recv(this->player2sd, buff, 512));
+	//cout << buff << "\n";
+	string ret = buff;
+	return ret;
+}
+
+void game_host::recieveMessageToQueue()
+{
+	//pseudocode:
+	//recieve string from p1
+	//push to queue
+	//recieve string from p2
+	//push to queue
+	//return
 }
