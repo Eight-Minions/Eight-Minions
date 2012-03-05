@@ -3,7 +3,7 @@
 
 int client::init()
 {
-	
+	//i kinda want something to happen here, i feel all naked having empty functions	
 
 
  return 0;
@@ -19,9 +19,12 @@ void client::processInput()
 int client::run()
 {
 	this->init();
+	this->recieveMessage();
+	system("pause");
 	//main run loop
 	return 0;
 }
+
 void client::setServerAddress(string address)
 {
 	//Last Changed: 3-2-12 @ 5:15
@@ -32,6 +35,7 @@ void client::setServerAddress(string address)
 
 	this->server_addr = address;
 }
+
 void client::setPort(unsigned int setPort)
 {
 	//Last Changed: 3-2-12 @ 5:16
@@ -41,6 +45,7 @@ void client::setPort(unsigned int setPort)
 	//error checking, ensure input is valid
 	this->port = setPort;
 }
+
 int client::connectToServer()
 {
 	if (SDLNet_Init() < 0)
@@ -92,7 +97,8 @@ int client::sendToServer(string buff)
 
 int client::recieveMessage()
 {
-
-
+	char buff[512];
+	while(!SDLNet_TCP_Recv(this->sd, buff, 512));
+	cout << buff << "\n";
 	return 0;
 }
