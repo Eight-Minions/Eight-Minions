@@ -13,7 +13,8 @@ private:
 	int speed;
 	int level;
 	int type;
-	// A queue of locations for a path.
+	// A queue of loactions for a path
+	queue<location> path;
 public:
 	creep(int type, int level, int x, int y);
 	creep();

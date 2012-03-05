@@ -36,6 +36,7 @@ int creep::damage(int d){
 	return this->health;
 }
 void creep::move(){
+	// location next = NULL;
 	// Calculate Path;
 	// Move one step forward or two if it is fast
 }
