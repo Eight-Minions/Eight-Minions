@@ -3,13 +3,8 @@
 
 #include <iostream>
 #include <string>
-<<<<<<< HEAD
-=======
-#include <winsock2.h>
-#include <conio.h>
 #include <list>
 #include <queue>
->>>>>>> origin/master
 #include "SDL.h"
 #include "SDL_net.h"
 #include "SDL_image.h"

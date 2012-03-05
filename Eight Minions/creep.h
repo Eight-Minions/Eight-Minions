@@ -14,14 +14,11 @@ private:
 	int speed;
 	int level;
 	int type;
-<<<<<<< HEAD
 	int attack;
 	SDL_Surface *img;
 	// A queue of locations for a path.
-=======
-	// A queue of loactions for a path
+
 	queue<location> path;
->>>>>>> origin/master
 public:
 	creep(int type, int level, int x, int y);
 	creep();
