@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib SDLmain.lib ws2_32.lib"
+				AdditionalDependencies="SDL.lib SDLmain.lib SDL_net.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -176,6 +176,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\creep.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\game_host.cpp"
 				>
 			</File>
@@ -184,7 +188,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\minion.cpp"
+				RelativePath=".\resources.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tower.cpp"
 				>
 			</File>
 		</Filter>
@@ -198,7 +206,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\game.h"
+				RelativePath=".\creep.h"
 				>
 			</File>
 			<File
@@ -207,6 +215,10 @@
 			</File>
 			<File
 				RelativePath=".\resources.h"
+				>
+			</File>
+			<File
+				RelativePath=".\tower.h"
 				>
 			</File>
 		</Filter>

@@ -2,6 +2,10 @@
 #define CREEP_H
 #include "resources.h"
 
+#define FAST 0
+#define TANK 1
+
+
 class creep : public location
 {
 private:
@@ -9,13 +13,14 @@ private:
 	int speed;
 	int level;
 	int type;
-	int attack;
-	
+	// A queue of locations for a path.
 public:
 	creep(int type, int level, int x, int y);
+	creep();
 	~creep();
-
-
+	int damage(int damage);
+	void move();
+	void calculatePath();
 };
 
 #endif
