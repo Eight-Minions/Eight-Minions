@@ -25,6 +25,7 @@ public:
 	void setPort(unsigned int);
 	int connectToServer();
 	int sendToServer(string);
+	int recieveMessage();
 
 };
 

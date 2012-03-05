@@ -89,3 +89,10 @@ int client::sendToServer(string buff)
 	}
 	return 1;
 }
+
+int client::recieveMessage()
+{
+
+
+	return 0;
+}
