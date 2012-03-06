@@ -14,16 +14,19 @@ creep::creep(int t, int l, int set_x, int set_y){
 	if(type == TANK){
 		health = 50;
 		speed = 1;
+		//this->img = Load_Image("tank.png");
 	}
 	else if(type == FAST){
 		health = 30;
 		speed = 2;
+		//this->img = Load_Image("fast.png");
 	}
-	health = health * level;
+	health = health * level; //maybe a little different like (health = health * (1 + (.5 * level)))
 	// Calculate path.
 }
 creep::~creep(){
 	// Kill off that Queue?
+	// sounds about right
 }
 
 int creep::damage(int d){

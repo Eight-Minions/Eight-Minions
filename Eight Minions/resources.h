@@ -33,5 +33,5 @@ public:
 
 // TL: Maybe a player class? We could have two with objects to hold their towers and creepers (health and money too?)
 // TL: Probably in a different file tho...
-
+// J: we probably will need some sort of a player class. approved.
 #endif
