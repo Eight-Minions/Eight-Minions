@@ -23,6 +23,8 @@ public:
 	void damageNeighbors(int radius);
 	void damageClosestCreep(int radius);
 	// TL: How would you want to do attacks?
+	// J: we should have attackStrongest, attackNearest, AttackFarthest, and attackClosestToBase which i think 
+	//		would be most relevant
 	// TL: We could do a radius and a damageNeighbors(int radius);
 	// TL: It could attack just one creep damageClosestCreep(int radius);
 	// TL: We could implement both and have them be differnt types.
