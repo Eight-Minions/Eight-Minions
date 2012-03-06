@@ -23,9 +23,14 @@ public:
 	int getSize ();
 	void setSize (int size);
 
+	T *getObjectWithID(int search_id);
+
+
+	// Not implemented yet 
 	bool insertInOrder (T newData);
 	bool deleteList ();
 	bool deleteNode (T &key);
+	//
 	
 };
 
@@ -82,5 +87,14 @@ bool cList<T>::deleteNode (T &key){
 	return true;
 }
 
-
+template <typename T>
+T cList<T>::*getObjectWithID(int search_id){
+	cListNode<T> cur = this->getStart();
+	while(cur != NULL){
+		if(((cur->getData())->getIndex()) == search_id)
+			return cur->getData();
+		cur = cur->getNext();
+	}
+	return NULL;
+}
 #endif
