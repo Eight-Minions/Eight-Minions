@@ -15,23 +15,22 @@ private:
 	int maxIterator;
 	int size;
 public:
-	
 	cList ();
 	~cList ();
+
 	cListNode<T> *getStart ();
 	void setStart (cListNode<T> *start);
+
 	int getSize ();
 	void setSize (int size);
 
 	T *getObjectWithID(int search_id);
-
 
 	// Not implemented yet 
 	bool insertInOrder (T newData);
 	bool deleteList ();
 	bool deleteNode (T &key);
 	//
-	
 };
 
 // Create a list
@@ -44,7 +43,7 @@ cList<T>::cList (){
 // Delete the List
 template <typename T>
 cList<T>::~cList (){
-
+	deleteList();
 }
 // Get Start
 template <typename T>
@@ -53,8 +52,8 @@ cListNode<T> cList<T>::*getStart (){
 }
 // Set the start pointer
 template <typename T>
-void cList<T>::setStart (cListNode<T> *start){
-
+void cList<T>::setStart (cListNode<T> *n_start){
+	this->start = n_start;
 }
 // Get the size
 template <typename T>
@@ -70,7 +69,10 @@ void cList<T>::setSize (int n_size){
 template <typename T>
 bool cList<T>::insertInOrder (T newData){
 	int new_iterator = 0;
-	if(freeIterators.empty() != true){
+	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
+	newNode = new cListNode<T> (newData);
+
+	if(!freeIterators.empty()){
 		new_iterator = freeIterators.front();
 		freeIterators.pop();
 	}
@@ -78,6 +80,17 @@ bool cList<T>::insertInOrder (T newData){
 		this->maxIterator++;
 		new_iterator = maxIterator;
 	}
+	newNode->setIndex(new_iterator);
+
+	cur = this->getStart();
+	while (cur != NULL){
+
+
+		cur = cur->getNext();
+	}
+
+	// Insert it in the right place...
+
 
 	this->size++;
 	return true;
@@ -116,6 +129,7 @@ bool cList<T>::deleteNode (T &key){
 			freeIterators->push((temp->getData())->getIndex());
 			delete temp;
 			success = true;
+			size--;
 		}
 		else if (cur != NULL){
 			temp = cur;
@@ -123,6 +137,7 @@ bool cList<T>::deleteNode (T &key){
 			freeIterators->push((temp->getData())->getIndex());
 			delete temp;
 			success = true;
+			size --;
 		}
 	}
 	return success;

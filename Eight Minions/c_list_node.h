@@ -11,7 +11,6 @@ private:
 	int index;
 	cListNode<T> *next;
 public:
-	
 	cListNode (T newData, cListNode<T> *ptr = NULL);
 	~ListNode ();
 
