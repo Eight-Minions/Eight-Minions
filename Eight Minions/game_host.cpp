@@ -20,6 +20,7 @@ int game_host::init()
 		fprintf(stderr, "SDLNet_TCP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
+	cout << "Init completed\n";
 
 	return 0; // temporary
 }

@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib SDLmain.lib SDL_net.lib"
+				AdditionalDependencies="SDL.lib SDLmain.lib SDL_net.lib SDL_image.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -201,6 +201,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\c_list.h"
+				>
+			</File>
+			<File
+				RelativePath=".\c_list_node.h"
+				>
+			</File>
 			<File
 				RelativePath=".\client.h"
 				>
