@@ -23,11 +23,15 @@ private:
 	int y;
 public:
 	location();
+	location(int new_x, int new_y);
+	~location();
 	int getX();
 	int getY();
 	void setX(int new_x);
 	void setY(int new_y);
 };
 
+// TL: Maybe a player class? We could have two with objects to hold their towers and creepers (health and money too?)
+// TL: Probably in a different file tho...
 
 #endif

@@ -20,15 +20,12 @@ void tower::damageNeighbors(int radius){
 	// Insert them in a new linked list
 	// Damage those neighbors
 }
-void tower::damageClosestCreep(int radius){
-	// TL:
+void damageClosestCreepTo(int radius, location *position){
 	// creep closest = NULL;
 	// Check the linkedlist for the closest creep within some radius
 	// closest.damage(this->attack * this->speed);
 	// this->attack * this->speed because having some wait could be odd?
 }
-void damageClosestCreepTo(int radius, location position){
-
-
+void tower::damageClosestCreep(int radius){
+	 damageClosestCreepTo(radius, new location(this->getX(), this->getY()));
 }
-
