@@ -8,8 +8,12 @@ class tower : public location
 private:
 	int health;
 	int level;
+	//J:
 	//to go along with level, do we want towers to have experience?
 	//and then once they have enough experience, you can upgrade them along a few different specialization trees?
+	//TL:
+	//I thought we would do money or something. That seems to be typical. Money for killed creeps allow and then allow upgrading.
+	//That will be for later though.
 	int type;
 	int attackSpeed;
 	int attackType;
@@ -22,12 +26,15 @@ public:
 
 	void damageNeighbors(int radius);
 	void damageClosestCreep(int radius);
+	void damageClosestCreepToPosition(int radius, location position);
 	// TL: How would you want to do attacks?
-	// J: we should have attackStrongest, attackNearest, AttackFarthest, and attackClosestToBase which i think 
-	//		would be most relevant
 	// TL: We could do a radius and a damageNeighbors(int radius);
 	// TL: It could attack just one creep damageClosestCreep(int radius);
 	// TL: We could implement both and have them be differnt types.
+	// J: we should have attackStrongest, attackNearest, AttackFarthest, and attackClosestToBase which i think 
+	//		would be most relevant	
+	//TL: That sounds good to me. I'll work on these three for now.
+	//TL: Maybe an Attack(); and it decides what type of damage to do.
 };
 
 

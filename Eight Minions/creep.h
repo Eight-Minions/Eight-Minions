@@ -1,5 +1,6 @@
 #ifndef CREEP_H
 #define CREEP_H
+
 #include "resources.h"
 
 #define FAST 0
@@ -27,6 +28,7 @@ public:
 	void calculatePath();
 
 	//J: somewhere, the image needs to be set. you tell me where (same for towers)
+	//TL: In creep(int type, ... ) (inside of if(type == FAST))
 };
 
 #endif

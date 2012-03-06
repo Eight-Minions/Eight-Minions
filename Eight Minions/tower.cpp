@@ -27,5 +27,8 @@ void tower::damageClosestCreep(int radius){
 	// closest.damage(this->attack * this->speed);
 	// this->attack * this->speed because having some wait could be odd?
 }
+void damageClosestCreepTo(int radius, location position){
 
+
+}
 
