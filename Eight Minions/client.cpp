@@ -14,7 +14,7 @@ int client::init()
 	SDL_WM_SetCaption( "Eight Minions", NULL );
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
 	screen = SDL_SetVideoMode(840,550,32,SDL_SWSURFACE);
-
+	this->background = IMG_Load("background.png");
 
 	return 1;
 }
@@ -22,13 +22,14 @@ int client::init()
 void client::cleanup()
 {
 	//do all freeing of memory and cleanup type stuff here
-
+	SDL_free(background);
 	SDL_Quit();
 }
 void client::display()
 {
-
-
+	//put down background image
+	SDL_BlitSurface(background, NULL, screen, NULL);
+	
 	SDL_Flip(screen);
 }
 void client::processInput()

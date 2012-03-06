@@ -17,7 +17,6 @@ private:
 	int attack;
 	SDL_Surface *img;
 	// A queue of locations for a path.
-
 	queue<location> path;
 public:
 	creep(int type, int level, int x, int y);
