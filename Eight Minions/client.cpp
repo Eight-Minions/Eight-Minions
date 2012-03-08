@@ -50,9 +50,10 @@ int client::run()
 		//gather input
 		this->display();
 
+		cout << this->recieveMessage() << "\n";
 		//temp
-		SDL_Delay(2000);
-		run = 0;
+		
+		
 		//end temp
 	}
 

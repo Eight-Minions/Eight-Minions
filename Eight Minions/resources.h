@@ -9,6 +9,8 @@
 #include "SDL_net.h"
 #include "SDL_image.h"
 
+#define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
+
 using std::cout;
 using std::cin;
 using std::endl;

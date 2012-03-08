@@ -43,7 +43,27 @@ int game_host::run()
 	this->init();
 	this->waitForClients();
 	this->sendToClients("testing!!!");
-	system("pause");
+
+	int r = 1;
+	int x = 10;
+	int change = 1;
+	string n;
+	char q[16];
+	while(r)
+	{
+		x += change;
+		if(x > 400)
+			change = -1;
+		if(x < 1)
+			change = 1;
+		itoa(x,q,10);
+		n = q;
+		cout << n << "\n";
+		this->sendToClients(n);
+		SDL_Delay(30);
+	}
+
+
 	//runs the game itself
 	return 0;
 }
