@@ -20,6 +20,9 @@ int game_host::init()
 		fprintf(stderr, "SDLNet_TCP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
+
+	socketset = SDLNet_AllocSocketSet(2);
+
 	cout << "Init completed\n";
 
 	return 0; // temporary
@@ -30,10 +33,11 @@ int game_host::waitForClients()
 	cout << "waiting for first player to connect...\n";
 	while(!(player1sd = SDLNet_TCP_Accept(sd)));
 	cout << this->recieveMessagep1() << "\n";
+	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
 	cout << "waiting for second player to connect...\n";
 	while(!(player2sd = SDLNet_TCP_Accept(sd)));
 	cout << this->recieveMessagep2() << "\n";
-
+	SDLNet_TCP_AddSocket(socketset, player2sd); //could error check here as well
 	cout << "both clients connected, continuing...\n";
 	return 1;
 }
@@ -51,6 +55,17 @@ int game_host::run()
 	char q[16];
 	while(r)
 	{
+		if(SDLNet_CheckSockets(socketset,1) > 0 )
+		{
+			if(SDLNet_SocketReady(player1sd))
+			{
+				cout << this->recieveMessagep1() << "\n";
+			}
+			if(SDLNet_SocketReady(player2sd)
+			{
+				cout << this->recieveMessagep2() << "\n";
+			}
+		}
 		x += change;
 		if(x > 400)
 			change = -1;

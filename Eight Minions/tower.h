@@ -24,6 +24,8 @@ public:
 	int getLevel();
 	int getType();
 
+	void displayTower(SDL_Surface *screen);
+
 	void damageNeighbors(int radius);
 	void damageClosestCreep(int radius);
 	void damageClosestCreepToPosition(int radius, location position);

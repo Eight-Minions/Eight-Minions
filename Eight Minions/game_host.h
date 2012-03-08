@@ -12,8 +12,7 @@ private:
 	IPaddress ip;
 	TCPsocket sd;
 	TCPsocket player1sd, player2sd;
-	UDPsocket usd;
-	UDPpacket *pack;
+	SDLNet_SocketSet socketset;
 
 
 public:
