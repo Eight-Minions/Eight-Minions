@@ -15,7 +15,9 @@ int client::init()
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
 	screen = SDL_SetVideoMode(840,550,32,SDL_SWSURFACE);
 	this->background = IMG_Load("background.png");
-
+	
+	creep n(1,1,20,20);
+	this->testc = n;
 	return 1;
 }
 
@@ -29,7 +31,7 @@ void client::display()
 {
 	//put down background image
 	SDL_BlitSurface(background, NULL, screen, NULL);
-	
+	this->testc.displayCreep(screen);
 	SDL_Flip(screen);
 }
 void client::processInput()

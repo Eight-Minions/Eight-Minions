@@ -61,7 +61,7 @@ int game_host::run()
 			{
 				cout << this->recieveMessagep1() << "\n";
 			}
-			if(SDLNet_SocketReady(player2sd)
+			if(SDLNet_SocketReady(player2sd))
 			{
 				cout << this->recieveMessagep2() << "\n";
 			}
@@ -107,6 +107,41 @@ void game_host::setPort(unsigned int setPort)
 int game_host::sendUpdate()
 {
 	//send updates about the game to each player
+	//each update will be a 16 (maybe more) character text string
+	//the first character will represent the base type of update
+	//1 = message, 2 = tower update, 3 = creep update, 4 = player update
+	//the contents of the update will change depending on their base type
+	//for messages, the rest of the string will be the message
+	//for creep and tower updates, the next four characters will be the creep/tower number
+	//the character after that will represent the attribute to be updated
+	//then the remaining characters will be the new value for said attribute
+
+
+	return 0;
+}
+
+int game_host::sendUpdate(char mess[15])
+{
+	string m = "1";
+	m.append(mess);
+	this->sendToClients(m);
+	return 0;
+}
+
+int game_host::sendUpdate(int ToC, int id, int attr, int newVal)
+{
+	string m;
+	m += (char) '0' + ToC;
+	m += (char) '0' + id / 1000;
+	m += (char) '0' + ((id % 1000) / 100);
+	m += (char) '0' + ((id % 100) / 10);
+	m += (char) '0' + id % 10;
+	m += (char) '0' + attr;
+	m += (char) '0' + newVal / 1000;
+	m += (char) '0' + ((newVal % 1000) / 100);
+	m += (char) '0' + ((newVal % 100) / 10);
+	m += (char) '0' + newVal % 10;
+	cout << m;
 	return 0;
 }
 

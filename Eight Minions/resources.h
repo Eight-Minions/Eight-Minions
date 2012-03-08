@@ -15,7 +15,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
-using queue::queue;
+using std::queue;
 using std::list;
 
 class location

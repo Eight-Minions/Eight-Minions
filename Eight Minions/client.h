@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include "resources.h"
+#include "creep.h"
 
 #define CONNECTION_SUCCESSFUL 1
 #define CONNECTION_FAILURE 0 //generic error
@@ -19,6 +20,8 @@ private:
 	SDL_Surface* screen;
 	SDL_Surface* background;
 
+	queue<string> updateQueue;
+
 	creep testc;
 
 public:
@@ -34,6 +37,10 @@ public:
 	string recieveMessage();
 	void recieveMessageToQueue();
 	void parseQueue();
+
+	void savePlayerProfile();
+	//this function will take any of the players individual stats, experience, purchased upgrades, and any other
+	//relevant data, save it to a file, lock it with the players password, and encrypt it so they cant cheat and modify it.
 };
 
 #endif

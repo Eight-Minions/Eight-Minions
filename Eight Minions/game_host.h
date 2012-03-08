@@ -21,6 +21,8 @@ public:
 	int run(); //runs the game itself
 	void setPort(unsigned int);
 	int sendUpdate(); //called by run() to send information to each player about changes in what they need to display
+	int sendUpdate(char mess[15]);
+	int sendUpdate(int ToC, int id, int attr, int newVal);
 	int sendToClients(string);
 	string recieveMessagep1();
 	string recieveMessagep2();

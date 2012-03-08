@@ -14,14 +14,37 @@ creep::creep(int t, int l, int set_x, int set_y){
 	if(type == TANK){
 		health = 50;
 		speed = 1;
-		//this->img = Load_Image("tank.png");
+		armor = 3;
+		this->img = IMG_Load("tank.png");
 	}
 	else if(type == FAST){
 		health = 30;
+		speed = 3;
+		armor = 0;
+		this->img = IMG_Load("fast.png");
+	}
+	else if(type == SWARM)
+	{
+		health = 25;
 		speed = 2;
-		//this->img = Load_Image("fast.png");
+		armor = 0;
+		this->img = IMG_Load("swarm.png");
+	}else if(type == TITAN)
+	{
+		health = 60;
+		speed = 1;
+		armor = 5;
+		this->img = IMG_Load("titan.png");
+	}else if(type == NORM)
+	{
+		health = 35;
+		speed = 2;
+		armor = 1;
+		this->img = IMG_Load("norm.png");
 	}
 	health = health * level; //maybe a little different like (health = health * (1 + (.5 * level)))
+	//also, i want to do similar modifications for each attribute.
+
 	// Calculate path.
 }
 creep::~creep(){
@@ -50,7 +73,7 @@ void creep::calculatePath(){
 
 void creep::displayCreep(SDL_Surface *screen)
 {
-	this->r->x = this->getX;
-	this->r->y = this->getY;
+	this->r->x = this->getX();
+	this->r->y = this->getY();
 	SDL_BlitSurface(this->img, NULL, screen, r);
 }
