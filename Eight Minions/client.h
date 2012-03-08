@@ -19,6 +19,7 @@ private:
 	SDL_Surface* screen;
 	SDL_Surface* background;
 
+	creep testc;
 
 public:
 	int init();

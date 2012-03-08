@@ -20,6 +20,7 @@ private:
 	int type;
 	int attack;
 	SDL_Surface *img;
+	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
 	// A queue of locations for a path.
 	queue<location> path;
 public:

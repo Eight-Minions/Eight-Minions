@@ -44,6 +44,13 @@ void creep::move(){
 	// Move one step forward or two if it is fast
 }
 
-void calculatePath(){
+void creep::calculatePath(){
 	// Update that queue
+}
+
+void creep::displayCreep(SDL_Surface *screen)
+{
+	this->r->x = this->getX;
+	this->r->y = this->getY;
+	SDL_BlitSurface(this->img, NULL, screen, r);
 }
