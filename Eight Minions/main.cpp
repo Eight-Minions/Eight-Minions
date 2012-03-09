@@ -35,5 +35,10 @@ int main(int argc, char* argv[]){
 		else
 			cout << "connection failed\n";
 	}
+	else if(c == 3)
+	{
+		cout << "Testing mode started...\n";
+			
+	}
 	return 0;
 }

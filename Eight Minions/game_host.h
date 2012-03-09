@@ -3,16 +3,17 @@
 
 #include "resources.h"
 
-#define REQSOCKVER 2
-#define MAXWAITINGCONNECTIONS 3
+
 class game_host
 {
 private:
 	unsigned int port;
-	IPaddress ip;
+	IPaddress ip, player1ip, player2ip;
 	TCPsocket sd;
 	TCPsocket player1sd, player2sd;
 	SDLNet_SocketSet socketset;
+	UDPsocket p1UDPsock, p2UDPsock;
+	UDPpacket *UDPpack1, *UDPpack2;
 
 
 public:

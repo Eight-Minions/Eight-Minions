@@ -7,6 +7,7 @@ int game_host::init()
 	{
 		fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
+		//maybe go through here and replace them with more easy to notice errors?
 	}
 
 	if (SDLNet_ResolveHost(&ip, NULL, this->port) < 0)
@@ -21,7 +22,25 @@ int game_host::init()
 		exit(EXIT_FAILURE);
 	}
 
-	socketset = SDLNet_AllocSocketSet(2);
+	if (!(sd = SDLNet_UDP_Open(this->port)))
+	{
+		cout << "UDP socket failed to open" << SDLNet_GetError() << "\n";
+		exit(EXIT_FAILURE);
+	}
+
+	if (!(this->UDPpack1 = SDLNet_AllocPacket(256)))
+	{
+		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
+
+	if (!(this->UDPpack2 = SDLNet_AllocPacket(256)))
+	{
+		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
+
+	socketset = SDLNet_AllocSocketSet(4);
 
 	cout << "Init completed\n";
 
