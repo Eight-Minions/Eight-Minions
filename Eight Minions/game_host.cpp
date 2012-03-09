@@ -31,11 +31,13 @@ int game_host::init()
 int game_host::waitForClients()
 {
 	cout << "waiting for first player to connect...\n";
-	while(!(player1sd = SDLNet_TCP_Accept(sd)));
+	while(!(player1sd = SDLNet_TCP_Accept(sd)))
+		SDL_Delay(50);
 	cout << this->recieveMessagep1() << "\n";
 	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
 	cout << "waiting for second player to connect...\n";
-	while(!(player2sd = SDLNet_TCP_Accept(sd)));
+	while(!(player2sd = SDLNet_TCP_Accept(sd)))
+		SDL_Delay(50);
 	cout << this->recieveMessagep2() << "\n";
 	SDLNet_TCP_AddSocket(socketset, player2sd); //could error check here as well
 	cout << "both clients connected, continuing...\n";
@@ -46,16 +48,18 @@ int game_host::run()
 {
 	this->init();
 	this->waitForClients();
-	this->sendToClients("testing!!!");
+	//this->sendToClients("testing!!!");
 
 	int r = 1;
 	int x = 10;
 	int change = 1;
+	int y = 10;
+	int changey = 1;
 	string n;
 	char q[16];
 	while(r)
 	{
-		if(SDLNet_CheckSockets(socketset,1) > 0 )
+		/*if(SDLNet_CheckSockets(socketset,1) > 0 )
 		{
 			if(SDLNet_SocketReady(player1sd))
 			{
@@ -65,16 +69,23 @@ int game_host::run()
 			{
 				cout << this->recieveMessagep2() << "\n";
 			}
-		}
+		}*/
+
+		
 		x += change;
 		if(x > 400)
 			change = -1;
 		if(x < 1)
 			change = 1;
-		itoa(x,q,10);
-		n = q;
-		cout << n << "\n";
-		this->sendToClients(n);
+
+		y += changey;
+		if( y > 300)
+			changey = -1;
+		if(y < 1)
+			changey = 1;
+
+		this->sendUpdate(0,0,1,x);
+		this->sendUpdate(0,0,2,y);
 		SDL_Delay(30);
 	}
 
@@ -136,12 +147,13 @@ int game_host::sendUpdate(int ToC, int id, int attr, int newVal)
 	m += (char) '0' + ((id % 1000) / 100);
 	m += (char) '0' + ((id % 100) / 10);
 	m += (char) '0' + id % 10;
-	m += (char) '0' + attr;
+	m += (char) '0' + attr; //5
 	m += (char) '0' + newVal / 1000;
 	m += (char) '0' + ((newVal % 1000) / 100);
 	m += (char) '0' + ((newVal % 100) / 10);
 	m += (char) '0' + newVal % 10;
 	cout << m;
+	this->sendToClients(m);
 	return 0;
 }
 
@@ -154,12 +166,12 @@ int game_host::sendToClients(string buff)
 	}
 	else
 	{
-		if(SDLNet_TCP_Send(player1sd, (void *)buff.c_str(), buff.length()+1) < buff.length() + 1)
+		if(SDLNet_TCP_Send(player1sd, (void *)buff.c_str(), 16 /* buff.length()+1*/) < buff.length() + 1)
 		{
 			cout << "Message to client 1 failed to send...\n";
 			return -1;
 		}
-		if(SDLNet_TCP_Send(player2sd, (void *)buff.c_str(), buff.length()+1) < buff.length() + 1)
+		if(SDLNet_TCP_Send(player2sd, (void *)buff.c_str(), 16 /*buff.length()+1*/) < buff.length() + 1)
 		{
 			cout << "Message to client 2 failed to send...\n";
 			return -1;

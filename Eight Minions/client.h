@@ -15,7 +15,7 @@ private:
 	unsigned int port;
 	IPaddress ip;
 	TCPsocket sd;
-	//MessageQueue mess; -typename not set in stone, its really whatever we want to make it, just for reference
+	SDLNet_SocketSet socketset;
 
 	SDL_Surface* screen;
 	SDL_Surface* background;
@@ -23,12 +23,12 @@ private:
 	queue<string> updateQueue;
 
 	creep testc;
+	creep testca;
 
 public:
 	int init();
 	void cleanup();
 	void display();
-	void processInput();
 	int run();
 	void setServerAddress(string);
 	void setPort(unsigned int);
@@ -36,6 +36,7 @@ public:
 	int sendToServer(string);
 	string recieveMessage();
 	void recieveMessageToQueue();
+	int performUpdate(string upd);
 	void parseQueue();
 
 	void savePlayerProfile();

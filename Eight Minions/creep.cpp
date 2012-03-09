@@ -11,6 +11,7 @@ creep::creep(int t, int l, int set_x, int set_y){
 	this->setX(set_x);  // Should probably have a generic starting point for each side 
 	this->setY(set_y);
 	// TL: just some more ideas
+	this->r = new SDL_Rect;
 	if(type == TANK){
 		health = 50;
 		speed = 1;
@@ -44,7 +45,10 @@ creep::creep(int t, int l, int set_x, int set_y){
 	}
 	health = health * level; //maybe a little different like (health = health * (1 + (.5 * level)))
 	//also, i want to do similar modifications for each attribute.
-
+	if(img == NULL)
+	{
+		cout << "creep image failed to load\n";
+	}
 	// Calculate path.
 }
 creep::~creep(){

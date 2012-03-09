@@ -16,8 +16,12 @@ int client::init()
 	screen = SDL_SetVideoMode(840,550,32,SDL_SWSURFACE);
 	this->background = IMG_Load("background.png");
 	
+	socketset = SDLNet_AllocSocketSet(1);
+	SDLNet_TCP_AddSocket(socketset, this->sd);
 	creep n(1,1,20,20);
 	this->testc = n;
+	creep q(2,1,200,200);
+	this->testca = q;
 	return 1;
 }
 
@@ -32,12 +36,10 @@ void client::display()
 	//put down background image
 	SDL_BlitSurface(background, NULL, screen, NULL);
 	this->testc.displayCreep(screen);
+	this->testca.displayCreep(screen);
 	SDL_Flip(screen);
 }
-void client::processInput()
-{
 
-}
 int client::run()
 {
 	if(this->init() == -1)
@@ -46,17 +48,40 @@ int client::run()
 		return -1;
 	}
 	//main run loop
+	int cx = 1;
+	int cy = 1;
 	int run = 1;
 	while(run)
 	{
 		//gather input
+		
+		while(SDLNet_CheckSockets(socketset, 1) > 0)
+		{
+			cout << "socket has data, attempting to read\n";
+			if(SDLNet_SocketReady(sd))
+			{
+				this->performUpdate(this->recieveMessage());
+			}
+		}
+		cout << this->recieveMessage() << "\n";
 		this->display();
 
-		cout << this->recieveMessage() << "\n";
+		if(this->testca.getX() > 400)
+			cx = -1;
+		if(this->testca.getX() < 120)
+			cx = 1;
+		if(this->testca.getY() > 450)
+			cy = -1;
+		if(this->testca.getY() < 80)
+			cy = 1;
+		this->testca.setX(testca.getX() + cx);
+		this->testca.setY(testca.getY() + cy);
+		
 		//temp
 		
 		
 		//end temp
+		SDL_Delay(20);
 	}
 
 	this->cleanup();
@@ -144,10 +169,30 @@ int client::sendToServer(string buff)
 	return 1;
 }
 
+int client::performUpdate(string upd)
+{
+
+	//temporary testing code starts here;
+	if(upd[5] == '1')
+	{
+		int x = (1000 * (upd[6] - '0')) + (100 * (upd[7] - '0')) + (10 * (upd[8] - '0')) + (upd[9] - '0');
+		this->testc.setX(x);
+		cout << "X value changed to: " << x << "\n";
+	}
+	if(upd[5] == '2')
+	{
+		int y = (1000 * (upd[6] - '0')) + (100 * (upd[7] - '0')) + (10 * (upd[8] - '0')) + (upd[9] - '0');
+		this->testc.setY(y);
+		cout << "Y value changed to: " << y << "\n";
+	}
+
+	return 0;
+}
+
 string client::recieveMessage()
 {
 	char buff[512];
-	while(!SDLNet_TCP_Recv(this->sd, buff, 512));
+	while(!SDLNet_TCP_Recv(this->sd, buff, 16 /*512*/));
 	//cout << buff << "\n";
 	string ret = buff;
 	return buff;
