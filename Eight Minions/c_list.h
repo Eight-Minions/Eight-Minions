@@ -1,6 +1,7 @@
 #ifndef C_LIST_H
 #define C_LIST_H
 
+#include <iostream>
 #include <queue>
 #include "c_list_node.h"
 
@@ -24,13 +25,13 @@ public:
 	int getSize ();
 	void setSize (int size);
 
-	T *getObjectWithID(int search_id);
+	T getObjectWithID(int search_id);
 
-	// Not implemented yet 
 	bool insertInOrder (T newData);
 	bool deleteList ();
-	bool deleteNode (T &key);
-	//
+	bool deleteNode (int index);
+
+	//void printList();
 };
 
 // Create a list
@@ -47,27 +48,27 @@ cList<T>::~cList (){
 }
 // Get Start
 template <typename T>
-cListNode<T> cList<T>::*getStart (){
+cListNode<T>* cList<T>::getStart(){
 	return this->start;
 }
 // Set the start pointer
 template <typename T>
-void cList<T>::setStart (cListNode<T> *n_start){
+void cList<T>::setStart(cListNode<T> *n_start){
 	this->start = n_start;
 }
 // Get the size
 template <typename T>
-int cList<T>::getSize (){
+int cList<T>::getSize(){
 	return this->size;
 }
 // Set the size
 template <typename T>
-void cList<T>::setSize (int n_size){
+void cList<T>::setSize(int n_size){
 	this->size = n_size;
 }
-// Insert a new item in order
+// Insert and object in order and assign it an index
 template <typename T>
-bool cList<T>::insertInOrder (T newData){
+bool cList<T>::insertInOrder(T newData){
 	int new_iterator = 0;
 	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
 	newNode = new cListNode<T> (newData);
@@ -78,21 +79,23 @@ bool cList<T>::insertInOrder (T newData){
 	}
 	else{
 		this->maxIterator++;
-		new_iterator = maxIterator;
+		new_iterator = this->maxIterator;
 	}
 	newNode->setIndex(new_iterator);
-
 	cur = this->getStart();
-	while (cur != NULL){
 
-
-		cur = cur->getNext();
+	if (cur == NULL || newNode->getIndex() <= cur->getIndex()) {
+		newNode->setNext(NULL);
+		this->setStart(newNode);
 	}
-
-	// Insert it in the right place...
-
-
-	this->size++;
+	else {
+		while ((cur != NULL) && (cur->getIndex() <= newNode->getIndex())) {
+		prev = cur;
+		cur = cur->getNext();
+		}
+		prev->setNext(newNode);
+		newNode->setNext(cur);
+	}
 	return true;
 }
 // Delete the list
@@ -110,48 +113,49 @@ bool cList<T>::deleteList (){
 	}
 	return success;
 }
-
-// Delete a node;
+// Delete a node
 template <typename T>
-bool cList<T>::deleteNode (T &key){
-	bool success = false;
-	cListNode<T> *prev = NULL, *cur = NULL, *temp = NULL;
-	cur = this->getStart();
-	if (cur != NULL)
-	{
-		while ((cur != NULL) && ((cur -> getData ()) != key)){
-			prev = cur;
-			cur = cure->getNext();
-		}
-		if ((cur != NULL) && (prev != NULL)){
-			temp = cur;
-			prev->setNext(cur->getNext());
-			freeIterators->push((temp->getData())->getIndex());
-			delete temp;
-			success = true;
-			size--;
-		}
-		else if (cur != NULL){
-			temp = cur;
-			start = start->getNext();
-			freeIterators->push((temp->getData())->getIndex());
-			delete temp;
-			success = true;
-			size --;
+bool cList<T>::deleteNode(int searchIndex){
+	cListNode<T> *cur = NULL, *prev = NULL;
+	for (cur = this->getStart(); cur != NULL; prev = cur, cur = cur->getNext()){
+		if(cur->getIndex() == searchIndex){
+			if(prev == NULL){
+				this->setStart(cur->getNext());
+			}
+			else{
+				prev->setNext(cur->getNext());
+			}
+			this->freeIterators.push(cur->getIndex());
+			delete (cur);
+			return true;
 		}
 	}
-	return success;
+	return false;
 }
-
 // Search for an object with an ID, returns the object or null 
 template <typename T>
-T cList<T>::*getObjectWithID(int search_id){
-	cListNode<T> cur = this->getStart();
+T cList<T>::getObjectWithID(int search_id){
+	cListNode<T> *cur = this->getStart();
 	while(cur != NULL){
-		if(((cur->getData())->getIndex()) == search_id)
+		if(cur->getIndex() == search_id)
 			return cur->getData();
 		cur = cur->getNext();
 	}
-	return NULL; 
+	return NULL; //Didn't find anything...
 }
+// TESTING ONLY 
+/*
+// Print the whole list
+template <typename T>
+void cList<T>::printList(){
+	cListNode<T> *cur = NULL;
+	cur = this->getStart();
+	cout << "Beginning\n";
+	while(cur != NULL){
+		cout << "Index: " << cur->getIndex() << " Data: " << cur->getData() << endl;
+		cur = cur->getNext();
+	}	
+	cout << "End\n";
+}
+*/
 #endif
