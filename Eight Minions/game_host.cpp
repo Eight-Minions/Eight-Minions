@@ -22,7 +22,7 @@ int game_host::init()
 		exit(EXIT_FAILURE);
 	}
 
-	if (!(sd = SDLNet_UDP_Open(this->port)))
+	if (!(this->p1UDPsock = SDLNet_UDP_Open(this->port)))
 	{
 		cout << "UDP socket failed to open" << SDLNet_GetError() << "\n";
 		exit(EXIT_FAILURE);
@@ -50,15 +50,23 @@ int game_host::init()
 int game_host::waitForClients()
 {
 	cout << "waiting for first player to connect...\n";
-	while(!(player1sd = SDLNet_TCP_Accept(sd)))
+	while(!(player1sd = SDLNet_TCP_Accept(sd))) //wait for first connection, with 50ms delay to keep CPU down
 		SDL_Delay(50);
-	cout << this->recieveMessagep1() << "\n";
+
+	cout << this->recieveMessagep1() << "\n"; //on successful connect, client sends a message
+
 	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
+	this->player1ip = *SDLNet_TCP_GetPeerAddress(player1sd);
+	UDPpack1->address = player1ip;
+
 	cout << "waiting for second player to connect...\n";
 	while(!(player2sd = SDLNet_TCP_Accept(sd)))
 		SDL_Delay(50);
 	cout << this->recieveMessagep2() << "\n";
 	SDLNet_TCP_AddSocket(socketset, player2sd); //could error check here as well
+	player2ip = *SDLNet_TCP_GetPeerAddress(player2sd);
+	UDPpack2->address = player2ip;
+	sendToClients("SIG:START");
 	cout << "both clients connected, continuing...\n";
 	return 1;
 }
@@ -103,6 +111,7 @@ int game_host::run()
 		if(y < 1)
 			changey = 1;
 
+		
 		this->sendUpdate(0,0,1,x);
 		this->sendUpdate(0,0,2,y);
 		SDL_Delay(30);
@@ -112,6 +121,68 @@ int game_host::run()
 	//runs the game itself
 	return 0;
 }
+
+int game_host::testrun()
+{
+	this->init();
+	this->waitForClients();
+	//this->sendToClients("testing!!!");
+
+	int r = 1;
+	int x = 10;
+	int change = 1;
+	int y = 10;
+	int changey = 1;
+	string n;
+	char q[16];
+	while(r)
+	{
+		/*if(SDLNet_CheckSockets(socketset,1) > 0 )
+		{
+			if(SDLNet_SocketReady(player1sd))
+			{
+				cout << this->recieveMessagep1() << "\n";
+			}
+			if(SDLNet_SocketReady(player2sd))
+			{
+				cout << this->recieveMessagep2() << "\n";
+			}
+		}*/
+
+		/*
+		x += change;
+		if(x > 400)
+			change = -1;
+		if(x < 1)
+			change = 1;
+
+		y += changey;
+		if( y > 300)
+			changey = -1;
+		if(y < 1)
+			changey = 1;
+
+		
+		this->sendUpdate(0,0,1,x);
+		this->sendUpdate(0,0,2,y);
+		*/
+
+		n = "armor";
+		if(n[0] > 'z')
+			change = -1;
+		if(n[0] < 'a')
+			change = 1;
+		n[0] += change;
+
+		//sendToClientsUDP(n);
+		SDL_Delay(30);
+	}
+
+
+	//runs the game itself
+	return 0;
+}
+
 void game_host::setPort(unsigned int setPort)
 {
 	//Last Changed: 3-5-12 @ 12:13
@@ -197,6 +268,22 @@ int game_host::sendToClients(string buff)
 		}
 	}
 	return 1;
+}
+
+int game_host::sendToClientsUDP(string mess)
+{
+	char *temp = (char *)malloc(mess.length() + 1);
+	strcpy(temp,mess.c_str());
+	strcpy((char *)UDPpack1->data,(char *) temp);
+	UDPpack1->len = mess.length();
+	SDLNet_UDP_Send(p1UDPsock,-1,UDPpack1);
+
+	
+	strcpy((char *)UDPpack2->data, mess.c_str());
+	UDPpack2->len = mess.length();
+	SDLNet_UDP_Send(p2UDPsock,-1,UDPpack2);
+	free(temp);
+	return 0;
 }
 
 string game_host::recieveMessagep1()

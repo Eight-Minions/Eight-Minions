@@ -48,13 +48,48 @@ int client::run()
 		return -1;
 	}
 	//main run loop
-	int cx = 1;
-	int cy = 1;
+	int run = 1;
+	while(run)
+	{
+		while(SDL_PollEvent( &event ))
+			if(event.type == SDL_QUIT)
+				run = 0;
+
+
+		cout << this->recieveMessageUDP() << "\n";
+		this->display();
+
+
+		SDL_Delay(20);
+	}
+
+	this->cleanup();
+	return 0;
+}
+
+int client::testrun()
+{
+	if(this->init() == -1)
+	{
+		cout << "Function Init failed to complete.\n";
+		return -1;
+	}
+	//main run loop
 	int run = 1;
 	while(run)
 	{
 		//gather input
-		
+		while( SDL_PollEvent( &event ) )
+		{
+			
+
+			if(event.type == SDL_QUIT)
+			{
+
+				run = 0;
+			}
+		}
+		/*
 		while(SDLNet_CheckSockets(socketset, 1) > 0)
 		{
 			cout << "socket has data, attempting to read\n";
@@ -62,10 +97,12 @@ int client::run()
 			{
 				this->performUpdate(this->recieveMessage());
 			}
-		}
-		cout << this->recieveMessage() << "\n";
+		}*/
+
+		//cout << this->recieveMessageUDP() << "\n";
 		this->display();
 
+		/*
 		if(this->testca.getX() > 400)
 			cx = -1;
 		if(this->testca.getX() < 120)
@@ -76,11 +113,7 @@ int client::run()
 			cy = 1;
 		this->testca.setX(testca.getX() + cx);
 		this->testca.setY(testca.getY() + cy);
-		
-		//temp
-		
-		
-		//end temp
+		*/
 		SDL_Delay(20);
 	}
 
@@ -140,11 +173,20 @@ int client::connectToServer()
 		exit(EXIT_FAILURE);
 	}
 
+	this->UDPsock = SDLNet_UDP_Open(this->port);
+	this->UDPpack = SDLNet_AllocPacket(256);
+
 
 	/* test sending something to the server */
 	string buff = "Client Connected!";
 	SDLNet_TCP_Send(sd, (void *)buff.c_str(), buff.length()+1);
-
+	char temp[32];
+	SDLNet_TCP_Recv(sd, temp, 32);
+	if(strcmp(temp,"SIG:START"))
+	{
+		cout << "unsuccessful connection!\n" << buff << "\nAborting...\n";
+		return -1;
+	}
 	//should create connection to given address on given port
 	//class needs to keep track of the socket and have dedicated function to read from it
 
@@ -201,4 +243,12 @@ string client::recieveMessage()
 void client::recieveMessageToQueue()
 {
 
+}
+
+string client::recieveMessageUDP()
+{
+	if (SDLNet_UDP_Recv(this->UDPsock,UDPpack))
+	{
+		return (char *)UDPpack->data;
+	}
 }

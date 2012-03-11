@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
 		server.setPort(port);
 		cout << "port set\n";
 		//do other server things, namely...
-		server.run();
+		server.testrun();
 		cout << "finished running\n";
 	}
 	else if(c == 2)
@@ -31,14 +31,15 @@ int main(int argc, char* argv[]){
 		player.setPort(port);
 		player.setServerAddress(addr);
 		if(player.connectToServer() == CONNECTION_SUCCESSFUL)
-			player.run();
+			player.testrun();
 		else
-			cout << "connection failed\n";
+			cout << "connection failed\nexiting program...\n";
 	}
 	else if(c == 3)
 	{
 		cout << "Testing mode started...\n";
 			
 	}
+	system("pause");
 	return 0;
 }

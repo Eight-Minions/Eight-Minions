@@ -16,9 +16,14 @@ private:
 	IPaddress ip;
 	TCPsocket sd;
 	SDLNet_SocketSet socketset;
+	UDPsocket UDPsock;
+	UDPpacket *UDPpack;
 
 	SDL_Surface* screen;
 	SDL_Surface* background;
+	SDL_Event event;
+
+	
 
 	queue<string> updateQueue;
 
@@ -30,11 +35,13 @@ public:
 	void cleanup();
 	void display();
 	int run();
+	int testrun();
 	void setServerAddress(string);
 	void setPort(unsigned int);
 	int connectToServer();
 	int sendToServer(string);
 	string recieveMessage();
+	string recieveMessageUDP();
 	void recieveMessageToQueue();
 	int performUpdate(string upd);
 	void parseQueue();
