@@ -18,10 +18,13 @@ int client::init()
 	
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
+
+	/* Creating creeps for testing here */
 	creep n(1,1,20,20);
 	this->testc = n;
 	creep q(2,1,200,200);
 	this->testca = q;
+
 	return 1;
 }
 
@@ -35,8 +38,16 @@ void client::display()
 {
 	//put down background image
 	SDL_BlitSurface(background, NULL, screen, NULL);
+	//loop through each tower and display it
+	//loop through each creep and display it
+	//display any special effects, bullets, explosions, etc
+	//display interface objects, health, money stats, etc <-maybe only update this when it changes? just an idea
+	
+	//testing creeps
 	this->testc.displayCreep(screen);
 	this->testca.displayCreep(screen);
+	//end testing
+
 	SDL_Flip(screen);
 }
 
@@ -47,16 +58,17 @@ int client::run()
 		cout << "Function Init failed to complete.\n";
 		return -1;
 	}
-	//main run loop
+	//main run loop. does not work at this time, but will eventually look like this.
 	int run = 1;
 	while(run)
 	{
-		while(SDL_PollEvent( &event ))
+		if(SDL_PollEvent( &event ))
 			if(event.type == SDL_QUIT)
 				run = 0;
 
 
-		cout << this->recieveMessageUDP() << "\n";
+		this->recieveMessageToQueue();
+		this->parseQueue();
 		this->display();
 
 
@@ -79,13 +91,12 @@ int client::testrun()
 	while(run)
 	{
 		//gather input
-		while( SDL_PollEvent( &event ) )
+		if( SDL_PollEvent( &event ) )
 		{
 			
 
 			if(event.type == SDL_QUIT)
 			{
-
 				run = 0;
 			}
 		}
@@ -99,7 +110,7 @@ int client::testrun()
 			}
 		}*/
 
-		//cout << this->recieveMessageUDP() << "\n";
+		cout << this->recieveMessageUDP() << "\n";
 		this->display();
 
 		/*
@@ -173,7 +184,12 @@ int client::connectToServer()
 		exit(EXIT_FAILURE);
 	}
 
-	this->UDPsock = SDLNet_UDP_Open(this->port);
+	if(!(this->UDPsock = SDLNet_UDP_Open(port)))
+	{
+		fprintf(stderr, "ERROR OPENING UDP SOCKET: %s\n", SDLNet_GetError());
+		system("pause");
+		exit(EXIT_FAILURE);
+	}
 	this->UDPpack = SDLNet_AllocPacket(256);
 
 
@@ -247,8 +263,14 @@ void client::recieveMessageToQueue()
 
 string client::recieveMessageUDP()
 {
+	if(!UDPsock)
+	{
+		return "UDP Socket Not Set";
+	}
 	if (SDLNet_UDP_Recv(this->UDPsock,UDPpack))
 	{
-		return (char *)UDPpack->data;
+		string retStr = (char *)UDPpack->data;
+		return retStr;
 	}
+	return "NO MESSAGE";
 }

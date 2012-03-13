@@ -38,4 +38,6 @@ public:
 // J: we probably will need some sort of a player class. approved.
 // K: We could do different professions/specializations as well, examples would be one spec has stronger towers, another gets-
 // K : currency faster or has stronger units.
+// J: i like this idea.
+
 #endif
