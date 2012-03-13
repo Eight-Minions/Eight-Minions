@@ -8,7 +8,11 @@
 #define TANK 2 //high armor, medium health, low speed, low numbers
 #define SWARM 3 // low armor, low health, average speed, high numbers
 #define TITAN 4 //high armor, high health, average speed, very low numbers
+#define FATTY 5 //low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+//J:
+//i think it might be better in the long run to have the client load the creep images just once
+//and then pass those to the creeps to display as needed. that could save some memory
 
 class creep : public location
 {
@@ -29,7 +33,7 @@ public:
 	~creep();
 	int damage(int damage);
 	void move();
-	void calculatePath();
+	void calculatePath(); //<- i think i want a separate class to calculate the path, that way we only have to calculate it once per player (maybe)
 
 	void displayCreep(SDL_Surface *screen);
 	//J: somewhere, the image needs to be set. you tell me where (same for towers)

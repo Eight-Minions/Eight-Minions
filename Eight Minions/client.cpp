@@ -274,3 +274,8 @@ string client::recieveMessageUDP()
 	}
 	return "NO MESSAGE";
 }
+
+void client::parseQueue()
+{
+
+}
