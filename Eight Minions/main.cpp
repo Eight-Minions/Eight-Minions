@@ -38,6 +38,9 @@ int main(int argc, char* argv[]){
 	else if(c == 3)
 	{
 		cout << "Testing mode started...\n";
+		cout << "Now testing pathfinding...\n";
+		Path testpath(10,10);
+		
 			
 	}
 	system("pause");

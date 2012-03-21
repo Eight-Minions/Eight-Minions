@@ -1,11 +1,16 @@
 #include "path.h"
 
+Path::Path()
+{
+	
+}
+
 Path::Path(int x, int y)
 {
 	this->Nodemap.resize(x);
 	for(int i = 0; i < x; i++)
 	{
-		this->Nodemap[i].resize(y)
+		this->Nodemap[i].resize(y);
 	}
 	mapsize.x = x;
 	mapsize.y = y;
@@ -45,20 +50,20 @@ coord Path::move(coord cur)
 
 	if(cur.y < mapsize.y - 1 && Nodemap[cur.x][cur.y + 1] == 0)
 	{
-		coord n = {cur.x, cur.y + 1}
+		coord n = {cur.x, cur.y + 1};
 		opt.push(n);
 	}
 
 	if(cur.y > 0 && Nodemap[cur.x][cur.y - 1] == 0)
 	{
-		coord n = {cur.x, cur.y - 1}
+		coord n = {cur.x, cur.y - 1};
 		opt.push(n);
 	}
 
-	while(!queue.empty())
+	while(!opt.empty())
 	{
 		temp = opt.front();
-		dis = sqrt(pow(temp.x - goal.x,2) + pow(temp.y - goal.y,2));
+		dis = sqrt(pow((double)temp.x - goal.x,2) + pow((double)temp.y - goal.y,2));
 		if(dis < mindis)
 		{
 			cur = temp;
@@ -74,9 +79,9 @@ int Path::genPath()
 	//insert super fast efficient algorithm for finding the fastest route from the start to the finish
 	//1 = impassable, 0 = passable
 	coord cur = goal;
-	int paths, int dx, dy;
+	int paths;
 	p.push(cur);
-	while(cur != start && !p.empty())
+	while(!(cur.x == start.x && cur.y == start.y)  && !p.empty())
 	{
 		paths = numPaths(cur);
 		if(paths == 0)
@@ -85,7 +90,7 @@ int Path::genPath()
 		}
 		else if(paths == 1)
 		{
-			Nodemap[c.x][c.y] = 1;
+			Nodemap[cur.x][cur.y] = 1;
 			cur = p.top();
 			p.pop();
 		}
@@ -99,7 +104,7 @@ int Path::genPath()
 			p.push(cur);
 		}
 	}
-	if(cur != start)
+	if(!(cur.x == start.x && cur.y == start.y))
 		return -1;
 	else
 	{

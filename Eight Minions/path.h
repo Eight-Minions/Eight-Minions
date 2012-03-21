@@ -3,10 +3,12 @@
 #include <vector>
 #include <stack>
 #include <queue>
+#include <math.h>
 
 using std::vector;
 using std::stack;
 using std::queue;
+
 
 typedef struct coord
 {
@@ -21,12 +23,14 @@ private:
 	coord goal;
 	stack<coord> p;
 	coord mapsize;
+	queue<coord> fPath;
 public:
+	Path();
 	Path(int x, int y);
 
 	int genPath();
 	void setNodeMap();
-	int move(int dx, int dy);
+	coord move(coord cur);
 	void setStart(int x, int y);
 	void setGoal(int x, int y);
 	int numPaths(coord c);

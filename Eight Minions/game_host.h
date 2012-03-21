@@ -2,7 +2,8 @@
 #define GAME_HOST_H
 
 #include "resources.h"
-
+#include "creep.h"
+#include "tower.h"
 
 class game_host
 {
