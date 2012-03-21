@@ -2,9 +2,11 @@
 #define PATH_H
 #include <vector>
 #include <stack>
+#include <queue>
 
 using std::vector;
 using std::stack;
+using std::queue;
 
 typedef struct coord
 {
@@ -24,7 +26,7 @@ public:
 
 	int genPath();
 	void setNodeMap();
-
+	int move(int dx, int dy);
 	void setStart(int x, int y);
 	void setGoal(int x, int y);
 	int numPaths(coord c);

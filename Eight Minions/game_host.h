@@ -15,6 +15,7 @@ private:
 	UDPsocket p1UDPsock, p2UDPsock;
 	UDPpacket *UDPpack1, *UDPpack2;
 
+	vector<vector<tower*>> Tmap;
 
 public:
 	int init();

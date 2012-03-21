@@ -2,6 +2,7 @@
 #define CREEP_H
 
 #include "resources.h"
+#include "path.h"
 
 #define NORM 0 //average everything
 #define FAST 1 //low armor, low health, high speed, and medium numbers
@@ -23,6 +24,7 @@ private:
 	int level;
 	int type;
 	int attack;
+	Path p;
 	SDL_Surface *img;
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
 	// A queue of locations for a path.

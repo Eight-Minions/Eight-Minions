@@ -25,6 +25,50 @@ int Path::numPaths(coord c)
 	return n;
 }
 
+coord Path::move(coord cur)
+{
+	queue<coord> opt;
+	double mindis = 100;
+	double dis;
+	coord temp;
+	if(cur.x < mapsize.x - 1 && Nodemap[cur.x + 1][cur.y] == 0)
+	{
+		coord n = {cur.x + 1, cur.y};
+		opt.push(n);
+	}
+
+	if(cur.x > 0 && Nodemap[cur.x - 1][cur.y] == 0)
+	{
+		coord n = {cur.x - 1, cur.y};
+		opt.push(n);
+	}
+
+	if(cur.y < mapsize.y - 1 && Nodemap[cur.x][cur.y + 1] == 0)
+	{
+		coord n = {cur.x, cur.y + 1}
+		opt.push(n);
+	}
+
+	if(cur.y > 0 && Nodemap[cur.x][cur.y - 1] == 0)
+	{
+		coord n = {cur.x, cur.y - 1}
+		opt.push(n);
+	}
+
+	while(!queue.empty())
+	{
+		temp = opt.front();
+		dis = sqrt(pow(temp.x - goal.x,2) + pow(temp.y - goal.y,2));
+		if(dis < mindis)
+		{
+			cur = temp;
+			mindis = dis;
+		}
+		opt.pop();
+	}
+	return cur;
+}
+
 int Path::genPath()
 {
 	//insert super fast efficient algorithm for finding the fastest route from the start to the finish
@@ -39,31 +83,28 @@ int Path::genPath()
 		{
 			return -1;
 		}
-		if(paths == 1)
+		else if(paths == 1)
 		{
 			Nodemap[c.x][c.y] = 1;
 			cur = p.top();
 			p.pop();
 		}
 		//move towards goal in some way.
-		dx = goal.x - cur.x;
-		dy = goal.y - cur.y;
-		if(abs(dx) > abs(dy))
+		if(paths > 1)
 		{
-			if(dx == abs(dx))
-			{
-				
-			}
+			cur = move(cur);
 		}
-		
-
-
+		if(paths > 2)
+		{
+			p.push(cur);
+		}
 	}
 	if(cur != start)
 		return -1;
 	else
 	{
-		//add path to some sort of list...
+		//add path to some sort of list...maybe?
+		//a queue...
 	}
 	return 1;
 }

@@ -2,7 +2,7 @@
 #define CLIENT_H
 
 #include "resources.h"
-#include "creep.h"
+#include <math.h>
 
 #define CONNECTION_SUCCESSFUL 1
 #define CONNECTION_FAILURE 0 //generic error
