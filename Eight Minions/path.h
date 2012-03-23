@@ -29,11 +29,11 @@ public:
 	Path(int x, int y);
 
 	int genPath();
-	void setNodeMap();
 	coord move(coord cur);
 	void setStart(int x, int y);
 	void setGoal(int x, int y);
 	int numPaths(coord c);
+	queue<coord> getPath();
 };
 
 

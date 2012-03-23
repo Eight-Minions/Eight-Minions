@@ -9,6 +9,9 @@
 #define CONNECTION_FAILURE 0 //generic error
 #define SERVER_NOT_FOUND -1
 
+#define BOARD_X_OFFSET 100
+#define BOARD_Y_OFFSET 100
+
 class client
 {
 private:
@@ -24,7 +27,7 @@ private:
 	SDL_Surface* background;
 	SDL_Event event;
 
-	
+	vector<creep> creeps;
 
 	queue<string> updateQueue;
 
@@ -35,6 +38,10 @@ public:
 	int init();
 	void cleanup();
 	void display();
+	void displayCreeps();
+	void displayTowers();
+	void displayMisc();
+	void displayUI();
 	int run();
 	int testrun();
 	void setServerAddress(string);

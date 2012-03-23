@@ -279,3 +279,27 @@ void client::parseQueue()
 {
 
 }
+
+void client::displayCreeps()
+{
+	int n = creeps.size();
+	for (int i = 0; i < n;i++)
+	{
+		creeps[i].displayCreep(screen);
+	}
+}
+
+void client::displayTowers()
+{
+
+}
+
+void client::displayMisc()
+{
+
+}
+
+void client::displayUI()
+{
+
+}

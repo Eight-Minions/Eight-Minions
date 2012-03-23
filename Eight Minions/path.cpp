@@ -98,9 +98,6 @@ int Path::genPath()
 		if(paths > 1)
 		{
 			cur = move(cur);
-		}
-		if(paths > 2)
-		{
 			p.push(cur);
 		}
 	}
@@ -108,8 +105,11 @@ int Path::genPath()
 		return -1;
 	else
 	{
-		//add path to some sort of list...maybe?
-		//a queue...
+		while(!p.empty())
+		{
+			fPath.push(p.top());
+			p.pop();
+		}
 	}
 	return 1;
 }

@@ -24,19 +24,16 @@ private:
 	int level;
 	int type;
 	int attack;
-	Path p;
 	SDL_Surface *img;
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
-	// A queue of locations for a path.
-	//queue<location> path;
+	Path p;
+
 public:
 	creep(int type, int level, int x, int y);
 	creep();
 	~creep();
 	int damage(int damage);
 	void move();
-	void calculatePath(); //<- i think i want a separate class to calculate the path, that way we only have to calculate it once per player (maybe)
-
 	void displayCreep(SDL_Surface *screen);
 	//J: somewhere, the image needs to be set. you tell me where (same for towers)
 	//TL: In creep(int type, ... ) (inside of if(type == FAST))
