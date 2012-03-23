@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-template <typename T>
-class cListNode
+
+template <class T> cListNode
 {
 private:
 	T data;
@@ -25,7 +25,7 @@ public:
 	void setNext (cListNode<T> *next);
 	
 };
-// Creates a new dode
+// Creates a new node
 template <typename T>
 cListNode<T>::cListNode (T newData, cListNode<T> *ptr){
 	this->data = newData;

@@ -114,11 +114,6 @@ int Path::genPath()
 	return 1;
 }
 
-void Path::setNodeMap()
-{
-	//accept some sort of input and generate a node map of 0's and 1's that say whether or not that space is 
-	//traversable
-}
 
 void Path::setStart(int x, int y)
 {

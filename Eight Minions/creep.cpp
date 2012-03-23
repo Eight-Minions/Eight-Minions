@@ -72,9 +72,7 @@ void creep::move(){
 	// Move one step forward or two if it is fast
 }
 
-void creep::calculatePath(){
-	// Update that queue
-}
+
 
 void creep::displayCreep(SDL_Surface *screen)
 {

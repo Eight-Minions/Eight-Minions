@@ -17,6 +17,8 @@ private:
 	UDPpacket *UDPpack1, *UDPpack2;
 
 	vector<vector<tower*>> Tmap;
+	
+	//two lists of travis's special type for the creeps
 
 public:
 	int init();
