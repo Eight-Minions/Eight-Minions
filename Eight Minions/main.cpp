@@ -44,14 +44,15 @@ int main(int argc, char* argv[]){
 
 		for(int i = 0; i < 15; i++)
 		{
-			testl.insertInOrder(i * 7);
+			testl.insertInOrder(i * 7 + 1);
 		}
 
 		for(int i = 0; i < 15; i++)
 		{
-			cout << testl.getObjectWithID(i) << "\n";
+			cout << testl.getObjectWithID(i + 1) << "\n";
 		}
 		
+		cout << testl.getObjectWithID(7) << "\n" << testl.getObjectWithID(1) << "\n";
 			
 	}
 	system("pause");

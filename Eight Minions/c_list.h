@@ -27,7 +27,7 @@ public:
 
 	T getObjectWithID(int search_id);
 
-	bool insertInOrder (T newData);
+	int insertInOrder (T newData);
 	bool deleteList ();
 	bool deleteNode (int index);
 
@@ -68,7 +68,7 @@ void cList<T>::setSize(int n_size){
 }
 // Insert and object in order and assign it an index
 template <typename T>
-bool cList<T>::insertInOrder(T newData){
+int cList<T>::insertInOrder(T newData){
 	int new_iterator = 0;
 	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
 	newNode = new cListNode<T> (newData);
@@ -96,7 +96,7 @@ bool cList<T>::insertInOrder(T newData){
 		prev->setNext(newNode);
 		newNode->setNext(cur);
 	}
-	return true;
+	return new_iterator;
 }
 // Delete the list
 template <typename T>
