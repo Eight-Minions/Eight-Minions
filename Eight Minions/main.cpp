@@ -38,7 +38,19 @@ int main(int argc, char* argv[]){
 	else if(c == 3)
 	{
 		cout << "Testing mode started...\n";
-		cout << "Now testing pathfinding...\n";
+		cout << "Now testing lists...\n";
+
+		cList<int> testl;
+
+		for(int i = 0; i < 15; i++)
+		{
+			testl.insertInOrder(i * 7);
+		}
+
+		for(int i = 0; i < 15; i++)
+		{
+			cout << testl.getObjectWithID(i) << "\n";
+		}
 		
 			
 	}

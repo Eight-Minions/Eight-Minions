@@ -17,8 +17,8 @@ private:
 	UDPpacket *UDPpack1, *UDPpack2;
 
 	vector<vector<tower*>> Tmap;
-	EMlist<creep> creepList1;
-	EMlist<creep> creepList2;
+	cList<creep> creepList1;
+	cList<creep> creepList2;
 	
 
 public:
