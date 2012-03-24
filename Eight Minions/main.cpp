@@ -39,16 +39,6 @@ int main(int argc, char* argv[]){
 	{
 		cout << "Testing mode started...\n";
 		cout << "Now testing pathfinding...\n";
-		cList<int> tcl;
-
-		for(int i = 0; i < 15; i++)
-		{
-			tcl.insertInOrder(i);
-		}
-		for(int i = 0; i < 15; i++)
-		{
-			cout << tcl.getObjectWithID(i) << "\n";
-		}
 		
 			
 	}

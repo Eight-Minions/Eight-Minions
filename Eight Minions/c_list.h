@@ -7,7 +7,8 @@
 
 using std::queue;
 
-template <class T> cList
+template <class T>
+class cList
 {
 private:
 	cListNode<T> *start;

@@ -4,7 +4,8 @@
 #include <iostream>
 
 
-template <class T> cListNode
+template <class T>
+class cListNode
 {
 private:
 	T data;
