@@ -113,7 +113,6 @@ int game_host::testrun()
 		{
 			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
 		}
-		sendtop1UDP("testing");
 		sendtop1UDP(UpdMess(1,1,23,testCreep.getX(),testCreep.getY(),100).getMT());
 		/*
 		foreach tower
