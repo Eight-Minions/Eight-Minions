@@ -72,6 +72,9 @@ int game_host::run()
 int game_host::testrun()
 {
 	this->init();
+	this->init_net();
+	this->waitForClient_test();
+	
 	//this->waitForClients();
 	//this->sendToClients("testing!!!");
 	Tmap[4][10] = new tower(500,2,3,4,10);
@@ -101,9 +104,13 @@ int game_host::testrun()
 		{
 			creepList2.getObjectWithID(i).move();
 		}*/
-		testCreep.move();
+		if(testCreep.move())
+		{
+			cout << "end\n";
+			return 1;
+		}
 		cout << testCreep.getX() << " " << testCreep.getY() << "\n";
-
+		sendtop1UDP("testing");
 
 		/*
 		foreach tower
@@ -111,7 +118,7 @@ int game_host::testrun()
 		send updates
 		*/
 
-		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
+		//SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
 	}
 
 	return 0;

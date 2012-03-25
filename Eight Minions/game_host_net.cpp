@@ -73,6 +73,24 @@ int game_host::waitForClients()
 	return 1;
 }
 
+int game_host::waitForClient_test()
+{
+	cout << "waiting for first player to connect...\n";
+	while(!(player1sd = SDLNet_TCP_Accept(sd))) //wait for first connection, with 50ms delay to keep CPU down
+		SDL_Delay(50);
+
+	cout << this->recieveMessagep1() << "\n"; //on successful connect, client sends a message
+
+	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
+	this->player1ip = *SDLNet_TCP_GetPeerAddress(player1sd);
+	UDPpack1->address.port = player1ip.port;
+	UDPpack1->address.host = player1ip.host;
+
+	sendtoP1_test("SIG:START");
+	cout << "client connected, continuing...\n";
+	return 1;
+}
+
 void game_host::setPort(unsigned int setPort)
 {
 	//Last Changed: 3-5-12 @ 12:13
@@ -160,6 +178,15 @@ int game_host::sendToClients(string buff)
 	return 1;
 }
 
+int game_host::sendtoP1_test(string buff)
+{
+	if(SDLNet_TCP_Send(player1sd, (void *)buff.c_str(), 16 /* buff.length()+1*/) < buff.length() + 1)
+	{
+		cout << "Message to client 1 failed to send...\n";
+		return -1;
+	}
+}
+
 int game_host::sendToClientsUDP(string mess)
 {
 	char *temp = (char *)malloc(mess.length() + 1);
@@ -174,6 +201,17 @@ int game_host::sendToClientsUDP(string mess)
 	SDLNet_UDP_Send(p1UDPsock,-1,UDPpack2);
 	free(temp);
 	return 0;
+}
+
+int game_host::sendtop1UDP(string mess)
+{
+	char *temp = (char *)malloc(mess.length() + 1);
+	strcpy(temp,mess.c_str());
+	strcpy((char *)UDPpack1->data,(char *) temp);
+	UDPpack1->len = mess.length();
+	SDLNet_UDP_Send(p1UDPsock,-1,UDPpack1);
+
+	return 1;
 }
 
 string game_host::recieveMessagep1()

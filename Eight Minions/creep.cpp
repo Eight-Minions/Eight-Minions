@@ -69,7 +69,7 @@ int creep::damage(int d){
 	}
 	return this->health;
 }
-void creep::move(){
+bool creep::move(){
 	coord next = p.getNext();
 	double difX = getXd() - (next.x * 16) + BOARD_X_OFFSET;
 	double difY = getYd() - (next.y * 16) + BOARD_Y_OFFSET;
@@ -80,16 +80,22 @@ void creep::move(){
 	setX(getXd() + (speed * Xdir * CLOCK_CAP));
 	setY(getYd() + (speed * Ydir * CLOCK_CAP));
 
+	if(getXd() > 580)
+	{
+		cout << "debug start\n";
+	}
 	if(Xdir != 0 && getXd() * Xdir >= (next.x * 16 * Xdir) + BOARD_X_OFFSET)
 	{
+
+		double extra = (getXd() * Xdir) - ((next.x * 16 * Xdir) + BOARD_X_OFFSET);
+		prevPos = next;
+		p.pop();
 		if(p.isEmpty())
 		{
 			//creep got to enemy base, success.
 			cout << "creep got to base\n";
+			return true;
 		}
-		double extra = (getXd() * Xdir) - ((next.x * 16 * Xdir) + BOARD_X_OFFSET);
-		prevPos = next;
-		p.pop();
 		next = p.getNext();
 
 		Xdir = next.x - prevPos.x;
@@ -122,7 +128,7 @@ void creep::move(){
 
 	}
 
-
+	return false;
 }
 
 

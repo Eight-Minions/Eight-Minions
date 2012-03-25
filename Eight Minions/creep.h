@@ -41,7 +41,7 @@ public:
 	creep();
 	~creep();
 	int damage(int damage);
-	void move();
+	bool move();
 	void displayCreep(SDL_Surface *screen);
 	//J: somewhere, the image needs to be set. you tell me where (same for towers)
 	//TL: In creep(int type, ... ) (inside of if(type == FAST))

@@ -48,6 +48,9 @@ public:
 	string recieveMessagep2();
 	void recieveMessageToQueue();
 	void parseQueue();
+	int sendtop1UDP(string mess);
+	int sendtoP1_test(string buff);
+	int waitForClient_test();
 };
 
 #endif
