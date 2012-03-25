@@ -15,7 +15,7 @@ int client::init()
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
 	screen = SDL_SetVideoMode(840,550,32,SDL_SWSURFACE);
 	this->background = IMG_Load("background.png");
-	
+
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
 
@@ -42,7 +42,7 @@ void client::display()
 	//loop through each creep and display it
 	//display any special effects, bullets, explosions, etc
 	//display interface objects, health, money stats, etc <-maybe only update this when it changes? just an idea
-	
+
 	//testing creeps
 	this->testc.displayCreep(screen);
 	//this->testca.displayCreep(screen);
@@ -94,7 +94,7 @@ int client::testrun()
 		//gather input
 		if( SDL_PollEvent( &event ) )
 		{
-			
+
 
 			if(event.type == SDL_QUIT)
 			{
@@ -104,28 +104,29 @@ int client::testrun()
 		/*
 		while(SDLNet_CheckSockets(socketset, 1) > 0)
 		{
-			cout << "socket has data, attempting to read\n";
-			if(SDLNet_SocketReady(sd))
-			{
-				this->performUpdate(this->recieveMessage());
-			}
+		cout << "socket has data, attempting to read\n";
+		if(SDLNet_SocketReady(sd))
+		{
+		this->performUpdate(this->recieveMessage());
+		}
 		}*/
 
-		testMess.setMess(this->recieveMessageUDP());
-
-		testc.setX((double)testMess.getVala());
-		testc.setY((double)testMess.getValb());
+		while(testMess.setMess(this->recieveMessageUDP()))
+		{
+			testc.setX((double)testMess.getVala());
+			testc.setY((double)testMess.getValb());
+		}
 		this->display();
 
 		/*
 		if(this->testca.getX() > 400)
-			cx = -1;
+		cx = -1;
 		if(this->testca.getX() < 120)
-			cx = 1;
+		cx = 1;
 		if(this->testca.getY() > 450)
-			cy = -1;
+		cy = -1;
 		if(this->testca.getY() < 80)
-			cy = 1;
+		cy = 1;
 		this->testca.setX(testca.getX() + cx);
 		this->testca.setY(testca.getY() + cy);
 		*/

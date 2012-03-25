@@ -78,8 +78,12 @@ UpdMess::UpdMess( string m )
 
 }
 
-void UpdMess::setMess( string m )
+int UpdMess::setMess( string m )
 {
+	if(m == "NO MESSAGE")
+	{
+		return 0;
+	}
 	type = m[0] - '0';
 	p = m[1] - '0';
 	switch(type)
@@ -96,7 +100,9 @@ void UpdMess::setMess( string m )
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		id2 = 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
 		vala = 10 * (m[10] - '0') + (m[11] - '0');
+		break;
 	}
+	return 1;
 }
 
 string UpdMess::getMT()

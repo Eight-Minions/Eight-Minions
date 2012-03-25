@@ -14,6 +14,7 @@
 
 
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
+
 #define MAPSIZE_X 35
 #define MAPSIZE_Y 21
 

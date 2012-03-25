@@ -25,7 +25,7 @@ public:
 	UpdMess(int t, int pl, int ida, int idb, int atype);
 	UpdMess(string m);
 
-	void setMess(string m);
+	int setMess(string m);
 	string getMT();
 	int getType();
 	int getVala();
