@@ -80,10 +80,7 @@ bool creep::move(){
 	setX(getXd() + (speed * Xdir * CLOCK_CAP));
 	setY(getYd() + (speed * Ydir * CLOCK_CAP));
 
-	if(getXd() > 580)
-	{
-		cout << "debug start\n";
-	}
+
 	if(Xdir != 0 && getXd() * Xdir >= (next.x * 16 * Xdir) + BOARD_X_OFFSET)
 	{
 
@@ -139,4 +136,10 @@ void creep::displayCreep(SDL_Surface *screen)
 	this->r->x = this->getX();
 	this->r->y = this->getY();
 	SDL_BlitSurface(this->img, NULL, screen, r);
+}
+
+void creep::recalcPath( vector<vector<bool>> nMap )
+{
+	p.setStart(p.getNext());
+	p.genPath(nMap);
 }

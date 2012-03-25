@@ -33,6 +33,7 @@ private:
 	SDL_Surface *img;
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
 	coord prevPos;
+	int animIndex;
 
 public:
 	Path p;
@@ -43,6 +44,7 @@ public:
 	int damage(int damage);
 	bool move();
 	void displayCreep(SDL_Surface *screen);
+	void recalcPath(vector<vector<bool>> nMap);
 	//J: somewhere, the image needs to be set. you tell me where (same for towers)
 	//TL: In creep(int type, ... ) (inside of if(type == FAST))
 	//J: that works, and also, we are going to need a function somewhere that does spawnWave(type(s)) and spawns the given
