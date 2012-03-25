@@ -11,6 +11,10 @@
 #define TITAN 4 //high armor, high health, average speed, very low numbers
 #define FATTY 5 //low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+#define BOARD_X_OFFSET 38
+#define BOARD_Y_OFFSET 38
+
+#define CLOCK_CAP .15
 //J:
 //i think it might be better in the long run to have the client load the creep images just once
 //and then pass those to the creeps to display as needed. that could save some memory
@@ -24,11 +28,15 @@ private:
 	int level;
 	int type;
 	int attack;
+	int Xdir;
+	int Ydir;
 	SDL_Surface *img;
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
-	Path p;
+	coord prevPos;
 
 public:
+	Path p;
+
 	creep(int type, int level, int x, int y);
 	creep();
 	~creep();

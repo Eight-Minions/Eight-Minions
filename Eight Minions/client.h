@@ -9,8 +9,7 @@
 #define CONNECTION_FAILURE 0 //generic error
 #define SERVER_NOT_FOUND -1
 
-#define BOARD_X_OFFSET 100
-#define BOARD_Y_OFFSET 100
+
 
 class client
 {

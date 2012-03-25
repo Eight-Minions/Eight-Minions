@@ -3,13 +3,16 @@
 
 creep::creep(){
 }
+
 creep::creep(int t, int l, int set_x, int set_y){
 	type = t;
 	level = l;
 	health = 0;
 	speed = 0;
-	this->setX(set_x);  // Should probably have a generic starting point for each side 
-	this->setY(set_y);
+	prevPos.x = set_x;
+	prevPos.y = set_y;
+	this->setX(set_x * 16 + BOARD_X_OFFSET);  // Should probably have a generic starting point for each side 
+	this->setY(set_y * 16 + BOARD_Y_OFFSET);
 	// TL: just some more ideas
 	this->r = new SDL_Rect;
 	if(type == TANK){
@@ -67,9 +70,59 @@ int creep::damage(int d){
 	return this->health;
 }
 void creep::move(){
-	// location next = NULL;
-	// Calculate Path;
-	// Move one step forward or two if it is fast
+	coord next = p.getNext();
+	double difX = getXd() - (next.x * 16) + BOARD_X_OFFSET;
+	double difY = getYd() - (next.y * 16) + BOARD_Y_OFFSET;
+
+	Xdir = next.x - prevPos.x;
+	Ydir = next.y - prevPos.y;
+
+	setX(getXd() + (speed * Xdir * CLOCK_CAP));
+	setY(getYd() + (speed * Ydir * CLOCK_CAP));
+
+	if(Xdir != 0 && getXd() * Xdir >= (next.x * 16 * Xdir) + BOARD_X_OFFSET)
+	{
+		if(p.isEmpty())
+		{
+			//creep got to enemy base, success.
+			cout << "creep got to base\n";
+		}
+		double extra = (getXd() * Xdir) - ((next.x * 16 * Xdir) + BOARD_X_OFFSET);
+		prevPos = next;
+		p.pop();
+		next = p.getNext();
+
+		Xdir = next.x - prevPos.x;
+		Ydir = next.y - prevPos.y;
+
+		setX(prevPos.x * 16 + BOARD_X_OFFSET);
+		setX(getXd() + (Xdir * extra));
+		setY(getYd() + (Ydir * extra));
+
+	}
+
+	if(Ydir != 0 && getYd() * Ydir >= (next.y * 16 * Ydir) + BOARD_Y_OFFSET)
+	{
+		if(p.isEmpty())
+		{
+			//creep got to enemy base, success.
+			cout << "creep got to base\n";
+		}
+		double extra = (getYd() * Ydir) - ((next.y * 16 * Ydir) + BOARD_Y_OFFSET);
+		prevPos = next;
+		p.pop();
+		next = p.getNext();
+
+		Xdir = next.x - prevPos.x;
+		Ydir = next.y - prevPos.y;
+
+		setY(prevPos.y * 16 + BOARD_Y_OFFSET);
+		setX(getXd() + (Xdir * extra));
+		setY(getYd() + (Ydir * extra));
+
+	}
+
+
 }
 
 

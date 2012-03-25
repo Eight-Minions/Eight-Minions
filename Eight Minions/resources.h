@@ -5,14 +5,16 @@
 #include <string>
 #include <list>
 #include <queue>
+#include <cmath>
 #include "SDL.h"
 #include "SDL_net.h"
 #include "SDL_image.h"
-#include "EMlist.h"
 #include "c_list.h"
 
 
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
+#define MAPSIZE_X 35
+#define MAPSIZE_Y 21
 
 using std::cout;
 using std::cin;
@@ -24,16 +26,18 @@ using std::list;
 class location
 {
 private:
-	int x;
-	int y;
+	double x;
+	double y;
 public:
 	location();
 	location(int new_x, int new_y);
 	~location();
 	int getX();
 	int getY();
-	void setX(int new_x);
-	void setY(int new_y);
+	double getXd();
+	double getYd();
+	void setX(double new_x);
+	void setY(double new_y);
 };
 
 // TL: Maybe a player class? We could have two with objects to hold their towers and creepers (health and money too?)

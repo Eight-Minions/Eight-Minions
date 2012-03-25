@@ -1,6 +1,6 @@
 #include "game_host.h"
 
-int game_host::init()
+int game_host::init_net()
 {
 
 	if (SDLNet_Init() < 0)

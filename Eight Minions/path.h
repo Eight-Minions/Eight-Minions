@@ -28,12 +28,15 @@ public:
 	Path();
 	Path(int x, int y);
 
-	int genPath();
+	int genPath(vector<vector<bool>> nMap);
 	coord move(coord cur);
-	void setStart(int x, int y);
-	void setGoal(int x, int y);
+	void setStart(coord s);
+	void setGoal(coord g);
 	int numPaths(coord c);
 	queue<coord> getPath();
+	coord getNext();
+	bool isEmpty();
+	void pop();
 };
 
 

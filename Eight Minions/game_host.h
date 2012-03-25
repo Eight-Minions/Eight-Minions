@@ -5,6 +5,7 @@
 #include "creep.h"
 #include "tower.h"
 
+
 class game_host
 {
 private:
@@ -17,15 +18,26 @@ private:
 	UDPpacket *UDPpack1, *UDPpack2;
 
 	vector<vector<tower*>> Tmap;
+	vector<vector<bool>> Nodemap;
+
 	cList<creep> creepList1;
+	int p1numCreeps;
 	cList<creep> creepList2;
+	int p2numCreeps;
+
+	coord p1Base;
+	coord p2Base;
 	
 
 public:
 	int init();
+	int init_net();
 	int waitForClients();
 	int run(); //runs the game itself
 	int testrun();
+	void setNodemap();
+	void updatePaths();
+
 	void setPort(unsigned int);
 	int sendUpdate(); //called by run() to send information to each player about changes in what they need to display
 	int sendUpdate(char mess[15]);

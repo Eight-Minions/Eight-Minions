@@ -2,7 +2,10 @@
 
 Path::Path()
 {
-	
+	//start VERY bad coding
+	mapsize.x = 35;
+	mapsize.y = 21;
+	//end VERY bad coding
 }
 
 Path::Path(int x, int y)
@@ -19,13 +22,13 @@ Path::Path(int x, int y)
 int Path::numPaths(coord c)
 {
 	int n = 0;
-	if(c.x >= 0 && Nodemap[c.x - 1][c.y] == 0)
+	if(c.x > 0 && Nodemap[c.x - 1][c.y] == 0)
 		n++;
-	if(c.y >= 0 && Nodemap[c.x][c.y - 1] == 0)
+	if(c.y > 0 && Nodemap[c.x][c.y - 1] == 0)
 		n++;
-	if(c.x < mapsize.x && Nodemap[c.x + 1][c.y] == 0)
+	if(c.x < mapsize.x - 1 && Nodemap[c.x + 1][c.y] == 0)
 		n++;
-	if(c.y	< mapsize.y && Nodemap[c.x][c.y + 1] == 0)
+	if(c.y	< mapsize.y - 1 && Nodemap[c.x][c.y + 1] == 0)
 		n++;
 	return n;
 }
@@ -63,7 +66,7 @@ coord Path::move(coord cur)
 	while(!opt.empty())
 	{
 		temp = opt.front();
-		dis = sqrt(pow((double)temp.x - goal.x,2) + pow((double)temp.y - goal.y,2));
+		dis = sqrt(pow((double)temp.x - start.x,2) + pow((double)temp.y - start.y,2));
 		if(dis < mindis)
 		{
 			cur = temp;
@@ -74,10 +77,11 @@ coord Path::move(coord cur)
 	return cur;
 }
 
-int Path::genPath()
+int Path::genPath(vector<vector<bool>> nMap)
 {
 	//insert super fast efficient algorithm for finding the fastest route from the start to the finish
 	//1 = impassable, 0 = passable
+	Nodemap = nMap;
 	coord cur = goal;
 	int paths;
 	p.push(cur);
@@ -105,6 +109,7 @@ int Path::genPath()
 		return -1;
 	else
 	{
+		p.pop();
 		while(!p.empty())
 		{
 			fPath.push(p.top());
@@ -115,14 +120,27 @@ int Path::genPath()
 }
 
 
-void Path::setStart(int x, int y)
+void Path::setStart(coord s)
 {
-	start.x = x;
-	start.y = y;
+	start = s;
 }
 
-void Path::setGoal(int x, int y)
+void Path::setGoal(coord g)
 {
-	goal.x = x;
-	goal.y = y;
+	goal = g;
+}
+
+coord Path::getNext()
+{
+	return fPath.front();
+}
+
+bool Path::isEmpty()
+{
+	return fPath.empty();
+}
+
+void Path::pop()
+{
+	fPath.pop();
 }
