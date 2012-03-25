@@ -11,10 +11,10 @@ location::location(int new_x, int new_y){
 location::~location(){
 }
 int location::getX(){
-	return floor(this->x);
+	return (int)floor(this->x);
 }
 int location::getY(){
-	return floor(this->y);
+	return (int)floor(this->y);
 }
 void location::setX(double new_x){
 	this->x = new_x;

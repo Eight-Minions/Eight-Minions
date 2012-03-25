@@ -15,19 +15,19 @@ UpdMess::UpdMess( int t, int pl, int id, int cx, int cy, int ch )
 	messText += (t + '0');
 	messText += (pl + '0');
 
-	for(int n = 3 - floor(log10((double)id)); n > 0; n--){
+	for(int n = 3 - (int)floor(log10((double)id)); n > 0; n--){
 		messText += '0';
 	}
 	messText += itoa(id,buff,10);
-	for(int n = 3 - floor(log10((double)cx)); n > 0; n--){
+	for(int n = 3 - (int)floor(log10((double)cx)); n > 0; n--){
 		messText += '0';
 	}
 	messText += itoa(cx,buff,10);
-	for(int n = 3 - floor(log10((double)cy)); n > 0; n--){
+	for(int n = 3 - (int)floor(log10((double)cy)); n > 0; n--){
 		messText += '0';
 	}
 	messText += itoa(cy,buff,10);
-	for(int n = 4 - floor(log10((double)ch)); n > 0; n--){
+	for(int n = 4 - (int)floor(log10((double)ch)); n > 0; n--){
 		messText += '0';
 	}
 	messText += itoa(ch,buff,10);
@@ -40,11 +40,11 @@ UpdMess::UpdMess( int t, int pl, int ida, int idb, int atype )
 	messText = "";
 	messText += (t + '0');
 	messText += (pl + '0');
-	for(int n = 3 - floor(log10((double)ida)); n > 0; n--){
+	for(int n = 3 - (int)floor(log10((double)ida)); n > 0; n--){
 		messText += '0';
 	}
 	messText += itoa(ida,buff,10);
-	for(int n = 3 - floor(log10((double)idb)); n > 0; n--){
+	for(int n = 3 - (int)floor(log10((double)idb)); n > 0; n--){
 		messText += '0';
 	}
 	messText += itoa(idb,buff,10);

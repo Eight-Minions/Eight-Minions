@@ -185,6 +185,7 @@ int game_host::sendtoP1_test(string buff)
 		cout << "Message to client 1 failed to send...\n";
 		return -1;
 	}
+	return 1;
 }
 
 int game_host::sendToClientsUDP(string mess)
