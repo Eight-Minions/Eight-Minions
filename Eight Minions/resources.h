@@ -10,6 +10,7 @@
 #include "SDL_net.h"
 #include "SDL_image.h"
 #include "c_list.h"
+#include "UdpMess.h"
 
 
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!

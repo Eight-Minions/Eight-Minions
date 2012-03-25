@@ -109,16 +109,19 @@ int game_host::testrun()
 			cout << "end\n";
 			return 1;
 		}
-		cout << testCreep.getX() << " " << testCreep.getY() << "\n";
+		else
+		{
+			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
+		}
 		sendtop1UDP("testing");
-
+		sendtop1UDP(UpdMess(1,1,23,testCreep.getX(),testCreep.getY(),100).getMT());
 		/*
 		foreach tower
 		do->attack
 		send updates
 		*/
 
-		//SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
+		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
 	}
 
 	return 0;

@@ -1,6 +1,7 @@
 #ifndef UPDMESS_H
 #define UPDMESS_H
 #include <string>
+#include <cmath>
 
 using std::string;
 
@@ -11,19 +12,36 @@ private:
 	//different message types have different formats, we need to define them.
 	//J: what types of messages do we need to send?
 	int type;
-	int val;
-	int id;
+	int vala;
+	int valb;
+	int valc;
+	int p;
+	int id1;
+	int id2;
+
 public:
 	UpdMess();
-	UpdMess(int t, int v, int i);
+	UpdMess(int t, int pl, int id, int cx, int cy, int ch);
+	UpdMess(int t, int pl, int ida, int idb, int atype);
 	UpdMess(string m);
 
+	void setMess(string m);
 	string getMT();
 	int getType();
-	int getVal();
-	int getId();
+	int getVala();
+	int getValb();
+	int getValc();
+	int getId1();
+	int getId2();
+	int getPlayer();
 
 };
+
+
+
+
+
+
 
 
 #endif

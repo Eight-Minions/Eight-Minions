@@ -38,11 +38,14 @@ int main(int argc, char* argv[]){
 	else if(c == 3)
 	{
 		cout << "Testing mode started...\n";
-		cout << "Now testing pathfinding...\n";
+		cout << "Now testing update message...\n";
+
+		UpdMess n(1,1,506,256,3);
+		//( int t, int pl, int ida, int idb, int atype )
+		cout << n.getMT() << "\n";
 
 		
 			
 	}
-	system("pause");
 	return 0;
 }

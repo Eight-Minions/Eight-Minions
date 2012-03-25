@@ -45,7 +45,7 @@ void client::display()
 	
 	//testing creeps
 	this->testc.displayCreep(screen);
-	this->testca.displayCreep(screen);
+	//this->testca.displayCreep(screen);
 	//end testing
 
 	SDL_Flip(screen);
@@ -88,6 +88,7 @@ int client::testrun()
 	}
 	//main run loop
 	int run = 1;
+	UpdMess testMess;
 	while(run)
 	{
 		//gather input
@@ -110,7 +111,10 @@ int client::testrun()
 			}
 		}*/
 
-		cout << this->recieveMessageUDP() << "\n";
+		testMess.setMess(this->recieveMessageUDP());
+
+		testc.setX((double)testMess.getVala());
+		testc.setY((double)testMess.getValb());
 		this->display();
 
 		/*
