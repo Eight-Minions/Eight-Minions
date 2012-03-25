@@ -135,6 +135,7 @@ bool creep::move(){
 
 void creep::displayCreep(SDL_Surface *screen)
 {
+	//blah
 	this->r->x = this->getX();
 	this->r->y = this->getY();
 	SDL_BlitSurface(this->img, NULL, screen, r);
