@@ -44,7 +44,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="2"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -184,7 +184,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\game_host_net.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\path.cpp"
 				>
 			</File>
 			<File
@@ -193,6 +201,10 @@
 			</File>
 			<File
 				RelativePath=".\tower.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UpdMess.cpp"
 				>
 			</File>
 		</Filter>
@@ -218,7 +230,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EMlist.h"
+				>
+			</File>
+			<File
 				RelativePath=".\game_host.h"
+				>
+			</File>
+			<File
+				RelativePath=".\path.h"
 				>
 			</File>
 			<File
@@ -227,6 +247,10 @@
 			</File>
 			<File
 				RelativePath=".\tower.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UdpMess.h"
 				>
 			</File>
 		</Filter>
