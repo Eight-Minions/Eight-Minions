@@ -114,6 +114,11 @@ int game_host::testrun()
 			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
 		}
 		sendtop1UDP(UpdMess(1,1,23,testCreep.getX(),testCreep.getY(),100).getMT());
+		//<awesome idea>
+		//maybe combine update strings together separated by some sentinel character
+		//that way we need to send less individual packets (which may make a difference when we have tons and tons of creeps/towers
+		// </awesome idea>
+
 		/*
 		foreach tower
 		do->attack
