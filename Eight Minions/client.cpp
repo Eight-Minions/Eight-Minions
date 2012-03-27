@@ -89,48 +89,43 @@ int client::testrun()
 	//main run loop
 	int run = 1;
 	UpdMess testMess;
+	string temp;
+	int now = 0;
+	int n_rec = 0;
 	while(run)
 	{
 		//gather input
 		if( SDL_PollEvent( &event ) )
 		{
-
-
 			if(event.type == SDL_QUIT)
 			{
 				run = 0;
 			}
 		}
-		/*
-		while(SDLNet_CheckSockets(socketset, 1) > 0)
-		{
-		cout << "socket has data, attempting to read\n";
-		if(SDLNet_SocketReady(sd))
-		{
-		this->performUpdate(this->recieveMessage());
-		}
-		}*/
-
-		while(testMess.setMess(this->recieveMessageUDP()))
+		/*while(testMess.setMess(this->recieveMessageUDP()))
 		{
 			testc.setX((double)testMess.getVala());
 			testc.setY((double)testMess.getValb());
+		}*/
+		temp = recieveMessageUDP(); 
+		if(temp != "NO_MESSAGE")
+		{
+			if(now == 0)
+				now = SDL_GetTicks();
+			n_rec++;
+			cout << temp << "\n";
+			if(n_rec == 10)
+			{
+				sendToServer("messages received");
+				cout << SDL_GetTicks() - now << " milliseconds for ten messages\n";
+				return 0;
+			}
+			
 		}
 		this->display();
 
-		/*
-		if(this->testca.getX() > 400)
-		cx = -1;
-		if(this->testca.getX() < 120)
-		cx = 1;
-		if(this->testca.getY() > 450)
-		cy = -1;
-		if(this->testca.getY() < 80)
-		cy = 1;
-		this->testca.setX(testca.getX() + cx);
-		this->testca.setY(testca.getY() + cy);
-		*/
-		SDL_Delay(20);
+
+		//SDL_Delay(20);
 	}
 
 	this->cleanup();

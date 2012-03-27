@@ -24,43 +24,13 @@ int game_host::run()
 	this->waitForClients();
 	//this->sendToClients("testing!!!");
 
-	int r = 1;
-	int x = 10;
-	int change = 1;
-	int y = 10;
-	int changey = 1;
-	string n;
-	char q[16];
-	while(r)
+
+	while(1)
 	{
-		/*if(SDLNet_CheckSockets(socketset,1) > 0 )
-		{
-			if(SDLNet_SocketReady(player1sd))
-			{
-				cout << this->recieveMessagep1() << "\n";
-			}
-			if(SDLNet_SocketReady(player2sd))
-			{
-				cout << this->recieveMessagep2() << "\n";
-			}
-		}*/
 
 		
-		x += change;
-		if(x > 400)
-			change = -1;
-		if(x < 1)
-			change = 1;
-
-		y += changey;
-		if( y > 300)
-			changey = -1;
-		if(y < 1)
-			changey = 1;
-
 		
-		this->sendUpdate(0,0,1,x);
-		this->sendUpdate(0,0,2,y);
+		
 		SDL_Delay(30);
 	}
 
@@ -89,6 +59,11 @@ int game_host::testrun()
 
 	int run = 1;
 	int nc = 0;
+
+	//
+
+	//
+	int now;
 	while(run)
 	{
 		//receive input
@@ -104,6 +79,8 @@ int game_host::testrun()
 		{
 			creepList2.getObjectWithID(i).move();
 		}*/
+
+		/*<movement testing>
 		if(testCreep.move())
 		{
 			cout << "end\n";
@@ -114,6 +91,17 @@ int game_host::testrun()
 			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
 		}
 		sendtop1UDP(UpdMess(1,1,23,testCreep.getX(),testCreep.getY(),100).getMT());
+		</movement testing>*/
+
+		
+
+		now = SDL_GetTicks();
+		for(int i = 0; i < 10; i++)
+			sendtop1UDP("test message");
+		cout << recieveMessagep1() << "\n";
+		cout << SDL_GetTicks() - now << " milliseconds\n";
+		system("pause");
+		return 1;
 		//<awesome idea>
 		//maybe combine update strings together separated by some sentinel character
 		//that way we need to send less individual packets (which may make a difference when we have tons and tons of creeps/towers

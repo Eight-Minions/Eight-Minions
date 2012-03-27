@@ -44,8 +44,13 @@ int main(int argc, char* argv[]){
 		//( int t, int pl, int ida, int idb, int atype )
 		cout << n.getMT() << "\n";
 
-		
-			
+	}
+	else if(c == 4)
+	{
+		cout << "To do list:\n";
+		cout << ">fix lag on udp\n";
+		cout << ">fix udp host resolution (right now its hardcoded to travis' computer\n";
+		cout << ">weird glitch on the move function\n";
 	}
 	return 0;
 }
