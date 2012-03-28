@@ -80,7 +80,7 @@ int game_host::testrun()
 			creepList2.getObjectWithID(i).move();
 		}*/
 
-		/*<movement testing>
+		
 		if(testCreep.move())
 		{
 			cout << "end\n";
@@ -91,21 +91,8 @@ int game_host::testrun()
 			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
 		}
 		sendtop1UDP(UpdMess(1,1,23,testCreep.getX(),testCreep.getY(),100).getMT());
-		</movement testing>*/
-
 		
-
-		now = SDL_GetTicks();
-		for(int i = 0; i < 10; i++)
-			sendtop1UDP("test message");
-		cout << recieveMessagep1() << "\n";
-		cout << SDL_GetTicks() - now << " milliseconds\n";
-		system("pause");
-		return 1;
-		//<awesome idea>
-		//maybe combine update strings together separated by some sentinel character
-		//that way we need to send less individual packets (which may make a difference when we have tons and tons of creeps/towers
-		// </awesome idea>
+		
 
 		/*
 		foreach tower
@@ -113,6 +100,7 @@ int game_host::testrun()
 		send updates
 		*/
 
+		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent
 		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
 	}
 

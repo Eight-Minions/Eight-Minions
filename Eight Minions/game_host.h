@@ -5,6 +5,7 @@
 #include "creep.h"
 #include "tower.h"
 
+#define MAX_MESSAGE_LENGTH 200
 
 class game_host
 {
@@ -16,6 +17,7 @@ private:
 	SDLNet_SocketSet socketset;
 	UDPsocket p1UDPsock, p2UDPsock;
 	UDPpacket *UDPpack1, *UDPpack2;
+	string updateCollection;
 
 	vector<vector<tower*>> Tmap;
 	vector<vector<bool>> Nodemap;
@@ -27,6 +29,7 @@ private:
 
 	coord p1Base;
 	coord p2Base;
+	
 
 	
 
@@ -47,7 +50,7 @@ public:
 	int sendToClientsUDP(string mess);
 	string recieveMessagep1();
 	string recieveMessagep2();
-	void recieveMessageToQueue();
+	void sendMessageToQueue(string mess);
 	void parseQueue();
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);

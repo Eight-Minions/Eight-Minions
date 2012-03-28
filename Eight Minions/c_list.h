@@ -141,7 +141,8 @@ T cList<T>::getObjectWithID(int search_id){
 			return cur->getData();
 		cur = cur->getNext();
 	}
-	return NULL; //Didn't find anything...
+	T empty;
+	return empty; //Didn't find anything...
 }
 // TESTING ONLY 
 /*

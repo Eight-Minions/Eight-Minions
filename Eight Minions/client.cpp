@@ -94,38 +94,48 @@ int client::testrun()
 	int n_rec = 0;
 	while(run)
 	{
-		//gather input
+		//gather input - the follow series of if-statements will handle all user input
 		if( SDL_PollEvent( &event ) )
 		{
 			if(event.type == SDL_QUIT)
 			{
 				run = 0;
 			}
+			if(event.type == SDL_MOUSEBUTTONUP)
+			{
+				if(event.button.button == SDL_BUTTON_LEFT)
+				{
+					event.button.x; //x coordinate of click on the window
+					event.button.y; //y coordinate of click on the window
+
+					//////////////////////////////////////////////////////////////
+					//Your goal, using this information, make the game do things
+					//when you click, i.e. clicking a tower displays info about it
+					//clicking the 'buy' menu (or whatever we decide to have) opens 
+					//a menu of things to buy. clicking a tower to buy and clicking a 
+					//spot on the map checks if the tower can go there and then puts it 
+					//there, subtracts money, and any other tasks that need to be done
+					//some of this will require server message which i will explain/help
+					//with, but i dont want to do everything. so this is not my task
+					///////////////////////////////////////////////////////////////
+				}
+
+			}
 		}
-		/*while(testMess.setMess(this->recieveMessageUDP()))
+
+		//<test code>
+		while(testMess.setMess(this->recieveMessageUDP()))
 		{
 			testc.setX((double)testMess.getVala());
 			testc.setY((double)testMess.getValb());
-		}*/
-		temp = recieveMessageUDP(); 
-		if(temp != "NO_MESSAGE")
-		{
-			if(now == 0)
-				now = SDL_GetTicks();
-			n_rec++;
-			cout << temp << "\n";
-			if(n_rec == 10)
-			{
-				sendToServer("messages received");
-				cout << SDL_GetTicks() - now << " milliseconds for ten messages\n";
-				return 0;
-			}
-			
+			cout << testc.getX() << " " << testc.getY() << "\n";
 		}
+
+		//</test code>
 		this->display();
 
 
-		//SDL_Delay(20);
+		SDL_Delay(20);
 	}
 
 	this->cleanup();
@@ -190,7 +200,7 @@ int client::connectToServer()
 		system("pause");
 		exit(EXIT_FAILURE);
 	}
-	this->UDPpack = SDLNet_AllocPacket(256);
+	this->UDPpack = SDLNet_AllocPacket(512);
 
 
 	/* test sending something to the server */

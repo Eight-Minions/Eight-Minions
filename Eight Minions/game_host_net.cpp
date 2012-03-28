@@ -2,7 +2,6 @@
 
 int game_host::init_net()
 {
-
 	if (SDLNet_Init() < 0)
 	{
 		fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
@@ -28,13 +27,13 @@ int game_host::init_net()
 		exit(EXIT_FAILURE);
 	}
 
-	if (!(this->UDPpack1 = SDLNet_AllocPacket(256)))
+	if (!(this->UDPpack1 = SDLNet_AllocPacket(512)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
 
-	if (!(this->UDPpack2 = SDLNet_AllocPacket(256)))
+	if (!(this->UDPpack2 = SDLNet_AllocPacket(512)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -75,6 +74,9 @@ int game_host::waitForClients()
 
 int game_host::waitForClient_test()
 {
+	string cl;
+	cout << "clients address:";
+	cin >> cl;
 	cout << "waiting for first player to connect...\n";
 	while(!(player1sd = SDLNet_TCP_Accept(sd))) //wait for first connection, with 50ms delay to keep CPU down
 		SDL_Delay(50);
@@ -83,11 +85,11 @@ int game_host::waitForClient_test()
 
 	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
 	this->player1ip = *SDLNet_TCP_GetPeerAddress(player1sd);
-	//SDLNet_ResolveHost(&(UDPpack1->address), cl.c_str(), port);
-	player1ip.host = SDLNet_TCP_GetPeerAddress(player1sd)->host;
+	SDLNet_ResolveHost(&(UDPpack1->address), cl.c_str(), port);
+	/*player1ip.host = SDLNet_TCP_GetPeerAddress(player1sd)->host;
 	player1ip.port = port;
 
-	UDPpack1->address = player1ip;
+	UDPpack1->address = player1ip;*/
 
 	sendtoP1_test("SIG:START");
 	cout << "client connected, continuing...\n";
@@ -236,12 +238,17 @@ string game_host::recieveMessagep2()
 	return ret;
 }
 
-void game_host::recieveMessageToQueue()
+void game_host::sendMessageToQueue(string mess)
 {
-	//pseudocode:
-	//recieve string from p1
-	//push to queue
-	//recieve string from p2
-	//push to queue
-	//return
+	if(this->updateCollection.length() + mess.length() + 1 > MAX_MESSAGE_LENGTH || mess == "SEND")
+	{
+		sendToClientsUDP(updateCollection);
+		if(mess != "SEND")
+			updateCollection = mess;
+	}
+	else
+	{
+		updateCollection += "\n";
+		updateCollection += mess;
+	}
 }
