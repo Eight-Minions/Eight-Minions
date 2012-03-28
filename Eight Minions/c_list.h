@@ -18,15 +18,21 @@ private:
 public:
 	cList ();
 	~cList ();
-
+	
+	// Get/Set Start
 	cListNode<T> *getStart ();
 	void setStart (cListNode<T> *start);
-
+	
+	// Get/Set Size
 	int getSize ();
 	void setSize (int size);
-
+	
+	// Searching for Objects
 	T getObjectWithID(int search_id);
+	cListNode<T> getNodeWithID(int search_id);
+	bool checkForObjectWithID(int search_id);
 
+	// Insert or Delete
 	int insertInOrder (T newData);
 	bool deleteList ();
 	bool deleteNode (int index);
@@ -133,6 +139,8 @@ bool cList<T>::deleteNode(int searchIndex){
 	return false;
 }
 // Search for an object with an ID, returns the object or null 
+
+// Please note: this function is unsafe and being depreciated
 template <typename T>
 T cList<T>::getObjectWithID(int search_id){
 	cListNode<T> *cur = this->getStart();
@@ -143,6 +151,30 @@ T cList<T>::getObjectWithID(int search_id){
 	}
 	T empty;
 	return empty; //Didn't find anything...
+}
+
+// Checks to see if there is an Object with some ID
+template <typename T>
+bool cList<T>::checkForObjectWithID(int search_id){
+	cListNode<T> *cur = this->getStart();
+	while(cur != NULL){
+		if(cur->getIndex() == search_id)
+			return true;
+		cur = cur->getNext();
+	}
+	return false;
+}
+
+// Gets a node with some ID, returns NULL if not found
+template <typename T>
+cListNode<T> cList<T>::getNodeWithID(int search_id){
+	cListNode<T> *cur = getStart();
+	while(cur != NULL){
+		if(cur->getIndex() == search_id)
+			return cur;
+		cur = cur->getNext();
+	}
+	return null;
 }
 // TESTING ONLY 
 /*
