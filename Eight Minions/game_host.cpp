@@ -49,6 +49,7 @@ int game_host::testrun()
 	//this->sendToClients("testing!!!");
 	Tmap[4][10] = new tower(500,2,3,4,10);
 	Tmap[3][11] = new tower(500,2,3,3,11);
+	Tmap[5][9] = new tower(300,2,3,5,9);
 	setNodemap();
 
 	creep testCreep(1,1,p1Base.x,p1Base.y);
@@ -59,7 +60,7 @@ int game_host::testrun()
 
 	int run = 1;
 	int nc = 0;
-
+	cListNode<creep> *cur = NULL;
 	//
 
 	//
@@ -67,20 +68,11 @@ int game_host::testrun()
 	while(run)
 	{
 		//receive input
+		//receiveMessagesToQueue
 		//process input
+		//go through message queue and decide what to do for each one
 		
-		/*nc = creepList1.getSize();
-		for(int i = 0; i < nc; i++)
-		{
-			creepList1.getObjectWithID(i).move();
-		}
-		nc = creepList2.getSize();
-		for(int i = 0; i < nc; i++)
-		{
-			creepList2.getObjectWithID(i).move();
-		}*/
-
-		
+		//<test code>
 		if(testCreep.move())
 		{
 			cout << "end\n";
@@ -91,23 +83,9 @@ int game_host::testrun()
 			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
 		}
 		sendtop1UDP(UpdMess(1,1,23,testCreep.getX(),testCreep.getY(),100).getMT());
-		
-		//for each creep
-		//creep.move
-		//send creep update
-		cListNode<creep> *cur = NULL;
-		cur = creepList1.getStart();
-		while(cur != NULL){
-			cur->getData().move();
-			//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
-			sendMessageToQueue(UpdMess(1,1,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
-			cur = cur->getNext();
-		}
-		cur = creepList2.getStart();
-		while (cur != NULL){
-			cur->getData().move();
-			cur = cur->getNext();
-		}
+		//</test code>	
+
+
 
 		/*
 		foreach tower
@@ -115,6 +93,21 @@ int game_host::testrun()
 			do attack
 			send updates
 		*/
+
+		cur = creepList1.getStart(); //get the head of player ones creep list
+		while(cur != NULL){ //loop through the list
+			cur->getData().move(); //move each creep in the list
+			//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
+			sendMessageToQueue(UpdMess(1,1,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
+			cur = cur->getNext(); //move to next creep in list
+		}
+		cur = creepList2.getStart();
+		while (cur != NULL){
+			cur->getData().move();
+			cur = cur->getNext();
+		}
+
+
 
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent
 		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
@@ -131,13 +124,22 @@ void game_host::setNodemap()
 		{
 			Nodemap[i][j] = (Tmap[i][j] != NULL);
 		}
-
 	}
 }
 
 void game_host::updatePaths()
 {
-	
+	cListNode<creep> cur = NULL;
+	cur = creepList1.getStart();
+	while (cur != NULL){
+		cur->getData().recalcPath(Nodemap);
+		cur = cur->getNext();
+	}
+	cur = creepList2.getStart();
+	while (cur != NULL){
+		cur->getData().recalcPath(Nodemap);
+		cur = cur->getNext();
+	}
 }
 
 
