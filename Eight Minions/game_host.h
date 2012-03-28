@@ -43,8 +43,7 @@ public:
 	void updatePaths();
 
 	void setPort(unsigned int);
-	int sendUpdate(); //called by run() to send information to each player about changes in what they need to display
-	int sendUpdate(char mess[15]);
+	int sendUpdate(); //outdated- remove
 	int sendUpdate(int ToC, int id, int attr, int newVal);
 	int sendToClients(string);
 	int sendToClientsUDP(string mess);

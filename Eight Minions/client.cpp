@@ -19,11 +19,13 @@ int client::init()
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
 
+	//<test code>
 	/* Creating creeps for testing here */
 	creep n(1,1,20,20);
 	this->testc = n;
 	creep q(2,1,200,200);
 	this->testca = q;
+	//</test code>
 
 	return 1;
 }
@@ -36,18 +38,16 @@ void client::cleanup()
 }
 void client::display()
 {
-	//put down background image
 	SDL_BlitSurface(background, NULL, screen, NULL);
-	//loop through each tower and display it
-	//loop through each creep and display it
-	//display any special effects, bullets, explosions, etc
-	//display interface objects, health, money stats, etc <-maybe only update this when it changes? just an idea
 
-	//testing creeps
+	//<test code>
 	this->testc.displayCreep(screen);
-	//this->testca.displayCreep(screen);
-	//end testing
+	//</test code>
 
+	this->displayTowers();
+	this->displayCreeps();
+	this->displayMisc();
+	this->displayUI();
 	SDL_Flip(screen);
 }
 
@@ -135,7 +135,7 @@ int client::testrun()
 		this->display();
 
 
-		SDL_Delay(20);
+		SDL_Delay(20); //change this to be scaled by a timer
 	}
 
 	this->cleanup();
@@ -239,20 +239,8 @@ int client::sendToServer(string buff)
 
 int client::performUpdate(string upd)
 {
+	//use updMess here!
 
-	//temporary testing code starts here;
-	if(upd[5] == '1')
-	{
-		int x = (1000 * (upd[6] - '0')) + (100 * (upd[7] - '0')) + (10 * (upd[8] - '0')) + (upd[9] - '0');
-		this->testc.setX(x);
-		cout << "X value changed to: " << x << "\n";
-	}
-	if(upd[5] == '2')
-	{
-		int y = (1000 * (upd[6] - '0')) + (100 * (upd[7] - '0')) + (10 * (upd[8] - '0')) + (upd[9] - '0');
-		this->testc.setY(y);
-		cout << "Y value changed to: " << y << "\n";
-	}
 
 	return 0;
 }
@@ -266,9 +254,30 @@ string client::recieveMessage()
 	return buff;
 }
 
-void client::recieveMessageToQueue()
+int client::recieveMessageToQueue()
 {
-
+	//receives messages and processes them while there are messages to be received
+	string packData = recieveMessageUDP();
+	int i = 0;
+	int len = 0;
+	string temp;
+	do 
+	{
+		len = packData.length();
+		for(i = 0;i < len + 1; i++)
+		{
+			if(packData[i] != '\n' && packData[i] != '\0')
+			{
+				temp += packData[i];
+			}
+			else
+			{
+				performUpdate(temp);
+				temp = "";
+			}
+		}
+		packData = recieveMessageUDP();
+	} while (packData != "NO MESSAGE");
 }
 
 string client::recieveMessageUDP()
@@ -292,16 +301,16 @@ void client::parseQueue()
 
 void client::displayCreeps()
 {
-	int n = creeps.size();
-	for (int i = 0; i < n;i++)
+	cListNode<creep> cur = creeps.getStart();
+	while(cur != NULL)
 	{
-		creeps[i].displayCreep(screen);
+		cur->getData().displayCreep(screen);
 	}
 }
 
 void client::displayTowers()
 {
-
+	
 }
 
 void client::displayMisc()

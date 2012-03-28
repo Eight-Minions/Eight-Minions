@@ -58,7 +58,6 @@ int game_host::waitForClients()
 	this->player1ip = *SDLNet_TCP_GetPeerAddress(player1sd);
 	UDPpack1->address.port = player1ip.port;
 	UDPpack1->address.host = player1ip.host;
-
 	cout << "waiting for second player to connect...\n";
 	while(!(player2sd = SDLNet_TCP_Accept(sd)))
 		SDL_Delay(50);
@@ -86,8 +85,8 @@ int game_host::waitForClient_test()
 	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
 	this->player1ip = *SDLNet_TCP_GetPeerAddress(player1sd);
 	SDLNet_ResolveHost(&(UDPpack1->address), cl.c_str(), port);
-	/*player1ip.host = SDLNet_TCP_GetPeerAddress(player1sd)->host;
-	player1ip.port = port;
+	player2ip.host = SDLNet_TCP_GetPeerAddress(player1sd)->host;
+	player2ip.port = port;
 
 	UDPpack1->address = player1ip;*/
 
@@ -120,6 +119,9 @@ void game_host::setPort(unsigned int setPort)
 
 int game_host::sendUpdate()
 {
+	//NOTICE: WE CAN PROBABLY DELETE THIS FUNCTION, ITS UNNEEDED.
+
+
 	//send updates about the game to each player
 	//each update will be a 16 (maybe more) character text string
 	//the first character will represent the base type of update
@@ -134,13 +136,7 @@ int game_host::sendUpdate()
 	return 0;
 }
 
-int game_host::sendUpdate(char mess[15])
-{
-	string m = "1";
-	m.append(mess);
-	this->sendToClients(m);
-	return 0;
-}
+
 
 int game_host::sendUpdate(int ToC, int id, int attr, int newVal)
 {
@@ -211,9 +207,14 @@ int game_host::sendToClientsUDP(string mess)
 
 int game_host::sendtop1UDP(string mess)
 {
-	char *temp = (char *)malloc(mess.length() + 1);
-	strcpy(temp,mess.c_str());
-	strcpy((char *)UDPpack1->data,(char *) temp);
+	//char *temp = (char *)malloc(mess.length() + 1);
+	//strcpy(temp,mess.c_str());
+	//strcpy((char *)UDPpack1->data,(char *) temp);
+
+	//<test code>
+	strcpy((char*)UDPpack1->data, (char*)mess.c_str());
+	//</test code>
+
 	UDPpack1->len = mess.length() + 1;
 	SDLNet_UDP_Send(p1UDPsock,-1,UDPpack1);
 
@@ -245,10 +246,13 @@ void game_host::sendMessageToQueue(string mess)
 		sendToClientsUDP(updateCollection);
 		if(mess != "SEND")
 			updateCollection = mess;
+		else
+			updateCollection = "";
 	}
 	else
 	{
-		updateCollection += "\n";
+		if(updateCollection != "")
+			updateCollection += "\n";
 		updateCollection += mess;
 	}
 }

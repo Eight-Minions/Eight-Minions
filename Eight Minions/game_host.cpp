@@ -92,6 +92,12 @@ int game_host::testrun()
 			pick attack
 			do attack
 			send updates
+			note: attacks should be on a time delay, and possibly something like this:
+			tower picks target, waits Nms
+			tower starts attack
+			attack takes Nms
+			attack hits, creep takes damage
+			now tower waits until its attack recharges before it can attack again
 		*/
 
 		cur = creepList1.getStart(); //get the head of player ones creep list

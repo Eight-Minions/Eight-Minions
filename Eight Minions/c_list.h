@@ -173,7 +173,7 @@ cListNode<T> cList<T>::getNodeWithID(int search_id){
 			return cur;
 		cur = cur->getNext();
 	}
-	return null;
+	return NULL;
 }
 // TESTING ONLY 
 /*

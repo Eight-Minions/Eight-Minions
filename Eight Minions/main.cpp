@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[]){
 	
-	printf("Host or Connect to host? (host-1, connect-2)\n>");
+	cout << "Host or Connect to host? (host-1, connect-2) SOMEONE BUILD A NICER MENU\n>";
 	int c = 0;
 	cin >> c;
 	if(c == 1)

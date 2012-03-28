@@ -26,9 +26,11 @@ private:
 	SDL_Surface* background;
 	SDL_Event event;
 
-	vector<creep> creeps;
+	cList<creep> creeps;
+	cList<tower> towers;
 
-	queue<string> updateQueue;
+	//queue<string> updateQueue;
+	string updateQueue;
 
 	creep testc;
 	creep testca;
@@ -49,7 +51,7 @@ public:
 	int sendToServer(string);
 	string recieveMessage();
 	string recieveMessageUDP();
-	void recieveMessageToQueue();
+	int recieveMessageToQueue();
 	int performUpdate(string upd);
 	void parseQueue();
 
