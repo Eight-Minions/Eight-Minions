@@ -83,8 +83,11 @@ int game_host::waitForClient_test()
 
 	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
 	this->player1ip = *SDLNet_TCP_GetPeerAddress(player1sd);
-	SDLNet_ResolveHost(&(UDPpack1->address), "5.157.243.112", port);
+	//SDLNet_ResolveHost(&(UDPpack1->address), cl.c_str(), port);
+	player1ip.host = SDLNet_TCP_GetPeerAddress(player1sd)->host;
+	player1ip.port = port;
 
+	UDPpack1->address = player1ip;
 
 	sendtoP1_test("SIG:START");
 	cout << "client connected, continuing...\n";

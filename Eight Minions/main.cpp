@@ -9,6 +9,7 @@ int main(int argc, char* argv[]){
 	if(c == 1)
 	{
 		unsigned int port;
+
 		game_host server;
 		cout << "enter port to host on:";
 		cin >> port;

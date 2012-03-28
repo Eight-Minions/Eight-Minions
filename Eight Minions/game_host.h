@@ -27,6 +27,7 @@ private:
 
 	coord p1Base;
 	coord p2Base;
+
 	
 
 public:
