@@ -23,6 +23,7 @@ public:
 	UpdMess();
 	UpdMess(int t, int pl, int id, int cx, int cy, int ch);
 	UpdMess(int t, int pl, int ida, int idb, int atype);
+	UpdMess(int t, int pl, int id, int cx, int cy, int Ttype);
 	UpdMess(string m);
 
 	int setMess(string m);
@@ -36,6 +37,7 @@ public:
 	int getPlayer();
 
 };
+
 
 
 

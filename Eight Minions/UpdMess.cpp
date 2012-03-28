@@ -54,6 +54,12 @@ UpdMess::UpdMess( int t, int pl, int ida, int idb, int atype )
 	messText += itoa(atype,buff,10);
 }
 
+
+UpdMess::UpdMess( int t, int pl, int id, int cx, int cy, int Ttype )
+{
+	//needs to be created sometime.
+}
+
 UpdMess::UpdMess( string m )
 {
 	type = m[0] - '0';

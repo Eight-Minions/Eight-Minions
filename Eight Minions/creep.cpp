@@ -143,3 +143,8 @@ void creep::recalcPath( vector<vector<bool>> nMap )
 	p.setStart(p.getNext());
 	p.genPath(nMap);
 }
+
+int creep::getHealth()
+{
+	return health;
+}

@@ -92,12 +92,28 @@ int game_host::testrun()
 		}
 		sendtop1UDP(UpdMess(1,1,23,testCreep.getX(),testCreep.getY(),100).getMT());
 		
-		
+		//for each creep
+		//creep.move
+		//send creep update
+		cListNode<creep> *cur = NULL;
+		cur = creepList1.getStart();
+		while(cur != NULL){
+			cur->getData().move();
+			//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
+			sendMessageToQueue(UpdMess(1,1,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
+			cur = cur->getNext();
+		}
+		cur = creepList2.getStart();
+		while (cur != NULL){
+			cur->getData().move();
+			cur = cur->getNext();
+		}
 
 		/*
 		foreach tower
-		do->attack
-		send updates
+			pick attack
+			do attack
+			send updates
 		*/
 
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent
