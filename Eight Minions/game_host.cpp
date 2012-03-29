@@ -49,11 +49,14 @@ int game_host::testrun()
 	testCreep.p.setGoal(p2Base);
 	testCreep.p.genPath(Nodemap);
 
+	spawnCreep(1,2,1,p1Base);
+	spawnCreep(1,3,1,p1Base);
+	spawnCreep(2,1,1,p2Base);
+
 	int run = 1;
 	int nc = 0;
 	cListNode<creep> *cur = NULL;
 
-	int now;
 	while(run)
 	{
 		//receive input
@@ -138,8 +141,27 @@ void game_host::updatePaths()
 }
 
 void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
+	creep newCreep = creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y);
+	newCreep.p.setStart(spawnCoord);
+	
 	if(playerNumber == 1)
-		creepList1.insertInOrder(creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y));
+	{
+		newCreep.p.setGoal(p2Base);
+		newCreep.p.genPath(Nodemap);
+		creepList1.insertInOrder(newCreep);
+	}
 	else
-		creepList2.insertInOrder(creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y));
+	{
+		newCreep.p.setGoal(p1Base);
+		newCreep.p.genPath(Nodemap);
+		creepList2.insertInOrder(newCreep);
+	}
+
+	//send create creep update
+}
+
+string game_host::recieveMessageUDP()
+{
+
+	return 0;
 }

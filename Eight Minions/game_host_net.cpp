@@ -52,20 +52,28 @@ int game_host::waitForClients()
 	while(!(player1sd = SDLNet_TCP_Accept(sd))) //wait for first connection, with 50ms delay to keep CPU down
 		SDL_Delay(50);
 
-	cout << this->recieveMessagep1() << "\n"; //on successful connect, client sends a message
+	//cout << this->recieveMessagep1() << "\n"; //client sends its IP
+	string ipMess = "";
+	while(SDLNet_UDP_Recv(p1UDPsock, UDPpack1) == 0)
+		SDL_Delay(5);
+	SDLNet_UDP_Bind(p1UDPsock,10,&(UDPpack1->address));
+	
 
 	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
 	this->player1ip = *SDLNet_TCP_GetPeerAddress(player1sd);
-	UDPpack1->address.port = player1ip.port;
-	UDPpack1->address.host = player1ip.host;
+	//UDPpack1->address.port = player1ip.port;
+	//UDPpack1->address.host = player1ip.host;
 	cout << "waiting for second player to connect...\n";
 	while(!(player2sd = SDLNet_TCP_Accept(sd)))
 		SDL_Delay(50);
-	cout << this->recieveMessagep2() << "\n";
+	while(!SDLNet_UDP_Recv(p1UDPsock, UDPpack2))
+		SDL_Delay(5);
+	SDLNet_UDP_Bind(p1UDPsock,20,&(UDPpack2->address));
+	//cout << this->recieveMessagep2() << "\n";
 	SDLNet_TCP_AddSocket(socketset, player2sd); //could error check here as well
 	player2ip = *SDLNet_TCP_GetPeerAddress(player2sd);
-	UDPpack2->address.port = player2ip.port;
-	UDPpack2->address.host = player2ip.host;
+	//UDPpack2->address.port = player2ip.port;
+	//UDPpack2->address.host = player2ip.host;
 	sendToClients("SIG:START");
 	cout << "both clients connected, continuing...\n";
 	return 1;

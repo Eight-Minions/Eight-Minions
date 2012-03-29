@@ -51,6 +51,7 @@ public:
 
 	string recieveMessagep1();
 	string recieveMessagep2();
+	string recieveMessageUDP();
 
 	void sendMessageToQueue(string mess);
 	void parseQueue();
