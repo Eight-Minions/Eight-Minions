@@ -38,9 +38,9 @@ int game_host::testrun()
 	
 	//this->waitForClients();
 	//this->sendToClients("testing!!!");
-	Tmap[4][10] = new tower(500,2,3,4,10);
-	Tmap[3][11] = new tower(500,2,3,3,11);
-	Tmap[5][9] = new tower(300,2,3,5,9);
+	Tmap[4][10] = new tower(2,3,4,10);
+	Tmap[3][11] = new tower(2,3,3,11);
+	Tmap[5][9] = new tower(2,3,5,9);
 	setNodemap();
 
 	creep testCreep(1,1,p1Base.x,p1Base.y);
