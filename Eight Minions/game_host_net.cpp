@@ -88,7 +88,7 @@ int game_host::waitForClient_test()
 	player2ip.host = SDLNet_TCP_GetPeerAddress(player1sd)->host;
 	player2ip.port = port;
 
-	UDPpack1->address = player1ip;*/
+	UDPpack1->address = player1ip;
 
 	sendtoP1_test("SIG:START");
 	cout << "client connected, continuing...\n";

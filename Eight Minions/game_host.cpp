@@ -135,7 +135,7 @@ void game_host::setNodemap()
 
 void game_host::updatePaths()
 {
-	cListNode<creep> cur = NULL;
+	cListNode<creep> *cur = NULL;
 	cur = creepList1.getStart();
 	while (cur != NULL){
 		cur->getData().recalcPath(Nodemap);
