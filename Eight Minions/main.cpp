@@ -49,9 +49,6 @@ int main(int argc, char* argv[]){
 	else if(c == 4)
 	{
 		cout << "To do list:\n";
-		cout << ">fix lag on udp\n";
-		cout << ">fix udp host resolution (right now its hardcoded to travis' computer\n";
-		cout << ">weird glitch on the move function\n";
 	}
 	return 0;
 }
