@@ -1,9 +1,7 @@
 #include "creep.h"
 
-
 creep::creep(){
 }
-
 creep::creep(int t, int l, int set_x, int set_y){
 	type = t;
 	level = l;
@@ -53,21 +51,18 @@ creep::creep(int t, int l, int set_x, int set_y){
 		cout << "creep image failed to load\n";
 	}
 	// Calculate path.
-	
 }
 creep::~creep(){
-	// Kill off that Queue?
-	// sounds about right
 }
 
 int creep::damage(int d){
 	this->health = this->health - d;
-	if(this->health <= 0){
+	if(health <= 0){
 		// Remove from the list of creeps
 		// Kill this object
 		return 0;
 	}
-	return this->health;
+	return health;
 }
 
 bool creep::move(){
@@ -103,7 +98,6 @@ bool creep::move(){
 
 	}
 
-
 	if(Ydir != 0 && getYd() * Ydir >= (next.y * 16 * Ydir) + (BOARD_Y_OFFSET * Ydir))
 	{
 		if(p.isEmpty())
@@ -128,8 +122,6 @@ bool creep::move(){
 	return false;
 }
 
-
-
 void creep::displayCreep(SDL_Surface *screen)
 {
 	//blah
@@ -146,5 +138,9 @@ void creep::recalcPath( vector<vector<bool>> nMap )
 
 int creep::getHealth()
 {
+	return health;
+}
+int creep::setHealth(int newHealth){
+	health = newHealth;
 	return health;
 }

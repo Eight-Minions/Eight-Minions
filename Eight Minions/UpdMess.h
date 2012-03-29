@@ -2,12 +2,16 @@
 #define UPDMESS_H
 #include "resources.h"
 #include <string>
+#include <vector>
 
 using std::string;
+using std::vector;
 
 #define CREEP 0
 #define TOWER 1
 #define TOWERATTACK 2
+
+#define MAX_NUM_VAL 5
 
 class UpdMess{
 public:
@@ -17,20 +21,18 @@ public:
 	~UpdMess();
 	int setMess(string m);
 	string getMT();
-	int getType();
-	int getVala();
-	int getValb();
-	int getValc();
+
+	int getVal(int n);
 	int getId1();
 	int getId2();
+	int getType();
+
 	int getPlayer();
 private:
 	string messText;
-	int type;
-	int vala;
-	int valb;
-	int valc;
+	vector<int> val;
 	int p;
+	int type;
 	int id1;
 	int id2;
 };

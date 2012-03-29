@@ -20,6 +20,10 @@
 #define MAPSIZE_X 35
 #define MAPSIZE_Y 21
 
+#define CREEP 0
+#define TOWER 1
+#define TOWERATTACK 2
+
 using std::cout;
 using std::cin;
 using std::endl;

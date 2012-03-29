@@ -71,7 +71,6 @@ int client::run()
 		this->parseQueue();
 		this->display();
 
-
 		SDL_Delay(20);
 	}
 
@@ -126,8 +125,8 @@ int client::testrun()
 		//<test code>
 		while(testMess.setMess(this->recieveMessageUDP()))
 		{
-			testc.setX((double)testMess.getVala());
-			testc.setY((double)testMess.getValb());
+			testc.setX((double)testMess.getVal(0));
+			testc.setY((double)testMess.getVal(1));
 			cout << testc.getX() << " " << testc.getY() << "\n";
 		}
 
@@ -239,10 +238,31 @@ int client::sendToServer(string buff)
 
 int client::performUpdate(string upd)
 {
-	//use updMess here!
+	int updateType = 0;
+	UpdMess update(upd);
+	updateType = update.getType();
+	if(updateType == CREEP){
+		if(creeps.checkForObjectWithID(update.getId1())){
+			creeps.getObjectWithID(update.getId1()).setX(update.getVal(0));
+			creeps.getObjectWithID(update.getId1()).setY(update.getVal(1));
+			creeps.getObjectWithID(update.getId1()).setHealth(update.getVal(2));
+		}
+		else{
+			creeps.insertInOrder(creep(update.getVal(3),update.getVal(4), update.getVal(0), update.getVal(1)));
+			creeps.getObjectWithID(update.getId1()).setHealth(update.getVal(2));
+		}
+	}
+	else if(updateType == TOWER){
+
+	}
+	else if(updateType == TOWERATTACK){
 
 
-	return 0;
+	}
+	else{
+		return 0;
+	}
+	return 1;
 }
 
 string client::recieveMessage()
