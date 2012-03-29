@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Eight Minions", "Eight Minions\Eight Minions.vcproj", "{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Eight Minions Setup", "Eight Minions Setup\Eight Minions Setup.vdproj", "{EAC85E43-9B84-496E-A65E-BB39A1B91A65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}.Debug|Win32.Build.0 = Debug|Win32
 		{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}.Release|Win32.ActiveCfg = Release|Win32
 		{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}.Release|Win32.Build.0 = Release|Win32
+		{EAC85E43-9B84-496E-A65E-BB39A1B91A65}.Debug|Win32.ActiveCfg = Debug
+		{EAC85E43-9B84-496E-A65E-BB39A1B91A65}.Debug|Win32.Build.0 = Debug
+		{EAC85E43-9B84-496E-A65E-BB39A1B91A65}.Release|Win32.ActiveCfg = Release
+		{EAC85E43-9B84-496E-A65E-BB39A1B91A65}.Release|Win32.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

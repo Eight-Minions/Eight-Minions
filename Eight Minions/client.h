@@ -16,7 +16,7 @@ class client
 private:
 	string server_addr;
 	unsigned int port;
-	IPaddress ip;
+	IPaddress *ip;
 	TCPsocket sd;
 	SDLNet_SocketSet socketset;
 	UDPsocket UDPsock;

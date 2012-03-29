@@ -11,7 +11,7 @@ class game_host
 {
 private:
 	unsigned int port;
-	IPaddress ip, player1ip, player2ip;
+	IPaddress ip, *player1ip, *player2ip;
 	TCPsocket sd;
 	TCPsocket player1sd, player2sd;
 	SDLNet_SocketSet socketset;

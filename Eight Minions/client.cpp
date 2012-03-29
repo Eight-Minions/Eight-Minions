@@ -18,7 +18,6 @@ int client::init()
 
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
-
 	//<test code>
 	/* Creating creeps for testing here */
 	creep n(1,1,20,20);
@@ -180,14 +179,14 @@ int client::connectToServer()
 		fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
-
-	if (SDLNet_ResolveHost(&ip, this->server_addr.c_str(), this->port) < 0)
+	this->ip = new IPaddress;
+	if (SDLNet_ResolveHost(ip, this->server_addr.c_str(), this->port) < 0)
 	{
 		fprintf(stderr, "SDLNet_ResolveHost: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
 
-	if (!(sd = SDLNet_TCP_Open(&ip)))
+	if (!(sd = SDLNet_TCP_Open(ip)))
 	{
 		fprintf(stderr, "SDLNet_TCP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -204,6 +203,13 @@ int client::connectToServer()
 
 	/* test sending something to the server */
 	string buff = "Client Connected!";
+	
+	SDLNet_ResolveHost(ip, this->server_addr.c_str(),port);
+	UDPpack->address = *ip;
+	strcpy((char*)UDPpack->data, "test");
+	UDPpack->len = 5;
+	SDLNet_UDP_Send(UDPsock,-1,UDPpack);
+
 	SDLNet_TCP_Send(sd, (void *)buff.c_str(), buff.length()+1);
 	char temp[32];
 	SDLNet_TCP_Recv(sd, temp, 32);
