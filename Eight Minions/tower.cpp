@@ -1,6 +1,8 @@
 #include "tower.h"
 
-tower::tower(int h, int l, int t, int set_x, int set_y){
+tower::tower(){
+}
+tower::tower(int l, int t, int set_x, int set_y){
 	level = l;
 	type = t;
 	this->setX(set_x);
@@ -11,6 +13,10 @@ int tower::getLevel(){
 }
 int tower::getType(){
 	return this->type;
+}
+int tower::setType(int newType){
+	type = newType;
+	return type;
 }
 tower::~tower(){
 }
@@ -28,4 +34,10 @@ void damageClosestCreepTo(int radius, location *position){
 }
 void tower::damageClosestCreep(int radius){
 	 damageClosestCreepTo(radius, new location(this->getX(), this->getY()));
+}
+
+void tower::displayTower(SDL_Surface *screen){
+	this->r->x = this->getX();
+	this->r->y = this->getY();
+	SDL_BlitSurface(this->img, NULL, screen, r);
 }

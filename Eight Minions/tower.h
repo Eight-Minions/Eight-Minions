@@ -6,7 +6,6 @@
 class tower : public location
 {	
 private:
-	int health;
 	int level;
 	//J:
 	//to go along with level, do we want towers to have experience?
@@ -18,11 +17,15 @@ private:
 	int attackSpeed;
 	int attackType;
 	SDL_Surface *img;
+	SDL_Rect *r; 
+
 public:
-	tower(int health, int level, int type, int x , int y);
+	tower();
+	tower(int level, int type, int x , int y);
 	~tower();
 	int getLevel();
 	int getType();
+	int setType(int newType);
 
 	void displayTower(SDL_Surface *screen);
 

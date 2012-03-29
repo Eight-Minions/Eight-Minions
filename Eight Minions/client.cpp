@@ -253,6 +253,11 @@ int client::performUpdate(string upd)
 		}
 	}
 	else if(updateType == TOWER){
+		if(towers.checkForObjectWithID(update.getId1())){
+			towers.getObjectWithID(update.getId1()).setX(update.getVal(0));
+			towers.getObjectWithID(update.getId1()).setY(update.getVal(1));
+			towers.getObjectWithID(update.getId1()).setType(update.getVal(2));
+		}
 
 	}
 	else if(updateType == TOWERATTACK){
@@ -331,7 +336,10 @@ void client::displayCreeps()
 
 void client::displayTowers()
 {
-	
+	cListNode<tower> *cur = towers.getStart();
+	while (cur != NULL){
+		cur->getData().displayTower(screen);
+	}
 }
 
 void client::displayMisc()
