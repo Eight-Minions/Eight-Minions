@@ -37,7 +37,6 @@ private:
 
 public:
 	Path p;
-
 	creep(int type, int level, int x, int y);
 	creep();
 	~creep();

@@ -29,31 +29,34 @@ private:
 
 	coord p1Base;
 	coord p2Base;
-	
-
-	
 
 public:
 	int init();
 	int init_net();
+	void setPort(unsigned int);
 	int waitForClients();
+	int waitForClient_test();
+
 	int run(); //runs the game itself
 	int testrun();
+
 	void setNodemap();
 	void updatePaths();
+	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord;
 
-	void setPort(unsigned int);
 	int sendUpdate(); //outdated- remove
 	int sendUpdate(int ToC, int id, int attr, int newVal);
 	int sendToClients(string);
 	int sendToClientsUDP(string mess);
+
 	string recieveMessagep1();
 	string recieveMessagep2();
+
 	void sendMessageToQueue(string mess);
 	void parseQueue();
+
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);
-	int waitForClient_test();
 };
 
 #endif

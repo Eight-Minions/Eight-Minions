@@ -9,7 +9,6 @@ int game_host::init()
 		Tmap[i].resize(MAPSIZE_Y);
 		Nodemap[i].resize(MAPSIZE_Y);
 	}
-
 	p1Base.x = 0;
 	p1Base.y = 10;
 	p2Base.x = 34;
@@ -23,18 +22,10 @@ int game_host::run()
 	this->init();
 	this->waitForClients();
 	//this->sendToClients("testing!!!");
-
-
 	while(1)
 	{
-
-		
-		
-		
 		SDL_Delay(30);
 	}
-
-
 	//runs the game itself
 	return 0;
 }
@@ -61,9 +52,7 @@ int game_host::testrun()
 	int run = 1;
 	int nc = 0;
 	cListNode<creep> *cur = NULL;
-	//
 
-	//
 	int now;
 	while(run)
 	{
@@ -148,4 +137,9 @@ void game_host::updatePaths()
 	}
 }
 
-
+void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
+	if(playerNumber == 1)
+		creepList1.insertInOrder(creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y));
+	else
+		creepList2.insertInOrder(creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y));
+}

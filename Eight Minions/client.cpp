@@ -278,6 +278,7 @@ int client::recieveMessageToQueue()
 		}
 		packData = recieveMessageUDP();
 	} while (packData != "NO MESSAGE");
+	return 0;
 }
 
 string client::recieveMessageUDP()
@@ -301,7 +302,7 @@ void client::parseQueue()
 
 void client::displayCreeps()
 {
-	cListNode<creep> cur = creeps.getStart();
+	cListNode<creep> *cur = creeps.getStart();
 	while(cur != NULL)
 	{
 		cur->getData().displayCreep(screen);
