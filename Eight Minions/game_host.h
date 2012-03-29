@@ -42,7 +42,7 @@ public:
 
 	void setNodemap();
 	void updatePaths();
-	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord;
+	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord);
 
 	int sendUpdate(); //outdated- remove
 	int sendUpdate(int ToC, int id, int attr, int newVal);
