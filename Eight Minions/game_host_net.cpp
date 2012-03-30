@@ -51,13 +51,11 @@ int game_host::waitForClients()
 	cout << "waiting for first player to connect...\n";
 	while(!(player1sd = SDLNet_TCP_Accept(sd))) //wait for first connection, with 50ms delay to keep CPU down
 		SDL_Delay(50);
-
-	cout << this->recieveMessagep1() << "\n"; //client sends its IP
 	string ipMess = "";
 	while(SDLNet_UDP_Recv(p1UDPsock, UDPpack1) == 0)
 		SDL_Delay(5);
 	SDLNet_UDP_Bind(p1UDPsock,10,&(UDPpack1->address));
-	
+	cout << this->recieveMessagep1() << "\n"; //client sends its IP
 
 	SDLNet_TCP_AddSocket(socketset, player1sd); //could error check here
 	this->player1ip = SDLNet_TCP_GetPeerAddress(player1sd);

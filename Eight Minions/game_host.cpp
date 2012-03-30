@@ -102,15 +102,12 @@ int game_host::testrun()
 		cur = creepList2.getStart();
 		while (cur != NULL){
 			cur->getData().move();
+			sendMessageToQueue(UpdMess(2,1,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
 			cur = cur->getNext();
 		}
-
-
-
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent
 		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
 	}
-
 	return 0;
 }
 

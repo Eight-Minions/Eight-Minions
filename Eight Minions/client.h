@@ -36,6 +36,7 @@ private:
 	creep testca;
 
 public:
+	client();
 	int init();
 	void cleanup();
 	void display();
