@@ -79,9 +79,6 @@ int game_host::waitForClients()
 
 int game_host::waitForClient_test()
 {
-	string cl;
-	cout << "clients address:";
-	cin >> cl;
 	cout << "waiting for first player to connect...\n";
 	while(!(player1sd = SDLNet_TCP_Accept(sd))) //wait for first connection, with 50ms delay to keep CPU down
 		SDL_Delay(50);
@@ -99,7 +96,7 @@ int game_host::waitForClient_test()
 	//player2ip->host = SDLNet_TCP_GetPeerAddress(player1sd)->host;
 	//player2ip->port = port;
 
-	UDPpack1->address = *player1ip;
+	//UDPpack1->address = *player1ip;
 
 	sendtoP1_test("SIG:START");
 	cout << "client connected, continuing...\n";
@@ -206,13 +203,13 @@ int game_host::sendToClientsUDP(string mess)
 	strcpy(temp,mess.c_str());
 	strcpy((char *)UDPpack1->data,(char *) temp);
 	UDPpack1->len = mess.length();
-	SDLNet_UDP_Send(p1UDPsock,-1,UDPpack1);
+	SDLNet_UDP_Send(p1UDPsock,10,UDPpack1); //<--should send to both clients
 
-
+	/*
 	strcpy((char *)UDPpack2->data, mess.c_str());
 	UDPpack2->len = mess.length();
 	SDLNet_UDP_Send(p1UDPsock,-1,UDPpack2);
-	free(temp);
+	free(temp);*/
 	return 0;
 }
 
