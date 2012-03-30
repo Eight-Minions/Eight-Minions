@@ -66,6 +66,8 @@ int creep::damage(int d){
 }
 
 bool creep::move(){
+	//moves creep towards its goal along its generated path by one unit of its speed
+	//returns true when creep reaches goal, false otherwise
 	coord next = p.getNext();
 
 	Xdir = next.x - prevPos.x;
@@ -73,7 +75,6 @@ bool creep::move(){
 
 	setX(getXd() + (speed * Xdir * CLOCK_CAP));
 	setY(getYd() + (speed * Ydir * CLOCK_CAP));
-
 
 	if(Xdir != 0 && getXd() * Xdir >= (next.x * 16 * Xdir) + (BOARD_X_OFFSET * Xdir))
 	{

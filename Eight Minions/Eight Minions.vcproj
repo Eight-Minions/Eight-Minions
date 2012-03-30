@@ -176,15 +176,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\creep.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\game_host.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\game_host_net.cpp"
 				>
 			</File>
 			<File
@@ -192,21 +184,49 @@
 				>
 			</File>
 			<File
-				RelativePath=".\path.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\resources.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\tower.cpp"
+			<Filter
+				Name="Networking"
 				>
-			</File>
-			<File
-				RelativePath=".\UpdMess.cpp"
+				<File
+					RelativePath=".\client_net.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\game_host_net.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\UpdMess.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Entities"
 				>
-			</File>
+				<File
+					RelativePath=".\creep.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\path.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\tower.cpp"
+					>
+				</File>
+				<Filter
+					Name="Subclasses"
+					>
+					<File
+						RelativePath=".\standard_tower.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -226,10 +246,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\creep.h"
-				>
-			</File>
-			<File
 				RelativePath=".\EMlist.h"
 				>
 			</File>
@@ -238,21 +254,37 @@
 				>
 			</File>
 			<File
-				RelativePath=".\path.h"
-				>
-			</File>
-			<File
 				RelativePath=".\resources.h"
 				>
 			</File>
 			<File
-				RelativePath=".\tower.h"
+				RelativePath=".\UpdMess.h"
 				>
 			</File>
-			<File
-				RelativePath=".\UdpMess.h"
+			<Filter
+				Name="Entities"
 				>
-			</File>
+				<File
+					RelativePath=".\creep.h"
+					>
+				</File>
+				<File
+					RelativePath=".\path.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tower.h"
+					>
+				</File>
+				<Filter
+					Name="Subclasses"
+					>
+					<File
+						RelativePath=".\standard_tower.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
