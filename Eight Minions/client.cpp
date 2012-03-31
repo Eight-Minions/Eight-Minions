@@ -126,14 +126,14 @@ int client::testrun()
 		}
 
 		//<test code>
-		while(testMess.setMess(this->recieveMessageUDP()))
+		/*while(testMess.setMess(this->recieveMessageUDP()))
 		{
 			testc.setX((double)testMess.getVal(0));
 			testc.setY((double)testMess.getVal(1));
 			cout << testc.getX() << " " << testc.getY() << "\n";
-		}
-
+		}*/
 		//</test code>
+		recieveMessageToQueue();
 		this->display();
 
 

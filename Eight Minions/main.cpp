@@ -2,7 +2,7 @@
 #include "client.h"
 
 int main(int argc, char* argv[]){
-	cout << "build 0.05\n\n";
+	cout << "build 0.07\n\n";
 	cout << "Host or Connect to host? (host-1, connect-2) SOMEONE BUILD A NICER MENU\n>";
 	int c = 0;
 	cin >> c;

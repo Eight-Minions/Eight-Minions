@@ -152,7 +152,7 @@ int client::recieveMessageToQueue()
 	int i = 0;
 	int len = 0;
 	string temp;
-	do 
+	while (packData != "NO MESSAGE")
 	{
 		len = packData.length();
 		for(i = 0;i < len + 1; i++)
@@ -168,7 +168,7 @@ int client::recieveMessageToQueue()
 			}
 		}
 		packData = recieveMessageUDP();
-	} while (packData != "NO MESSAGE");
+	}
 	return 0;
 }
 

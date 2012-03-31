@@ -4,17 +4,7 @@
 #include "resources.h"
 #include "path.h"
 
-#define NORM 0  // average everything
-#define FAST 1  // low armor, low health, high speed, and medium numbers
-#define TANK 2  // high armor, medium health, low speed, low numbers
-#define SWARM 3 // low armor, low health, average speed, high numbers
-#define TITAN 4 // high armor, high health, average speed, very low numbers
-#define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
-#define BOARD_X_OFFSET 38
-#define BOARD_Y_OFFSET 38
-
-#define CLOCK_CAP .15
 
 class creep : public location
 {

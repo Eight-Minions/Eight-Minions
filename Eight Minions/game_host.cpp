@@ -64,6 +64,7 @@ int game_host::testrun()
 		//process input
 		//go through message queue and decide what to do for each one
 		
+		/*
 		//<test code>
 		if(testCreep.move())
 		{
@@ -75,7 +76,7 @@ int game_host::testrun()
 			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
 		}
 		sendtop1UDP(UpdMess(1,CREEP,23,testCreep.getX(),testCreep.getY(),100).getMT());
-		//</test code>	
+		//</test code>	*/
 
 
 
@@ -91,18 +92,20 @@ int game_host::testrun()
 			attack hits, creep takes damage
 			now tower waits until its attack recharges before it can attack again
 		*/
-		/*
+		
 		cur = creepList1.getStart(); //get the head of player ones creep list
 		while(cur != NULL){ //loop through the list
 			cur->getData().move(); //move each creep in the list
 			//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
 			sendMessageToQueue(UpdMess(1,CREEP,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
+			cout << cur->getData().getX() << " " << cur->getData().getY() << "\n";
 			cur = cur->getNext(); //move to next creep in list
 		}
 		cur = creepList2.getStart();
 		while (cur != NULL){
 			cur->getData().move();
 			sendMessageToQueue(UpdMess(2,CREEP,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
+			cout << cur->getData().getX() << " " << cur->getData().getY() << "\n";
 			cur = cur->getNext();
 		}
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent*/
