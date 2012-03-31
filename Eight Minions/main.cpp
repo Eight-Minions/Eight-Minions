@@ -49,6 +49,7 @@ int main(int argc, char* argv[]){
 	else if(c == 4)
 	{
 		cout << "To do list:\n";
+		cout << ">change the creeps so that the creeps dont load their own images\n\tinstead, have the client load them all\n";
 	}
 	system("pause");
 	return 0;

@@ -110,6 +110,9 @@ int UpdMess::setMess(string m){
 	if(m == "NO MESSAGE"){
 		return 0;
 	}
+	for(int i = 0; i < MAX_NUM_VAL; i++){
+		val.push_back(0);
+	}
 	type = m[0] - '0';
 	p = m[1] - '0';
 	if(type == CREEP){
