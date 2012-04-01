@@ -2,7 +2,7 @@
 #include "client.h"
 
 int main(int argc, char* argv[]){
-	cout << "build 0.07\n\n";
+	cout << "Build 0.11\n\n";
 	cout << "Host or Connect to host? (host-1, connect-2) SOMEONE BUILD A NICER MENU\n>";
 	int c = 0;
 	cin >> c;
@@ -50,6 +50,9 @@ int main(int argc, char* argv[]){
 	{
 		cout << "To do list:\n";
 		cout << ">change the creeps so that the creeps dont load their own images\n\tinstead, have the client load them all\n";
+		cout << ">send towers so client displays them\n";
+		cout << ">resolve problem with the lists, (server has only one while client has two\n\tcauses id finding problems)\n";
+		cout << ">find a way to keep track of players, money, health, upgrades, etc\n";
 	}
 	system("pause");
 	return 0;

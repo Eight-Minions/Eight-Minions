@@ -26,14 +26,11 @@ private:
 	SDL_Surface* background;
 	SDL_Event event;
 
-	cList<creep> creeps;
-	cList<tower> towers;
+	cList<creep*> creeps;
+	cList<tower*> towers;
 
 	//queue<string> updateQueue;
 	string updateQueue;
-
-	creep testc;
-	creep testca;
 
 public:
 	client();

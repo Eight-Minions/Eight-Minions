@@ -22,9 +22,9 @@ private:
 	vector<vector<tower*>> Tmap;
 	vector<vector<bool>> Nodemap;
 
-	cList<creep> creepList1;
+	cList<creep*> creepList1;
 	int p1numCreeps;
-	cList<creep> creepList2;
+	cList<creep*> creepList2;
 	int p2numCreeps;
 
 	coord p1Base;
@@ -49,7 +49,6 @@ public:
 
 	string recieveMessagep1();
 	string recieveMessagep2();
-	string recieveMessageUDP();
 
 	void sendMessageToQueue(string mess);
 	void parseQueue();

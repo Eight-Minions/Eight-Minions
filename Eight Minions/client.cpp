@@ -22,14 +22,6 @@ int client::init()
 
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
-	//<test code>
-	/* Creating creeps for testing here */
-	creep n(1,1,20,20);
-	this->testc = n;
-	creep q(2,1,200,200);
-	this->testca = q;
-	//</test code>
-
 	return 1;
 }
 
@@ -43,9 +35,7 @@ void client::display()
 {
 	SDL_BlitSurface(background, NULL, screen, NULL);
 
-	//<test code>
-	this->testc.displayCreep(screen);
-	//</test code>
+
 
 	this->displayTowers();
 	this->displayCreeps();
@@ -125,14 +115,6 @@ int client::testrun()
 			}
 		}
 
-		//<test code>
-		/*while(testMess.setMess(this->recieveMessageUDP()))
-		{
-			testc.setX((double)testMess.getVal(0));
-			testc.setY((double)testMess.getVal(1));
-			cout << testc.getX() << " " << testc.getY() << "\n";
-		}*/
-		//</test code>
 		recieveMessageToQueue();
 		this->display();
 
@@ -152,18 +134,20 @@ void client::parseQueue()
 
 void client::displayCreeps()
 {
-	cListNode<creep> *cur = creeps.getStart();
+	cListNode<creep*> *cur = creeps.getStart();
 	while(cur != NULL)
 	{
-		cur->getData().displayCreep(screen);
+		cur->getData()->displayCreep(screen);
+		cur = cur->getNext();
 	}
 }
 
 void client::displayTowers()
 {
-	cListNode<tower> *cur = towers.getStart();
+	cListNode<tower*> *cur = towers.getStart();
 	while (cur != NULL){
-		cur->getData().displayTower(screen);
+		cur->getData()->displayTower(screen);
+		cur = cur->getNext();
 	}
 }
 

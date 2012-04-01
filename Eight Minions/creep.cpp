@@ -68,6 +68,11 @@ int creep::damage(int d){
 bool creep::move(){
 	//moves creep towards its goal along its generated path by one unit of its speed
 	//returns true when creep reaches goal, false otherwise
+	if(p.isEmpty())
+	{
+		cout << "creep has reached its goal, please kill it off\n";
+		return true;
+	}
 	coord next = p.getNext();
 
 	Xdir = next.x - prevPos.x;

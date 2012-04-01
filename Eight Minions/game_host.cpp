@@ -35,7 +35,7 @@ int game_host::testrun()
 	this->init();
 	this->init_net();
 	this->waitForClient_test();
-	
+
 	//this->waitForClients();
 	//this->sendToClients("testing!!!");
 	Tmap[4][10] = new tower(2,3,4,10);
@@ -52,10 +52,11 @@ int game_host::testrun()
 	spawnCreep(1,2,1,p1Base);
 	spawnCreep(1,3,1,p1Base);
 	spawnCreep(2,1,1,p2Base);
+	spawnCreep(2,2,2,p2Base);
 
 	int run = 1;
 	int nc = 0;
-	cListNode<creep> *cur = NULL;
+	cListNode<creep*> *cur = NULL;
 
 	while(run)
 	{
@@ -63,17 +64,17 @@ int game_host::testrun()
 		//receiveMessagesToQueue
 		//process input
 		//go through message queue and decide what to do for each one
-		
+
 		/*
 		//<test code>
 		if(testCreep.move())
 		{
-			cout << "end\n";
-			return 1;
+		cout << "end\n";
+		return 1;
 		}
 		else
 		{
-			cout << testCreep.getX() << " " << testCreep.getY() << "\n";
+		cout << testCreep.getX() << " " << testCreep.getY() << "\n";
 		}
 		sendtop1UDP(UpdMess(1,CREEP,23,testCreep.getX(),testCreep.getY(),100).getMT());
 		//</test code>	*/
@@ -82,30 +83,43 @@ int game_host::testrun()
 
 		/*
 		foreach tower
-			pick attack
-			do attack
-			send updates
-			note: attacks should be on a time delay, and possibly something like this:
-			tower picks target, waits Nms
-			tower starts attack
-			attack takes Nms
-			attack hits, creep takes damage
-			now tower waits until its attack recharges before it can attack again
+		pick attack
+		do attack
+		send updates
+		note: attacks should be on a time delay, and possibly something like this:
+		tower picks target, waits Nms
+		tower starts attack
+		attack takes Nms
+		attack hits, creep takes damage
+		now tower waits until its attack recharges before it can attack again
 		*/
-		
+
 		cur = creepList1.getStart(); //get the head of player ones creep list
 		while(cur != NULL){ //loop through the list
-			cur->getData().move(); //move each creep in the list
-			//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
-			sendMessageToQueue(UpdMess(1,CREEP,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
-			cout << cur->getData().getX() << " " << cur->getData().getY() << "\n";
+			if(cur->getData()->move()) //move each creep in the list
+			{
+				creepList1.deleteNode(cur->getIndex());
+			}
+			else
+			{
+				//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
+				sendMessageToQueue(UpdMess(1,CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
+				cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
+			}
 			cur = cur->getNext(); //move to next creep in list
 		}
 		cur = creepList2.getStart();
 		while (cur != NULL){
-			cur->getData().move();
-			sendMessageToQueue(UpdMess(2,CREEP,cur->getIndex(),cur->getData().getX(),cur->getData().getY(),cur->getData().getHealth()).getMT());
-			cout << cur->getData().getX() << " " << cur->getData().getY() << "\n";
+			if(cur->getData()->move())
+			{
+				creepList2.deleteNode(cur->getIndex());
+				//do->lower enemies health
+			}
+			else
+			{
+				sendMessageToQueue(UpdMess(2,CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
+				cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
+			}
 			cur = cur->getNext();
 		}
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent*/
@@ -127,41 +141,36 @@ void game_host::setNodemap()
 
 void game_host::updatePaths()
 {
-	cListNode<creep> *cur = NULL;
+	cListNode<creep*> *cur = NULL;
 	cur = creepList1.getStart();
 	while (cur != NULL){
-		cur->getData().recalcPath(Nodemap);
+		cur->getData()->recalcPath(Nodemap);
 		cur = cur->getNext();
 	}
 	cur = creepList2.getStart();
 	while (cur != NULL){
-		cur->getData().recalcPath(Nodemap);
+		cur->getData()->recalcPath(Nodemap);
 		cur = cur->getNext();
 	}
 }
 
 void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
-	creep newCreep = creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y);
-	newCreep.p.setStart(spawnCoord);
-	
+	creep *newCreep = new creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y);
+	newCreep->p.setStart(spawnCoord);
+
 	if(playerNumber == 1)
 	{
-		newCreep.p.setGoal(p2Base);
-		newCreep.p.genPath(Nodemap);
+		newCreep->p.setGoal(p2Base);
+		newCreep->p.genPath(Nodemap);
 		creepList1.insertInOrder(newCreep);
 	}
 	else
 	{
-		newCreep.p.setGoal(p1Base);
-		newCreep.p.genPath(Nodemap);
+		newCreep->p.setGoal(p1Base);
+		newCreep->p.genPath(Nodemap);
 		creepList2.insertInOrder(newCreep);
 	}
 
 	//send create creep update
 }
 
-string game_host::recieveMessageUDP()
-{
-
-	return 0;
-}
