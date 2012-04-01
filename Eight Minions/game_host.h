@@ -43,6 +43,7 @@ public:
 	void setNodemap();
 	void updatePaths();
 	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord);
+	int placeTower(int playerNumber, int towerType, coord c);
 
 	int sendToClients(string);
 	int sendToClientsUDP(string mess);

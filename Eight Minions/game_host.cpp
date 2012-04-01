@@ -36,8 +36,6 @@ int game_host::testrun()
 	this->init_net();
 	this->waitForClient_test();
 
-	//this->waitForClients();
-	//this->sendToClients("testing!!!");
 	Tmap[4][10] = new tower(2,3,4,10);
 	Tmap[3][11] = new tower(2,3,3,11);
 	Tmap[5][9] = new tower(2,3,5,9);
@@ -170,7 +168,11 @@ void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coor
 		newCreep->p.genPath(Nodemap);
 		creepList2.insertInOrder(newCreep);
 	}
+}
 
-	//send create creep update
+int game_host::placeTower( int playerNumber, int towerType, coord c )
+{
+	Tmap[c.x][c.y] = new tower(0,towerType,c.x,c.y);
+	//////////////////////////////////////////////////////////////////////////
 }
 
