@@ -47,7 +47,7 @@ int main(int argc, char* argv[]){
 		cout << "To do list:\n";
 		cout << ">change the creeps so that the creeps dont load their own images\n\tinstead, have the client load them all\n";
 		cout << ">send towers so client displays them\n";
-		cout << ">resolve problem with the lists, (server has only one while client has two\n\tcauses id finding problems)\n";
+		cout << ">Tower messages dont work quite right\n";
 		cout << ">find a way to keep track of players, money, health, upgrades, etc\n";
 	}
 	system("pause");
