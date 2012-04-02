@@ -1,7 +1,6 @@
 #ifndef TOWER_H
 #define TOWER_H
 #include "resources.h"
-#include "creep.h"
 
 class tower : public location
 {	

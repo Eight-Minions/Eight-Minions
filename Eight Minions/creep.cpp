@@ -2,9 +2,10 @@
 
 creep::creep(){
 }
-creep::creep(int t, int l, int set_x, int set_y){
+creep::creep(int t, int p, int l, int set_x, int set_y){
 	type = t;
 	level = l;
+	player = p;
 	health = 0;
 	speed = 0;
 	prevPos.x = set_x;
@@ -149,4 +150,14 @@ int creep::getHealth()
 int creep::setHealth(int newHealth){
 	health = newHealth;
 	return health;
+}
+
+int creep::getPlayer()
+{
+	return player;
+}
+
+void creep::setPlayer( int p )
+{
+	player = p;
 }

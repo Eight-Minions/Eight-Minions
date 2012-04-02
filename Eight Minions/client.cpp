@@ -28,6 +28,8 @@ int client::init()
 void client::cleanup()
 {
 	//do all freeing of memory and cleanup type stuff here
+
+	cout << "Cleanup needs more work\n";
 	SDL_free(background);
 	SDL_Quit();
 }

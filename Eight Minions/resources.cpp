@@ -33,3 +33,9 @@ double location::getYd()
 	return y;
 }
 
+coord location::gC( int x, int y )
+{
+	coord n = {x,y};
+	return n;
+}
+

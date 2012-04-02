@@ -2,13 +2,11 @@
 #define CREEP_H
 
 #include "resources.h"
-#include "path.h"
-
-
 
 class creep : public location
 {
 private:
+	int player;
 	int health;
 	int armor;
 	int speed;
@@ -24,7 +22,7 @@ private:
 public:
 	Path p;
 
-	creep(int type, int level, int x, int y);
+	creep(int type, int pl, int level, int x, int y);
 	creep();
 	~creep();
 
@@ -34,9 +32,12 @@ public:
 	int damage(int damage);
 	int getHealth();
 	int setHealth(int newHealth);
+	int getPlayer();
 
 	void displayCreep(SDL_Surface *screen);
 	void updateAnim();
+	void setPlayer( int p );
+
 };
 
 #endif

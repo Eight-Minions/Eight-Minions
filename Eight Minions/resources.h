@@ -14,6 +14,7 @@
 #include "SDL_image.h"
 #include "c_list.h"
 #include "UpdMess.h"
+#include "path.h"
 
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
 
@@ -59,6 +60,7 @@ public:
 	double getYd();
 	void setX(double new_x);
 	void setY(double new_y);
+	coord gC(int x, int y);
 };
 
 #endif

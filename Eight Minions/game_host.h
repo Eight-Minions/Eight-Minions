@@ -22,10 +22,9 @@ private:
 	vector<vector<tower*>> Tmap;
 	vector<vector<bool>> Nodemap;
 
-	cList<creep*> creepList1;
-	int p1numCreeps;
-	cList<creep*> creepList2;
-	int p2numCreeps;
+	cList<creep*> creepList;
+	int numCreeps;
+
 
 	coord p1Base;
 	coord p2Base;
@@ -43,7 +42,7 @@ public:
 	void setNodemap();
 	void updatePaths();
 	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord);
-	int placeTower(int playerNumber, int towerType, coord c);
+	int placeTower(int playerNumber, int towerType, int x, int y);
 
 	int sendToClients(string);
 	int sendToClientsUDP(string mess);

@@ -36,16 +36,13 @@ int game_host::testrun()
 	this->init_net();
 	this->waitForClient_test();
 
-	Tmap[4][10] = new tower(2,3,4,10);
-	Tmap[3][11] = new tower(2,3,3,11);
-	Tmap[5][9] = new tower(2,3,5,9);
+	placeTower(1,1,4,9);
+	placeTower(1,1,11,11);
+	placeTower(1,1,3,9);
+	placeTower(1,1,15,8);
+	placeTower(1,1,14,9);
+	placeTower(1,1,5,10);
 	setNodemap();
-
-	creep testCreep(1,1,p1Base.x,p1Base.y);
-
-	testCreep.p.setStart(p1Base);
-	testCreep.p.setGoal(p2Base);
-	testCreep.p.genPath(Nodemap);
 
 	spawnCreep(1,2,1,p1Base);
 	spawnCreep(1,3,1,p1Base);
@@ -64,22 +61,6 @@ int game_host::testrun()
 		//go through message queue and decide what to do for each one
 
 		/*
-		//<test code>
-		if(testCreep.move())
-		{
-		cout << "end\n";
-		return 1;
-		}
-		else
-		{
-		cout << testCreep.getX() << " " << testCreep.getY() << "\n";
-		}
-		sendtop1UDP(UpdMess(1,CREEP,23,testCreep.getX(),testCreep.getY(),100).getMT());
-		//</test code>	*/
-
-
-
-		/*
 		foreach tower
 		pick attack
 		do attack
@@ -92,33 +73,21 @@ int game_host::testrun()
 		now tower waits until its attack recharges before it can attack again
 		*/
 
-		cur = creepList1.getStart(); //get the head of player ones creep list
+		cur = creepList.getStart(); //get the head of player ones creep list
 		while(cur != NULL){ //loop through the list
 			if(cur->getData()->move()) //move each creep in the list
 			{
-				creepList1.deleteNode(cur->getIndex());
+				int i = cur->getIndex();
+				cur = cur->getNext(); //move to next creep in list
+				creepList.deleteNode(i);
 			}
 			else
 			{
 				//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
-				sendMessageToQueue(UpdMess(1,CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
+				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(),CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
 				cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
+				cur = cur->getNext(); //move to next creep in list
 			}
-			cur = cur->getNext(); //move to next creep in list
-		}
-		cur = creepList2.getStart();
-		while (cur != NULL){
-			if(cur->getData()->move())
-			{
-				creepList2.deleteNode(cur->getIndex());
-				//do->lower enemies health
-			}
-			else
-			{
-				sendMessageToQueue(UpdMess(2,CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
-				cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
-			}
-			cur = cur->getNext();
 		}
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent*/
 		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
@@ -140,12 +109,7 @@ void game_host::setNodemap()
 void game_host::updatePaths()
 {
 	cListNode<creep*> *cur = NULL;
-	cur = creepList1.getStart();
-	while (cur != NULL){
-		cur->getData()->recalcPath(Nodemap);
-		cur = cur->getNext();
-	}
-	cur = creepList2.getStart();
+	cur = creepList.getStart();
 	while (cur != NULL){
 		cur->getData()->recalcPath(Nodemap);
 		cur = cur->getNext();
@@ -153,26 +117,34 @@ void game_host::updatePaths()
 }
 
 void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
-	creep *newCreep = new creep(creepType, creepLevel, spawnCoord.x, spawnCoord.y);
+	creep *newCreep = new creep(creepType, playerNumber, creepLevel, spawnCoord.x, spawnCoord.y);
 	newCreep->p.setStart(spawnCoord);
 
 	if(playerNumber == 1)
 	{
 		newCreep->p.setGoal(p2Base);
 		newCreep->p.genPath(Nodemap);
-		creepList1.insertInOrder(newCreep);
+		creepList.insertInOrder(newCreep);
 	}
 	else
 	{
 		newCreep->p.setGoal(p1Base);
 		newCreep->p.genPath(Nodemap);
-		creepList2.insertInOrder(newCreep);
+		creepList.insertInOrder(newCreep);
 	}
 }
 
-int game_host::placeTower( int playerNumber, int towerType, coord c )
+int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 {
-	Tmap[c.x][c.y] = new tower(0,towerType,c.x,c.y);
-	//////////////////////////////////////////////////////////////////////////
+	if(Tmap[x][y] == NULL)
+	{
+		Tmap[x][y] = new tower(0,towerType,x,y);
+		setNodemap();
+		updatePaths();
+		sendMessageToQueue(UpdMess(playerNumber, TOWER, x,y,towerType).getMT());
+		return 1;
+	}
+	else
+		return 0;
 }
 

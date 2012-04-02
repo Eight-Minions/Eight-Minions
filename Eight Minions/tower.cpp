@@ -7,6 +7,8 @@ tower::tower(int l, int t, int set_x, int set_y){
 	type = t;
 	this->setX(set_x);
 	this->setY(set_y);
+	img = IMG_Load("tower.png");
+	r = new SDL_Rect;
 }
 int tower::getLevel(){
 	return this->level;
@@ -37,7 +39,7 @@ void tower::damageClosestCreep(int radius){
 }
 
 void tower::displayTower(SDL_Surface *screen){
-	this->r->x = this->getX();
-	this->r->y = this->getY();
+	this->r->x = (16 * this->getX()) + BOARD_X_OFFSET;
+	this->r->y = (16 * this->getY()) + BOARD_Y_OFFSET;
 	SDL_BlitSurface(this->img, NULL, screen, r);
 }

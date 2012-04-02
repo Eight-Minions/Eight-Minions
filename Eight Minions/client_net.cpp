@@ -109,12 +109,13 @@ int client::performUpdate(string upd)
 	updateType = update.getType();
 	if(updateType == CREEP){
 		if(creeps.checkForObjectWithID(update.getId1())){
+			creeps.getObjectWithID(update.getId1())->setPlayer(update.getPlayer());
 			creeps.getObjectWithID(update.getId1())->setX(update.getVal(0));
 			creeps.getObjectWithID(update.getId1())->setY(update.getVal(1));
 			creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
 		}
 		else{
-			creeps.insertInOrder(new creep(update.getVal(3),update.getVal(4), update.getVal(0), update.getVal(1)));
+			creeps.insertInOrder(new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1)));
 			creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
 		}
 	}
@@ -123,6 +124,10 @@ int client::performUpdate(string upd)
 			towers.getObjectWithID(update.getId1())->setX(update.getVal(0));
 			towers.getObjectWithID(update.getId1())->setY(update.getVal(1));
 			towers.getObjectWithID(update.getId1())->setType(update.getVal(2));
+		}
+		else
+		{
+			towers.insertInOrder(new tower(1,update.getVal(2),update.getVal(0),update.getVal(1)));
 		}
 
 	}
