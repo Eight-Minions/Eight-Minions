@@ -117,6 +117,7 @@ bool creep::move()
 		{
 			//creep got to enemy base, success.
 			cout << "creep got to base\n";
+			return true;
 		}
 		double extra = (getYd() * Ydir) - ((next.y * GRID_SIZE * Ydir) + (BOARD_Y_OFFSET * Ydir));
 		prevPos = next;
@@ -137,7 +138,6 @@ bool creep::move()
 
 void creep::displayCreep(SDL_Surface *screen)
 {
-	//blah
 	this->r->x = this->getX();
 	this->r->y = this->getY();
 	SDL_BlitSurface(this->img, NULL, screen, r);
