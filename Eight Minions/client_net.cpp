@@ -107,20 +107,24 @@ int client::performUpdate(string upd)
 	int updateType = 0;
 	UpdMess update(upd);
 	updateType = update.getType();
-	if(updateType == CREEP){
+	if(updateType == CREEP)
+	{
 		if(creeps.checkForObjectWithID(update.getId1())){
 			creeps.getObjectWithID(update.getId1())->setPlayer(update.getPlayer());
 			creeps.getObjectWithID(update.getId1())->setX(update.getVal(0));
 			creeps.getObjectWithID(update.getId1())->setY(update.getVal(1));
 			creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
 		}
-		else{
+		else
+		{
 			creeps.insertInOrder(new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1)));
 			creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
 		}
 	}
-	else if(updateType == TOWER){
-		if(towers.checkForObjectWithID(update.getId1())){
+	else if(updateType == TOWER)
+	{
+		if(towers.checkForObjectWithID(update.getId1()))
+		{
 			towers.getObjectWithID(update.getId1())->setX(update.getVal(0));
 			towers.getObjectWithID(update.getId1())->setY(update.getVal(1));
 			towers.getObjectWithID(update.getId1())->setType(update.getVal(2));

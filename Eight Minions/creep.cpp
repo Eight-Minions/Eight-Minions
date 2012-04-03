@@ -62,7 +62,8 @@ creep::~creep()
 int creep::damage(int d)
 {
 	this->health = this->health - d;
-	if(health <= 0){
+	if(health <= 0)
+	{
 		// Remove from the list of creeps
 		// Kill this object
 		return 0;
