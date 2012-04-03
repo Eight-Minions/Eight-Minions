@@ -15,6 +15,7 @@ private:
 	int type;
 	int attackSpeed;
 	int attackType;
+	int attackStrategy; //this for selecting closest, highest health etc
 	SDL_Surface *img;
 	SDL_Rect *r; 
 

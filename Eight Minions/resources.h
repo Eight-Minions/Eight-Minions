@@ -18,13 +18,12 @@
 
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
 
-#define MAPSIZE_X 35
-#define MAPSIZE_Y 21
-
+//Update Message Constants
 #define CREEP 0
 #define TOWER 1
 #define TOWERATTACK 2
 
+//Creep type definitions
 #define NORM 0  // average everything
 #define FAST 1  // low armor, low health, high speed, and medium numbers
 #define TANK 2  // high armor, medium health, low speed, low numbers
@@ -32,9 +31,14 @@
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+//Map Constants
+#define MAPSIZE_X 35
+#define MAPSIZE_Y 21
 #define BOARD_X_OFFSET 38
 #define BOARD_Y_OFFSET 38
+#define GRID_SIZE 16
 
+//Movement Constant
 #define CLOCK_CAP .15
 
 using std::cout;

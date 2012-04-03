@@ -1,8 +1,10 @@
 #include "creep.h"
 
-creep::creep(){
+creep::creep()
+{
 }
-creep::creep(int t, int p, int l, int set_x, int set_y){
+creep::creep(int t, int p, int l, int set_x, int set_y)
+{
 	type = t;
 	level = l;
 	player = p;
@@ -10,8 +12,8 @@ creep::creep(int t, int p, int l, int set_x, int set_y){
 	speed = 0;
 	prevPos.x = set_x;
 	prevPos.y = set_y;
-	this->setX(set_x * 16 + BOARD_X_OFFSET);  // Should probably have a generic starting point for each side 
-	this->setY(set_y * 16 + BOARD_Y_OFFSET);
+	this->setX(set_x * GRID_SIZE + BOARD_X_OFFSET);  // Should probably have a generic starting point for each side 
+	this->setY(set_y * GRID_SIZE + BOARD_Y_OFFSET);
 	// TL: just some more ideas
 	this->r = new SDL_Rect;
 	if(type == TANK){
@@ -53,10 +55,12 @@ creep::creep(int t, int p, int l, int set_x, int set_y){
 	}
 	// Calculate path.
 }
-creep::~creep(){
+creep::~creep()
+{
 }
 
-int creep::damage(int d){
+int creep::damage(int d)
+{
 	this->health = this->health - d;
 	if(health <= 0){
 		// Remove from the list of creeps
@@ -66,7 +70,8 @@ int creep::damage(int d){
 	return health;
 }
 
-bool creep::move(){
+bool creep::move()
+{
 	//moves creep towards its goal along its generated path by one unit of its speed
 	//returns true when creep reaches goal, false otherwise
 	if(p.isEmpty())
@@ -82,10 +87,10 @@ bool creep::move(){
 	setX(getXd() + (speed * Xdir * CLOCK_CAP));
 	setY(getYd() + (speed * Ydir * CLOCK_CAP));
 
-	if(Xdir != 0 && getXd() * Xdir >= (next.x * 16 * Xdir) + (BOARD_X_OFFSET * Xdir))
+	if(Xdir != 0 && getXd() * Xdir >= (next.x * GRID_SIZE * Xdir) + (BOARD_X_OFFSET * Xdir))
 	{
 
-		double extra = (getXd() * Xdir) - ((next.x * 16 * Xdir) + (BOARD_X_OFFSET * Xdir));
+		double extra = (getXd() * Xdir) - ((next.x * GRID_SIZE * Xdir) + (BOARD_X_OFFSET * Xdir));
 		prevPos = next;
 		p.pop();
 		if(p.isEmpty())
@@ -99,20 +104,20 @@ bool creep::move(){
 		Xdir = next.x - prevPos.x;
 		Ydir = next.y - prevPos.y;
 
-		setX(prevPos.x * 16 + BOARD_X_OFFSET);
+		setX(prevPos.x * GRID_SIZE + BOARD_X_OFFSET);
 		setX(getXd() + (Xdir * extra));
 		setY(getYd() + (Ydir * extra));
 
 	}
 
-	if(Ydir != 0 && getYd() * Ydir >= (next.y * 16 * Ydir) + (BOARD_Y_OFFSET * Ydir))
+	if(Ydir != 0 && getYd() * Ydir >= (next.y * GRID_SIZE * Ydir) + (BOARD_Y_OFFSET * Ydir))
 	{
 		if(p.isEmpty())
 		{
 			//creep got to enemy base, success.
 			cout << "creep got to base\n";
 		}
-		double extra = (getYd() * Ydir) - ((next.y * 16 * Ydir) + (BOARD_Y_OFFSET * Ydir));
+		double extra = (getYd() * Ydir) - ((next.y * GRID_SIZE * Ydir) + (BOARD_Y_OFFSET * Ydir));
 		prevPos = next;
 		p.pop();
 		next = p.getNext();
@@ -120,7 +125,7 @@ bool creep::move(){
 		Xdir = next.x - prevPos.x;
 		Ydir = next.y - prevPos.y;
 
-		setY(prevPos.y * 16 + BOARD_Y_OFFSET);
+		setY(prevPos.y * GRID_SIZE + BOARD_Y_OFFSET);
 		setX(getXd() + (Xdir * extra));
 		setY(getYd() + (Ydir * extra));
 
@@ -147,7 +152,8 @@ int creep::getHealth()
 {
 	return health;
 }
-int creep::setHealth(int newHealth){
+int creep::setHealth(int newHealth)
+{
 	health = newHealth;
 	return health;
 }
