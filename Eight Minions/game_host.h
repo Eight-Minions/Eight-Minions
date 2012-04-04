@@ -4,8 +4,11 @@
 #include "resources.h"
 #include "creep.h"
 #include "tower.h"
+#include "wave.h"
 
 #define MAX_MESSAGE_LENGTH 200
+
+class Wave;
 
 class game_host
 {
@@ -23,20 +26,22 @@ private:
 	vector<vector<bool>> Nodemap;
 
 	cList<creep*> creepList;
-	int numCreeps;
+	int numCreeps; //may not need this...
 
+	Wave *p1Wave, *p2Wave;
 
 	coord p1Base;
 	coord p2Base;
 
 public:
+	game_host();
 	int init();
 	int init_net();
 	void setPort(unsigned int);
 	int waitForClients();
 	int waitForClient_test();
 
-	int run(); //runs the game itself
+	int run(); //runs the game itself - use test run until we finish the engine
 	int testrun();
 
 	void setNodemap();

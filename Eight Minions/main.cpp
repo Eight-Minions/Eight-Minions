@@ -49,6 +49,10 @@ int main(int argc, char* argv[]){
 		cout << ">send towers so client displays them\n";
 		cout << ">Tower messages dont work quite right\n";
 		cout << ">find a way to keep track of players, money, health, upgrades, etc\n";
+		cout << ">some sort of 'wave' object that manages spawning creeps and\n\t can be adjusted for difficulty, purchases, upgrades, etc\n";
+		cout << ">once we have more creeps and towers and things happening\n\ttest increasing the maximum UDP message length\n";
+		cout << ">clean out old commented code\n";
+		cout << ">make client throw out all creeps every so often and remake them as they receive updates\n\tthis ensures no artifacts\n";
 	}
 	system("pause");
 	return 0;

@@ -1,5 +1,10 @@
 #include "game_host.h"
 
+game_host::game_host()
+{
+	
+}
+
 int game_host::init()
 {
 	Tmap.resize(MAPSIZE_X);
@@ -9,11 +14,13 @@ int game_host::init()
 		Tmap[i].resize(MAPSIZE_Y);
 		Nodemap[i].resize(MAPSIZE_Y);
 	}
-	p1Base.x = 0;
+	p1Base.x = 0; //make these into constants??
 	p1Base.y = 10;
 	p2Base.x = 34;
 	p2Base.y = 10;
 
+	p1Wave = new Wave(this, 1);
+	p2Wave = new Wave(this, 2);
 	return 0;
 }
 
@@ -147,4 +154,6 @@ int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 	else
 		return 0;
 }
+
+
 
