@@ -53,6 +53,7 @@ int main(int argc, char* argv[]){
 		cout << ">once we have more creeps and towers and things happening\n\ttest increasing the maximum UDP message length\n";
 		cout << ">clean out old commented code\n";
 		cout << ">make client throw out all creeps every so often and remake them as they receive updates\n\tthis ensures no artifacts\n";
+		cout << ">low precedence: search for memory leaks\n";
 	}
 	system("pause");
 	return 0;
