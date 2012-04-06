@@ -28,6 +28,7 @@
 #define MAX_NUM_VAL 10
 
 //Creep type definitions
+#define NUM_CREEPS 6 //the total number of creeps
 #define NORM 0  // average everything
 #define FAST 1  // low armor, low health, high speed, and medium numbers
 #define TANK 2  // high armor, medium health, low speed, low numbers
@@ -42,8 +43,11 @@
 #define BOARD_Y_OFFSET 38
 #define GRID_SIZE 16
 
+//number of buttons 
+#define NUM_BUTTONS 10
+
 //Movement Constant
-#define CLOCK_CAP .15
+#define CLOCK_CAP .50
 
 using std::cout;
 using std::cin;
@@ -52,6 +56,8 @@ using std::string;
 using std::queue;
 using std::list;
 using std::vector;
+
+SDL_Rect *newRect(int x, int y, int w, int h);
 
 class location
 {

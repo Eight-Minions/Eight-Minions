@@ -22,6 +22,7 @@ int client::init()
 
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
+	initButtons();
 	return 1;
 }
 
@@ -177,6 +178,12 @@ coord client::getClickCoord(int x, int y)
 
 	coord click = {x , y};
 	return click;
+}
+
+void client::initButtons()
+{
+	Buttons[0] = newRect(BOARD_X_OFFSET, BOARD_Y_OFFSET, MAPSIZE_X * GRID_SIZE, MAPSIZE_Y * GRID_SIZE);
+
 }
 
 

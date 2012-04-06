@@ -24,7 +24,9 @@ private:
 
 	SDL_Surface* screen;
 	SDL_Surface* background;
+	SDL_Surface* creepImages[NUM_CREEPS][4];
 	SDL_Event event;
+	SDL_Rect *Buttons[NUM_BUTTONS];
 
 	cList<creep*> creeps;
 	cList<tower*> towers;
@@ -35,6 +37,7 @@ private:
 public:
 	client();
 	int init();
+	void initButtons();
 	void cleanup();
 	void display();
 	void displayCreeps();

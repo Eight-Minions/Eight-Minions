@@ -39,3 +39,13 @@ coord location::gC( int x, int y )
 	return n;
 }
 
+
+SDL_Rect * newRect( int x, int y, int w, int h )
+{
+	SDL_Rect *temp = new SDL_Rect;
+	temp->x = x;
+	temp->y = y;
+	temp->h = h;
+	temp->w = w;
+	return temp;
+}

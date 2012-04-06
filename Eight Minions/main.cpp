@@ -39,11 +39,9 @@ int main(int argc, char* argv[]){
 	else if(c == 3)
 	{
 		cout << "Testing mode started...\n";
-		cout << "Not testing anything...\n";
-		string tower = UpdMess(1, TOWER, 1234, 2 , 1, 1).getMT();
-		cout << tower << endl;
-		UpdMess t(tower);
-		cout << "Player :" <<  t.getPlayer() << " Type: " << t.getType() << " X: " << t.getVal(0) << " Y: " << t.getVal(1) << " Type: " << t.getVal(2) << endl;
+		cout << "Now testing the button creation\n";
+		client testt;
+		testt.initButtons();
 
 	}
 	else if(c == 4)
@@ -58,6 +56,7 @@ int main(int argc, char* argv[]){
 		cout << ">clean out old commented code\n";
 		cout << ">make client throw out all creeps every so often and remake them as they receive updates\n\tthis ensures no artifacts\n";
 		cout << ">low precedence: search for memory leaks\n";
+		cout << ">rewrite connection function, make more readable and less ugly\n";
 	}
 	system("pause");
 	return 0;
