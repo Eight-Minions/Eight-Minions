@@ -168,3 +168,13 @@ void creep::setPlayer( int p )
 {
 	player = p;
 }
+
+int creep::getType()
+{
+	return type;
+}
+
+int creep::getLevel()
+{
+	return level;
+}

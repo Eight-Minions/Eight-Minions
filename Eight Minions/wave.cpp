@@ -22,10 +22,12 @@ void Wave::iterate()
 {
 	if(*waveDelay.front() <= 0)
 	{
+		int creepIndex;
 		waveDelay.pop();
 		creep *retCreep = waveQueue.front();
 		waveQueue.pop();
-		manager->creepList.insertInOrder(retCreep);
+		creepIndex = manager->creepList.insertInOrder(retCreep);
+		manager->sendMessageToQueue(UpdMess(player,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 		if(waveQueue.empty())
 		{
 			//generate next wave, or trigger end-game, or whatever.

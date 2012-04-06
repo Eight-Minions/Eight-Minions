@@ -37,7 +37,8 @@ public:
 	void displayCreep(SDL_Surface *screen);
 	void updateAnim();
 	void setPlayer( int p );
-
+	int getType();
+	int getLevel();
 };
 
 #endif
