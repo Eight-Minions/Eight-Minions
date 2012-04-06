@@ -40,10 +40,10 @@ int main(int argc, char* argv[]){
 	{
 		cout << "Testing mode started...\n";
 		cout << "Not testing anything...\n";
-		string tower = UpdMess(1, TOWER, 1234, 2 , 1, 1);
+		string tower = UpdMess(1, TOWER, 1234, 2 , 1, 1).getMT();
 		cout << tower << endl;
 		UpdMess t(tower);
-		cout << t.getPlayer() << " " << t.getType() << "" << t.getVal(0) << " " << t.getVal(1) << "" << t.getVal(2) << endl;
+		cout << "Player :" <<  t.getPlayer() << " Type: " << t.getType() << " X: " << t.getVal(0) << " Y: " << t.getVal(1) << " Type: " << t.getVal(2) << endl;
 
 	}
 	else if(c == 4)

@@ -24,6 +24,8 @@
 #define TOWER 2
 #define TOWERATTACK 3
 
+#define MAX_NUM_VAL 5
+
 //Creep type definitions
 #define NORM 0  // average everything
 #define FAST 1  // low armor, low health, high speed, and medium numbers
