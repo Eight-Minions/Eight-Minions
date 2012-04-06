@@ -7,12 +7,6 @@
 using std::string;
 using std::vector;
 
-#define CREEP 0
-#define TOWER 1
-#define TOWERATTACK 2
-
-#define MAX_NUM_VAL 5
-
 class UpdMess{
 public:
 	UpdMess();
