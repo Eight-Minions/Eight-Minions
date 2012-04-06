@@ -2,33 +2,37 @@
 
 Wave::Wave()
 {
-	//wave should never be called like this
+	//wave should never be called like this, just sayin
 }
 
 Wave::Wave( game_host* nManager, int nPlayer )
 {
 	this->manager = nManager;
 	this->player = nPlayer;
+	waveCount = 0;
 }
 
 
 void Wave::testing()
 {
-	coord n = {0,0};
-	manager->spawnCreep(player,2,2,n);
+
 }
 
-creep* Wave::iterate()
+void Wave::iterate()
 {
 	if(*waveDelay.front() <= 0)
 	{
 		waveDelay.pop();
 		creep *retCreep = waveQueue.front();
 		waveQueue.pop();
-		return retCreep;
+		manager->creepList.insertInOrder(retCreep);
+		if(waveQueue.empty())
+		{
+			//generate next wave, or trigger end-game, or whatever.
+		}
 	}
 	else
 	{
-		return NULL;
+		*waveDelay.front()--;
 	}
 }

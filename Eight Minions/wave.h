@@ -11,6 +11,7 @@ private:
 	int player;
 	queue<creep*> waveQueue;
 	queue<int*> waveDelay;
+	int waveCount;
 
 public:
 	Wave();
@@ -18,7 +19,7 @@ public:
 	
 	void generateWave();
 
-	creep* iterate();
+	void iterate();
 	void testing();
 	void setDifficulty();
 	void addCreepsToCurrent(int num);

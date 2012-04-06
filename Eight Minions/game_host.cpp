@@ -141,6 +141,11 @@ void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coor
 	}
 }
 
+void game_host::spawnCreep( creep *newCreep )
+{
+	creepList.insertInOrder(newCreep);
+}
+
 int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 {
 	if(Tmap[x][y] == NULL)

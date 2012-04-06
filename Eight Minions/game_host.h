@@ -47,6 +47,7 @@ public:
 	void setNodemap();
 	void updatePaths();
 	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord);
+	void spawnCreep(creep *newCreep);
 	int placeTower(int playerNumber, int towerType, int x, int y);
 
 	int sendToClients(string);
@@ -60,6 +61,8 @@ public:
 
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);
+
+	friend Wave;
 };
 
 #endif
