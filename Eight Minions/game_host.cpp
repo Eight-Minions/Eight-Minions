@@ -1,10 +1,5 @@
 #include "game_host.h"
 
-game_host::game_host()
-{
-	
-}
-
 int game_host::init()
 {
 	Tmap.resize(MAPSIZE_X);
@@ -14,10 +9,10 @@ int game_host::init()
 		Tmap[i].resize(MAPSIZE_Y);
 		Nodemap[i].resize(MAPSIZE_Y);
 	}
-	p1Base.x = 0; //make these into constants??
-	p1Base.y = 10;
-	p2Base.x = 34;
-	p2Base.y = 10;
+	Bases[0].x = 0;
+	Bases[0].y = 10;
+	Bases[1].x = 34;
+	Bases[1].y = 10;
 
 	p1Wave = new Wave(this, 1);
 	p2Wave = new Wave(this, 2);
@@ -51,10 +46,10 @@ int game_host::testrun()
 	placeTower(1,1,5,10);
 	setNodemap();
 
-	spawnCreep(1,2,1,p1Base);
-	spawnCreep(1,3,1,p1Base);
-	spawnCreep(2,1,1,p2Base);
-	spawnCreep(2,2,2,p2Base);
+	spawnCreep(1,2,1,Bases[0]);
+	spawnCreep(1,3,1,Bases[0]);
+	spawnCreep(2,1,1,Bases[1]);
+	spawnCreep(2,2,2,Bases[1]);
 
 	int run = 1;
 	int nc = 0;
@@ -105,12 +100,8 @@ int game_host::testrun()
 void game_host::setNodemap()
 {
 	for(int i = 0; i < MAPSIZE_X; i++)
-	{
 		for(int j = 0; j < MAPSIZE_Y; j++)
-		{
 			Nodemap[i][j] = (Tmap[i][j] != NULL);
-		}
-	}
 }
 
 void game_host::updatePaths()
@@ -129,13 +120,13 @@ void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coor
 
 	if(playerNumber == 1)
 	{
-		newCreep->p.setGoal(p2Base);
+		newCreep->p.setGoal(Bases[1]);
 		newCreep->p.genPath(Nodemap);
 		creepList.insertInOrder(newCreep);
 	}
 	else
 	{
-		newCreep->p.setGoal(p1Base);
+		newCreep->p.setGoal(Bases[0]);
 		newCreep->p.genPath(Nodemap);
 		creepList.insertInOrder(newCreep);
 	}

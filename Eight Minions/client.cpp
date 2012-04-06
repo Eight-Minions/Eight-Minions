@@ -163,4 +163,20 @@ void client::displayUI()
 
 }
 
+coord client::getClickCoord(int x, int y)
+{
+	/*
+	Gets the grid coordinate of a mouse click
+	
+	*/
+	x -= BOARD_X_OFFSET;
+	y -= BOARD_Y_OFFSET;
+
+	x /= GRID_SIZE;
+	y /= GRID_SIZE;
+
+	coord click = {x , y};
+	return click;
+}
+
 
