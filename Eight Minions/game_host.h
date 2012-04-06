@@ -4,11 +4,11 @@
 #include "resources.h"
 #include "creep.h"
 #include "tower.h"
-#include "wave.h"
+#include "Spawner.h"
 
 #define MAX_MESSAGE_LENGTH 200
 
-class Wave;
+class Spawner;
 
 class game_host
 {
@@ -28,7 +28,7 @@ private:
 	cList<creep*> creepList;
 	int numCreeps; //may not need this...
 
-	Wave *p1Wave, *p2Wave;
+	Spawner	*p1Spawner, *p2Spawner;
 
 	coord Bases[2]; //more modular
 
@@ -60,7 +60,7 @@ public:
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);
 
-	friend Wave;
+	friend Spawner;
 };
 
 #endif

@@ -14,8 +14,8 @@ int game_host::init()
 	Bases[1].x = 34;
 	Bases[1].y = 10;
 
-	p1Wave = new Wave(this, 1);
-	p2Wave = new Wave(this, 2);
+	p1Spawner = new Spawner(this, 1);
+	p2Spawner = new Spawner(this, 2);
 	return 0;
 }
 
