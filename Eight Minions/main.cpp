@@ -40,6 +40,17 @@ int main(int argc, char* argv[]){
 	{
 		cout << "Testing mode started...\n";
 		cout << "Not testing anything...\n";
+		string shortCreep = UpdMess(1,CREEP,1234,1,2,15).getMT();
+		cout << shortCreep << endl;
+		UpdMess d(shortCreep);
+		cout << "Player: " << d.getPlayer() << " Type: " << d.getType() << " X: " << d.getVal(0) << " Y: " << d.getVal(1) << " Health: " << d.getVal(2) << endl << endl;
+
+		string longCreep = UpdMess(1,NEWCREEP,1234,1,2,15,2,3).getMT();
+		cout << longCreep << endl;
+		UpdMess c(longCreep);
+		cout << "Player: " << c.getPlayer() << " Type: " << c.getType() << " X: " << c.getVal(0) << " Y: " << c.getVal(1) << " Health: " << c.getVal(2) 
+			<< " Type: " << c.getVal(3) << " Level: " << c.getVal(4) << endl;
+
 
 	}
 	else if(c == 4)
