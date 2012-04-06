@@ -17,8 +17,8 @@ UpdMess::UpdMess(int p, int t, ...)
 	va_start(v1, t);
 
 	messText = "";
-	messText += (t + '0');
 	messText += (p + '0');
+	messText += (t + '0');
  
 	if(t == TOWERATTACK)
 	{ 
@@ -102,8 +102,10 @@ UpdMess::UpdMess(string m){
 		val.push_back(0);
 	*/
 	val.resize(MAX_NUM_VAL);
-	type = m[0] - '0';
-	p = m[1] - '0';
+
+	p = m[0] - '0';
+	type = m[1] - '0';
+
 	if(type == CREEP)
 	{
 		// ID
