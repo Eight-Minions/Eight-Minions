@@ -43,7 +43,7 @@ int main(int argc, char* argv[]){
 		string tower = UpdMess(1, TOWER, 1234, 2 , 1, 1);
 		cout << tower << endl;
 		UpdMess t(tower);
-		cout << t.p << " " << t.type << "" << t.getVal(0) << " " << t.getVal(1) << "" << t.getVal(2) << endl;
+		cout << t.getPlayer() << " " << t.getType() << "" << t.getVal(0) << " " << t.getVal(1) << "" << t.getVal(2) << endl;
 
 	}
 	else if(c == 4)
