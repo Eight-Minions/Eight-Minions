@@ -17,12 +17,15 @@ public:
 	Wave();
 	Wave(game_host* nManager, int nPlayer); //manager is the object that this wave class will manage spawning creeps for
 	
+	void testing();
+
 	void generateWave();
 
 	void iterate();
-	void testing();
-	void setDifficulty();
+
 	void addCreepsToCurrent(int num);
+
+	void setDifficulty();
 	void setDifIncrease(int n);
 
 };

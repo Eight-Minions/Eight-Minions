@@ -41,8 +41,12 @@ public:
 	void displayTowers();
 	void displayMisc();
 	void displayUI();
+
 	int run();
 	int testrun();
+
+	coord getClickCoord(int x, int y);
+
 	void setServerAddress(string);
 	void setPort(unsigned int);
 	int connectToServer();

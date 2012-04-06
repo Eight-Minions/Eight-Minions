@@ -30,11 +30,9 @@ private:
 
 	Wave *p1Wave, *p2Wave;
 
-	coord p1Base;
-	coord p2Base;
+	coord Bases[2]; //more modular
 
 public:
-	game_host();
 	int init();
 	int init_net();
 	void setPort(unsigned int);
