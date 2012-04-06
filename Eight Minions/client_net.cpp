@@ -164,6 +164,7 @@ int client::recieveMessageToQueue()
 	while (packData != "NO MESSAGE")
 	{
 		len = packData.length();
+		cout << packData << endl;
 		for(i = 0;i < len + 1; i++)
 		{
 			if(packData[i] != '\n' && packData[i] != '\0')
@@ -172,6 +173,7 @@ int client::recieveMessageToQueue()
 			}
 			else
 			{
+				//cout << temp << "\n";
 				performUpdate(temp);
 				temp = "";
 			}
