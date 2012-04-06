@@ -20,8 +20,9 @@
 
 //Update Message Constants
 #define CREEP 0
-#define TOWER 1
-#define TOWERATTACK 2
+#define NEWCREEP 1
+#define TOWER 2
+#define TOWERATTACK 3
 
 //Creep type definitions
 #define NORM 0  // average everything

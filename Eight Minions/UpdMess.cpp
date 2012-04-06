@@ -45,12 +45,12 @@ UpdMess::UpdMess(int p, int t, ...)
 			}
 		}
 	}
-	else if(t== CREEP)
+	else if(t == CREEP || t == NEWCREEP)
 	{
 		for(int i = 0; i < 6; i++)
 		{
 			var = va_arg(v1, int);
-			if(i >= 4 && var == NULL)
+			if(i >= 4 && t == CREEP)
 				break; // The update type of a Creep is only 4 vars.
 			if(i == 0 || i == 1 || i == 2)
 			{
@@ -66,6 +66,18 @@ UpdMess::UpdMess(int p, int t, ...)
 				{
 					messText += '0';
 				}
+				messText += itoa(var,buff,10);
+			}
+			else if(i == 4){
+				if(var < 10)
+					messText += '0';
+				messText += itoa(var,buff,10);
+			}
+			else if(i == 5){
+				for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
+					{
+						messText += '0';
+					}
 				messText += itoa(var,buff,10);
 			}
 			else
@@ -106,7 +118,7 @@ UpdMess::UpdMess(string m){
 	p = m[0] - '0';
 	type = m[1] - '0';
 
-	if(type == CREEP)
+	if(type == CREEP || type == NEWCREEP)
 	{
 		// ID
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
@@ -116,7 +128,7 @@ UpdMess::UpdMess(string m){
 		val[1] = 1000 * (m[10] - '0') + 100 * (m[11] - '0') + 10 * (m[12] - '0') + (m[13] - '0');
 		// HEALTH
 		val[2] = 10000 * (m[14] - '0') + 1000 * (m[15] - '0') + 100 * (m[16] - '0') + 10 * (m[17] - '0') + (m[18] - '0');
-		if (m.length() == 24){
+		if (type == NEWCREEP){
 			// TYPE
 			val[3] = 10 * (m[19] - '0') + (m[20] - '0');
 			// LEVEL
