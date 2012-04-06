@@ -162,7 +162,7 @@ int game_host::sendToClientsUDP(string mess)
 	char *temp = (char *)malloc(mess.length() + 1);
 	strcpy(temp,mess.c_str());
 	strcpy((char *)UDPpack1->data,(char *) temp);
-	UDPpack1->len = mess.length();
+	UDPpack1->len = mess.length() + 1;
 	SDLNet_UDP_Send(p1UDPsock,10,UDPpack1); //<--should send to both clients
 	cout << mess << "\n";
 	/*
