@@ -226,6 +226,10 @@
 					Name="Subclasses"
 					>
 					<File
+						RelativePath=".\creep_tower.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\standard_tower.cpp"
 						>
 					</File>
@@ -247,10 +251,6 @@
 			</File>
 			<File
 				RelativePath=".\client.h"
-				>
-			</File>
-			<File
-				RelativePath=".\EMlist.h"
 				>
 			</File>
 			<File
@@ -287,6 +287,10 @@
 				<Filter
 					Name="Subclasses"
 					>
+					<File
+						RelativePath=".\creep_tower.h"
+						>
+					</File>
 					<File
 						RelativePath=".\standard_tower.h"
 						>

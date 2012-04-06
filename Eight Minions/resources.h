@@ -23,8 +23,9 @@
 #define NEWCREEP 1
 #define TOWER 2
 #define TOWERATTACK 3
+#define PLAYERUPDATE 4
 
-#define MAX_NUM_VAL 5
+#define MAX_NUM_VAL 10
 
 //Creep type definitions
 #define NORM 0  // average everything

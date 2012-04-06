@@ -10,6 +10,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		Creep:			UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);						// For position updates
 		Tower:			UpdMess(Player[1], TOWER, TowerID[4], X[2], Y[2], TowerType[2]);
 		Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerID[4], AttackedID[4], AttackType[2]);
+		Player:			UpdMess(Player[1], PLAYERUPDATE, Health[3], Money[8]);
 	*/
 	int var;
 	char buff[8];
@@ -100,6 +101,28 @@ UpdMess::UpdMess(int p, int t, ...)
 				if(var < 10)
 					messText += '0';
 				messText += itoa(var,buff,10);
+			}
+		}
+	}
+	else if(t == PLAYERUPDATE){
+		for (int i = 0; i < 2; i++){
+			var = va_arg(v1, int);
+			if(i == 0){
+				for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
+				{
+					messText += '0';
+				}
+				messText += itoa(var,buff,10);
+			}
+			else if(i == 1){
+				for(int n = 7 - (int)floor(log10((double)var)); n > 0; n--)
+				{
+					messText += '0';
+				}
+				messText += itoa(var,buff,10);
+			}
+			else{
+				// Space to expand
 			}
 		}
 	}
@@ -194,6 +217,14 @@ int UpdMess::setMess(string m)
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		id2 = 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
 		val[0] = 10 * (m[10] - '0') + (m[11] - '0');
+	}
+	else if(type == PLAYERUPDATE){
+		val[0] = 100 * (m[0] - '0') + 10 * (m[1] - '0') + (m[2] - '0');
+		val[1] = 10000000 * (m[3] - '0') + 1000000 * (m[4] - '0') + 100000 * (m[5] - '0') + 10000 * (m[6] - '0')
+			   + 1000 * (m[7] - '0') + 100 * (m[8] - '0') + 10 * (m[9] - '0') + (m[10] - '0');
+	}
+	else{
+		//
 	}
 	return 1;
 }
