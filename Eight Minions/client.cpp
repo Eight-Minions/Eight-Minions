@@ -140,7 +140,7 @@ void client::displayCreeps()
 	cListNode<creep*> *cur = creeps.getStart();
 	while(cur != NULL)
 	{
-		cur->getData()->displayCreep(screen);
+		cur->getData()->displayCreep(screen,NULL);
 		cur = cur->getNext();
 	}
 }

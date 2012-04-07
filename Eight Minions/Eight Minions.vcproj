@@ -277,6 +277,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\player.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Spawner.h"
 					>
 				</File>

@@ -11,7 +11,7 @@ int game_host::init()
 	}
 	Bases[0].x = 0;
 	Bases[0].y = 10;
-	Bases[1].x = 34;
+	Bases[1].x = 35;
 	Bases[1].y = 10;
 
 	p1Spawner = new Spawner(this, 1);
