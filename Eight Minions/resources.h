@@ -19,13 +19,12 @@
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
 
 //Update Message Constants
-#define CREEP 0
-#define NEWCREEP 1
-#define TOWER 2
-#define TOWERATTACK 3
-#define PLAYERUPDATE 4
-
-#define MAX_NUM_VAL 10
+#define CREEP 0			// For an update on a creep
+#define NEWCREEP 1		// For a new creep
+#define TOWER 2			// For an update on a tower
+#define TOWERATTACK 3	// For an update on a tower attack
+#define PLAYERUPDATE 4	// For an update to the player
+#define MAX_NUM_VAL 10	// Max number of values in a single update
 
 //Creep type definitions
 #define NUM_CREEPS 6 //the total number of creeps
@@ -35,6 +34,9 @@
 #define SWARM 3 // low armor, low health, average speed, high numbers
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
+
+//Spawn Tower Definitions
+#define CREEPTOWERSTARTLEVEL 0
 
 //Map Constants
 #define MAPSIZE_X 35

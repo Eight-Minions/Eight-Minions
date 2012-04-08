@@ -136,13 +136,14 @@ UpdMess::UpdMess(string m){
 	for(int i = 0; i < MAX_NUM_VAL; i++) //Couldnt we just do a val.resize(MAX_NUM_VAL) here?
 		val.push_back(0);
 	*/
-	val.resize(MAX_NUM_VAL);
+	//val.resize(MAX_NUM_VAL);
 
 	p = m[0] - '0';
 	type = m[1] - '0';
 
 	if(type == CREEP || type == NEWCREEP)
 	{
+		val.resize(3);
 		// ID
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		// X
@@ -160,6 +161,7 @@ UpdMess::UpdMess(string m){
 	}
 	else if(type == TOWER)
 	{
+		val.resize(3);
 		// ID
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		// X
@@ -171,12 +173,22 @@ UpdMess::UpdMess(string m){
 	}
 	else if(type == TOWERATTACK)
 	{
+		val.resize(1);
 		// ID1
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		// ID2
 		id2 = 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
 		// ATTACK TYPE
 		val[0] = 10 * (m[10] - '0') + (m[11] - '0');
+	}
+	//	Health[3], Money[8]);
+	else if(type == PLAYERUPDATE){
+		val.resize(2);
+		val[0] = 100 * (m[2] - '0') + 10 * (m[3] - '0') + (m[4] - '0');
+		val[1] = 10000000 * (m[5] - '0') + 1000000 * (m[6] - '0') + 100000 * (m[7] - '0') + 10000 * (m[8] - '0') + 1000 * (m[9] - '0') + 100 * (m[10] - '0') + 10 * (m[11] - '0') +  (m[12] - '0');	
+	}
+	else{
+		m.append("ERROR Undefined Type");
 	}
 }
 
