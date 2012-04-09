@@ -9,6 +9,7 @@
 #define MAX_MESSAGE_LENGTH 200
 
 class Spawner;
+class tower;
 
 class game_host
 {

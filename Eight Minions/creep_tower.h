@@ -4,6 +4,7 @@
 #include "resources.h"
 #include "tower.h"
 #include "game_host.h"
+#include "Spawner.h"
 
 class game_host;
 class Spawner;
@@ -18,6 +19,8 @@ public:
 	void generateCreep();
 	void pause();
 	void unpause();
+
+	friend Spawner;
 private:
 	Spawner *cSpawner;
 	bool paused;

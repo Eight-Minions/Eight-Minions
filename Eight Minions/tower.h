@@ -1,6 +1,7 @@
 #ifndef TOWER_H
 #define TOWER_H
 #include "resources.h"
+#include "game_host.h"
 
 class game_host;
 
@@ -23,6 +24,8 @@ public:
 	int setType(int newType);
 
 	void displayTower(SDL_Surface *screen);
+
+	friend game_host;
 };
 
 
