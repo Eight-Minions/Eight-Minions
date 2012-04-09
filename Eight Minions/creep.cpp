@@ -56,7 +56,6 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	{
 		cout << "creep image failed to load\n";
 	}
-	// Calculate path.
 }
 
 creep::~creep()

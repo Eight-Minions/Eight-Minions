@@ -69,12 +69,14 @@ UpdMess::UpdMess(int p, int t, ...)
 				}
 				messText += itoa(var,buff,10);
 			}
-			else if(i == 4){
+			else if(i == 4)
+			{
 				if(var < 10)
 					messText += '0';
 				messText += itoa(var,buff,10);
 			}
-			else if(i == 5){
+			else if(i == 5)
+			{
 				for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
 					{
 						messText += '0';
@@ -88,7 +90,8 @@ UpdMess::UpdMess(int p, int t, ...)
 		}
 	}
 	else if(t == TOWER){
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 4; i++)
+		{
 			var = va_arg(v1, int);
 			if(i == 0){
 				for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
@@ -104,24 +107,29 @@ UpdMess::UpdMess(int p, int t, ...)
 			}
 		}
 	}
-	else if(t == PLAYERUPDATE){
-		for (int i = 0; i < 2; i++){
+	else if(t == PLAYERUPDATE)
+	{
+		for (int i = 0; i < 2; i++)
+		{
 			var = va_arg(v1, int);
-			if(i == 0){
+			if(i == 0)
+			{
 				for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
 				{
 					messText += '0';
 				}
 				messText += itoa(var,buff,10);
 			}
-			else if(i == 1){
+			else if(i == 1)
+			{
 				for(int n = 7 - (int)floor(log10((double)var)); n > 0; n--)
 				{
 					messText += '0';
 				}
 				messText += itoa(var,buff,10);
 			}
-			else{
+			else
+			{
 				// Space to expand
 			}
 		}

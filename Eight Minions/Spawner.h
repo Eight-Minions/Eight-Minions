@@ -8,7 +8,7 @@ class Spawner
 {
 private:
 	game_host *manager;
-	int player;
+	int player; //which player it spawns for
 	queue<creep*> SpawnerQueue;
 	queue<int*> SpawnerDelay;
 	int SpawnerCount;
