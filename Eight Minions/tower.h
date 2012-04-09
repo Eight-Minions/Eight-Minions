@@ -1,6 +1,7 @@
 #ifndef TOWER_H
 #define TOWER_H
 #include "resources.h"
+//#include "Spawner.h"
 
 class game_host;
 
@@ -8,43 +9,21 @@ class tower : public location
 {	
 private:
 	int level;
-	//J:
-	//to go along with level, do we want towers to have experience?
-	//and then once they have enough experience, you can upgrade them along a few different specialization trees?
-	//TL:
-	//I thought we would do money or something. That seems to be typical. Money for killed creeps allow and then allow upgrading.
-	//That will be for later though.
 	int type;
-	int attackSpeed;
-	int attackType;
-	int attackStrategy; //this for selecting closest, highest health etc
 	SDL_Surface *img;
 	SDL_Rect *r; 
-
 	game_host *manager;
-
 public:
 	tower();
 	tower(int level, int type, int x , int y); //constructor for clients
 	tower(int level, int type, int x , int y, game_host *nManager);//constructor for game_host
 	~tower();
+
 	int getLevel();
 	int getType();
 	int setType(int newType);
 
 	void displayTower(SDL_Surface *screen);
-
-	void damageNeighbors(int radius);
-	void damageClosestCreep(int radius);
-	void damageClosestCreepToPosition(int radius, location position);
-	// TL: How would you want to do attacks?
-	// TL: We could do a radius and a damageNeighbors(int radius);
-	// TL: It could attack just one creep damageClosestCreep(int radius);
-	// TL: We could implement both and have them be differnt types.
-	// J: we should have attackStrongest, attackNearest, AttackFarthest, and attackClosestToBase which i think 
-	//		would be most relevant	
-	//TL: That sounds good to me. I'll work on these three for now.
-	//TL: Maybe an Attack(); and it decides what type of damage to do.
 };
 
 

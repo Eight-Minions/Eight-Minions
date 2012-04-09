@@ -3,8 +3,10 @@
 
 #include "resources.h"
 #include "tower.h"
+#include "game_host.h"
 
 class game_host;
+class Spawner;
 
 class Creep_Tower : public tower
 {
