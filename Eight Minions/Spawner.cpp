@@ -44,6 +44,6 @@ void Spawner::generateSpawner()
 	//decide creep type and number
 	//spawn that amount of creeps of chosen type and put them into the queue
 	//decide on a good delay between creeps
-
+	
 	
 }
