@@ -18,7 +18,7 @@ void Spawner::testing()
 
 }
 
-void Spawner::iterate()
+bool Spawner::iterate()
 {
 	if(*SpawnerDelay.front() <= 0)
 	{
@@ -32,10 +32,12 @@ void Spawner::iterate()
 		{
 			//generate next Spawner, or trigger end-game, or whatever.
 		}
+		return true;
 	}
 	else
 	{
 		*SpawnerDelay.front()--;
+		return false;
 	}
 }
 

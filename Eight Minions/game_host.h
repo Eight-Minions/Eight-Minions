@@ -13,6 +13,7 @@ class Spawner;
 class game_host
 {
 private:
+	//Networking Variables
 	unsigned int port;
 	IPaddress ip, *player1ip, *player2ip;
 	TCPsocket sd;
@@ -22,14 +23,16 @@ private:
 	UDPpacket *UDPpack1, *UDPpack2;
 	string updateCollection;
 
-	vector<vector<tower*>> Tmap;
-	vector<vector<bool>> Nodemap;
+	//Map variables
+	vector<vector<tower*>> Tmap; //map of pointers to the towers, NULL if no tower
+	vector<vector<bool>> Nodemap; //boolean map, false means passable
 
-	cList<creep*> creepList;
+	cList<creep*> creepList; //the list of creeps, creeps contain their positions
 	int numCreeps; //may not need this...
 
-	Spawner	*p1Spawner, *p2Spawner;
+	Spawner	*p1Spawner, *p2Spawner; //spawner objects for each player
 
+	//coordinate locations for each players base
 	coord Bases[2]; //more modular
 
 public:
