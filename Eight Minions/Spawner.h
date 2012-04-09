@@ -19,10 +19,15 @@ public:
 	
 	void testing();
 
+	//GenerateSpawner
+	//this function will create a certain number of creeps and add them to a queue
 	void generateSpawner();
 
-	void iterate();
+	//this function is called once per game loop, if the current delay is zero it spawns the first creep on the queue
+	//otherwise it decrements the current delay
+	bool iterate();
 
+	//add 'num' number of creeps (we should change this to specify type and level etc) to the queue
 	void addCreepsToCurrent(int num);
 
 	void setDifficulty();
