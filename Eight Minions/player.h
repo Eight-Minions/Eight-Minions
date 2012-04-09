@@ -11,11 +11,11 @@ public:
 	int getHealth();
 	int getMoney();
 
-	void setHealth();
-	void setMoney();
+	void setHealth(int nHealth);
+	void setMoney(int nMoney);
 
 	void addHealth(); //adds one to health
-	bool takeDamage(); //subtracts one from health, checks if player has no health
+	bool takeDamage(int damage); //subtracts one from health, checks if player has no health
 
 	void addMoney(int amt); //adds the amount of money to the players total
 	bool spendMoney(int amt); //checks if the player has enough money, then subtracts it
