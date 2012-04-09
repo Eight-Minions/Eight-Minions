@@ -2,6 +2,11 @@
 
 int game_host::init()
 {
+	//init
+	//here we set the size of the tower map, and the nodemap
+	//the tower map holds towers and facilitates their display to the map
+	//the nodemap is a boolean map of which squares are passable, this is used in pathfinding
+
 	Tmap.resize(MAPSIZE_X);
 	Nodemap.resize(MAPSIZE_X);
 	for(int i = 0; i < MAPSIZE_X;i++)
@@ -9,11 +14,14 @@ int game_host::init()
 		Tmap[i].resize(MAPSIZE_Y);
 		Nodemap[i].resize(MAPSIZE_Y);
 	}
+
+	//set the location of each players bases, these are used as goals for the creeps pathfinding
 	Bases[0].x = 0;
 	Bases[0].y = 10;
 	Bases[1].x = 35;
 	Bases[1].y = 10;
 
+	//set up spawners, these manage the generation of creeps
 	p1Spawner = new Spawner(this, 1);
 	p2Spawner = new Spawner(this, 2);
 	return 0;

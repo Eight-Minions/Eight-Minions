@@ -36,15 +36,13 @@ void client::cleanup()
 }
 void client::display()
 {
-	SDL_BlitSurface(background, NULL, screen, NULL);
+	SDL_BlitSurface(background, NULL, screen, NULL); //lay down background
 
-
-
-	this->displayTowers();
-	this->displayCreeps();
-	this->displayMisc();
-	this->displayUI();
-	SDL_Flip(screen);
+	this->displayTowers();//displays towers first so they are below everything else
+	this->displayCreeps(); //creeps on layer above towers
+	this->displayMisc(); //misc: animations, tower attacks, explosions, etc. over creeps and towers.
+	this->displayUI(); //any menu objects, overlay text, buttons will be on the very top
+	SDL_Flip(screen);//displays everything that has been added to the screen
 }
 
 int client::run()
@@ -89,7 +87,7 @@ int client::testrun()
 	int n_rec = 0;
 	while(run)
 	{
-		//gather input - the follow series of if-statements will handle all user input
+		//gather input - the following series of if-statements will handle all user input
 		if( SDL_PollEvent( &event ) )
 		{
 			if(event.type == SDL_QUIT)
@@ -118,7 +116,13 @@ int client::testrun()
 			}
 		}
 
+
+		//Recieve messages to queue does a lot of work
+		//first it will recieve messages (while there are messages to be recieved)
+		//then it will parse those messages and make changes to the game as specified by the messages
 		recieveMessageToQueue();
+
+		//display will print everything out to the screen
 		this->display();
 
 
