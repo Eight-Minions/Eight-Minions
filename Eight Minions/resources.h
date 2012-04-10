@@ -61,6 +61,11 @@ using std::vector;
 
 SDL_Rect *newRect(int x, int y, int w, int h);
 
+class tower;
+class game_host;
+class Standard_Tower;
+class Spawner;
+
 class location
 {
 private:

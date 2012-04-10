@@ -1,5 +1,6 @@
 #include "standard_tower.h"
 
+/*
 Standard_Tower::Standard_Tower() : tower()
 {
 }
@@ -11,46 +12,24 @@ Standard_Tower::Standard_Tower(int l, int t, int set_x, int set_y, game_host *nM
 }
 void Standard_Tower::damageClosestCreep(int radius)
 {
-	/*
-	int x_high =	getX() + radius;
-	int x_low =		getX() - radius;
-	int y_high =	getY() + radius;
-	int y_low =		getY() - radius;
-	int x_closest = -1;
-	int y_closest = -1;
-	int closestCreep = -1;
-	double distanceClosest = 0;
-	for(int i = 0; i < this->manager->creepList.maxIterator; i++)
+
+	double distanceClosest = radius;
+	cListNode<creep> *cur = this->manager->creepList.getStart();
+	creep *closestCreep = NULL;
+	while(cur != NULL)
 	{
-		if(manager->creepList.checkForObjectWithID(i))
+		double currentDistance = sqrt(pow((double)(((cur->getData().getX() - BOARD_X_OFFSET)/GRID_SIZE)-((this->getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
+			pow((double)(((cur->getData().getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
+		if(currentDistance < distanceClosest)
 		{
-			int x_cur = manager->creepList.getObjectWithID(i)->getX(); // Convert from pixels to squares
-			int y_cur = manager->creepList.getObjectWithID(i)->getY(); // Convert form pixels to squares
-			if(x_high > x_cur && x_low < x_cur)
-			{
-				if(y_high > y_cur && y_low < y_cur)
-				{
-					if(closestCreep != -1)
-					{
-						double distanceCur = sqrt(pow(abs(x_cur - getX()), 2) + pow(abs(y_cur - getY()),2));	
-						if(distanceCur < distanceClosest)
-						{
-							closestCreep = i;
-							x_closest = x_cur;
-							y_closest = y_cur;
-						}
-					}
-					else
-					{
-						closestCreep = i;
-						x_closest = x_cur;
-						y_closest = y_cur;
-					}
-				}
-			}
+			closestCreep = cur->getData();
+			distanceClosest = currentDistance;
 		}
+		cur = cur->getNext();
 	}
-	*/
+	if(closestCreep != NULL){
+		closestCreep->damage(damageValue);
+	}
 }
 void Standard_Tower::damageClosestCreepToPosition(int radius, location position)
 {
@@ -58,5 +37,18 @@ void Standard_Tower::damageClosestCreepToPosition(int radius, location position)
 }
 void Standard_Tower::damageNeighbors(int radius)
 {
+	list<creep> inRadius;
+	cListNode<creep> *cur this->manager->creepList.getStart();
+	while(cur != NULL)
+	{
+		double currentDistance = sqrt(pow((double)(((cur->getData().getX() - BOARD_X_OFFSET)/GRID_SIZE)-((this->getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
+			pow((double)(((cur->getData().getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
+		if(currentDistance < radius)
+		{
+			
+		}
+	}
 
 }
+
+*/

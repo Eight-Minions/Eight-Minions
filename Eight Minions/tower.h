@@ -3,8 +3,6 @@
 #include "resources.h"
 #include "game_host.h"
 
-class game_host;
-
 class tower : public location
 {	
 private:
@@ -24,8 +22,6 @@ public:
 	int setType(int newType);
 
 	void displayTower(SDL_Surface *screen);
-
-	friend game_host;
 };
 
 

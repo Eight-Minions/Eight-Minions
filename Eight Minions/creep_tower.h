@@ -6,9 +6,6 @@
 #include "game_host.h"
 #include "Spawner.h"
 
-class game_host;
-class Spawner;
-
 class Creep_Tower : public tower
 {
 public:
@@ -20,7 +17,6 @@ public:
 	void pause();
 	void unpause();
 
-	friend Spawner;
 private:
 	Spawner *cSpawner;
 	bool paused;

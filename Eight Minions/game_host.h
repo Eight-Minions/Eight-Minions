@@ -5,11 +5,9 @@
 #include "creep.h"
 #include "tower.h"
 #include "Spawner.h"
+#include "standard_tower.h"
 
 #define MAX_MESSAGE_LENGTH 200
-
-class Spawner;
-class tower;
 
 class game_host
 {
@@ -24,6 +22,7 @@ private:
 	UDPpacket *UDPpack1, *UDPpack2;
 	string updateCollection;
 
+protected:
 	//Map variables
 	vector<vector<tower*>> Tmap; //map of pointers to the towers, NULL if no tower
 	vector<vector<bool>> Nodemap; //boolean map, false means passable
@@ -64,7 +63,14 @@ public:
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);
 
+
 	friend Spawner;
+
+	/*
+	friend Spawner;
+	friend tower;
+	friend Standard_Tower;
+	*/
 };
 
 #endif
