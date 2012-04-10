@@ -39,8 +39,8 @@
 #define CREEPTOWERSTARTLEVEL 0
 
 //Map Constants
-#define MAPSIZE_X 35
-#define MAPSIZE_Y 21
+#define MAPSIZE_X 26
+#define MAPSIZE_Y 20
 #define BOARD_X_OFFSET 0
 #define BOARD_Y_OFFSET 63
 #define GRID_SIZE 24
