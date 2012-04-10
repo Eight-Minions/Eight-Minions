@@ -36,14 +36,15 @@
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
 //Spawn Tower Definitions
-#define CREEPTOWERSTARTLEVEL 0
+#define CREEPTOWERSTARTLEVEL 1
+#define STANDARDTOWERSTARTLEVEL 1
 
 //Map Constants
 #define MAPSIZE_X 35
 #define MAPSIZE_Y 21
-#define BOARD_X_OFFSET 0
-#define BOARD_Y_OFFSET 63
-#define GRID_SIZE 24
+#define BOARD_X_OFFSET 38
+#define BOARD_Y_OFFSET 38
+#define GRID_SIZE 16
 
 //number of buttons 
 #define NUM_BUTTONS 10
@@ -63,7 +64,6 @@ SDL_Rect *newRect(int x, int y, int w, int h);
 
 class tower;
 class game_host;
-class Standard_Tower;
 class Spawner;
 
 class location
