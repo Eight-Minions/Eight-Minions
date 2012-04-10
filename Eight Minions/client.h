@@ -4,6 +4,7 @@
 #include "resources.h"
 #include "creep.h"
 #include "tower.h"
+#include "player.h"
 
 #define CONNECTION_SUCCESSFUL 1
 #define CONNECTION_FAILURE 0 //generic error
@@ -31,8 +32,9 @@ private:
 	cList<creep*> creeps;
 	cList<tower*> towers;
 
-	//queue<string> updateQueue;
 	string updateQueue;
+
+	player self;
 
 public:
 	client();

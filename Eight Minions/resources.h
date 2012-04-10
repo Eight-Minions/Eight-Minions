@@ -32,15 +32,20 @@
 #define FAST 1  // low armor, low health, high speed, and medium numbers
 #define TANK 2  // high armor, medium health, low speed, low numbers
 #define SWARM 3 // low armor, low health, average speed, high numbers
-#define TITAN 4 // high armor, high health, average speed, very low numbers
-#define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
+#define FATTY 4 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
+#define TITAN 5 // high armor, high health, average speed, very low numbers
 
 //Spawn Tower Definitions
-#define CREEPTOWERSTARTLEVEL 0
+#define CREEPTOWERSTARTLEVEL 1
+#define STANDARDTOWERSTARTLEVEL 1
 
 //Map Constants
+#ifndef MAPSIZE_X
 #define MAPSIZE_X 26
+#endif
+#ifndef MAPSIZE_Y
 #define MAPSIZE_Y 20
+#endif
 #define BOARD_X_OFFSET 0
 #define BOARD_Y_OFFSET 63
 #define GRID_SIZE 24
@@ -63,7 +68,6 @@ SDL_Rect *newRect(int x, int y, int w, int h);
 
 class tower;
 class game_host;
-class Standard_Tower;
 class Spawner;
 
 class location

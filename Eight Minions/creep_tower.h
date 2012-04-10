@@ -10,7 +10,7 @@ class Creep_Tower : public tower
 {
 public:
 	Creep_Tower();
-	Creep_Tower(int X, int Y, game_host *manager);
+	Creep_Tower(int newX, int newY, game_host *nManager);
 	void upgradeTower();
 	void checkTick();
 	void generateCreep();
@@ -19,6 +19,7 @@ public:
 
 private:
 	Spawner *cSpawner;
+	game_host *manager;
 	bool paused;
 	int cost;
 };

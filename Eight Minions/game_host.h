@@ -6,6 +6,8 @@
 #include "tower.h"
 #include "Spawner.h"
 #include "standard_tower.h"
+#include "creep_tower.h"
+#include "player.h"
 
 #define MAX_MESSAGE_LENGTH 200
 
@@ -31,6 +33,8 @@ protected:
 	int numCreeps; //may not need this...
 
 	Spawner	*p1Spawner, *p2Spawner; //spawner objects for each player
+
+	player p1Data, p2Data;
 
 	//coordinate locations for each players base
 	coord Bases[2]; //more modular

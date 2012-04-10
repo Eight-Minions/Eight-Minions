@@ -10,8 +10,17 @@ private:
 	game_host *manager;
 	int player; //which player it spawns for
 	queue<creep*> SpawnerQueue;
-	queue<int*> SpawnerDelay;
+	queue<int> SpawnerDelay;
 	int SpawnerCount;
+	int creepType;
+	int curDelay;
+	int spawnerLevel;
+
+	coord Loc;
+
+	bool stream; //true- send out constant stream of creeps. false- store up creeps (only for spawn)
+	bool isTower; //true- this spawner is part of a tower, false- this spawner is the players main spawner
+
 
 public:
 	Spawner();

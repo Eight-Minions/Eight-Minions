@@ -1,9 +1,17 @@
+#ifndef PLAYER_H
+#define PLAYER_H
 
 class player
 {
 private:
 	int health;
 	int money;
+
+	int specialization;
+
+	//TODO:
+	//defines for each spec
+	//modifications for each spec
 
 public:
 	player();
@@ -21,3 +29,5 @@ public:
 	bool spendMoney(int amt); //checks if the player has enough money, then subtracts it
 
 };
+
+#endif

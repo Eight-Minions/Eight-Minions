@@ -2,10 +2,8 @@
 
 Path::Path()
 {
-	//start VERY bad coding
-	mapsize.x = 35;
-	mapsize.y = 21;
-	//end VERY bad coding
+	mapsize.x = MAPSIZE_X;
+	mapsize.y = MAPSIZE_Y;
 }
 
 Path::Path(int x, int y)
