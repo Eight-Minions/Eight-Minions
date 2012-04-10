@@ -40,9 +40,6 @@ protected:
 	coord Bases[2]; //more modular
 
 public:
-
-	cList<creep*> * getCreepList();
-
 	int init();
 	int init_net();
 	void setPort(unsigned int);
@@ -70,6 +67,7 @@ public:
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);
 
+	cList<creep*> * getCreepList();  // I'm not really sure that I should do this....
 
 	friend Spawner;
 

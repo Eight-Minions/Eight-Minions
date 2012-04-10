@@ -159,6 +159,7 @@ int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 	else
 		return 0;
 }
-cList<creep*> *game_host::getCreepList(){
+cList<creep*> *game_host::getCreepList()
+{
 	return &creepList;
 }
