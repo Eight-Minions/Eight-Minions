@@ -40,11 +40,11 @@
 #define STANDARDTOWERSTARTLEVEL 1
 
 //Map Constants
-#define MAPSIZE_X 35
-#define MAPSIZE_Y 21
-#define BOARD_X_OFFSET 38
-#define BOARD_Y_OFFSET 38
-#define GRID_SIZE 16
+#define MAPSIZE_X 26
+#define MAPSIZE_Y 20
+#define BOARD_X_OFFSET 0
+#define BOARD_Y_OFFSET 63
+#define GRID_SIZE 24
 
 //number of buttons 
 #define NUM_BUTTONS 10
