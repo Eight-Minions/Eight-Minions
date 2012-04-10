@@ -6,7 +6,7 @@ UpdMess::UpdMess(int p, int t, ...)
 {
 
 	/*
-		Creep:			UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);	// For creep creation and upgrades
+		Creep:			UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);	// For creep creation and upgrades
 		Creep:			UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);						// For position updates
 		Tower:			UpdMess(Player[1], TOWER, TowerID[4], X[2], Y[2], TowerType[2]);
 		Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerID[4], AttackedID[4], AttackType[2]);
@@ -28,17 +28,27 @@ UpdMess::UpdMess(int p, int t, ...)
 			var = va_arg(v1, int);
 			if(i == 0 || i == 1)
 			{
-				for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+				if(var == 0)
+					messText += "0000";
+				else
 				{
-					messText += '0';
+					for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+					{
+						messText += '0';
+					}
+					messText += itoa(var,buff,10);
 				}
-				messText += itoa(var,buff,10);
 			}
 			else if( i == 2)
 			{
-				if(var < 10)
-					messText += '0';
-				messText += itoa(var,buff,10);
+				if(var == 0)
+					messText += "00";
+				else
+				{
+					if(var < 10)
+						messText += '0';
+					messText += itoa(var,buff,10);
+				}
 			}
 			else
 			{
@@ -55,33 +65,52 @@ UpdMess::UpdMess(int p, int t, ...)
 				break; // The update type of a Creep is only 4 vars.
 			if(i == 0 || i == 1 || i == 2)
 			{
-				for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+				if(var == 0)
+					messText += "0000";
+				else
 				{
-					messText += '0';
-				}
-				messText += itoa(var,buff,10);
-			}
-			else if(i == 3)
-			{
-				for(int n = 4 - (int)floor(log10((double)var)); n > 0; n--)
-				{
-					messText += '0';
-				}
-				messText += itoa(var,buff,10);
-			}
-			else if(i == 4)
-			{
-				if(var < 10)
-					messText += '0';
-				messText += itoa(var,buff,10);
-			}
-			else if(i == 5)
-			{
-				for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
+					for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
 					{
 						messText += '0';
 					}
-				messText += itoa(var,buff,10);
+					messText += itoa(var,buff,10);
+				}
+			}
+			else if(i == 3)
+			{
+				if(var == 0)
+					messText += "00000";
+				else
+				{
+					for(int n = 4 - (int)floor(log10((double)var)); n > 0; n--)
+					{
+						messText += '0';
+					}
+					messText += itoa(var,buff,10);
+				}
+			}
+			else if(i == 4)
+			{
+				if(var == 0)
+					messText += "00";
+				{
+					if(var < 10)
+						messText += '0';
+					messText += itoa(var,buff,10);
+				}
+			}
+			else if(i == 5)
+			{
+				if(var == 0)
+					messText += "000";
+				else
+				{
+					for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
+						{
+							messText += '0';
+						}
+					messText += itoa(var,buff,10);
+				}
 			}
 			else
 			{
@@ -94,16 +123,26 @@ UpdMess::UpdMess(int p, int t, ...)
 		{
 			var = va_arg(v1, int);
 			if(i == 0){
-				for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+				if(var == 0)
+					messText += "0000";
+				else
 				{
-					messText += '0';
+					for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+					{
+						messText += '0';
+					}
+					messText += itoa(var,buff,10);
 				}
-				messText += itoa(var,buff,10);
 			}
 			else{
-				if(var < 10)
-					messText += '0';
-				messText += itoa(var,buff,10);
+				if(var == 0)
+					messText += "00";
+				else
+				{
+					if(var < 10)
+						messText += '0';
+					messText += itoa(var,buff,10);
+				}
 			}
 		}
 	}
@@ -114,19 +153,29 @@ UpdMess::UpdMess(int p, int t, ...)
 			var = va_arg(v1, int);
 			if(i == 0)
 			{
-				for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
+				if(var == 0)
+					messText += "000";
+				else
 				{
-					messText += '0';
+					for(int n = 2 - (int)floor(log10((double)var)); n > 0; n--)
+					{
+						messText += '0';
+					}
+					messText += itoa(var,buff,10);
 				}
-				messText += itoa(var,buff,10);
 			}
 			else if(i == 1)
 			{
-				for(int n = 7 - (int)floor(log10((double)var)); n > 0; n--)
+				if(var == 0)
+					messText += "00000000";
+				else
 				{
-					messText += '0';
+					for(int n = 7 - (int)floor(log10((double)var)); n > 0; n--)
+					{
+						messText += '0';
+					}
+					messText += itoa(var,buff,10);
 				}
-				messText += itoa(var,buff,10);
 			}
 			else
 			{

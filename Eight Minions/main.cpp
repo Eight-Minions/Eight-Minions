@@ -38,10 +38,16 @@ int main(int argc, char* argv[]){
 	}
 	else if(c == 3)
 	{
+		creep a(1,1,1,3,4);
+		//UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);
+		UpdMess um(1, NEWCREEP, 1, a.getX(), a.getY(), a.getHealth(), a.getType(), a.getLevel());
+		cout << um.getMT();
+		/*
 		cout << "Testing mode started...\n";
 		cout << "Now testing the button creation\n";
 		client testt;
 		testt.initButtons();
+		*/
 
 	}
 	else if(c == 4)
