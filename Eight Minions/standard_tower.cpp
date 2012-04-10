@@ -16,12 +16,15 @@ void Standard_Tower::damageClosestCreep(double radius)
 	cur = this->manager->getCreepList()->getStart();
 	while(cur != NULL)
 	{
-		double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((this->getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
-			pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
-		if(currentDistance < distanceClosest)
+		if(cur->getData()->getPlayer() == this->getPlayer())
 		{
-			closestCreep = cur->getData();
-			distanceClosest = currentDistance;
+			double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((this->getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
+				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
+			if(currentDistance < distanceClosest)
+			{
+				closestCreep = cur->getData();
+				distanceClosest = currentDistance;
+			}
 		}
 		cur = cur->getNext();
 	}

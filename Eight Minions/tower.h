@@ -12,13 +12,13 @@ private:
 	SDL_Rect *r; 
 public:
 	tower();
-	//tower(int level, int type, int x , int y);
 	tower(int level, int player, int type, int x, int y);
 	~tower();
 
 	int getLevel();
 	int getType();
 	int setType(int newType);
+	int getPlayer();
 
 	void displayTower(SDL_Surface *screen);
 };

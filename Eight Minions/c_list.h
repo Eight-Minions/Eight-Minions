@@ -1,7 +1,6 @@
 #ifndef C_LIST_H
 #define C_LIST_H
 
-#include <iostream>
 #include <queue>
 #include "c_list_node.h"
 
@@ -37,8 +36,6 @@ public:
 	bool insertWithID (int set_id, T newData);
 	bool deleteList ();
 	bool deleteNode (int index);
-
-	//void printList();
 };
 
 // Create a list
@@ -208,19 +205,5 @@ cListNode<T> cList<T>::getNodeWithID(int search_id)
 	}
 	return NULL;
 }
-// TESTING ONLY 
-/*
-// Print the whole list
-template <typename T>
-void cList<T>::printList(){
-	cListNode<T> *cur = NULL;
-	cur = this->getStart();
-	cout << "Beginning\n";
-	while(cur != NULL){
-		cout << "Index: " << cur->getIndex() << " Data: " << cur->getData() << endl;
-		cur = cur->getNext();
-	}	
-	cout << "End\n";
-}
-*/
+
 #endif

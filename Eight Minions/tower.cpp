@@ -38,3 +38,6 @@ void tower::displayTower(SDL_Surface *screen)
 		SDL_BlitSurface(this->img, NULL, screen, r);
 	}
 }
+int tower::getPlayer(){
+	return player;
+}

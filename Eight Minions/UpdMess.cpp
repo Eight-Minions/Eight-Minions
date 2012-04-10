@@ -139,19 +139,24 @@ UpdMess::UpdMess(int p, int t, ...)
 	}
 	va_end(v1);
 }
-UpdMess::UpdMess(string m){
-	/*
-	for(int i = 0; i < MAX_NUM_VAL; i++) //Couldnt we just do a val.resize(MAX_NUM_VAL) here?
-		val.push_back(0);
-	*/
-	//val.resize(MAX_NUM_VAL);
-
+UpdMess::UpdMess(string m)
+{
 	p = m[0] - '0';
 	type = m[1] - '0';
-
 	if(type == CREEP || type == NEWCREEP)
 	{
-		val.resize(3);
+		if (type == NEWCREEP)
+		{
+			val.resize(5);
+			// TYPE
+			val[3] = 10 * (m[19] - '0') + (m[20] - '0');
+			// LEVEL
+			val[4] = 100 * (m[21] - '0') + 10 * (m[22] - '0') + (m[23] - '0');
+		}
+		else
+		{
+			val.resize(3);
+		}
 		// ID
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		// X
@@ -160,13 +165,9 @@ UpdMess::UpdMess(string m){
 		val[1] = 1000 * (m[10] - '0') + 100 * (m[11] - '0') + 10 * (m[12] - '0') + (m[13] - '0');
 		// HEALTH
 		val[2] = 10000 * (m[14] - '0') + 1000 * (m[15] - '0') + 100 * (m[16] - '0') + 10 * (m[17] - '0') + (m[18] - '0');
-		if (type == NEWCREEP){
-			val.resize(5);
-			// TYPE
-			val[3] = 10 * (m[19] - '0') + (m[20] - '0');
-			// LEVEL
-			val[4] = 100 * (m[21] - '0') + 10 * (m[22] - '0') + (m[23] - '0');
-		}
+
+		//UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);
+
 	}
 	else if(type == TOWER)
 	{
