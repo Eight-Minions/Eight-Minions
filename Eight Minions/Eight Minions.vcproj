@@ -188,22 +188,6 @@
 				>
 			</File>
 			<Filter
-				Name="Networking"
-				>
-				<File
-					RelativePath=".\client_net.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\game_host_net.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\UpdMess.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Entities"
 				>
 				<File
@@ -297,6 +281,22 @@
 					</File>
 					<File
 						RelativePath=".\standard_tower.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Networking"
+					>
+					<File
+						RelativePath=".\client_net.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\game_host_net.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\UpdMess.cpp"
 						>
 					</File>
 				</Filter>
