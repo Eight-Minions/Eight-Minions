@@ -12,16 +12,6 @@ tower::tower(int l, int t, int set_x, int set_y)
 	img = IMG_Load("tower.png");
 	r = new SDL_Rect;
 }
-/*
-tower::tower(int l, int t, int set_x, int set_y, game_host *nManager)
-{
-	level = l;
-	type = t;
-	this->setX(set_x);
-	this->setY(set_y);
-	manager = nManager;
-}
-*/
 int tower::getLevel()
 {
 	return this->level;

@@ -40,6 +40,9 @@ protected:
 	coord Bases[2]; //more modular
 
 public:
+
+	cList<creep*> * getCreepList();
+
 	int init();
 	int init_net();
 	void setPort(unsigned int);
