@@ -34,6 +34,7 @@ public:
 
 	// Insert or Delete
 	int insertInOrder (T newData);
+	bool insertWithID (int set_id, T newData);
 	bool deleteList ();
 	bool deleteNode (int index);
 
@@ -103,6 +104,32 @@ int cList<T>::insertInOrder(T newData){
 		newNode->setNext(cur);
 	}
 	return new_iterator;
+}
+template <typename T>
+bool cList<T>::insertWithID(int set_id, T newData){
+	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
+	newNode = new cListNode<T> (newData);
+	if(checkForObjectWithID(set_id) == false)
+	{
+		newNode->setIndex(set_id);
+		cur = this->getStart();
+
+		if (cur == NULL || newNode->getIndex() <= cur->getIndex()) {
+			newNode->setNext(NULL);
+			this->setStart(newNode);
+		}
+		else {
+			while ((cur != NULL) && (cur->getIndex() <= newNode->getIndex())) {
+			prev = cur;
+			cur = cur->getNext();
+			}
+			prev->setNext(newNode);
+			newNode->setNext(cur);
+		}
+	}
+	else
+		return false;
+	return true;
 }
 // Delete the list
 template <typename T>
