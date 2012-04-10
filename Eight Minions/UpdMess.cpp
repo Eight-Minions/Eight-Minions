@@ -26,6 +26,8 @@ UpdMess::UpdMess(int p, int t, ...)
 		for(int i = 0; i < 3; i++)
 		{
 			var = va_arg(v1, int);
+			// i = 0 AttackerID[4]
+			// i = 1 AttackedID[4]
 			if(i == 0 || i == 1)
 			{
 				if(var == 0)
@@ -39,6 +41,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					messText += itoa(var,buff,10);
 				}
 			}
+			// AttackType
 			else if( i == 2)
 			{
 				if(var == 0)
@@ -63,6 +66,9 @@ UpdMess::UpdMess(int p, int t, ...)
 			var = va_arg(v1, int);
 			if(i >= 4 && t == CREEP)
 				break; // The update type of a Creep is only 4 vars.
+			// i = 1 CreepID
+			// i = 2 X
+			// i = 3 Y
 			if(i == 0 || i == 1 || i == 2)
 			{
 				if(var == 0)
@@ -75,7 +81,9 @@ UpdMess::UpdMess(int p, int t, ...)
 					}
 					messText += itoa(var,buff,10);
 				}
+			
 			}
+			// Health
 			else if(i == 3)
 			{
 				if(var == 0)
@@ -89,6 +97,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					messText += itoa(var,buff,10);
 				}
 			}
+			// Creep Type
 			else if(i == 4)
 			{
 				if(var == 0)
@@ -99,6 +108,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					messText += itoa(var,buff,10);
 				}
 			}
+			// Creep Level
 			else if(i == 5)
 			{
 				if(var == 0)
@@ -122,6 +132,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		for (int i = 0; i < 4; i++)
 		{
 			var = va_arg(v1, int);
+			// TowerID
 			if(i == 0){
 				if(var == 0)
 					messText += "0000";
@@ -134,6 +145,9 @@ UpdMess::UpdMess(int p, int t, ...)
 					messText += itoa(var,buff,10);
 				}
 			}
+			// i = 1 X
+			// i = 2 Y
+			// i = 3 TowerType
 			else{
 				if(var == 0)
 					messText += "00";
@@ -151,6 +165,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		for (int i = 0; i < 2; i++)
 		{
 			var = va_arg(v1, int);
+			// Health
 			if(i == 0)
 			{
 				if(var == 0)
@@ -164,6 +179,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					messText += itoa(var,buff,10);
 				}
 			}
+			// Money
 			else if(i == 1)
 			{
 				if(var == 0)
