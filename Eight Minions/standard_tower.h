@@ -8,8 +8,8 @@ class Standard_Tower : public tower
 {
 public:
 	Standard_Tower();
-	Standard_Tower(int l, int t, int set_x, int set_y);
-	Standard_Tower(int l, int t, int set_x, int set_y, game_host *nManager);
+	Standard_Tower(int l, int p, int t, int set_x, int set_y);
+	Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager);
 	void damageClosestCreep(double radius);
 	void damageClosestCreepToPosition(double radius, location position);
 	void damageNeighbors(double radius);

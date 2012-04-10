@@ -3,8 +3,9 @@
 tower::tower()
 {
 }
-tower::tower(int l, int t, int set_x, int set_y)
+tower::tower(int l, int p, int t, int set_x, int set_y)
 {
+	player = p;
 	level = l;
 	type = t;
 	this->setX(set_x);

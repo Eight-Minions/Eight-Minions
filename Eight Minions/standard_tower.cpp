@@ -2,9 +2,9 @@
 
 Standard_Tower::Standard_Tower() : tower(){
 }
-Standard_Tower::Standard_Tower(int l, int t, int set_x, int set_y) : tower(STANDARDTOWERSTARTLEVEL, -1, set_x, set_y){
+Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : tower(STANDARDTOWERSTARTLEVEL, p, -1, set_x, set_y){
 }
-Standard_Tower::Standard_Tower(int l, int t, int set_x, int set_y, game_host *nManager) : tower(STANDARDTOWERSTARTLEVEL, -1, set_x, set_y){
+Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : tower(STANDARDTOWERSTARTLEVEL, p, -1, set_x, set_y){
 	manager = nManager;
 }
 void Standard_Tower::damageClosestCreep(double radius)

@@ -150,7 +150,7 @@ int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 {
 	if(Tmap[x][y] == NULL)
 	{
-		Tmap[x][y] = new tower(0,towerType,x,y);
+		Tmap[x][y] = new tower(0, playerNumber, towerType,x,y);
 		setNodemap();
 		updatePaths();
 		sendMessageToQueue(UpdMess(playerNumber, TOWER,42, x,y,towerType).getMT());

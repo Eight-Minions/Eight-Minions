@@ -135,7 +135,7 @@ int client::performUpdate(string upd)
 		}
 		else
 		{
-			towers.insertInOrder(new tower(1,update.getVal(2),update.getVal(0),update.getVal(1)));
+			towers.insertInOrder(new tower(1,update.getPlayer(), update.getVal(2),update.getVal(0),update.getVal(1)));
 		}
 
 	}
