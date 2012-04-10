@@ -17,8 +17,8 @@ int client::init()
 	//Sets window caption
 	SDL_WM_SetCaption( "Eight Minions", NULL );
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
-	screen = SDL_SetVideoMode(840,550,32,SDL_SWSURFACE);
-	this->background = IMG_Load("background.png");
+	screen = SDL_SetVideoMode(800,608,32,SDL_SWSURFACE);
+	this->background = IMG_Load("images/Minions_UI_ShittyGrid.png");
 
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);

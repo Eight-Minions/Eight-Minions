@@ -161,6 +161,7 @@ UpdMess::UpdMess(string m){
 		// HEALTH
 		val[2] = 10000 * (m[14] - '0') + 1000 * (m[15] - '0') + 100 * (m[16] - '0') + 10 * (m[17] - '0') + (m[18] - '0');
 		if (type == NEWCREEP){
+			val.resize(5);
 			// TYPE
 			val[3] = 10 * (m[19] - '0') + (m[20] - '0');
 			// LEVEL
@@ -209,14 +210,11 @@ int UpdMess::setMess(string m)
 	{
 		return 0;
 	}
-	for(int i = 0; i < MAX_NUM_VAL; i++)
-	{
-		val.push_back(0);
-	}
 	type = m[0] - '0';
 	p = m[1] - '0';
 	if(type == CREEP)
 	{
+		val.resize(3);
 		// Update Creep Location (x = vala, y = valb) and Health (valc)
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		val[0] = 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
@@ -225,6 +223,7 @@ int UpdMess::setMess(string m)
 	}
 	else if(type == TOWER)
 	{
+		val.resize(3);
 		// Update Creep Location (x = vala, y = valb) and Health (valc)
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		val[0] = 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
@@ -233,12 +232,14 @@ int UpdMess::setMess(string m)
 	}
 	else if(type == TOWERATTACK)
 	{
+		val.resize(1);
 		// Tower (ID1) attack Creep (ID2) with attack type (vala)
 		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
 		id2 = 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
 		val[0] = 10 * (m[10] - '0') + (m[11] - '0');
 	}
 	else if(type == PLAYERUPDATE){
+		val.resize(2);
 		val[0] = 100 * (m[0] - '0') + 10 * (m[1] - '0') + (m[2] - '0');
 		val[1] = 10000000 * (m[3] - '0') + 1000000 * (m[4] - '0') + 100000 * (m[5] - '0') + 10000 * (m[6] - '0')
 			   + 1000 * (m[7] - '0') + 100 * (m[8] - '0') + 10 * (m[9] - '0') + (m[10] - '0');
