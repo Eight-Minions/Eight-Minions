@@ -125,19 +125,20 @@ void game_host::updatePaths()
 void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
 	creep *newCreep = new creep(creepType, playerNumber, creepLevel, spawnCoord.x, spawnCoord.y);
 	newCreep->p.setStart(spawnCoord);
-
+	int nIndex;
 	if(playerNumber == 1)
 	{
 		newCreep->p.setGoal(Bases[1]);
 		newCreep->p.genPath(Nodemap);
-		creepList.insertInOrder(newCreep);
+		nIndex = creepList.insertInOrder(newCreep);
 	}
 	else
 	{
 		newCreep->p.setGoal(Bases[0]);
 		newCreep->p.genPath(Nodemap);
-		creepList.insertInOrder(newCreep);
+		nIndex = creepList.insertInOrder(newCreep);
 	}
+	sendMessageToQueue(UpdMess(playerNumber,NEWCREEP,nIndex,newCreep->getX(),newCreep->getY(),newCreep->getHealth(),newCreep->getType(),newCreep->getLevel()).getMT());
 }
 
 void game_host::spawnCreep( creep *newCreep )

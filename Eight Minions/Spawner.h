@@ -3,7 +3,6 @@
 #include "game_host.h"
 
 class game_host;
-class creep_tower;
 
 class Spawner
 {
