@@ -117,9 +117,13 @@ int client::performUpdate(string upd)
 		}
 		else
 		{
-			creeps.insertInOrder(new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1)));
-			creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
+			// ERROR creep does not exist on this end
 		}
+	}
+	else if(updateType == NEWCREEP)
+	{
+		creeps.insertWithID(update.getId1(), new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1)));
+		creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
 	}
 	else if(updateType == TOWER)
 	{
