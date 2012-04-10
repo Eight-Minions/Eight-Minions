@@ -55,6 +55,7 @@ void Standard_Tower::damageNeighbors(double radius)
 {
 	list<creep*> inRadius;
 	cListNode<creep*> *cur = this->manager->getCreepList()->getStart();
+
 	while(cur != NULL)
 	{
 		double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((this->getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
@@ -63,6 +64,7 @@ void Standard_Tower::damageNeighbors(double radius)
 		{
 			inRadius.push_back(cur->getData());
 		}
+		cur = cur->getNext();
 	}
 	while(inRadius.size() > 0)
 	{
@@ -73,9 +75,11 @@ void Standard_Tower::damageNeighbors(double radius)
 		}
 	}
 }
-void Standard_Tower::damageNeighborsNearPosition(double radius, location position){
+void Standard_Tower::damageNeighborsNearPosition(double radius, location position)
+{
 	list<creep*> inRadius;
 	cListNode<creep*> *cur = this->manager->getCreepList()->getStart();
+
 	while(cur != NULL)
 	{
 		double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((position.getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
@@ -84,6 +88,7 @@ void Standard_Tower::damageNeighborsNearPosition(double radius, location positio
 		{
 			inRadius.push_back(cur->getData());
 		}
+		cur = cur->getNext();
 	}
 	while(inRadius.size() > 0)
 	{

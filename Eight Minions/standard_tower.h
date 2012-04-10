@@ -3,9 +3,6 @@
 #include "resources.h"
 #include "tower.h"
 #include "game_host.h"
-#include <list>
-
-using std::list;
 
 class Standard_Tower : public tower
 {

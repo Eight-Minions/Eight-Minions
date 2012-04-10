@@ -12,17 +12,22 @@ public:
 	Creep_Tower();
 	Creep_Tower(int newX, int newY);						//Client Constructor
 	Creep_Tower(int newX, int newY, game_host *nManager);	//Server Constructor
-	void upgradeTower();
-	void checkTick();
-	void generateCreep();
+	void spawn();
+	void upgrade();
+	void changeType();
 	void pause();
 	void unpause();
-
 private:
 	Spawner *cSpawner;
 	game_host *manager;
-	bool paused;
+
 	int cost;
+	int creepType;
+	int creepLevel;
+	int delay;
+	int maxQueue;
+
+	bool paused;
 };
 
 #endif
