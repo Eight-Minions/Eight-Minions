@@ -7,16 +7,21 @@ class game_host;
 class Spawner
 {
 private:
-	game_host *manager;
-	int player; //which player it spawns for
-	queue<creep*> SpawnerQueue;
-	queue<int> SpawnerDelay;
-	int SpawnerCount;
-	int creepType;
-	int curDelay;
-	int spawnerLevel;
+	game_host *manager; //a pointer to THE game_host
+	int player; //index of the player to spawn creeps for
+	queue<creep*> SpawnerQueue; //the queue of creeps to spawn, only for generating waves of creeps for the base (not for creep towers)
+	queue<int> SpawnerDelay; //the queue of delays between spawns, also only for spawning from base (not for creep towers)
+	int SpawnerCount; //not sure what im using this for actually
+	int creepType; //the type of creep the spawner will create
+	int curDelay; //the current delay until the next creep is spawned
+	int spawnerLevel; //the level of the spawner/level of creep to be spawned
 
-	coord Loc;
+	coord Loc; 
+	//the location of the spawner
+	//for bases, this will be set to the base coordinates
+	//for creep towers, this will be its placement on the grid
+	//creeps that are spawned will be placed at this point
+
 
 	bool stream; //true- send out constant stream of creeps. false- store up creeps (only for spawn)
 	bool isTower; //true- this spawner is part of a tower, false- this spawner is the players main spawner
@@ -30,7 +35,7 @@ public:
 
 	//GenerateSpawner
 	//this function will create a certain number of creeps and add them to a queue
-	void generateSpawner();
+	void generateWave();
 
 	//this function is called once per game loop, if the current delay is zero it spawns the first creep on the queue
 	//otherwise it decrements the current delay
@@ -40,7 +45,7 @@ public:
 	void addCreepsToCurrent(int num);
 
 	void setCreepType(int nCreepType);
-	void setStream(bool toStream);
+	void setStream(bool toStream); //set whether or not creeps should be released, can only be false for swarms
 
 	void setDifficulty();
 	void setDifIncrease(int n);

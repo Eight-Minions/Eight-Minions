@@ -24,7 +24,7 @@ private:
 	UDPsocket UDPsock;
 	UDPpacket *UDPpack;
 
-	//Surfaces - surfaces are basically loaded images that we can readily blit to the screen
+	//Surfaces - surfaces are basically loaded images that we can readily blit(display) to the screen
 	SDL_Surface* screen;
 	SDL_Surface* background;
 	SDL_Surface* creepImages[NUM_CREEPS][4];
