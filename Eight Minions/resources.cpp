@@ -49,3 +49,9 @@ SDL_Rect * newRect( int x, int y, int w, int h )
 	temp->w = w;
 	return temp;
 }
+
+SDL_Color makeColor( int r, int g, int b )
+{
+	SDL_Color n = {r,g,b};
+	return n;
+}

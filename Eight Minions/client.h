@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include "resources.h"
+#include "SDL_ttf.h"
 #include "creep.h"
 #include "tower.h"
 #include "player.h"
@@ -23,9 +24,11 @@ private:
 	UDPsocket UDPsock;
 	UDPpacket *UDPpack;
 
+	//Surfaces - surfaces are basically loaded images that we can readily blit to the screen
 	SDL_Surface* screen;
 	SDL_Surface* background;
 	SDL_Surface* creepImages[NUM_CREEPS][4];
+	SDL_Surface* textTest;
 	SDL_Event event;
 	SDL_Rect *Buttons[NUM_BUTTONS];
 
@@ -34,7 +37,14 @@ private:
 
 	string updateQueue;
 
-	player self;
+	player *self;
+
+	//Fonts here.
+	TTF_Font *font; //testing font
+
+	//Colors
+	SDL_Color Cblack;
+	SDL_Color Cwhite;
 
 public:
 	client();

@@ -14,11 +14,21 @@ int client::init()
 		return -1;
 	}
 
+	if( TTF_Init() == -1 )
+	{
+		return -1;   
+	}
+
 	//Sets window caption
 	SDL_WM_SetCaption( "Eight Minions", NULL );
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
-	screen = SDL_SetVideoMode(800,608,32,SDL_SWSURFACE);
+	screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,32,SDL_SWSURFACE);
+
+	//loading files here
 	this->background = IMG_Load("images/Minions_UI_ShittyGrid.png");
+	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
+	Cblack = makeColor(0,0,0);
+	Cwhite = makeColor(255,255,255);
 
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
@@ -112,7 +122,6 @@ int client::testrun()
 					//with, but i dont want to do everything. so this is not my task
 					///////////////////////////////////////////////////////////////
 				}
-
 			}
 		}
 
@@ -165,7 +174,9 @@ void client::displayMisc()
 
 void client::displayUI()
 {
-
+	//Render the text
+	textTest = TTF_RenderText_Solid( font, "testing", Cwhite );
+	SDL_BlitSurface(textTest, NULL,screen,NULL);
 }
 
 coord client::getClickCoord(int x, int y)

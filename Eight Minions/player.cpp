@@ -32,9 +32,9 @@ void player::addHealth()
 	health++;
 }
 
-bool player::takeDamage(int damage)
+bool player::takeDamage()
 {
-	health -= damage;
+	health -= 1;
 	if(health <= 0)
 		return true;
 	else

@@ -6,7 +6,7 @@
 class creep : public location
 {
 private:
-	int player;
+	int nPlayer;
 	int health;
 	int armor;
 	int speed;

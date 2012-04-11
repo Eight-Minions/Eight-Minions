@@ -196,7 +196,10 @@ string client::recieveMessageUDP()
 	if (SDLNet_UDP_Recv(this->UDPsock,UDPpack))
 	{
 		string retStr = (char *)UDPpack->data;
-		return retStr;
+		if(retStr != "")
+		{
+			return retStr;
+		}
 	}
 	return "NO MESSAGE";
 }

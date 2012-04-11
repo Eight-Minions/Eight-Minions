@@ -34,7 +34,7 @@ protected:
 
 	Spawner	*p1Spawner, *p2Spawner; //spawner objects for each player
 
-	player p1Data, p2Data;
+	player players[2];
 
 	//coordinate locations for each players base
 	coord Bases[2]; //more modular

@@ -22,8 +22,8 @@ int game_host::init()
 	Bases[1].y = 10;
 
 	//set up spawners, these manage the generation of creeps
-	p1Spawner = new Spawner(this, 1);
-	p2Spawner = new Spawner(this, 2);
+	p1Spawner = new Spawner(this, 1, false);
+	p2Spawner = new Spawner(this, 2, false);
 	return 0;
 }
 
@@ -88,6 +88,9 @@ int game_host::testrun()
 			if(cur->getData()->move()) //move each creep in the list
 			{
 				int i = cur->getIndex();
+
+				players[cur->getData()->getPlayer() - 1].takeDamage();
+
 				cur = cur->getNext(); //move to next creep in list
 				creepList.deleteNode(i);
 			}

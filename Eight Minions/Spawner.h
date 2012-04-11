@@ -24,7 +24,7 @@ private:
 
 public:
 	Spawner();
-	Spawner(game_host* nManager, int nPlayer); //manager is the object that this Spawner class will manage spawning creeps for
+	Spawner(game_host* nManager, int nPlayer, bool isTower); //manager is the object that this Spawner class will manage spawning creeps for
 	
 	void testing();
 
@@ -38,6 +38,9 @@ public:
 
 	//add 'num' number of creeps (we should change this to specify type and level etc) to the queue
 	void addCreepsToCurrent(int num);
+
+	void setCreepType(int nCreepType);
+	void setStream(bool toStream);
 
 	void setDifficulty();
 	void setDifIncrease(int n);

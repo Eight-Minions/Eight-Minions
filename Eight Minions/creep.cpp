@@ -7,7 +7,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 {
 	type = t;
 	level = l;
-	player = p;
+	nPlayer = p;
 	health = 0;
 	speed = 0;
 	animIndex = 0;
@@ -167,12 +167,12 @@ int creep::setHealth(int newHealth)
 
 int creep::getPlayer()
 {
-	return player;
+	return nPlayer;
 }
 
 void creep::setPlayer( int p )
 {
-	player = p;
+	nPlayer = p;
 }
 
 int creep::getType()

@@ -212,7 +212,8 @@ void game_host::sendMessageToQueue(string mess)
 	if(this->updateCollection.length() + mess.length() + 1 > MAX_MESSAGE_LENGTH || mess == "SEND")
 	{
 		cout << updateCollection << endl;
-		sendToClientsUDP(updateCollection);
+		if(updateCollection != "") //ensure a NULL message is not sent
+			sendToClientsUDP(updateCollection);
 		if(mess != "SEND")
 			updateCollection = mess;
 		else

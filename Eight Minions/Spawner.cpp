@@ -5,7 +5,7 @@ Spawner::Spawner()
 	//Spawner should never be called like this, just sayin
 }
 
-Spawner::Spawner( game_host* nManager, int nPlayer )
+Spawner::Spawner( game_host* nManager, int nPlayer, bool isTower)
 {
 	this->manager = nManager;
 	this->player = nPlayer;

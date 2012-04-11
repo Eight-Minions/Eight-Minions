@@ -46,6 +46,10 @@
 #define BOARD_Y_OFFSET 63
 #define GRID_SIZE 24
 
+//Screen Size Constants
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 608
+
 //number of buttons 
 #define NUM_BUTTONS 10
 
@@ -61,6 +65,7 @@ using std::list;
 using std::vector;
 
 SDL_Rect *newRect(int x, int y, int w, int h);
+SDL_Color makeColor(int r, int g, int b);
 
 class tower;
 class game_host;
