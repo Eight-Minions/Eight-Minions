@@ -8,6 +8,79 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	alive = true;
 	type = t;
 	level = l;
+	animIndex = 0;
+	animTiming = 5;
+	animCount = 0;
+	prevPos.x = set_x;
+	prevPos.y = set_y;
+	this->setX(set_x * GRID_SIZE + BOARD_X_OFFSET);  // Should probably have a generic starting point for each side 
+	this->setY(set_y * GRID_SIZE + BOARD_Y_OFFSET);
+	this->r = new SDL_Rect;
+	if(type == TANK){
+		// Health Armor Speed Reward Price
+		health =	tankCreepArr[level-1][0];
+		armor =		tankCreepArr[level-1][1];
+		speed =		tankCreepArr[level-1][2];
+		reward =	tankCreepArr[level-1][3];
+		price =		tankCreepArr[level-1][4];
+		this->img = IMG_Load("tank.png");
+	}
+	else if(type == FAST){
+		health =	fastCreepArr[level-1][0];
+		armor =		fastCreepArr[level-1][1];
+		speed =		fastCreepArr[level-1][2];
+		reward =	fastCreepArr[level-1][3];
+		price =		fastCreepArr[level-1][4];
+		this->img = IMG_Load("fast.png");
+	}
+	else if(type == SWARM)
+	{
+		health =	swarmCreepArr[level-1][0];
+		armor =		swarmCreepArr[level-1][1];
+		speed =		swarmCreepArr[level-1][2];
+		reward =	swarmCreepArr[level-1][3];
+		price =		swarmCreepArr[level-1][4];
+		this->img = IMG_Load("swarm.png");
+	}
+	else if(type == TITAN)
+	{
+
+		health =	titanCreepArr[level-1][0];
+		armor =		titanCreepArr[level-1][1];
+		speed =		titanCreepArr[level-1][2];
+		reward =	titanCreepArr[level-1][3];
+		price =		titanCreepArr[level-1][4];
+		this->img = IMG_Load("titan.png");
+	}
+	else if(type == NORM)
+	{
+		health =	normCreepArr[level-1][0];
+		armor =		normCreepArr[level-0][1];
+		speed =		normCreepArr[level-0][2];
+		reward =	normCreepArr[level-0][3];
+		price =		normCreepArr[level-0][4];
+		this->img = IMG_Load("norm.png");
+	}
+	else
+	{
+		health = 0;
+		armor = 0;
+		speed = 0;
+		reward = 0;
+		price = 0;
+		this->img = NULL;
+	}
+	if(img == NULL)
+	{
+		cout << "creep image failed to load\n";
+	}
+}
+/*
+creep::creep(int t, int p, int l, int set_x, int set_y)
+{
+	alive = true;
+	type = t;
+	level = l;
 	player = p;
 	health = 0;
 	speed = 0;
@@ -58,6 +131,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		cout << "creep image failed to load\n";
 	}
 }
+*/
 
 creep::~creep()
 {
@@ -148,7 +222,10 @@ void creep::displayCreep(SDL_Surface *screen, SDL_Surface *images[4])
 	this->r->y = this->getY();
 	SDL_BlitSurface(this->img, NULL, screen, r);
 }
-
+void creep::updateAnim()
+{
+	
+}
 void creep::recalcPath( vector<vector<bool>> nMap )
 {
 	p.setStart(p.getNext());
@@ -164,36 +241,35 @@ int creep::setHealth(int newHealth)
 	health = newHealth;
 	return health;
 }
-
-int creep::getPlayer()
-{
-	return player;
-}
-
 void creep::setPlayer( int p )
 {
 	player = p;
 }
-
+int creep::getPlayer()
+{
+	return player;
+}
 int creep::getType()
 {
 	return type;
 }
-
 int creep::getLevel()
 {
 	return level;
 }
-
-void creep::updateAnim()
+int creep::getReward()
 {
-	
+	return reward;
+}
+int creep::getArmor()
+{
+	return armor;
 }
 bool creep::isAlive()
 {
 	return alive;
 }
-int creep::getReward()
+int creep::getPrice()
 {
-	return reward;
+	return price;
 }

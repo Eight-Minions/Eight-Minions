@@ -13,6 +13,7 @@ private:
 	int level;
 	int type;
 	int reward;
+	int price;
 
 	bool alive;
 
@@ -28,7 +29,6 @@ private:
 	int animCount;
 public:
 	Path p;
-	
 	creep(int type, int pl, int level, int x, int y);
 	creep();
 	~creep();
@@ -37,18 +37,20 @@ public:
 	void recalcPath(vector<vector<bool>> nMap);
 
 	int damage(int damage);
-	int getHealth();
-	int setHealth(int newHealth);
-	int getPlayer();
-
-	int getReward();
 
 	void displayCreep(SDL_Surface *screen, SDL_Surface *images[4]);
 	void updateAnim();
 
-	void setPlayer(int p); // Not sure where I would ever use this...
+	int getHealth();
+	int setHealth(int newHealth);
+	int getPlayer();
+	void setPlayer(int p);
 	int getType();
 	int getLevel();
+	int getArmor();	
+	int getReward();
+	int getPrice();
+
 	bool isAlive();
 };
 
