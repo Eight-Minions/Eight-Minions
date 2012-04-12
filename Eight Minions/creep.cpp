@@ -149,12 +149,12 @@ bool creep::move()
 	}
 	return false;
 }
-void creep::displayCreep(SDL_Surface *screen, SDL_Surface *images[4])
+void creep::displayCreep(SDL_Surface *screen, SDL_Surface *images[ANIM_NUM])
 {
 	updateAnim();
 	this->r->x = this->getX();
 	this->r->y = this->getY();
-	SDL_BlitSurface(this->img, NULL, screen, r);
+	SDL_BlitSurface(images[animIndex], NULL, screen, r);
 }
 void creep::updateAnim()
 {

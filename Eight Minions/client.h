@@ -29,6 +29,7 @@ private:
 	SDL_Surface* background;
 	SDL_Surface* creepImages[NUM_CREEPS][4];
 	SDL_Surface* textTest;
+
 	SDL_Event event;
 	SDL_Rect *Buttons[NUM_BUTTONS];
 
@@ -71,7 +72,6 @@ public:
 	string recieveMessageUDP();
 	int recieveMessageToQueue();
 	int performUpdate(string upd);
-	void parseQueue();
 
 	void savePlayerProfile();
 	

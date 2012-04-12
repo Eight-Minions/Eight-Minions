@@ -24,9 +24,8 @@ int client::init()
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
 	screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,32,SDL_SWSURFACE);
 
-	//loading files here
-	this->background = IMG_Load("images/Minions_UI_ShittyGrid.png");
-	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
+	this->loadFiles();
+
 	Cblack = makeColor(0,0,0);
 	Cwhite = makeColor(255,255,255);
 
@@ -38,7 +37,20 @@ int client::init()
 
 void client::loadFiles()
 {
+	//loading files here
+	this->background = IMG_Load("images/Minions_UI_ShittyGrid.png");
+	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
+	creepImages[NORM][0] = IMG_Load("norm.png");
 
+	creepImages[FAST][0] = IMG_Load("fast.png");
+
+	creepImages[SWARM][0] = IMG_Load("swarm.png");
+
+	creepImages[TANK][0] = IMG_Load("tank.png");
+
+	creepImages[TITAN][0] = IMG_Load("titan.png");
+
+	creepImages[FATTY][0] = IMG_Load("fatty.png");
 }
 
 void client::cleanup()
@@ -77,7 +89,6 @@ int client::run()
 
 
 		this->recieveMessageToQueue();
-		this->parseQueue();
 		this->display();
 
 		SDL_Delay(20);
@@ -147,18 +158,12 @@ int client::testrun()
 	return 0;
 }
 
-
-void client::parseQueue()
-{
-
-}
-
 void client::displayCreeps()
 {
 	cListNode<creep*> *cur = creeps.getStart();
 	while(cur != NULL)
 	{
-		cur->getData()->displayCreep(screen,NULL);
+		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getType()]);
 		cur = cur->getNext();
 	}
 }
@@ -166,7 +171,8 @@ void client::displayCreeps()
 void client::displayTowers()
 {
 	cListNode<tower*> *cur = towers.getStart();
-	while (cur != NULL){
+	while (cur != NULL)
+	{
 		cur->getData()->displayTower(screen);
 		cur = cur->getNext();
 	}

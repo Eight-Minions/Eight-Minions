@@ -36,6 +36,9 @@
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+//Animation
+#define ANIM_NUM 4
+
 #define MAXCREEPLEVEL 5
 #define MAXCREEPVARIABLES 5
 
