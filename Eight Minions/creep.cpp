@@ -8,7 +8,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	alive = true;
 	type = t;
 	level = l;
-	nPlayer = p;
+	player = p;
 	health = 0;
 	speed = 0;
 	animIndex = 0;
@@ -167,12 +167,12 @@ int creep::setHealth(int newHealth)
 
 int creep::getPlayer()
 {
-	return nPlayer;
+	return player;
 }
 
 void creep::setPlayer( int p )
 {
-	nPlayer = p;
+	player = p;
 }
 
 int creep::getType()
@@ -189,6 +189,11 @@ void creep::updateAnim()
 {
 	
 }
-bool creep::isAlive(){
+bool creep::isAlive()
+{
 	return alive;
+}
+int creep::getReward()
+{
+	return reward;
 }

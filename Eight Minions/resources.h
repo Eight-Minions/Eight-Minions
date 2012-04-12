@@ -36,6 +36,17 @@
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+#define MAXCREEPLEVEL 5
+#define MAXCREEPVARIABLES 5
+
+//Creep types
+// Health Armor Speed Reward Price
+const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,2,1,2},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,2},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,4},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =	{{3,1,1,2,4},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =	{{1,0,3,1,2},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+
 //Spawn Tower Definitions
 #define CREEPTOWERSTARTLEVEL 1
 #define STANDARDTOWERSTARTLEVEL 1
@@ -62,6 +73,28 @@
 #define PLAYERONEY 10
 #define PLAYERTWOX 25
 #define PLAYERTWOY 10
+
+// Attack Types
+#define ATTACKCLOSESTTOTOWER	1
+#define ATTACKCLOSESTTOBASE		2
+#define AREAOFEFFECT			1
+#define ATTACKONECREEP			2
+
+// Tower Constants
+#define MAXTOWERLEVEL 5
+#define MAXTOWERVARIABLES 5
+
+#define BASICTOWER 0
+#define FASTTOWER 1
+#define AOETOWER 2
+#define MINETOWER 3
+
+//Tower Types
+// Damage ArmorPenetration Range Speed Cost
+const int basicArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =				{{1,0,(int)(3 * GRID_SIZE),30,5},{3,1,(int)(3.5 * GRID_SIZE),25,10},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int fastArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =				{{1,0,(int)(3 * GRID_SIZE),20,7},{2,0,(int)(2 * GRID_SIZE),17,15},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =		{{1,0,(int)(2 * GRID_SIZE),45,12},{2,1,(int)(2 * GRID_SIZE),40,20},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =				{{5,2,(int)(1 * GRID_SIZE),0,3},{10,4,(int)(1 * GRID_SIZE),0,6},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
 
 using std::cout;
 using std::cin;

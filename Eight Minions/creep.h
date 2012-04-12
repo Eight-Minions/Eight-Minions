@@ -6,19 +6,23 @@
 class creep : public location
 {
 private:
-	int nPlayer;
+	int player;
 	int health;
 	int armor;
 	int speed;
 	int level;
 	int type;
-	int attack;
+	int reward;
+
+	bool alive;
+
 	int Xdir;
 	int Ydir;
-	bool alive;
+
 	SDL_Surface *img;
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
 	coord prevPos;
+
 	int animIndex;
 	int animTiming;
 	int animCount;
@@ -37,9 +41,12 @@ public:
 	int setHealth(int newHealth);
 	int getPlayer();
 
+	int getReward();
+
 	void displayCreep(SDL_Surface *screen, SDL_Surface *images[4]);
 	void updateAnim();
-	void setPlayer( int p );
+
+	void setPlayer(int p); // Not sure where I would ever use this...
 	int getType();
 	int getLevel();
 	bool isAlive();

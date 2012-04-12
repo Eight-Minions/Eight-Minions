@@ -12,7 +12,6 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_h
 }
 void Standard_Tower::chooseClosestCreep(double radius)
 {
-	
 	double distanceClosest = radius;
 	cListNode<creep*> *cur = NULL;
 	cListNode<creep*> *closestCreep = NULL;
@@ -182,10 +181,12 @@ bool Standard_Tower::doDamage()
 			{
 				frontCreep = frontNode->getData();
 				frontCreep->damage(damageValue);
-				// Creep: UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);	
 				manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 				if(frontCreep->isAlive() == false)
 				{
+					manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
+					// Update money value for player based on reward for killing the creep
+					manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
 					// We should remove the creep from the list
 					manager->getCreepList()->deleteNode(frontNode->getIndex());
 					// Would this work???
@@ -201,4 +202,57 @@ bool Standard_Tower::doDamage()
 		attackTick--;
 		return false;
 	}
+}
+bool Standard_Tower::upgrade()
+{
+	if(getLevel() < 5)
+	{
+		if(manager->getPlayer(this->getPlayer())->getMoney() < cost)
+			return false;
+		else
+		{
+			manager->getPlayer(this->getPlayer())->spendMoney(cost);
+			setLevel(getLevel() + 1);
+			return changeType(getType()); // Doesn't actually change the type, just updates the values
+		}
+	}
+	return false;
+}
+bool Standard_Tower::changeType(int newType)
+{
+	if(getType() == BASICTOWER)
+	{
+		damageValue =			basicArr[getLevel() - 1][0];
+		armorPenetration =		basicArr[getLevel() - 1][1];
+		range =					basicArr[getLevel() - 1][2];
+		coolDownDuration =		basicArr[getLevel() - 1][3];
+		cost =					basicArr[getLevel() - 1][4];
+	}
+	else if(getType() == FASTTOWER)
+	{
+		damageValue =			fastArr[getLevel() - 1][0];
+		armorPenetration =		fastArr[getLevel() - 1][1];
+		range =					fastArr[getLevel() - 1][2];
+		coolDownDuration =		fastArr[getLevel() - 1][3];
+		cost =					fastArr[getLevel() - 1][4];
+	}
+	else if(getType() == AOETOWER)
+	{
+		damageValue =			fastArr[getLevel() - 1][0];
+		armorPenetration =		fastArr[getLevel() - 1][1];
+		range =					fastArr[getLevel() - 1][2];
+		coolDownDuration =		fastArr[getLevel() - 1][3];
+		cost =					fastArr[getLevel() - 1][4];
+	}
+	else if(getType() == MINETOWER)
+	{
+		damageValue =			mineArr[getLevel() - 1][0];
+		armorPenetration =		mineArr[getLevel() - 1][1];
+		range =					mineArr[getLevel() - 1][2];
+		coolDownDuration =		mineArr[getLevel() - 1][3];
+		cost =					mineArr[getLevel() - 1][4];
+	}
+	else
+		return false;
+	return true;
 }

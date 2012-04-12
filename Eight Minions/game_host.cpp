@@ -167,3 +167,12 @@ cList<creep*> *game_host::getCreepList()
 {
 	return &creepList;
 }
+player * game_host::getPlayer(int playerNumber)
+{
+	if(playerNumber == 1)
+		return &players[0];
+	else if(playerNumber == 2)
+		return &players[1];
+	else
+		return NULL;
+}
