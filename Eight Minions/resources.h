@@ -35,6 +35,17 @@
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+#define MAXCREEPLEVEL 5
+#define MAXCREEPVARIABLES 5
+
+//Creep types
+// Health Armor Speed Reward Price
+const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,2,1,2},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,2},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,4},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =	{{3,1,1,2,4},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =	{{1,0,3,1,2},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+
 //Spawn Tower Definitions
 #define CREEPTOWERSTARTLEVEL 1
 #define STANDARDTOWERSTARTLEVEL 1

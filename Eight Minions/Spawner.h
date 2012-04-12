@@ -11,10 +11,14 @@ private:
 	int player; //index of the player to spawn creeps for
 	queue<creep*> SpawnerQueue; //the queue of creeps to spawn, only for generating waves of creeps for the base (not for creep towers)
 	queue<int> SpawnerDelay; //the queue of delays between spawns, also only for spawning from base (not for creep towers)
+	
 	int SpawnerCount; //not sure what im using this for actually
+
 	int creepType; //the type of creep the spawner will create
-	int curDelay; //the current delay until the next creep is spawned
 	int spawnerLevel; //the level of the spawner/level of creep to be spawned
+
+
+	int curDelay; //the current delay until the next creep is spawned
 
 	coord Loc; 
 	//the location of the spawner
@@ -25,7 +29,6 @@ private:
 
 	bool stream; //true- send out constant stream of creeps. false- store up creeps (only for spawn)
 	bool isTower; //true- this spawner is part of a tower, false- this spawner is the players main spawner
-
 
 public:
 	Spawner();

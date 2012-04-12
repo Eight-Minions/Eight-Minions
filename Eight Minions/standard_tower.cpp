@@ -12,7 +12,6 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_h
 }
 void Standard_Tower::chooseClosestCreep(double radius)
 {
-	
 	double distanceClosest = radius;
 	cListNode<creep*> *cur = NULL;
 	cListNode<creep*> *closestCreep = NULL;
@@ -182,10 +181,12 @@ bool Standard_Tower::doDamage()
 			{
 				frontCreep = frontNode->getData();
 				frontCreep->damage(damageValue);
-				// Creep: UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);	
 				manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 				if(frontCreep->isAlive() == false)
 				{
+					manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
+					// Update money value for player based on reward for killing the creep
+					manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
 					// We should remove the creep from the list
 					manager->getCreepList()->deleteNode(frontNode->getIndex());
 					// Would this work???

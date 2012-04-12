@@ -5,14 +5,14 @@ Spawner::Spawner()
 	//Spawner should never be called like this, just sayin
 }
 
-Spawner::Spawner( game_host* nManager, int nPlayer, bool isTower)
+Spawner::Spawner(game_host* nManager, int nPlayer, bool isT)
 {
 	this->manager = nManager;
 	this->player = nPlayer;
+	this->isTower = isT;
 	SpawnerCount = 0;
 	creepType = NORM;
 }
-
 
 void Spawner::testing()
 {
