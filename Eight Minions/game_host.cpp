@@ -50,6 +50,8 @@ int game_host::testrun()
 	placeTower(1,1,4,9);
 	placeTower(1,1,11,11);
 	placeTower(1,1,3,9);
+	placeTower(1,1,12,10);
+	placeTower(1,1,13,10);
 	placeTower(1,1,15,8);
 	placeTower(1,1,14,9);
 	placeTower(1,1,5,10);
@@ -93,6 +95,9 @@ int game_host::testrun()
 				players[cur->getData()->getPlayer() - 1].takeDamage();
 
 				cur = cur->getNext(); //move to next creep in list
+
+				//SET CREEPS HEALTH TO 0 AND SEND UPDATE
+
 				creepList.deleteNode(i);
 			}
 			else

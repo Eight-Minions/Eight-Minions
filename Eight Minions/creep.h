@@ -20,7 +20,6 @@ private:
 	int Xdir;
 	int Ydir;
 
-	SDL_Surface *img;
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
 	coord prevPos;
 

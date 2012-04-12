@@ -23,7 +23,6 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		tankCreepArr[level-1][2];
 		reward =	tankCreepArr[level-1][3];
 		price =		tankCreepArr[level-1][4];
-		this->img = IMG_Load("tank.png");
 	}
 	else if(type == FAST){
 		health =	fastCreepArr[level-1][0];
@@ -31,7 +30,6 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		fastCreepArr[level-1][2];
 		reward =	fastCreepArr[level-1][3];
 		price =		fastCreepArr[level-1][4];
-		this->img = IMG_Load("fast.png");
 	}
 	else if(type == SWARM)
 	{
@@ -40,7 +38,6 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		swarmCreepArr[level-1][2];
 		reward =	swarmCreepArr[level-1][3];
 		price =		swarmCreepArr[level-1][4];
-		this->img = IMG_Load("swarm.png");
 	}
 	else if(type == TITAN)
 	{
@@ -49,7 +46,6 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		titanCreepArr[level-1][2];
 		reward =	titanCreepArr[level-1][3];
 		price =		titanCreepArr[level-1][4];
-		this->img = IMG_Load("titan.png");
 	}
 	else if(type == NORM)
 	{
@@ -58,7 +54,6 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		normCreepArr[level-0][2];
 		reward =	normCreepArr[level-0][3];
 		price =		normCreepArr[level-0][4];
-		this->img = IMG_Load("norm.png");
 	}
 	else
 	{
@@ -67,16 +62,11 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed = 0;
 		reward = 0;
 		price = 0;
-		this->img = NULL;
 	}
-	if(img == NULL)
-	{
-		cout << "creep image failed to load\n";
-	}
+
 }
 creep::~creep()
 {
-	delete img;
 	delete r;
 }
 int creep::damage(int d)
