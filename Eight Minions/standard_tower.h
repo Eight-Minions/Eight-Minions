@@ -3,7 +3,7 @@
 #include "resources.h"
 #include "tower.h"
 #include "game_host.h"
-
+#include "UpdMess.h"
 
 #define ATTACKCLOSESTTOTOWER	1
 #define ATTACKCLOSESTTOBASE		2
@@ -25,7 +25,7 @@ public:
 	bool doDamage();
 private:
 	game_host *manager;
-	queue<creep*> chosenCreeps;
+	queue<cListNode<creep*>*> chosenCreeps;
 
 	int damageValue;
 	int attackType;

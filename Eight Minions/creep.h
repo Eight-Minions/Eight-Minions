@@ -15,6 +15,7 @@ private:
 	int attack;
 	int Xdir;
 	int Ydir;
+	bool alive;
 	SDL_Surface *img;
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
 	coord prevPos;
@@ -41,6 +42,7 @@ public:
 	void setPlayer( int p );
 	int getType();
 	int getLevel();
+	bool isAlive();
 };
 
 #endif
