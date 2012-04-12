@@ -68,6 +68,7 @@ public:
 	int sendtoP1_test(string buff);
 
 	cList<creep*> * getCreepList();  // I'm not really sure that I should do this....
+	player * getPlayer(int playerNumber);
 
 	friend Spawner;
 

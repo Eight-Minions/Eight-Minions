@@ -202,13 +202,18 @@ bool Standard_Tower::doDamage()
 		return false;
 	}
 }
-
 bool Standard_Tower::upgrade()
 {
 	if(getLevel() < 5)
 	{
-		setLevel(getLevel() + 1);
-		return changeType(getType()); // Doesn't actually change the type, just updates the values
+		if(manager->getPlayer(this->getPlayer())->getMoney() < cost)
+			return false;
+		else
+		{
+			manager->getPlayer(this->getPlayer())->spendMoney(cost);
+			setLevel(getLevel() + 1);
+			return changeType(getType()); // Doesn't actually change the type, just updates the values
+		}
 	}
 	return false;
 }
