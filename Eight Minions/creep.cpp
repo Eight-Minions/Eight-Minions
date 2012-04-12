@@ -11,6 +11,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	animIndex = 0;
 	animTiming = 5;
 	animCount = 0;
+	player = p;
 	prevPos.x = set_x;
 	prevPos.y = set_y;
 	this->setX(set_x * GRID_SIZE + BOARD_X_OFFSET);  // Should probably have a generic starting point for each side 
