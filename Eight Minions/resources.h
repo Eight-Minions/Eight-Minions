@@ -24,6 +24,7 @@
 #define TOWER 2			// For an update on a tower
 #define TOWERATTACK 3	// For an update on a tower attack
 #define PLAYERUPDATE 4	// For an update to the player
+#define PURCHASEREQUEST 5 //from the client to the server, request to purchase something
 #define MAX_NUM_VAL 10	// Max number of values in a single update
 
 //Creep type definitions
@@ -50,7 +51,7 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 608
 
-//number of buttons 
+//Number of Buttons 
 #define NUM_BUTTONS 10
 
 //Movement Constant
