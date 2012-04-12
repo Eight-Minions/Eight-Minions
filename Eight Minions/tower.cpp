@@ -41,3 +41,7 @@ void tower::displayTower(SDL_Surface *screen)
 int tower::getPlayer(){
 	return player;
 }
+int tower::setLevel(int newLevel){
+	level = newLevel;
+	return level;
+}

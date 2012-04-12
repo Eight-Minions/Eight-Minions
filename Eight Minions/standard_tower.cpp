@@ -202,3 +202,51 @@ bool Standard_Tower::doDamage()
 		return false;
 	}
 }
+
+bool Standard_Tower::upgrade()
+{
+	if(getLevel() < 5)
+	{
+		setLevel(getLevel() + 1);
+		return changeType(getType()); // Doesn't actually change the type, just updates the values
+	}
+	return false;
+}
+bool Standard_Tower::changeType(int newType)
+{
+	if(getType() == BASICTOWER)
+	{
+		damageValue =			basicArr[getLevel() - 1][0];
+		armorPenetration =		basicArr[getLevel() - 1][1];
+		range =					basicArr[getLevel() - 1][2];
+		coolDownDuration =		basicArr[getLevel() - 1][3];
+		cost =					basicArr[getLevel() - 1][4];
+	}
+	else if(getType() == FASTTOWER)
+	{
+		damageValue =			fastArr[getLevel() - 1][0];
+		armorPenetration =		fastArr[getLevel() - 1][1];
+		range =					fastArr[getLevel() - 1][2];
+		coolDownDuration =		fastArr[getLevel() - 1][3];
+		cost =					fastArr[getLevel() - 1][4];
+	}
+	else if(getType() == AOETOWER)
+	{
+		damageValue =			fastArr[getLevel() - 1][0];
+		armorPenetration =		fastArr[getLevel() - 1][1];
+		range =					fastArr[getLevel() - 1][2];
+		coolDownDuration =		fastArr[getLevel() - 1][3];
+		cost =					fastArr[getLevel() - 1][4];
+	}
+	else if(getType() == MINETOWER)
+	{
+		damageValue =			mineArr[getLevel() - 1][0];
+		armorPenetration =		mineArr[getLevel() - 1][1];
+		range =					mineArr[getLevel() - 1][2];
+		coolDownDuration =		mineArr[getLevel() - 1][3];
+		cost =					mineArr[getLevel() - 1][4];
+	}
+	else
+		return false;
+	return true;
+}

@@ -62,6 +62,28 @@
 #define PLAYERTWOX 25
 #define PLAYERTWOY 10
 
+// Attack Types
+#define ATTACKCLOSESTTOTOWER	1
+#define ATTACKCLOSESTTOBASE		2
+#define AREAOFEFFECT			1
+#define ATTACKONECREEP			2
+
+// Tower Constants
+#define MAXTOWERLEVEL 5
+#define MAXTOWERVARIABLES 5
+
+#define BASICTOWER 0
+#define FASTTOWER 1
+#define AOETOWER 2
+#define MINETOWER 3
+
+//Tower Types
+// Damage ArmorPenetration Range Speed Cost
+const int basicArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =				{{1,0,(int)(3 * GRID_SIZE),30,5},{3,1,(int)(3.5 * GRID_SIZE),25,10},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int fastArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =				{{1,0,(int)(3 * GRID_SIZE),20,7},{2,0,(int)(2 * GRID_SIZE),17,15},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =		{{1,0,(int)(2 * GRID_SIZE),45,12},{2,1,(int)(2 * GRID_SIZE),40,20},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =				{{5,2,(int)(1 * GRID_SIZE),0,3},{10,4,(int)(1 * GRID_SIZE),0,6},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+
 using std::cout;
 using std::cin;
 using std::endl;

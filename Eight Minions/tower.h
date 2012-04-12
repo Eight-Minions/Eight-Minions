@@ -20,6 +20,8 @@ public:
 	int setType(int newType);
 	int getPlayer();
 
+	int setLevel(int newLevel);
+
 	void displayTower(SDL_Surface *screen);
 };
 #endif 
