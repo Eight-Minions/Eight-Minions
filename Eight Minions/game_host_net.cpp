@@ -66,7 +66,7 @@ int game_host::waitForClients()
 		SDL_Delay(50);
 	while(!SDLNet_UDP_Recv(p1UDPsock, UDPpack2))
 		SDL_Delay(5);
-	SDLNet_UDP_Bind(p1UDPsock,20,&(UDPpack2->address));
+	SDLNet_UDP_Bind(p1UDPsock,10,&(UDPpack2->address));
 	//cout << this->recieveMessagep2() << "\n";
 	SDLNet_TCP_AddSocket(socketset, player2sd); //could error check here as well
 	player2ip = SDLNet_TCP_GetPeerAddress(player2sd);
@@ -110,8 +110,7 @@ void game_host::setPort(unsigned int setPort)
 	//made function set port
 	//validated the input
 	//added confirmation
-	//todo:
-	//
+
 	if(setPort > 65535)
 	{
 		cout << "INVALID PORT!\n";

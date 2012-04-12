@@ -5,14 +5,21 @@ Spawner::Spawner()
 	//Spawner should never be called like this, just sayin
 }
 
-Spawner::Spawner(game_host* nManager, int nPlayer, bool isT)
+
+//spawner constructor
+//
+//params: 
+//	nManager - a pointer to THE game_host object that is running the game
+//	nPlayer - the player who will own the creeps that are spawned
+//	isTower - whether or not this spawner will be part of a creep tower
+Spawner::Spawner( game_host* nManager, int nPlayer, bool isTower)
 {
 	this->manager = nManager;
 	this->player = nPlayer;
-	this->isTower = isT;
 	SpawnerCount = 0;
 	creepType = NORM;
 }
+
 
 void Spawner::testing()
 {

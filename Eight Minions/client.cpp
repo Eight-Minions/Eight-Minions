@@ -36,6 +36,11 @@ int client::init()
 	return 1;
 }
 
+void client::loadFiles()
+{
+
+}
+
 void client::cleanup()
 {
 	//do all freeing of memory and cleanup type stuff here
