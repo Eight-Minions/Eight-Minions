@@ -13,8 +13,9 @@ public:
 	Creep_Tower(int player, int newX, int newY);						//Client Constructor
 	Creep_Tower(int player, int newX, int newY, game_host *nManager);	//Server Constructor
 	void spawn();
-	void upgrade();
-	void changeType();
+	bool upgrade();
+	bool changeType();
+
 	void pause();
 	void unpause();
 private:

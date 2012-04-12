@@ -12,14 +12,22 @@ Spawner::Spawner()
 //	nManager - a pointer to THE game_host object that is running the game
 //	nPlayer - the player who will own the creeps that are spawned
 //	isTower - whether or not this spawner will be part of a creep tower
-Spawner::Spawner( game_host* nManager, int nPlayer, bool isTower)
+Spawner::Spawner(game_host *nManager, int nPlayer, bool isTower)
 {
-	this->manager = nManager;
-	this->player = nPlayer;
+	manager = nManager;
+	player = nPlayer;
 	SpawnerCount = 0;
 	creepType = NORM;
+	spawnerLevel = 1;
 }
-
+Spawner::Spawner( game_host* nManager, int nPlayer, bool isTower, int nCreepType, int nLevel)
+{
+	manager = nManager;
+	player = nPlayer;
+	SpawnerCount = 0;
+	creepType = nCreepType;
+	spawnerLevel = nLevel;
+}
 
 void Spawner::testing()
 {
@@ -105,6 +113,12 @@ void Spawner::generateWave()
 	//decide creep type and number
 	//spawn that amount of creeps of chosen type and put them into the queue
 	//decide on a good delay between creeps
-
-
+}
+int Spawner::getLevel()
+{
+	return spawnerLevel;
+}
+int Spawner::getType()
+{
+	return creepType;
 }

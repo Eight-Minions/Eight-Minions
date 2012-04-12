@@ -22,14 +22,25 @@ void Creep_Tower::spawn()
 {
 	if(!paused)
 	{
-
+		cSpawner->iterate();
 	}
 }
-void Creep_Tower::upgrade()
+bool Creep_Tower::upgrade()
+{
+	if(this->getLevel() < 5)
+	{
+		if(this->cost < this->manager->getPlayer(this->getPlayer())->getMoney())
+		{
+			this->manager->getPlayer(this->getPlayer())->spendMoney(cost);
+			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel() + 1);
+			return true;
+		}
+	}
+	return false;
+}
+bool Creep_Tower::changeType()
 {
 
-}
-void Creep_Tower::changeType()
-{
+	return false;
 
 }
