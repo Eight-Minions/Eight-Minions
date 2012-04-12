@@ -5,6 +5,7 @@ creep::creep()
 }
 creep::creep(int t, int p, int l, int set_x, int set_y)
 {
+	alive = true;
 	type = t;
 	level = l;
 	nPlayer = p;
@@ -69,8 +70,7 @@ int creep::damage(int d)
 	this->health = this->health - d;
 	if(health <= 0)
 	{
-		// Remove from the list of creeps
-		// Kill this object
+		alive = false;
 		return 0;
 	}
 	return health;
@@ -188,4 +188,7 @@ int creep::getLevel()
 void creep::updateAnim()
 {
 	
+}
+bool creep::isAlive(){
+	return alive;
 }

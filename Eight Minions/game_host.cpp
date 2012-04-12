@@ -16,10 +16,10 @@ int game_host::init()
 	}
 
 	//set the location of each players bases, these are used as goals for the creeps pathfinding
-	Bases[0].x = 0;
-	Bases[0].y = 10;
-	Bases[1].x = 25;
-	Bases[1].y = 10;
+	Bases[0].x = PLAYERONEX;
+	Bases[0].y = PLAYERONEY;
+	Bases[1].x = PLAYERTWOX;
+	Bases[1].y = PLAYERTWOY;
 
 	//set up spawners, these manage the generation of creeps
 	p1Spawner = new Spawner(this, 1, false);

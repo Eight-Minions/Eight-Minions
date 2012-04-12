@@ -15,7 +15,7 @@ void Standard_Tower::chooseClosestCreep(double radius)
 	
 	double distanceClosest = radius;
 	cListNode<creep*> *cur = NULL;
-	creep *closestCreep = NULL;
+	cListNode<creep*> *closestCreep = NULL;
 
 	cur = this->manager->getCreepList()->getStart();
 	while(cur != NULL)
@@ -26,7 +26,7 @@ void Standard_Tower::chooseClosestCreep(double radius)
 				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
 			if(currentDistance < distanceClosest)
 			{
-				closestCreep = cur->getData();
+				closestCreep = cur;
 				distanceClosest = currentDistance;
 			}
 		}
@@ -39,7 +39,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 {
 	double distanceClosest = radius;
 	cListNode<creep*> *cur = NULL;
-	creep *closestCreep = NULL;
+	cListNode<creep*> *closestCreep = NULL;
 
 	cur = this->manager->getCreepList()->getStart();
 	while(cur != NULL)
@@ -50,7 +50,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 				pow((double)(((position.getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
 			if(currentDistance < distanceClosest)
 			{
-				closestCreep = cur->getData();
+				closestCreep = cur;
 				distanceClosest = currentDistance;
 			}
 		}
@@ -71,7 +71,7 @@ void Standard_Tower::chooseNeighbors(double radius)
 				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
 			if(currentDistance < radius)
 			{
-				chosenCreeps.push(cur->getData());
+				chosenCreeps.push(cur);
 			}
 		}
 		cur = cur->getNext();
@@ -89,13 +89,12 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, location positio
 				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((position.getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
 			if(currentDistance < radius)
 			{
-				chosenCreeps.push(cur->getData());
+				chosenCreeps.push(cur);
 			}
 		}
 		cur = cur->getNext();
 	}
 }
-
 /*
 	choses creeps if the cool down is 0
 	returns true if something was chosen
@@ -122,11 +121,29 @@ bool Standard_Tower::choose()
 		{
 			if(attackType == AREAOFEFFECT)
 			{
-
+				if(this->getPlayer() == 1) // Don't know if this is correct
+				{
+					this->chooseNeighborsNearPosition(range, location(PLAYERONEX, PLAYERONEY)); // Attack near own base
+				}
+				else if(this->getPlayer() == 2)
+				{
+					this->chooseNeighborsNearPosition(range, location(PLAYERTWOX, PLAYERTWOY));  // Attack near own base
+				}
+				else 
+					return false;
 			}
 			else if(attackType == ATTACKONECREEP)
 			{
-
+				if(this->getPlayer() == 1)
+				{
+					this->chooseClosestCreepToPosition(range, location(PLAYERONEX, PLAYERTWOY)); // Attack near own base
+				}	
+				else if(this->getPlayer() == 2)
+				{
+					this->chooseClosestCreepToPosition(range, location(PLAYERONEX, PLAYERTWOY)); // Attack near own base
+				}
+				else 
+					return false;
 			}
 			else
 				return false;
@@ -154,12 +171,26 @@ bool Standard_Tower::choose()
 */
 bool Standard_Tower::doDamage()
 {
+	cListNode<creep*> *frontNode = NULL;
+	creep *frontCreep;
 	if(attackTick <= 0)
 	{
 		while(chosenCreeps.size() > 0)
 		{
-			if(chosenCreeps.front() != NULL) // Does the creep still exist?
-				chosenCreeps.front()->damage(damageValue);
+			frontNode = chosenCreeps.front();
+			if(frontCreep != NULL)// Does the creep still exist?
+			{
+				frontCreep = frontNode->getData();
+				frontCreep->damage(damageValue);
+				// Creep: UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);	
+				manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
+				if(frontCreep->isAlive() == false)
+				{
+					// We should remove the creep from the list
+					manager->getCreepList()->deleteNode(frontNode->getIndex());
+					// Would this work???
+				}
+			}
 			chosenCreeps.pop();
 		}
 		attackTick = attackDuration;

@@ -56,6 +56,12 @@
 //Movement Constant
 #define CLOCK_CAP .50
 
+//Player Base Location
+#define PLAYERONEX 0
+#define PLAYERONEY 10
+#define PLAYERTWOX 25
+#define PLAYERTWOY 10
+
 using std::cout;
 using std::cin;
 using std::endl;
