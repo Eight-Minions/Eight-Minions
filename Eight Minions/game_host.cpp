@@ -66,7 +66,7 @@ int game_host::testrun()
 	int run = 1;
 	int nc = 0;
 	cListNode<creep*> *cur = NULL;
-
+	cListNode<tower*> *curTower = NULL;
 	while(run)
 	{
 		//receive input
@@ -74,21 +74,15 @@ int game_host::testrun()
 		//process input
 		//go through message queue and decide what to do for each one
 
-		/*
-		foreach tower
-		pick attack
-		do attack
-		send updates
-		note: attacks should be on a time delay, and possibly something like this:
-		tower picks target, waits Nms
-		tower starts attack
-		attack takes Nms
-		attack hits, creep takes damage
-		now tower waits until its attack recharges before it can attack again
-		*/
-
+		curTower = towerList.getStart();
+		while(curTower != NULL)
+		{
+			curTower->getData()->iterate();
+			curTower = curTower->getNext();
+		}
 		cur = creepList.getStart(); //get the head of player ones creep list
-		while(cur != NULL){ //loop through the list
+		while(cur != NULL)
+		{ //loop through the list
 			if(cur->getData()->move()) //move each creep in the list
 			{
 				int i = cur->getIndex();
@@ -162,11 +156,15 @@ int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 	{
 		if(towerType >= 0 && towerType <= 4)
 		{
-			Tmap[x][y] = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+			Standard_Tower *newTower = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+			this->towerList.insertInOrder(newTower);
+			Tmap[x][y] = newTower;
 		}
 		else if(towerType == SPAWNERTOWER)
 		{
-			Tmap[x][y] = new Creep_Tower(playerNumber,x,y, this);
+			Creep_Tower *newTower = new Creep_Tower(playerNumber,x,y, this);
+			this->towerList.insertInOrder(newTower);
+			Tmap[x][y] = newTower;
 		}
 		else
 			return 0;
