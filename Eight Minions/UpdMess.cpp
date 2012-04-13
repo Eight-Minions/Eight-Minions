@@ -29,7 +29,7 @@ UpdMess::UpdMess(int p, int t, ...)
 			// i = 0 AttackerX[2]
 			// i = 1 AttackerY[2]
 			// i = 3 AttackType
-			if( i == 0 | i == 1 | i == 3)
+			if( i == 0 || i == 1 || i == 3)
 			{
 				if(var == 0)
 					messText += "00";

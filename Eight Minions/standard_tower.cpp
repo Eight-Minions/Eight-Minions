@@ -183,7 +183,7 @@ bool Standard_Tower::choose()
 bool Standard_Tower::doDamage()
 {
 	cListNode<creep*> *frontNode = NULL;
-	creep *frontCreep;
+	creep *frontCreep = NULL;
 	if(attackTick <= 0)
 	{
 		while(chosenCreeps.size() > 0)

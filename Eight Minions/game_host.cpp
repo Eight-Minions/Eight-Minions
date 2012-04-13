@@ -47,14 +47,15 @@ int game_host::testrun()
 	this->waitForClients();
 	//this->waitForClient_test();
 
+	// placeTower(int playerNumber, int towerType, int x, int y);
 	placeTower(1,1,4,9);
 	placeTower(1,1,11,11);
 	placeTower(1,1,3,9);
 	placeTower(1,1,12,10);
-	placeTower(1,1,13,10);
-	placeTower(1,1,15,8);
-	placeTower(1,1,14,9);
-	placeTower(1,1,5,10);
+	placeTower(2,1,13,10);
+	placeTower(2,1,15,8);
+	placeTower(2,1,14,9);
+	placeTower(2,1,5,10);
 	setNodemap();
 
 	spawnCreep(1,2,1,Bases[0]);
@@ -159,11 +160,21 @@ int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 {
 	if(Tmap[x][y] == NULL)
 	{
-		Tmap[x][y] = new tower(0, playerNumber, towerType,x,y);
-		setNodemap();
-		updatePaths();
-		sendMessageToQueue(UpdMess(playerNumber, TOWER,42, x,y,towerType).getMT());
-		return 1;
+		if(towerType >= 0 && towerType <= 4)
+		{
+			Tmap[x][y] = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+		}
+		else if(towerType == SPAWNERTOWER)
+		{
+			Tmap[x][y] = new Creep_Tower(playerNumber,x,y, this);
+		}
+		else
+			return 0;
+
+			setNodemap();
+			updatePaths();
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, 42, x,y,towerType).getMT());
+			return 1;
 	}
 	else
 		return 0;
