@@ -60,7 +60,7 @@ int client::connectToServer()
 	}
 	this->UDPpack = SDLNet_AllocPacket(512);
 
-
+	this->self = new player;
 	/* test sending something to the server */
 	string buff = "Client Connected!";
 
