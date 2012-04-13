@@ -27,9 +27,6 @@ void Standard_Tower::chooseClosestCreep(double radius)
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			//double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((this->getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
-			//	pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
-
 			double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
 			if(currentDistance < distanceClosest)
 			{
@@ -56,8 +53,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((position.getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
-				pow((double)(((position.getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
+			double currentDistance = sqrt(pow(cur->getData()->getXd() - (position.getX()),2) + pow(cur->getData()->getYd() - (position.getY()),2));
 			if(currentDistance < distanceClosest)
 			{
 				closestCreep = cur;
@@ -80,8 +76,7 @@ void Standard_Tower::chooseNeighbors(double radius)
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((this->getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
-				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
+			double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
 			if(currentDistance < radius)
 			{
 				manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
@@ -99,8 +94,7 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, location positio
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			double currentDistance = sqrt(pow((double)(((cur->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)-((position.getX() - BOARD_X_OFFSET)/GRID_SIZE)), 2) +
-				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((position.getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
+			double currentDistance = sqrt(pow(cur->getData()->getXd() - (position.getX()),2) + pow(cur->getData()->getYd() - (position.getY()),2));
 			if(currentDistance < radius)
 			{
 				//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
