@@ -22,8 +22,8 @@ int game_host::init()
 	Bases[1].y = PLAYERTWOY;
 
 	//set up spawners, these manage the generation of creeps
-	p1Spawner = new Spawner(this, 1, false);
-	p2Spawner = new Spawner(this, 2, false);
+	p1Spawner = new Spawner(this, 1, true, Bases[0]);
+	p2Spawner = new Spawner(this, 2, true, Bases[1]);
 	return 0;
 }
 
@@ -70,10 +70,10 @@ int game_host::testrun()
 	cListNode<creep*> *temp = NULL;
 	while(run)
 	{
-		//receive input
-		//receiveMessagesToQueue
-		//process input
-		//go through message queue and decide what to do for each one
+		
+
+		p1Spawner->iterate();
+		p2Spawner->iterate();
 		curTower = towerList.getStart();
 		while(curTower != NULL)
 		{

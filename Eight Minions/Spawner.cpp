@@ -12,18 +12,19 @@ Spawner::Spawner()
 //	nManager - a pointer to THE game_host object that is running the game
 //	nPlayer - the player who will own the creeps that are spawned
 //	isTower - whether or not this spawner will be part of a creep tower
-Spawner::Spawner(game_host *nManager, int nPlayer, bool isTower)
+Spawner::Spawner(game_host *nManager, int Player, bool isTower, coord nLoc)
 {
 	manager = nManager;
-	player = nPlayer;
+	nPlayer = Player;
 	SpawnerCount = 0;
 	creepType = NORM;
 	spawnerLevel = 1;
+	Loc = nLoc;
 }
-Spawner::Spawner( game_host* nManager, int nPlayer, bool isTower, int nCreepType, int nLevel)
+Spawner::Spawner( game_host* nManager, int Player, bool isTower, int nCreepType, int nLevel)
 {
 	manager = nManager;
-	player = nPlayer;
+	nPlayer = Player;
 	SpawnerCount = 0;
 	creepType = nCreepType;
 	spawnerLevel = nLevel;
@@ -65,12 +66,15 @@ bool Spawner::iterate()
 		if(curDelay <= 0)
 		{
 			int creepIndex;
-			creep *retCreep = new creep(creepType,player,spawnerLevel,Loc.x,Loc.y);
+			creep *retCreep = new creep(creepType,nPlayer,spawnerLevel,Loc.x,Loc.y);
+			retCreep->p.setStart(Loc);
+			retCreep->p.setGoal(manager->Bases[nPlayer % 2]);
+			retCreep->p.genPath(manager->Nodemap);
 			creepIndex = manager->creepList.insertInOrder(retCreep);
-			manager->sendMessageToQueue(UpdMess(player,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
+			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 			
 			//CHANGES NEEDED HERE
-			curDelay = 10;
+			curDelay = 50;
 
 			//also, add handlers for if the player wants to save up a swarm.
 			return true;
@@ -87,7 +91,7 @@ bool Spawner::iterate()
 			creep *retCreep = SpawnerQueue.front();
 			SpawnerQueue.pop();
 			creepIndex = manager->creepList.insertInOrder(retCreep);
-			manager->sendMessageToQueue(UpdMess(player,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
+			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 			if(SpawnerQueue.empty())
 			{
 				//generate next Spawner, or trigger end-game, or whatever.
