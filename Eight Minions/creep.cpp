@@ -140,12 +140,12 @@ bool creep::move()
 	}
 	return false;
 }
-void creep::displayCreep(SDL_Surface *screen, SDL_Surface *images[ANIM_NUM])
+void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM])
 {
 	updateAnim();
 	this->r->x = this->getX();
 	this->r->y = this->getY();
-	SDL_BlitSurface(images[animIndex], NULL, screen, r);
+	SDL_BlitSurface(image, NULL, screen, r);
 }
 void creep::updateAnim()
 {
@@ -196,4 +196,16 @@ bool creep::isAlive()
 int creep::getPrice()
 {
 	return price;
+}
+
+int creep::getDir()
+{
+	if(Xdir == -1)
+		return 0;
+	else if(Ydir == 1)
+		return 1;
+	else if(Xdir == 1)
+		return 2;
+	else
+		return 3;
 }

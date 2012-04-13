@@ -73,6 +73,18 @@ int game_host::waitForClients()
 	//UDPpack2->address.port = player2ip.port;
 	//UDPpack2->address.host = player2ip.host;
 	sendToClients("SIG:START");
+
+	if(SDLNet_TCP_Send(player1sd, "1SIG:START", 16 /* buff.length()+1*/) < 16)
+	{
+		cout << "Message to client 1 failed to send...\n";
+		return -1;
+	}
+	if(SDLNet_TCP_Send(player2sd, "2SIG:START", 16 /*buff.length()+1*/) < 16)
+	{
+		cout << "Message to client 2 failed to send...\n";
+		return -1;
+	}
+
 	cout << "both clients connected, continuing...\n";
 	return 1;
 }

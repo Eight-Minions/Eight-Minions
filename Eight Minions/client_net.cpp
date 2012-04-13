@@ -73,7 +73,8 @@ int client::connectToServer()
 	SDLNet_TCP_Send(sd, (void *)buff.c_str(), buff.length()+1);
 	char temp[32];
 	SDLNet_TCP_Recv(sd, temp, 32);
-	if(strcmp(temp,"SIG:START"))
+	this->self->setPnum(temp[0] - '0');
+	if(strcmp(&temp[1],"SIG:START"))
 	{
 		cout << "unsuccessful connection!\n" << buff << "\nAborting...\n";
 		return -1;

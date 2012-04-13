@@ -37,7 +37,7 @@ public:
 
 	int damage(int damage);
 
-	void displayCreep(SDL_Surface *screen, SDL_Surface *images[4]);
+	void displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM]);
 	void updateAnim();
 
 	int getHealth();
@@ -49,6 +49,7 @@ public:
 	int getArmor();	
 	int getReward();
 	int getPrice();
+	int getDir();
 
 	bool isAlive();
 };

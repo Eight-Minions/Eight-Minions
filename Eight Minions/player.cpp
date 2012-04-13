@@ -57,5 +57,14 @@ bool player::spendMoney( int amt )
 	}
 }
 
+void player::setPnum( int nPnum )
+{
+	this->pNum = nPnum;
+}
+
+int player::getPnum()
+{
+	return pNum;
+}
 
 

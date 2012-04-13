@@ -27,11 +27,12 @@ private:
 	//Surfaces - surfaces are basically loaded images that we can readily blit(display) to the screen
 	SDL_Surface* screen;
 	SDL_Surface* background;
-	SDL_Surface* creepImages[NUM_CREEPS][4];
+	SDL_Surface* creepImages[NUM_CREEPS]; //holds sprite sheets for each creep
 	SDL_Surface* textTest;
 
 	SDL_Event event;
 	SDL_Rect *Buttons[NUM_BUTTONS];
+	SDL_Rect *SpriteMaps[4][ANIM_NUM];
 
 	cList<creep*> creeps;
 	cList<tower*> towers;

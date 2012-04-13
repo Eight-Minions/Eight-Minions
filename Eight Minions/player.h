@@ -28,7 +28,8 @@ public:
 
 	void addMoney(int amt); //adds the amount of money to the players total
 	bool spendMoney(int amt); //checks if the player has enough money, then subtracts it
-
+	void setPnum( int nPnum );
+	int getPnum();
 };
 
 #endif

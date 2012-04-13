@@ -1,5 +1,38 @@
 #include "client.h"
 
+SDL_Surface *LoadImageCK(string filename)
+{
+	SDL_Surface *newImage = IMG_Load(filename.c_str());
+	SDL_Surface *keyedImage = NULL;
+
+	if(newImage != NULL)
+	{
+		keyedImage = SDL_DisplayFormat(newImage);
+
+		SDL_FreeSurface(newImage);
+
+		if(keyedImage != NULL)
+		{
+			Uint32 colorkey = SDL_MapRGB(keyedImage->format, 0xFF, 0, 0xFF);
+
+			SDL_SetColorKey(keyedImage, SDL_SRCCOLORKEY, colorkey);
+
+			return keyedImage;
+		}
+		else
+		{
+			return NULL;
+		}
+
+	}
+	else
+	{
+		return NULL;
+	}
+
+
+}
+
 client::client()
 {
 	this->ip = new IPaddress;
@@ -40,17 +73,19 @@ void client::loadFiles()
 	//loading files here
 	this->background = IMG_Load("images/Minions_UI_ShittyGrid.png");
 	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
-	creepImages[NORM][0] = IMG_Load("norm.png");
 
-	creepImages[FAST][0] = IMG_Load("fast.png");
+	creepImages[NORM] = IMG_Load("norm.png");
+	creepImages[FAST] = IMG_Load("fast.png");
+	creepImages[SWARM] = IMG_Load("swarm.png");
+	creepImages[TANK] = IMG_Load("tank.png");
+	creepImages[TITAN] = IMG_Load("titan.png");
+	creepImages[FATTY] = IMG_Load("fatty.png");
 
-	creepImages[SWARM][0] = IMG_Load("swarm.png");
+	for(int i = 0; i < 4; i++)
+	{
+		SpriteMaps[i][0] = newRect(0,i * GRID_SIZE,GRID_SIZE,GRID_SIZE);
+	}
 
-	creepImages[TANK][0] = IMG_Load("tank.png");
-
-	creepImages[TITAN][0] = IMG_Load("titan.png");
-
-	creepImages[FATTY][0] = IMG_Load("fatty.png");
 }
 
 void client::cleanup()
@@ -163,7 +198,7 @@ void client::displayCreeps()
 	cListNode<creep*> *cur = creeps.getStart();
 	while(cur != NULL)
 	{
-		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getType()]);
+		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getType()], SpriteMaps[cur->getData()->getDir()]);
 		cur = cur->getNext();
 	}
 }
