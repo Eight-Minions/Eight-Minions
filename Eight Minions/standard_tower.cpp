@@ -5,10 +5,12 @@ Standard_Tower::Standard_Tower() : tower()
 }
 Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : tower(STANDARDTOWERSTARTLEVEL, p, -1, set_x, set_y)
 {
+	changeType(t);
 }
 Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : tower(STANDARDTOWERSTARTLEVEL, p, -1, set_x, set_y)
 {
 	manager = nManager;
+	changeType(t);
 }
 void Standard_Tower::chooseClosestCreep(double radius)
 {
@@ -32,7 +34,10 @@ void Standard_Tower::chooseClosestCreep(double radius)
 		cur = cur->getNext();
 	}
 	if(closestCreep != NULL)
+	{
+		manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
 		chosenCreeps.push(closestCreep);
+	}
 }
 void Standard_Tower::chooseClosestCreepToPosition(double radius, location position)
 {
@@ -56,7 +61,10 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 		cur = cur->getNext();
 	}
 	if(closestCreep != NULL)
+	{
+		manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
 		chosenCreeps.push(closestCreep);
+	}
 }
 void Standard_Tower::chooseNeighbors(double radius)
 {
@@ -70,6 +78,7 @@ void Standard_Tower::chooseNeighbors(double radius)
 				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((this->getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
 			if(currentDistance < radius)
 			{
+				manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
 				chosenCreeps.push(cur);
 			}
 		}
@@ -88,6 +97,8 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, location positio
 				pow((double)(((cur->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)-((position.getY() - BOARD_Y_OFFSET)/GRID_SIZE)), 2));
 			if(currentDistance < radius)
 			{
+				//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
+				manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
 				chosenCreeps.push(cur);
 			}
 		}
@@ -151,6 +162,7 @@ bool Standard_Tower::choose()
 			return false;
 		if(chosenCreeps.size() > 0)
 		{
+			waiting = true;
 			coolDownTick = coolDownDuration;
 			return true;  // Stuff was chosen
 		}
@@ -195,6 +207,7 @@ bool Standard_Tower::doDamage()
 			chosenCreeps.pop();
 		}
 		attackTick = attackDuration;
+		waiting = false;
 		return true;
 	}
 	else
@@ -220,6 +233,7 @@ bool Standard_Tower::upgrade()
 }
 bool Standard_Tower::changeType(int newType)
 {
+	waiting = false;
 	if(getType() == BASICTOWER)
 	{
 		damageValue =			basicArr[getLevel() - 1][0];
@@ -227,6 +241,9 @@ bool Standard_Tower::changeType(int newType)
 		range =					basicArr[getLevel() - 1][2];
 		coolDownDuration =		basicArr[getLevel() - 1][3];
 		cost =					basicArr[getLevel() - 1][4];
+		attackDuration =		BASICATTACKDELAY;
+		attackType  =			ATTACKONECREEP;
+		attackStrategy =		ATTACKCLOSESTTOTOWER;
 	}
 	else if(getType() == FASTTOWER)
 	{
@@ -235,6 +252,9 @@ bool Standard_Tower::changeType(int newType)
 		range =					fastArr[getLevel() - 1][2];
 		coolDownDuration =		fastArr[getLevel() - 1][3];
 		cost =					fastArr[getLevel() - 1][4];
+		attackDuration =		FASTATTACKDELAY;
+		attackType =			ATTACKONECREEP;
+		attackStrategy =		ATTACKCLOSESTTOTOWER;
 	}
 	else if(getType() == AOETOWER)
 	{
@@ -243,6 +263,20 @@ bool Standard_Tower::changeType(int newType)
 		range =					fastArr[getLevel() - 1][2];
 		coolDownDuration =		fastArr[getLevel() - 1][3];
 		cost =					fastArr[getLevel() - 1][4];
+		attackDuration =		AOEATTACKDELAY;
+		attackType =			AREAOFEFFECT;
+		attackStrategy =		ATTACKCLOSESTTOTOWER;
+	}
+	else if(getType() == HEAVYTOWER)
+	{
+		damageValue =			heavyArr[getLevel() - 1][0];
+		armorPenetration =		heavyArr[getLevel() - 1][1];
+		range =					heavyArr[getLevel() - 1][2];
+		coolDownDuration =		heavyArr[getLevel() - 1][3];
+		cost =					heavyArr[getLevel() - 1][4];
+		attackDuration =		HEAVYATTACKDELAY;
+		attackType =			ATTACKONECREEP;
+		attackStrategy =		ATTACKCLOSESTTOTOWER;
 	}
 	else if(getType() == MINETOWER)
 	{
@@ -251,8 +285,23 @@ bool Standard_Tower::changeType(int newType)
 		range =					mineArr[getLevel() - 1][2];
 		coolDownDuration =		mineArr[getLevel() - 1][3];
 		cost =					mineArr[getLevel() - 1][4];
+		attackDuration =		MINEATTACKDELAY;
+		attackType =			AREAOFEFFECT;
+		attackStrategy =		ATTACKCLOSESTTOTOWER;
 	}
 	else
 		return false;
 	return true;
+}
+void Standard_Tower::sell()
+{
+}
+void Standard_Tower::iterate()
+{
+	if(waiting)
+	{
+		doDamage();
+	}
+	else
+		choose();
 }

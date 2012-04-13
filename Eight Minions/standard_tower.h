@@ -15,11 +15,17 @@ public:
 	void chooseClosestCreepToPosition(double radius, location position);
 	void chooseNeighbors(double radius);
 	void chooseNeighborsNearPosition(double radius, location position);
+
 	bool choose();
 	bool doDamage();
+	void iterate();
 
 	bool upgrade();
 	bool changeType(int newType);
+	
+	void sell();
+
+	int getID();
 private:
 	game_host *manager;
 	queue<cListNode<creep*>*> chosenCreeps;
@@ -37,6 +43,7 @@ private:
 	int attackStrategy;
 	int attackDuration;
 
+	bool waiting;
 };
 
 #endif

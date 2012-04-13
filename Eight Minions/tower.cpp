@@ -45,3 +45,7 @@ int tower::setLevel(int newLevel){
 	level = newLevel;
 	return level;
 }
+void tower::iterate()
+{
+	cout << "Nothing to do for base tower type" << endl;
+}

@@ -22,6 +22,8 @@ public:
 
 	int setLevel(int newLevel);
 
+	virtual void iterate();
+
 	void displayTower(SDL_Surface *screen);
 };
 #endif 

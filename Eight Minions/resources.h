@@ -91,7 +91,8 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10},	{20
 #define BASICTOWER 0
 #define FASTTOWER 1
 #define AOETOWER 2
-#define MINETOWER 3
+#define HEAVYTOWER 3
+#define MINETOWER 4
 
 //Tower Types
 // Damage ArmorPenetration Range Speed Cost
@@ -101,6 +102,14 @@ const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =	{{1,0,(2 * GRID_SI
 const int heavyArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{2,1,(2 * GRID_SIZE),90,15},	{4,2,(3 * GRID_SIZE),80,25},		{9,3,(4 * GRID_SIZE),70,40},	{13,4,(5 * GRID_SIZE),60,100},			{22,5,(int)(5.5 * GRID_SIZE),50,300}};
 const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{5,2,(1 * GRID_SIZE),0,3},		{10,3,((int)(1.5 * GRID_SIZE)),0,5},	{15,4,(2 * GRID_SIZE),0,8},		{20,5,((int)(2.5 * GRID_SIZE)),0,10},		{25,6,(3 * GRID_SIZE),0,15}};
 
+#define BASICATTACKDELAY 30
+#define FASTATTACKDELAY 20
+#define AOEATTACKDELAY 10
+#define HEAVYATTACKDELAY 45
+#define MINEATTACKDELAY 2
+
+
+// Usings
 using std::cout;
 using std::cin;
 using std::endl;

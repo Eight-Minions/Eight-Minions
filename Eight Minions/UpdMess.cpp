@@ -9,7 +9,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		Creep:			UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);	// For creep creation and upgrades
 		Creep:			UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);						// For position updates
 		Tower:			UpdMess(Player[1], TOWER, TowerID[4], X[2], Y[2], TowerType[2]);
-		Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerID[4], AttackedID[4], AttackType[2]);
+		Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
 		Player:			UpdMess(Player[1], PLAYERUPDATE, Health[3], Money[8]);
 	*/
 	int var;
@@ -26,9 +26,22 @@ UpdMess::UpdMess(int p, int t, ...)
 		for(int i = 0; i < 3; i++)
 		{
 			var = va_arg(v1, int);
-			// i = 0 AttackerID[4]
-			// i = 1 AttackedID[4]
-			if(i == 0 || i == 1)
+			// i = 0 AttackerX[2]
+			// i = 1 AttackerY[2]
+			// i = 3 AttackType
+			if( i == 0 | i == 1 | i == 3)
+			{
+				if(var == 0)
+					messText += "00";
+				else
+				{
+					if(var < 10)
+						messText += '0';
+					messText += itoa(var,buff,10);
+				}
+			}
+			// i = 2 AttackedID[4]
+			else if(i == 2)
 			{
 				if(var == 0)
 					messText += "0000";
@@ -38,18 +51,6 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
-				}
-			}
-			// AttackType
-			else if( i == 2)
-			{
-				if(var == 0)
-					messText += "00";
-				else
-				{
-					if(var < 10)
-						messText += '0';
 					messText += itoa(var,buff,10);
 				}
 			}
