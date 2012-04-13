@@ -1,6 +1,7 @@
 #ifndef RESOURCES_H
 #define RESOURCES_H
 
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <list>
@@ -121,6 +122,8 @@ using std::string;
 using std::queue;
 using std::list;
 using std::vector;
+using std::fstream;
+using std::ofstream;
 
 SDL_Rect *newRect(int x, int y, int w, int h);
 SDL_Color makeColor(int r, int g, int b);

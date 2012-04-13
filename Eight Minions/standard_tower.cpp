@@ -3,14 +3,18 @@
 Standard_Tower::Standard_Tower() : tower()
 {
 }
-Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : tower(STANDARDTOWERSTARTLEVEL, p, -1, set_x, set_y)
+Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : tower(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
 	changeType(t);
+	attackTick = attackDuration;
+	coolDownTick = coolDownDuration;
 }
-Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : tower(STANDARDTOWERSTARTLEVEL, p, -1, set_x, set_y)
+Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : tower(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
 	manager = nManager;
 	changeType(t);
+	attackTick = attackDuration;
+	coolDownTick = coolDownDuration;
 }
 void Standard_Tower::chooseClosestCreep(double radius)
 {

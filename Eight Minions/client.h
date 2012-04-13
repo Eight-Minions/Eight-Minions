@@ -12,11 +12,10 @@
 #define CONNECTION_FAILURE 0 //generic error
 #define SERVER_NOT_FOUND -1
 
-
-
 class client
 {
 private:
+	ofstream dump;
 	string server_addr;
 	unsigned int port;
 	IPaddress *ip;

@@ -10,6 +10,7 @@ client::client()
 int client::init()
 {
 	//Start SDL
+	dump.open("dump.txt"); 
 	if(SDL_Init( SDL_INIT_EVERYTHING ) == -1)
 	{
 		cout << "SDL Failed to initialize...\n";
@@ -161,6 +162,7 @@ int client::testrun()
 	}
 
 	this->cleanup();
+	dump.close();
 	return 0;
 }
 

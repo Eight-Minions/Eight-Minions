@@ -109,7 +109,7 @@ int game_host::waitForClient_test()
 
 	//UDPpack1->address = *player1ip;
 
-	sendtoP1_test("SIG:START");
+	sendtoP1_test("1SIG:START");
 	cout << "client connected, continuing...\n";
 	return 1;
 }

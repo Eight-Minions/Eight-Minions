@@ -38,11 +38,18 @@ int main(int argc, char* argv[]){
 	}
 	else if(c == 3)
 	{
+
+		Standard_Tower a(1,1,1,2,3);
+		//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
+		UpdMess *j =  new UpdMess(a.getPlayer(), TOWERATTACK, a.getX(), a.getY(), 1234, 2);
+		cout << j->getMT() << endl;
+		UpdMess n(j->getMT());
+		cout << "P: " << n.getPlayer() << " X: " << n.getVal(0) << " Y: " << n.getVal(1) << " ID: " << n.getVal(2) << endl;
+		/* 
 		creep a(1,1,1,3,4);
 		//UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);
 		UpdMess um(1, NEWCREEP, 1, a.getX(), a.getY(), a.getHealth(), a.getType(), a.getLevel());
 		cout << um.getMT();
-		/*
 		cout << "Testing mode started...\n";
 		cout << "Now testing the button creation\n";
 		client testt;

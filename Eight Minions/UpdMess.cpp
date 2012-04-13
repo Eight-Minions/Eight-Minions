@@ -23,7 +23,7 @@ UpdMess::UpdMess(int p, int t, ...)
  
 	if(t == TOWERATTACK)
 	{ 
-		for(int i = 0; i < 3; i++)
+		for(int i = 0; i < 4; i++)
 		{
 			var = va_arg(v1, int);
 			// i = 0 AttackerX[2]
@@ -249,13 +249,15 @@ UpdMess::UpdMess(string m)
 	}
 	else if(type == TOWERATTACK)
 	{
-		val.resize(1);
-		// ID1
-		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
-		// ID2
-		id2 = 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
+		val.resize(3);
+		// Attacker's X
+		val[0] = 10 * (m[2] - '0') + (m[3] - '0');
+		// Attacker's Y
+		val[1] = 10 * (m[4] - '0') + (m[5] - '0');
+		// Who got attacked
+		id1= 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
 		// ATTACK TYPE
-		val[0] = 10 * (m[10] - '0') + (m[11] - '0');
+		val[2] = 10 * (m[10] - '0') + (m[11] - '0');
 	}
 	//	Health[3], Money[8]);
 	else if(type == PLAYERUPDATE){
