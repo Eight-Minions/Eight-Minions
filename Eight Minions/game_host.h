@@ -30,6 +30,7 @@ protected:
 	vector<vector<bool>> Nodemap; //boolean map, false means passable
 
 	cList<creep*> creepList; //the list of creeps, creeps contain their positions
+	cList<tower*> towerList;
 	int numCreeps; //may not need this...
 
 	Spawner	*p1Spawner, *p2Spawner; //spawner objects for each player
@@ -68,6 +69,7 @@ public:
 	int sendtoP1_test(string buff);
 
 	cList<creep*> * getCreepList();  // I'm not really sure that I should do this....
+	cList<tower*> * getTowerList();
 	player * getPlayer(int playerNumber);
 
 	friend Spawner;
