@@ -38,10 +38,24 @@ void tower::displayTower(SDL_Surface *screen)
 		SDL_BlitSurface(this->img, NULL, screen, r);
 	}
 }
-int tower::getPlayer(){
+int tower::getPlayer()
+{
 	return player;
 }
-int tower::setLevel(int newLevel){
+
+int tower::setLevel(int newLevel)
+{
 	level = newLevel;
 	return level;
 }
+
+bool tower::getPassable()
+{
+	return passable;
+}
+
+void tower::setPassable( bool nPass )
+{
+	passable = nPass;
+}
+
