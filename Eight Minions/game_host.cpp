@@ -47,14 +47,15 @@ int game_host::testrun()
 	this->waitForClients();
 	//this->waitForClient_test();
 
+	// placeTower(int playerNumber, int towerType, int x, int y);
 	placeTower(1,1,4,9);
 	placeTower(1,1,11,11);
 	placeTower(1,1,3,9);
 	placeTower(1,1,12,10);
-	placeTower(1,1,13,10);
-	placeTower(1,1,15,8);
-	placeTower(1,1,14,9);
-	placeTower(1,1,5,10);
+	placeTower(2,1,13,10);
+	placeTower(2,1,15,8);
+	placeTower(2,1,14,9);
+	placeTower(2,1,5,10);
 	setNodemap();
 
 	spawnCreep(1,2,1,Bases[0]);
