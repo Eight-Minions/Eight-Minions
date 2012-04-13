@@ -6,6 +6,7 @@
 #include "creep.h"
 #include "tower.h"
 #include "player.h"
+#include "attackAnim.h"
 
 #define CONNECTION_SUCCESSFUL 1
 #define CONNECTION_FAILURE 0 //generic error
@@ -28,6 +29,7 @@ private:
 	SDL_Surface* screen;
 	SDL_Surface* background;
 	SDL_Surface* creepImages[NUM_CREEPS]; //holds sprite sheets for each creep
+	SDL_Surface* attackImage;
 	SDL_Surface* textTest;
 
 	SDL_Event event;
@@ -36,6 +38,8 @@ private:
 
 	cList<creep*> creeps;
 	cList<tower*> towers;
+
+	vector<attackAnim*> attacks;
 
 	string updateQueue;
 

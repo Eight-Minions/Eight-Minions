@@ -10,12 +10,13 @@ private:
 	int type;
 	int animIndex;
 	int animMax;
+	int targetIndex;
 
 	SDL_Rect *place_r;
 	SDL_Rect *sprite_r;
 
 public:
-	attackAnim(int x, int y, int type, int nTick);
+	attackAnim(int x, int y, int type, int nTick, int nTargetIndex);
 	~attackAnim();
 
 	bool update(int targetX, int targetY);
@@ -23,6 +24,8 @@ public:
 	void animUpdate();
 
 	void display(SDL_Surface *screen, SDL_Surface *sprites);
+
+	int getTarget();
 
 };
 #endif
