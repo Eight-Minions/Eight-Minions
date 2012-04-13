@@ -11,7 +11,6 @@ attackAnim::attackAnim( int startX, int startY, int nType, int nTick, int nTarge
 	targetIndex = nTargetIndex;
 	sprite_r = newRect(0,8 * type,8,8);
 	place_r = newRect(x,y,8,8);
-
 }
 
 bool attackAnim::update( int targetX, int targetY )
