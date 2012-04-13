@@ -87,7 +87,11 @@ int game_host::testrun()
 			temp = cur;
 			cur = cur->getNext();
 			if(temp->getData()->isAlive() == false)
+			{
+				sendMessageToQueue(UpdMess(temp->getData()->getPlayer(),CREEP,temp->getIndex(),0,0,0).getMT());
+
 				creepList.deleteNode(temp->getIndex());
+			}
 		}
 		cur = creepList.getStart(); //get the head of player ones creep list
 		while(cur != NULL)

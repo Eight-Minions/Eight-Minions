@@ -115,10 +115,13 @@ int client::performUpdate(string upd)
 			{
 				creeps.deleteNode(update.getId1());
 			}
-			creeps.getObjectWithID(update.getId1())->setPlayer(update.getPlayer());
-			creeps.getObjectWithID(update.getId1())->setX(update.getVal(0));
-			creeps.getObjectWithID(update.getId1())->setY(update.getVal(1));
-			creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
+			else
+			{
+				creeps.getObjectWithID(update.getId1())->setPlayer(update.getPlayer());
+				creeps.getObjectWithID(update.getId1())->setX(update.getVal(0));
+				creeps.getObjectWithID(update.getId1())->setY(update.getVal(1));
+				creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
+			}
 		}
 		else
 		{
@@ -144,10 +147,12 @@ int client::performUpdate(string upd)
 		}
 
 	}
-	else if(updateType == TOWERATTACK){
-		attacks.push_back(new attackAnim(update.getVal(0) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(1) * GRID_SIZE + BOARD_Y_OFFSET,0,40,update.getId1()));
+	else if(updateType == TOWERATTACK)
+	{
+		attacks.push_back(new attackAnim(update.getVal(0) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(1) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(2)],update.getId1()));
 	}
-	else{
+	else
+	{
 		return 0;
 	}
 	return 1;
