@@ -55,3 +55,34 @@ SDL_Color makeColor( int r, int g, int b )
 	SDL_Color n = {r,g,b};
 	return n;
 }
+
+SDL_Surface *LoadImageCK(string filename)
+{
+	SDL_Surface *newImage = IMG_Load(filename.c_str());
+	SDL_Surface *keyedImage = NULL;
+
+	if(newImage != NULL)
+	{
+		keyedImage = SDL_DisplayFormat(newImage);
+
+		SDL_FreeSurface(newImage);
+
+		if(keyedImage != NULL)
+		{
+			Uint32 colorkey = SDL_MapRGB(keyedImage->format, 0xFF, 0, 0xFF);
+
+			SDL_SetColorKey(keyedImage, SDL_SRCCOLORKEY, colorkey);
+
+			return keyedImage;
+		}
+		else
+		{
+			return NULL;
+		}
+
+	}
+	else
+	{
+		return NULL;
+	}
+}
