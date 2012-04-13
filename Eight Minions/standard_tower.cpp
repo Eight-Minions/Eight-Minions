@@ -39,7 +39,7 @@ void Standard_Tower::chooseClosestCreep(double radius)
 	if(closestCreep != NULL)
 	{
 		manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
-		chosenCreeps.push(closestCreep);
+		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
 void Standard_Tower::chooseClosestCreepToPosition(double radius, location position)
@@ -65,7 +65,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 	if(closestCreep != NULL)
 	{
 		manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
-		chosenCreeps.push(closestCreep);
+		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
 void Standard_Tower::chooseNeighbors(double radius)
@@ -80,7 +80,7 @@ void Standard_Tower::chooseNeighbors(double radius)
 			if(currentDistance < radius)
 			{
 				manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
-				chosenCreeps.push(cur);
+				chosenCreeps.push(cur->getIndex());
 			}
 		}
 		cur = cur->getNext();
@@ -99,7 +99,7 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, location positio
 			{
 				//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
 				manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
-				chosenCreeps.push(cur);
+				chosenCreeps.push(cur->getIndex());
 			}
 		}
 		cur = cur->getNext();
@@ -182,19 +182,25 @@ bool Standard_Tower::choose()
 */
 bool Standard_Tower::doDamage()
 {
-	cListNode<creep*> *frontNode = NULL;
+	int frontNodeID = 0;
+	cListNode<creep*> *frontNode= NULL;
 	creep *frontCreep = NULL;
+	
 	if(attackTick <= 0)
 	{
 		while(chosenCreeps.empty() == false)
 		{
-			frontNode = chosenCreeps.front();
-			if(frontNode != NULL)// Does the creep still exist?
+			frontNodeID = chosenCreeps.front();
+			if(this->manager->getCreepList()->checkForObjectWithID(frontNodeID) == true)
 			{
+				frontNode = this->manager->getCreepList()->getNodeWithID(frontNodeID);
 				frontCreep = frontNode->getData();
 				if(frontCreep != NULL)
 				{
-					if(frontCreep->isAlive() == true){
+					if(this->manager->getCreepList()->getSize() >= 14)
+						cout << "Large Creep List" << endl;
+					if(frontCreep->isAlive() == true)
+					{
 						frontCreep->damage(damageValue);
 						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 						if(frontCreep->isAlive() == false)
@@ -208,6 +214,8 @@ bool Standard_Tower::doDamage()
 				}
 			}
 			chosenCreeps.pop();
+			if(chosenCreeps.empty() == true)
+				cout << "empty queue";
 		}
 		attackTick = attackDuration;
 		waiting = false;

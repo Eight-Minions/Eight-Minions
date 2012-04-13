@@ -28,7 +28,7 @@ public:
 	int getID();
 private:
 	game_host *manager;
-	queue<cListNode<creep*>*> chosenCreeps;
+	queue<int> chosenCreeps;
 
 	int attackType;
 	int damageValue;
