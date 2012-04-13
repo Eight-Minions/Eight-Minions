@@ -50,6 +50,8 @@ void client::loadFiles()
 	creepImages[TITAN] = IMG_Load("titan.png");
 	creepImages[FATTY] = IMG_Load("fatty.png");
 
+	attackImage = LoadImageCK("images/testAttack.png");
+
 	for(int i = 0; i < 4; i++)
 	{
 		SpriteMaps[i][0] = newRect(0,i * GRID_SIZE,GRID_SIZE,GRID_SIZE);
@@ -184,7 +186,19 @@ void client::displayTowers()
 
 void client::displayMisc()
 {
-
+	for(int i = 0; i < attacks.size(); i++)
+	{
+		//CHECK IF TARGET CREEP STILL EXISTS
+		if(attacks[i]->update(creeps.getObjectWithID(attacks[i]->getTarget())->getX(),creeps.getObjectWithID(attacks[i]->getTarget())->getY()))
+		{
+			attacks[i]->display(screen,attackImage);
+			attackAnim *temp = attacks[i];
+			attacks.erase(attacks.begin() + i);
+			delete temp;
+		}
+		else
+			attacks[i]->display(screen,attackImage);
+	}
 }
 
 void client::displayUI()
