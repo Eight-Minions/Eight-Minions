@@ -44,12 +44,12 @@ void client::loadFiles()
 	this->background = IMG_Load("images/Minions_UI_ShittyGrid.png");
 	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
 
-	creepImages[NORM] = IMG_Load("norm.png");
+	creepImages[NORM] = LoadImageCK("norm.png");
 	creepImages[FAST] = LoadImageCK("fast.png");
-	creepImages[SWARM] = IMG_Load("swarm.png");
-	creepImages[TANK] = IMG_Load("tank.png");
-	creepImages[TITAN] = IMG_Load("titan.png");
-	creepImages[FATTY] = IMG_Load("fatty.png");
+	creepImages[SWARM] = LoadImageCK("swarm.png");
+	creepImages[TANK] = LoadImageCK("tank.png");
+	creepImages[TITAN] = LoadImageCK("titan.png");
+	creepImages[FATTY] = LoadImageCK("fatty.png");
 
 	attackImage = LoadImageCK("images/testAttack.png");
 

@@ -111,6 +111,10 @@ int client::performUpdate(string upd)
 	if(updateType == CREEP)
 	{
 		if(creeps.checkForObjectWithID(update.getId1())){
+			if(update.getVal(2) <= 0) //delete dead creeps
+			{
+				creeps.deleteNode(update.getId1());
+			}
 			creeps.getObjectWithID(update.getId1())->setPlayer(update.getPlayer());
 			creeps.getObjectWithID(update.getId1())->setX(update.getVal(0));
 			creeps.getObjectWithID(update.getId1())->setY(update.getVal(1));
@@ -141,7 +145,7 @@ int client::performUpdate(string upd)
 
 	}
 	else if(updateType == TOWERATTACK){
-		attacks.push_back(new attackAnim(update.getVal(0) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(1) * GRID_SIZE + BOARD_Y_OFFSET,0,40,update.getVal(2)));
+		attacks.push_back(new attackAnim(update.getVal(0) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(1) * GRID_SIZE + BOARD_Y_OFFSET,0,40,update.getId1()));
 	}
 	else{
 		return 0;
