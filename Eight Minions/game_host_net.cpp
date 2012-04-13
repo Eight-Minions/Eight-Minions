@@ -72,7 +72,6 @@ int game_host::waitForClients()
 	player2ip = SDLNet_TCP_GetPeerAddress(player2sd);
 	//UDPpack2->address.port = player2ip.port;
 	//UDPpack2->address.host = player2ip.host;
-	sendToClients("SIG:START");
 
 	if(SDLNet_TCP_Send(player1sd, "1SIG:START", 16 /* buff.length()+1*/) < 16)
 	{
