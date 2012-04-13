@@ -145,7 +145,7 @@ void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spri
 	updateAnim();
 	this->r->x = this->getX();
 	this->r->y = this->getY();
-	SDL_BlitSurface(image, NULL, screen, r);
+	SDL_BlitSurface(image, spriteMap[0], screen, r);
 }
 void creep::updateAnim()
 {

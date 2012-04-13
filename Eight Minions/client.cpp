@@ -44,7 +44,7 @@ void client::loadFiles()
 	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
 
 	creepImages[NORM] = IMG_Load("norm.png");
-	creepImages[FAST] = IMG_Load("fast.png");
+	creepImages[FAST] = LoadImageCK("fast.png");
 	creepImages[SWARM] = IMG_Load("swarm.png");
 	creepImages[TANK] = IMG_Load("tank.png");
 	creepImages[TITAN] = IMG_Load("titan.png");
