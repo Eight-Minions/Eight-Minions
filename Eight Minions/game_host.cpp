@@ -81,7 +81,7 @@ int game_host::testrun()
 			curTower->getData()->iterate();
 			curTower = curTower->getNext();
 		}
-		cur = creepList.getStart();
+		/*cur = creepList.getStart();
 		while(cur != NULL)
 		{
 			temp = cur;
@@ -92,7 +92,7 @@ int game_host::testrun()
 
 				creepList.deleteNode(temp->getIndex());
 			}
-		}
+		}*/
 		cur = creepList.getStart(); //get the head of player ones creep list
 		while(cur != NULL)
 		{ //loop through the list
@@ -101,10 +101,11 @@ int game_host::testrun()
 				int i = cur->getIndex();
 
 				players[cur->getData()->getPlayer() - 1].takeDamage();
-
-				cur = cur->getNext(); //move to next creep in list
+				cur->getData()->kill();
+				
 
 				//SET CREEPS HEALTH TO 0 AND SEND UPDATE
+				
 
 				creepList.deleteNode(i);
 			}
@@ -113,8 +114,18 @@ int game_host::testrun()
 				//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
 				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(),CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
 				cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
-				cur = cur->getNext(); //move to next creep in list
 			}
+			
+			temp = cur;
+			cur = cur->getNext();
+			if(temp->getData()->isAlive() == false)
+			{
+				sendMessageToQueue(UpdMess(temp->getData()->getPlayer(),CREEP,temp->getIndex(),0,0,0).getMT());
+
+				creepList.deleteNode(temp->getIndex());
+			}
+
+			cur = cur->getNext(); //move to next creep in list
 		}
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent*/
 		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?

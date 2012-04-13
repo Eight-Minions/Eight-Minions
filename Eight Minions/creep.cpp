@@ -209,3 +209,11 @@ int creep::getDir()
 	else
 		return 3;
 }
+
+void creep::kill()
+{
+	health = 0;
+	setX(0);
+	setY(0);
+	alive = false;
+}
