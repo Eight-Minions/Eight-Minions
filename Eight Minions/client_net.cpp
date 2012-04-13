@@ -141,7 +141,7 @@ int client::performUpdate(string upd)
 
 	}
 	else if(updateType == TOWERATTACK){
-		attacks.push_back(new attackAnim(update.getVal(0),update.getVal(1),0,40,update.getVal(2)));
+		attacks.push_back(new attackAnim(update.getVal(0) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(1) * GRID_SIZE + BOARD_Y_OFFSET,0,40,update.getVal(2)));
 	}
 	else{
 		return 0;
