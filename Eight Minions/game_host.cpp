@@ -67,6 +67,7 @@ int game_host::testrun()
 	int nc = 0;
 	cListNode<creep*> *cur = NULL;
 	cListNode<tower*> *curTower = NULL;
+	cListNode<creep*> *temp = NULL;
 	while(run)
 	{
 		//receive input
@@ -79,6 +80,14 @@ int game_host::testrun()
 		{
 			curTower->getData()->iterate();
 			curTower = curTower->getNext();
+		}
+		cur = creepList.getStart();
+		while(cur != NULL)
+		{
+			temp = cur;
+			cur = cur->getNext();
+			if(temp->getData()->isAlive() == false)
+				creepList.deleteNode(temp->getIndex());
 		}
 		cur = creepList.getStart(); //get the head of player ones creep list
 		while(cur != NULL)

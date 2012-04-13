@@ -198,16 +198,16 @@ bool Standard_Tower::doDamage()
 				frontCreep = frontNode->getData();
 				if(frontCreep != NULL)
 				{
-					frontCreep->damage(damageValue);
-					manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
-					if(frontCreep->isAlive() == false)
-					{
-						manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
-						// Update money value for player based on reward for killing the creep
-						manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
-						// We should remove the creep from the list
-						manager->getCreepList()->deleteNode(frontNode->getIndex());
-						// Would this work???
+					if(frontCreep->isAlive() == true){
+						frontCreep->damage(damageValue);
+						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
+						if(frontCreep->isAlive() == false)
+						{
+							manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
+							// Update money value for player based on reward for killing the creep
+							manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
+
+						}
 					}
 				}
 			}
