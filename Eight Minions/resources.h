@@ -88,11 +88,15 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10},	{20
 #define MAXTOWERLEVEL 5
 #define MAXTOWERVARIABLES 5
 
+//Attack Towers
 #define BASICTOWER 0
 #define FASTTOWER 1
 #define AOETOWER 2
 #define HEAVYTOWER 3
 #define MINETOWER 4
+//Spawner Towers
+#define SPAWNERTOWER 5
+
 
 //Tower Types
 // Damage ArmorPenetration Range Speed Cost
