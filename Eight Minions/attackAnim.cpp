@@ -9,8 +9,8 @@ attackAnim::attackAnim( int startX, int startY, int nType, int nTick, int nTarge
 	animIndex = 0;
 	animMax = 5;
 	targetIndex = nTargetIndex;
-	sprite_r = newRect(0,8 * type,8,8);
-	place_r = newRect(x,y,8,8);
+	sprite_r = newRect(0,ANIM_SIZE * type,ANIM_SIZE,ANIM_SIZE);
+	place_r = newRect(x,y,ANIM_SIZE,ANIM_SIZE);
 }
 
 bool attackAnim::update( int targetX, int targetY )
@@ -42,7 +42,7 @@ void attackAnim::animUpdate()
 	{
 		animIndex = 0;
 	}
-	sprite_r->x = 8 * animIndex;
+	sprite_r->x = ANIM_SIZE * animIndex;
 }
 
 int attackAnim::getTarget()

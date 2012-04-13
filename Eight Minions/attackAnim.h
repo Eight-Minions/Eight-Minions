@@ -2,6 +2,8 @@
 #define ATTACK_ANIM_H
 #include "resources.h"
 
+#define ANIM_SIZE 12
+
 class attackAnim
 {
 private:
