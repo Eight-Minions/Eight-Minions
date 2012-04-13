@@ -26,6 +26,8 @@ bool attackAnim::update( int targetX, int targetY )
 		return false;
 }
 
+
+
 void attackAnim::display( SDL_Surface *screen, SDL_Surface *sprites )
 {
 	animUpdate();

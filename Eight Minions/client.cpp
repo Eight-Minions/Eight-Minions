@@ -230,6 +230,7 @@ void client::initButtons()
 {
 	Buttons[0] = newRect(BOARD_X_OFFSET, BOARD_Y_OFFSET, MAPSIZE_X * GRID_SIZE, MAPSIZE_Y * GRID_SIZE);
 
+
 }
 
 
