@@ -178,7 +178,7 @@ bool Standard_Tower::choose()
 /*
 	Does damage to creeps if the tick is 0
 	Returns true if it should damage the creeps;
-	Retruns false if it needs to go to the next iteration
+	Returns false if it needs to go to the next iteration
 */
 bool Standard_Tower::doDamage()
 {
@@ -200,7 +200,7 @@ bool Standard_Tower::doDamage()
 					if(frontCreep->isAlive() == true)
 					{
 						frontCreep->damage(damageValue);
-						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
+						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 						if(frontCreep->isAlive() == false)
 						{
 							manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());

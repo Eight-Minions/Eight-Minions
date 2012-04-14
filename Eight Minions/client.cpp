@@ -27,10 +27,11 @@ int client::init()
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
 	screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,32,SDL_SWSURFACE);
 
-	this->loadFiles();
-	this->initText();
 	Cblack = makeColor(0,0,0);
 	Cwhite = makeColor(255,255,255);
+	this->loadFiles();
+	this->initText();
+	
 
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
@@ -150,6 +151,7 @@ int client::testrun()
 		}
 
 
+
 		//Recieve messages to queue does a lot of work
 		//first it will recieve messages (while there are messages to be recieved)
 		//then it will parse those messages and make changes to the game as specified by the messages
@@ -248,7 +250,7 @@ void client::initText()
 	text[1] = TTF_RenderText_Solid( font, itoa(self->getHealth(),buff,10), Cwhite);
 	textRects[2] = newRect(240,10,0,0);
 	text[2] = TTF_RenderText_Solid( font, "Money:", Cblack);
-	textRects[3] = newRect(310,10,0,0);
+	textRects[3] = newRect(325,10,0,0);
 	text[3] = TTF_RenderText_Solid(font, itoa(self->getMoney(),buff,10), Cblack);
 }
 

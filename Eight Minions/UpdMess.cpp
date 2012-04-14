@@ -19,7 +19,9 @@ UpdMess::UpdMess(int p, int t, ...)
 
 	messText = "";
 	messText += (p + '0');
+	this->p = p;
 	messText += (t + '0');
+	this->type = t;
  
 	if(t == TOWERATTACK)
 	{ 
@@ -87,6 +89,8 @@ UpdMess::UpdMess(int p, int t, ...)
 			// Health
 			else if(i == 3)
 			{
+				if (var > 10)
+					cout << "weird...\n";
 				if(var == 0)
 					messText += "00000";
 				else
@@ -204,6 +208,8 @@ UpdMess::UpdMess(int p, int t, ...)
 		// ERROR
 	}
 	va_end(v1);
+	if(messText.length() == 21)
+		cout << "weird...\n";
 }
 UpdMess::UpdMess(string m)
 {
