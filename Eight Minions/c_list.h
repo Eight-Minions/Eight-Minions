@@ -77,15 +77,17 @@ int cList<T>::insertInOrder(T newData){
 	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
 	newNode = new cListNode<T> (newData);
 	this->size++;
-	if(!freeIterators.empty()){
+	if(freeIterators.empty() == true)
+	{
+		this->maxIterator++;
+		new_iterator = this->maxIterator;		
+	}
+	else
+	{
 		new_iterator = freeIterators.front();
 		freeIterators.pop();
 	}
-	else{
-		this->maxIterator++;
-		new_iterator = this->maxIterator;
-	}
-	newNode->setIndex(new_iterator);
+	newNode->setForcedIndex(new_iterator);
 	cur = this->getStart();
 
 	if (cur == NULL || newNode->getIndex() <= cur->getIndex()) {
@@ -108,7 +110,7 @@ bool cList<T>::insertWithID(int set_id, T newData){
 	newNode = new cListNode<T> (newData);
 	if(checkForObjectWithID(set_id) == false)
 	{
-		newNode->setIndex(set_id);
+		newNode->setForcedIndex(set_id);
 		cur = this->getStart();
 		
 		if (cur == NULL || newNode->getIndex() <= cur->getIndex()) {
@@ -134,7 +136,6 @@ template <typename T>
 bool cList<T>::deleteList (){
 	cListNode<T> *temp = NULL, *del = NULL;
 	bool success = false;
-
 	temp = this->getStart();
 	while (temp != NULL){
 		del= temp;
@@ -156,7 +157,6 @@ bool cList<T>::deleteNode(int searchIndex){
 			else{
 				prev->setNext(cur->getNext());
 			}
-			//this->freeIterators.push(cur->getIndex());
 			freeIterators.push(searchIndex);
 			delete (cur);
 			this->size--;
@@ -194,7 +194,6 @@ bool cList<T>::checkForObjectWithID(int search_id)
 	}
 	return false;
 }
-
 // Gets a node with some ID, returns NULL if not found
 template <typename T>
 cListNode<T> * cList<T>::getNodeWithID(int search_id)
