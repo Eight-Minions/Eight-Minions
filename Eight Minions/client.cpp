@@ -28,7 +28,7 @@ int client::init()
 	screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,32,SDL_SWSURFACE);
 
 	this->loadFiles();
-
+	this->initText();
 	Cblack = makeColor(0,0,0);
 	Cwhite = makeColor(255,255,255);
 
@@ -118,6 +118,7 @@ int client::testrun()
 	string temp;
 	int now = 0;
 	int n_rec = 0;
+	bool fps_cap;
 	while(run)
 	{
 		//gather input - the following series of if-statements will handle all user input
@@ -206,8 +207,10 @@ void client::displayMisc()
 void client::displayUI()
 {
 	//Render the text
-	textTest = TTF_RenderText_Solid( font, "testing", Cwhite );
-	SDL_BlitSurface(textTest, NULL,screen,NULL);
+	
+	SDL_BlitSurface(text[0], NULL,screen,textRects[0]);
+	SDL_BlitSurface(text[1], NULL,screen,textRects[1]);
+	
 }
 
 coord client::getClickCoord(int x, int y)
@@ -231,6 +234,19 @@ void client::initButtons()
 	Buttons[0] = newRect(BOARD_X_OFFSET, BOARD_Y_OFFSET, MAPSIZE_X * GRID_SIZE, MAPSIZE_Y * GRID_SIZE);
 
 
+}
+
+void client::initText()
+{
+	char buff[8];
+	textRects[0] = newRect(10,10,0,0);
+	text[0] = TTF_RenderText_Solid( font, "Current Health: ", Cwhite);
+	textRects[1] = newRect(200,10,0,0);
+	text[1] = TTF_RenderText_Solid( font, itoa(self->getHealth(),buff,10), Cwhite);
+	textRects[2] = newRect(240,10,0,0);
+	text[2] = TTF_RenderText_Solid( font, "Money:", Cblack);
+	textRects[3] = newRect(310,10,0,0);
+	text[3] = TTF_RenderText_Solid(font, itoa(self->getMoney(),buff,10), Cblack);
 }
 
 

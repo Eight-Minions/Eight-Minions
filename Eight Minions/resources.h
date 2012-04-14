@@ -43,6 +43,8 @@
 #define MAXCREEPLEVEL 5
 #define MAXCREEPVARIABLES 5
 
+#define MAX_FPS 30
+
 //Creep types
 // Health Armor Speed Reward Price
 const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,2,1,2},	{5,1,3,3,5},	{8,2,3,6,10},	{12,3,4,12,15},	{20,4,5,15,20}};
@@ -69,6 +71,9 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10},	{20
 
 //Number of Buttons 
 #define NUM_BUTTONS 10
+
+//Number of text objects
+#define TEXT_NUM 5
 
 //Movement Constant
 #define CLOCK_CAP .50

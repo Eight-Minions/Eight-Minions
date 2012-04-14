@@ -29,11 +29,12 @@ private:
 	SDL_Surface* background;
 	SDL_Surface* creepImages[NUM_CREEPS]; //holds sprite sheets for each creep
 	SDL_Surface* attackImage;
-	SDL_Surface* textTest;
+	SDL_Surface* text[TEXT_NUM];
 
 	SDL_Event event;
 	SDL_Rect *Buttons[NUM_BUTTONS];
 	SDL_Rect *SpriteMaps[4][ANIM_NUM];
+	SDL_Rect *textRects[TEXT_NUM];
 
 	cList<creep*> creeps;
 	cList<tower*> towers;
@@ -56,6 +57,7 @@ public:
 	int init();
 	void loadFiles();
 	void initButtons();
+	void initText();
 	void cleanup();
 	void display();
 	void displayCreeps();
