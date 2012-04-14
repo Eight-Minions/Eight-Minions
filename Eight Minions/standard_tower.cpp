@@ -197,8 +197,6 @@ bool Standard_Tower::doDamage()
 				frontCreep = frontNode->getData();
 				if(frontCreep != NULL)
 				{
-					if(this->manager->getCreepList()->getSize() >= 14)
-						cout << "Large Creep List" << endl;
 					if(frontCreep->isAlive() == true)
 					{
 						frontCreep->damage(damageValue);

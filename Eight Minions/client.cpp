@@ -192,32 +192,35 @@ void client::displayMisc()
 	for(int i = 0; i < attacks.size(); i++)
 	{
 		//CHECK IF TARGET CREEP STILL EXISTS
-		if(attacks[i]->update(creeps.getObjectWithID(attacks[i]->getTarget())->getX(),creeps.getObjectWithID(attacks[i]->getTarget())->getY()))
+		if(creeps.checkForObjectWithID(attacks[i]->getTarget()))
 		{
-			attacks[i]->display(screen,attackImage);
-			attackAnim *temp = attacks[i];
-			attacks.erase(attacks.begin() + i);
-			delete temp;
+			if(attacks[i]->update(creeps.getObjectWithID(attacks[i]->getTarget())->getX(),creeps.getObjectWithID(attacks[i]->getTarget())->getY()))
+			{
+				attacks[i]->display(screen,attackImage);
+				attackAnim *temp = attacks[i];
+				attacks.erase(attacks.begin() + i);
+				delete temp;
+			}
+			else
+				attacks[i]->display(screen,attackImage);
 		}
-		else
-			attacks[i]->display(screen,attackImage);
 	}
 }
 
 void client::displayUI()
 {
-	//Render the text
-	
-	SDL_BlitSurface(text[0], NULL,screen,textRects[0]);
-	SDL_BlitSurface(text[1], NULL,screen,textRects[1]);
-	
+	//Blit the text objects
+	for(int i = 0; i < 4; i++)
+		SDL_BlitSurface(text[i], NULL,screen,textRects[i]);
+
+
 }
 
 coord client::getClickCoord(int x, int y)
 {
 	/*
 	Gets the grid coordinate of a mouse click
-	
+
 	*/
 	x -= BOARD_X_OFFSET;
 	y -= BOARD_Y_OFFSET;

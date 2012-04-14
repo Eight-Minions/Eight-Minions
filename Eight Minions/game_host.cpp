@@ -85,12 +85,12 @@ int game_host::testrun()
 		{ //loop through the list
 			if(cur->getData()->move()) //move each creep in the list
 			{
-				int i = cur->getIndex();
+				//int i = cur->getIndex();
 
 				players[cur->getData()->getPlayer() - 1].takeDamage();
 				cur->getData()->kill();  //SET CREEPS HEALTH TO 0 AND SEND UPDATE
 				
-				creepList.deleteNode(i);
+				//creepList.deleteNode(i);
 			}
 			else
 			{

@@ -145,11 +145,21 @@ int client::performUpdate(string upd)
 		{
 			towers.insertInOrder(new tower(1,update.getPlayer(), update.getVal(2),update.getVal(0),update.getVal(1)));
 		}
-
 	}
 	else if(updateType == TOWERATTACK)
 	{
 		attacks.push_back(new attackAnim(update.getVal(0) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(1) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(2)],update.getId1()));
+	}
+	else if(updateType == PLAYERUPDATE)
+	{
+		if(update.getPlayer() == self->getPnum())
+		{
+			self->setHealth(update.getVal(0));
+			self->setMoney(update.getVal(1));
+			char buff[8];
+			text[1] = TTF_RenderText_Solid( font, itoa(self->getHealth(),buff,10), Cwhite);
+			text[3] = TTF_RenderText_Solid(font, itoa(self->getMoney(),buff,10), Cblack);
+		}
 	}
 	else
 	{
