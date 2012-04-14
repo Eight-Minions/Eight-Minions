@@ -156,7 +156,8 @@ bool cList<T>::deleteNode(int searchIndex){
 			else{
 				prev->setNext(cur->getNext());
 			}
-			this->freeIterators.push(cur->getIndex());
+			//this->freeIterators.push(cur->getIndex());
+			freeIterators.push(searchIndex);
 			delete (cur);
 			this->size--;
 			return true;
