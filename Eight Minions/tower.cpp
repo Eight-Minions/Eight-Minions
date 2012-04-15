@@ -10,7 +10,6 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	type = t;
 	this->setX(set_x);
 	this->setY(set_y);
-	img = IMG_Load("tower.png");
 	r = new SDL_Rect;
 }
 int structure::getLevel()
@@ -29,13 +28,13 @@ int structure::setType(int newType)
 structure::~structure()
 {
 }
-void structure::displayTower(SDL_Surface *screen)
+void structure::displayTower(SDL_Surface *screen, SDL_Surface *image)
 {
-	if(img != NULL)
+	if(image != NULL)
 	{
 		this->r->x = (GRID_SIZE * this->getX()) + BOARD_X_OFFSET;
 		this->r->y = (GRID_SIZE * this->getY()) + BOARD_Y_OFFSET;
-		SDL_BlitSurface(this->img, NULL, screen, r);
+		SDL_BlitSurface(image, NULL, screen, r);
 	}
 }
 int structure::getPlayer(){

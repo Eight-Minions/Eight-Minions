@@ -8,7 +8,6 @@ private:
 	int player;
 	int level;
 	int type;
-	SDL_Surface *img;
 	SDL_Rect *r; 
 	bool passable;
 public:
@@ -28,6 +27,6 @@ public:
 
 	virtual void iterate();
 
-	void displayTower(SDL_Surface *screen);
+	void displayTower(SDL_Surface *screen, SDL_Surface* image);
 };
 #endif 

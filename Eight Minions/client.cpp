@@ -54,6 +54,7 @@ void client::loadFiles()
 	creepImages[FATTY] = LoadImageCK("fatty.png");
 
 	towerImages[BASICTOWER] = LoadImageCK("images/structure.png");
+	
 
 	attackImage = LoadImageCK("images/testAttack.png");
 
@@ -211,7 +212,7 @@ void client::displayTowers()
 	cListNode<structure*> *cur = towers.getStart();
 	while (cur != NULL)
 	{
-		cur->getData()->displayTower(screen);
+		cur->getData()->displayTower(screen, towerImages[BASICTOWER]);
 		cur = cur->getNext();
 	}
 }
