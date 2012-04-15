@@ -53,6 +53,8 @@ void client::loadFiles()
 	creepImages[TITAN] = LoadImageCK("titan.png");
 	creepImages[FATTY] = LoadImageCK("fatty.png");
 
+	towerImages[BASICTOWER] = LoadImageCK("images/structure.png");
+
 	attackImage = LoadImageCK("images/testAttack.png");
 
 	for(int i = 0; i < 4; i++)

@@ -35,6 +35,7 @@ private:
 	SDL_Surface* screen;
 	SDL_Surface* background;
 	SDL_Surface* creepImages[NUM_CREEPS]; //holds sprite sheets for each creep
+	SDL_Surface* towerImages[NUM_TOWERS];
 	SDL_Surface* attackImage;
 	SDL_Surface* text[TEXT_NUM];
 	

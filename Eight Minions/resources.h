@@ -38,6 +38,7 @@
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
 // Tower Type COnstants
+#define NUM_TOWERS 6
 //Attack Towers
 #define BASICTOWER 0
 #define FASTTOWER 1
