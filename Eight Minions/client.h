@@ -13,6 +13,10 @@
 #define CONNECTION_FAILURE 0 //generic error
 #define SERVER_NOT_FOUND -1
 
+//Mouse click mode definitions
+#define DEFAULT_MODE 0
+#define PLACE_FOUNDATION_MODE 1
+
 class client
 {
 private:
@@ -24,6 +28,8 @@ private:
 	SDLNet_SocketSet socketset;
 	UDPsocket UDPsock;
 	UDPpacket *UDPpack;
+
+	int mouseClickMode;
 
 	//Surfaces - surfaces are basically loaded images that we can readily blit(display) to the screen
 	SDL_Surface* screen;

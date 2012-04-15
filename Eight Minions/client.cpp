@@ -118,6 +118,8 @@ int client::testrun()
 	string temp;
 	int n_rec = 0;
 
+	mouseClickMode = 0;
+
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
 	while(run)
@@ -134,10 +136,30 @@ int client::testrun()
 			{
 				if(event.button.button == SDL_BUTTON_LEFT)
 				{
-					event.button.x; //x coordinate of click on the window
-					event.button.y; //y coordinate of click on the window
+					//event.button.x; //x coordinate of click on the window
+					//event.button.y; //y coordinate of click on the window
 
-					buttons[0]->wasClicked(event.button.x, event.button.y);
+					if(buttons[0]->wasClicked(event.button.x, event.button.y))
+					{
+						mouseClickMode = PLACE_FOUNDATION_MODE; 
+					}
+					else
+					{
+						mouseClickMode = DEFAULT_MODE;
+					}
+
+					if(mouseClickMode != DEFAULT_MODE)
+					{
+						//find out what grid spot (if any) was clicked
+						//check if a tower exists in that spot
+						//if none, check if player has enough money
+						//if they do, send message to server to buy the tower
+						//server will then make one more check of all the requirements
+						//and then place it and subtract the given amount of money
+						//and then recalculate the nodemap and then the creep paths
+					}
+
+
 					//////////////////////////////////////////////////////////////
 					//Your goal, using this information, make the game do things
 					//when you click, i.e. clicking a tower displays info about it
