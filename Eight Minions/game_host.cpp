@@ -22,8 +22,11 @@ int game_host::init()
 	Bases[1].y = PLAYERTWOY;
 
 	//set up spawners, these manage the generation of creeps
-	p1Spawner = new Spawner(this, 1, true, Bases[0]);
-	p2Spawner = new Spawner(this, 2, true, Bases[1]);
+	p1Spawner = new Spawner(this, 1, false, Bases[0]);
+	p2Spawner = new Spawner(this, 2, false, Bases[1]);
+
+	p1Spawner->addCreepType(SWARM);
+	p2Spawner->addCreepType(FATTY);
 	return 0;
 }
 
@@ -130,7 +133,7 @@ void game_host::updatePaths()
 
 void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
 	creep *newCreep = new creep(creepType, playerNumber, creepLevel, spawnCoord.x, spawnCoord.y);
-	newCreep->p.setStart(spawnCoord);
+	//newCreep->p.setStart(spawnCoord);
 	int nIndex;
 	if(playerNumber == 1)
 	{

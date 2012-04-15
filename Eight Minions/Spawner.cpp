@@ -12,7 +12,7 @@ Spawner::Spawner()
 //	nManager - a pointer to THE game_host object that is running the game
 //	nPlayer - the player who will own the creeps that are spawned
 //	isTower - whether or not this spawner will be part of a creep tower
-Spawner::Spawner(game_host *nManager, int Player, bool isTower, coord nLoc)
+Spawner::Spawner(game_host *nManager, int Player, bool Tower, coord nLoc)
 {
 	manager = nManager;
 	nPlayer = Player;
@@ -21,8 +21,12 @@ Spawner::Spawner(game_host *nManager, int Player, bool isTower, coord nLoc)
 	spawnerLevel = 1;
 	Loc = nLoc;
 	delay = CREEPTOWERDELAY;
+	waveNumber = 0;
+	isTower = Tower;
+	if(!isTower)
+		generateWave();
 }
-Spawner::Spawner( game_host* nManager, int Player, bool isTower, int nCreepType, int nLevel)
+Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, int nLevel)
 {
 	manager = nManager;
 	nPlayer = Player;
@@ -30,6 +34,10 @@ Spawner::Spawner( game_host* nManager, int Player, bool isTower, int nCreepType,
 	creepType = nCreepType;
 	spawnerLevel = nLevel;
 	delay = CREEPTOWERDELAY;
+	waveNumber = 0;
+	isTower = Tower;
+	if(!isTower)
+		generateWave();
 }
 
 void Spawner::testing()
@@ -69,7 +77,7 @@ bool Spawner::iterate()
 		{
 			int creepIndex;
 			creep *retCreep = new creep(creepType,nPlayer,spawnerLevel,Loc.x,Loc.y);
-			retCreep->p.setStart(Loc);
+			//retCreep->p.setStart(Loc);
 			retCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 			retCreep->p.genPath(manager->Nodemap);
 			creepIndex = manager->creepList.insertInOrder(retCreep);
@@ -89,9 +97,9 @@ bool Spawner::iterate()
 		{
 			int creepIndex;
 			SpawnerDelay.pop();
-			curDelay = SpawnerDelay.front();
 			creep *retCreep = SpawnerQueue.front();
 			SpawnerQueue.pop();
+			retCreep->p.genPath(manager->Nodemap);
 			creepIndex = manager->creepList.insertInOrder(retCreep);
 			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 			if(SpawnerQueue.empty())
@@ -99,6 +107,7 @@ bool Spawner::iterate()
 				//generate next Spawner, or trigger end-game, or whatever.
 				generateWave();
 			}
+			curDelay = SpawnerDelay.front();
 			return true;
 		}
 		else
@@ -119,6 +128,22 @@ void Spawner::generateWave()
 	//decide creep type and number
 	//spawn that amount of creeps of chosen type and put them into the queue
 	//decide on a good delay between creeps
+	spawnableCreeps.push(creepType);
+	creepType = spawnableCreeps.front();
+	spawnableCreeps.pop();
+	creep *tempCreep;
+
+	while(!SpawnerDelay.empty())
+		SpawnerDelay.pop();
+
+	for(int i = 0; i < 10; i++) //FIX THIS LINE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	{
+		tempCreep = new creep(creepType,this->nPlayer,1,Loc.x,Loc.y);
+		tempCreep->p.setGoal(manager->Bases[nPlayer % 2]);
+		SpawnerQueue.push(tempCreep);
+		SpawnerDelay.push(40); //FIX THIS LINE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	}
 }
 int Spawner::getLevel()
 {
@@ -131,4 +156,9 @@ int Spawner::getType()
 void Spawner::setDelay(int newDelay)
 {
 	delay = newDelay;
+}
+
+void Spawner::addCreepType(int nCreepType)
+{
+	spawnableCreeps.push(nCreepType);
 }

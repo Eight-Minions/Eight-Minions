@@ -11,12 +11,14 @@ private:
 	int nPlayer; //index of the player to spawn creeps for
 	queue<creep*> SpawnerQueue; //the queue of creeps to spawn, only for generating waves of creeps for the base (not for creep towers)
 	queue<int> SpawnerDelay; //the queue of delays between spawns, also only for spawning from base (not for creep towers)
+	queue<int> spawnableCreeps;
 	
 	int SpawnerCount; //not sure what im using this for actually
 
 	int creepType; //the type of creep the spawner will create
 	int spawnerLevel; //the level of the spawner/level of creep to be spawned
 	
+	int waveNumber;
 
 	int curDelay; //the current delay until the next creep is spawned
 	int delay;
@@ -50,6 +52,7 @@ public:
 	void addCreepsToCurrent(int num);
 
 	void setCreepType(int nCreepType);
+	void addCreepType(int nCreepType);
 	void setStream(bool toStream); //set whether or not creeps should be released, can only be false for swarms
 
 	void setDifficulty();
@@ -59,6 +62,7 @@ public:
 
 	int getLevel();
 	int getType();
+	
 };
 
 
