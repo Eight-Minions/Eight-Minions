@@ -43,7 +43,9 @@ template <typename T>
 cList<T>::cList ()
 {
 	start = NULL;
-	maxIterator = 0;
+	maxIterator = 100;
+	for(int i = 0; i < 100; i++)
+		freeIterators.push(i);
 	size = 0;
 }
 // Delete the List

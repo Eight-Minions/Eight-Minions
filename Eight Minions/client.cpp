@@ -1,5 +1,5 @@
 #include "client.h"
-
+#include "FPS_Regulator.h"
 
 
 client::client()
@@ -117,11 +117,13 @@ int client::testrun()
 	int run = 1;
 	UpdMess testMess;
 	string temp;
-	int now = 0;
 	int n_rec = 0;
-	bool fps_cap;
+
+	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
+
 	while(run)
 	{
+		reg->start();
 		//gather input - the following series of if-statements will handle all user input
 		if( SDL_PollEvent( &event ) )
 		{
@@ -161,7 +163,7 @@ int client::testrun()
 		this->display();
 
 
-		SDL_Delay(20); //change this to be scaled by a timer
+		reg->killTime();
 	}
 
 	this->cleanup();
