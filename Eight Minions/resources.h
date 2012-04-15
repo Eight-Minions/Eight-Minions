@@ -66,7 +66,7 @@
 #define MAX_FPS 20
 
 //Creep types
-// Health Armor Speed Reward Price
+// Health Armor Speed Reward Price Spawn
 const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,2,1,2,2},		{5,1,3,3,5,2},		{8,2,3,6,10,2},		{12,3,4,12,15,2},	{20,4,5,15,20,2}};
 const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,3,2},		{3,0,5,2,5,2},		{5,1,5,4,8,2},		{8,1,6,8,12,2},		{12,2,7,10,15,2}};
 const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,1,1,2,4,3},		{5,2,1,5,8,3},		{8,3,2,10,16,3},	{12,4,2,15,22,3},	{20,5,3,20,28,3}};

@@ -36,13 +36,48 @@ bool Creep_Tower::upgrade()
 		{
 			this->manager->getPlayer(this->getPlayer())->spendMoney(cost);
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel() + 1);
+			cSpawner->setDelay((delay * MAX_FPS)*(1.1-((this->getLevel())/10)));
+			updateCost();
 			return true;
 		}
 	}
 	return false;
 }
-bool Creep_Tower::changeType()
+bool Creep_Tower::changeType(int newType)
 {
-
+	if(newType >= NORMCREEPTOWER && newType <= FATTYCREEPTOWER && newType != this->getType())
+	{
+		
+	}
 	return false;
+}
+
+void Creep_Tower::updateCost()
+{
+	if(this->getType() == NORMCREEPTOWER)
+	{
+		cost = normCreepArr[this->getLevel()][4];
+	}
+	else if(this->getType() == FASTCREEPTOWER)
+	{
+		cost = fastCreepArr[this->getLevel()][4];
+	}
+	else if(this->getType() == TANKCREEPTOWER)
+	{
+		cost = tankCreepArr[this->getLevel()][4];
+	}
+	else if(this->getType() == SWARMCREEPTOWER)
+	{	
+		cost = swarmCreepArr[this->getLevel()][4];
+	}
+	else if(this->getType() == TITANCREEPTOWER)
+	{
+		cost = titanCreepArr[this->getLevel()][4];
+	}
+	else if(this->getType() == FATTYCREEPTOWER)
+	{
+		cost = fattyCreepArr[this->getLevel()][4];
+	}
+	else
+		cost = 0;
 }
