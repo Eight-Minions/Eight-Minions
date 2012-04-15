@@ -10,7 +10,7 @@
 #include "player.h"
 #include "FPS_Regulator.h"
 
-#define MAX_MESSAGE_LENGTH 200
+#define MAX_MESSAGE_LENGTH 300
 
 class game_host
 {

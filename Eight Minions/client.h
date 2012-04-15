@@ -60,6 +60,7 @@ private:
 	//Colors
 	SDL_Color Cblack;
 	SDL_Color Cwhite;
+	SDL_Color Cblue;
 
 public:
 	client();

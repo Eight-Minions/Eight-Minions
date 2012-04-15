@@ -90,6 +90,8 @@ int game_host::testrun()
 			{
 				players[cur->getData()->getPlayer() - 1].takeDamage();
 				cur->getData()->kill(); 
+
+				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), PLAYERUPDATE, getPlayer(cur->getData()->getPlayer())->getHealth(), getPlayer(cur->getData()->getPlayer())->getMoney()).getMT());
 			}
 			else
 			{

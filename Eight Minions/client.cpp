@@ -29,6 +29,7 @@ int client::init()
 
 	Cblack = makeColor(0,0,0);
 	Cwhite = makeColor(255,255,255);
+	Cblue = makeColor(30,70,255);
 	this->loadFiles();
 	this->initText();
 	
