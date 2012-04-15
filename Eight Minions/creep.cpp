@@ -26,6 +26,14 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		reward =	tankCreepArr[level-1][3];
 		price =		tankCreepArr[level-1][4];
 	}
+	else if(type == FATTY){
+		// Health Armor Speed Reward Price
+		health =	fattyCreepArr[level-1][0];
+		armor =		fattyCreepArr[level-1][1];
+		speed =		fattyCreepArr[level-1][2];
+		reward =	fattyCreepArr[level-1][3];
+		price =		fattyCreepArr[level-1][4];
+	}
 	else if(type == FAST){
 		health =	fastCreepArr[level-1][0];
 		armor =		fastCreepArr[level-1][1];
@@ -143,14 +151,21 @@ bool creep::move()
 }
 void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM])
 {
-	updateAnim();
-	this->r->x = this->getX();
-	this->r->y = this->getY();
-	SDL_BlitSurface(image, spriteMap[0], screen, r);
+	if(this->type == FATTY)
+		cout << "weird...\n";
+	if(image != NULL)
+	{
+		updateAnim();
+		this->r->x = this->getX();
+		this->r->y = this->getY();
+		SDL_BlitSurface(image, spriteMap[0], screen, r);
+	}
+	else
+		cout << "No image for creep.\n";
 }
 void creep::updateAnim()
 {
-	
+
 }
 void creep::recalcPath( vector<vector<bool>> nMap )
 {

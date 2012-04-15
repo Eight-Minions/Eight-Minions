@@ -158,6 +158,10 @@ void Spawner::setDelay(int newDelay)
 	delay = newDelay;
 }
 
+//add creep type
+//author: Jeromy Johnson
+//
+//add the specified creep type to the queue of creeps to generate waves for
 void Spawner::addCreepType(int nCreepType)
 {
 	spawnableCreeps.push(nCreepType);
