@@ -15,7 +15,7 @@ public:
 	void iterate();
 	bool upgrade();
 	bool changeType(int newType);
-	void updateCost();
+	int updateCost(int uLevel, int uType);
 
 	void pause();
 	void unpause();

@@ -37,7 +37,7 @@ bool Creep_Tower::upgrade()
 			this->manager->getPlayer(this->getPlayer())->spendMoney(cost);
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel() + 1);
 			cSpawner->setDelay((delay * MAX_FPS)*(1.1-((this->getLevel())/10)));
-			updateCost();
+			cost = updateCost(this->getLevel()+1, this->getType());
 			return true;
 		}
 	}
@@ -45,39 +45,51 @@ bool Creep_Tower::upgrade()
 }
 bool Creep_Tower::changeType(int newType)
 {
+	int costToSwitch;
 	if(newType >= NORMCREEPTOWER && newType <= FATTYCREEPTOWER && newType != this->getType())
 	{
-		
+		if(updateCost(this->getLevel(), newType) < this->manager->getPlayer(this->getPlayer())->getMoney())
+		{
+			this->manager->getPlayer(this->getPlayer())->spendMoney(updateCost(this->getLevel(), newType));
+			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel());
+			cost = updateCost(this->getLevel()+1, newType);
+			this->setType(newType);
+			return true;
+		}
 	}
 	return false;
 }
-
-void Creep_Tower::updateCost()
+int Creep_Tower::updateCost(int uLevel, int uType)
 {
-	if(this->getType() == NORMCREEPTOWER)
+	if(uLevel < 5)
 	{
-		cost = normCreepArr[this->getLevel()][4];
+		if(uType == NORMCREEPTOWER)
+		{
+			return normCreepArr[uLevel][4];
+		}
+		else if(uType == FASTCREEPTOWER)
+		{
+			return fastCreepArr[uLevel][4];
+		}
+		else if(uType == TANKCREEPTOWER)
+		{
+			return tankCreepArr[uLevel][4];
+		}
+		else if(uType == SWARMCREEPTOWER)
+		{	
+			return swarmCreepArr[uLevel][4];
+		}
+		else if(uType == TITANCREEPTOWER)
+		{
+			return titanCreepArr[uLevel][4];
+		}
+		else if(uType == FATTYCREEPTOWER)
+		{
+			return fattyCreepArr[uLevel][4];
+		}
+		else
+			return 0;
 	}
-	else if(this->getType() == FASTCREEPTOWER)
-	{
-		cost = fastCreepArr[this->getLevel()][4];
-	}
-	else if(this->getType() == TANKCREEPTOWER)
-	{
-		cost = tankCreepArr[this->getLevel()][4];
-	}
-	else if(this->getType() == SWARMCREEPTOWER)
-	{	
-		cost = swarmCreepArr[this->getLevel()][4];
-	}
-	else if(this->getType() == TITANCREEPTOWER)
-	{
-		cost = titanCreepArr[this->getLevel()][4];
-	}
-	else if(this->getType() == FATTYCREEPTOWER)
-	{
-		cost = fattyCreepArr[this->getLevel()][4];
-	}
-	else
-		cost = 0;
+	else 
+		return 0;
 }
