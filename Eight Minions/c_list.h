@@ -40,34 +40,40 @@ public:
 
 // Create a list
 template <typename T>
-cList<T>::cList (){
+cList<T>::cList ()
+{
 	start = NULL;
 	maxIterator = 0;
 	size = 0;
 }
 // Delete the List
 template <typename T>
-cList<T>::~cList (){
+cList<T>::~cList ()
+{
 	deleteList();
 }
 // Get Start
 template <typename T>
-cListNode<T>* cList<T>::getStart(){
+cListNode<T>* cList<T>::getStart()
+{
 	return this->start;
 }
 // Set the start pointer
 template <typename T>
-void cList<T>::setStart(cListNode<T> *n_start){
+void cList<T>::setStart(cListNode<T> *n_start)
+{
 	this->start = n_start;
 }
 // Get the size
 template <typename T>
-int cList<T>::getSize(){
+int cList<T>::getSize()
+{
 	return this->size;
 }
 // Set the size
 template <typename T>
-void cList<T>::setSize(int n_size){
+void cList<T>::setSize(int n_size)
+{
 	this->size = n_size;
 }
 // Insert and object in order and assign it an index
@@ -90,14 +96,21 @@ int cList<T>::insertInOrder(T newData){
 	newNode->setForcedIndex(new_iterator);
 	cur = this->getStart();
 
-	if (cur == NULL || newNode->getIndex() <= cur->getIndex()) {
+	if (cur == NULL) {
 		newNode->setNext(NULL);
 		this->setStart(newNode);
 	}
-	else {
-		while ((cur != NULL) && (cur->getIndex() <= newNode->getIndex())) {
-		prev = cur;
-		cur = cur->getNext();
+	else if(newNode->getIndex() <= cur->getIndex())
+	{
+		newNode->setNext(cur->getNext());
+		this->setStart(newNode);
+	}
+	else 
+	{
+		while ((cur != NULL) && (cur->getIndex() <= newNode->getIndex())) 
+		{
+			prev = cur;
+			cur = cur->getNext();
 		}
 		prev->setNext(newNode);
 		newNode->setNext(cur);
@@ -105,7 +118,8 @@ int cList<T>::insertInOrder(T newData){
 	return new_iterator;
 }
 template <typename T>
-bool cList<T>::insertWithID(int set_id, T newData){
+bool cList<T>::insertWithID(int set_id, T newData)
+{
 	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
 	newNode = new cListNode<T> (newData);
 	if(checkForObjectWithID(set_id) == false)
@@ -113,14 +127,21 @@ bool cList<T>::insertWithID(int set_id, T newData){
 		newNode->setForcedIndex(set_id);
 		cur = this->getStart();
 		
-		if (cur == NULL || newNode->getIndex() <= cur->getIndex()) {
+		if (cur == NULL) 
+		{
 			newNode->setNext(NULL);
 			this->setStart(newNode);
 		}
+		else if(newNode->getIndex() <= cur->getIndex())
+		{
+			newNode->setNext(cur->getNext());
+			this->setStart(newNode);
+		}
 		else {
-			while ((cur != NULL) && (cur->getIndex() <= newNode->getIndex())) {
-			prev = cur;
-			cur = cur->getNext();
+			while ((cur != NULL) && (cur->getIndex() <= newNode->getIndex())) 
+			{
+				prev = cur;
+				cur = cur->getNext();
 			}
 			prev->setNext(newNode);
 			newNode->setNext(cur);
@@ -133,11 +154,13 @@ bool cList<T>::insertWithID(int set_id, T newData){
 }
 // Delete the list
 template <typename T>
-bool cList<T>::deleteList (){
+bool cList<T>::deleteList ()
+{
 	cListNode<T> *temp = NULL, *del = NULL;
 	bool success = false;
 	temp = this->getStart();
-	while (temp != NULL){
+	while (temp != NULL)
+	{
 		del= temp;
 		temp= temp->getNext();
 		delete del;
@@ -147,14 +170,19 @@ bool cList<T>::deleteList (){
 }
 // Delete a node
 template <typename T>
-bool cList<T>::deleteNode(int searchIndex){
+bool cList<T>::deleteNode(int searchIndex)
+{
 	cListNode<T> *cur = NULL, *prev = NULL;
-	for (cur = this->getStart(); cur != NULL; prev = cur, cur = cur->getNext()){
-		if(cur->getIndex() == searchIndex){
-			if(prev == NULL){
+	for (cur = this->getStart(); cur != NULL; prev = cur, cur = cur->getNext())
+	{
+		if(cur->getIndex() == searchIndex)
+		{
+			if(prev == NULL)
+			{
 				this->setStart(cur->getNext());
 			}
-			else{
+			else
+			{
 				prev->setNext(cur->getNext());
 			}
 			freeIterators.push(searchIndex);
