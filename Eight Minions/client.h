@@ -7,6 +7,7 @@
 #include "tower.h"
 #include "player.h"
 #include "attackAnim.h"
+#include "button.h"
 
 #define CONNECTION_SUCCESSFUL 1
 #define CONNECTION_FAILURE 0 //generic error
@@ -30,11 +31,13 @@ private:
 	SDL_Surface* creepImages[NUM_CREEPS]; //holds sprite sheets for each creep
 	SDL_Surface* attackImage;
 	SDL_Surface* text[TEXT_NUM];
+	
 
 	SDL_Event event;
-	SDL_Rect *Buttons[NUM_BUTTONS];
 	SDL_Rect *SpriteMaps[4][ANIM_NUM];
 	SDL_Rect *textRects[TEXT_NUM];
+
+	Button *buttons[NUM_BUTTONS];
 
 	cList<creep*> creeps;
 	cList<structure*> towers;

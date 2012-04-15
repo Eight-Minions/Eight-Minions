@@ -58,7 +58,6 @@ void client::loadFiles()
 	{
 		SpriteMaps[i][0] = newRect(0,i * GRID_SIZE,GRID_SIZE,GRID_SIZE);
 	}
-
 }
 
 void client::cleanup()
@@ -138,6 +137,7 @@ int client::testrun()
 					event.button.x; //x coordinate of click on the window
 					event.button.y; //y coordinate of click on the window
 
+					buttons[0]->wasClicked(event.button.x, event.button.y);
 					//////////////////////////////////////////////////////////////
 					//Your goal, using this information, make the game do things
 					//when you click, i.e. clicking a tower displays info about it
@@ -218,6 +218,7 @@ void client::displayUI()
 		SDL_BlitSurface(text[i], NULL,screen,textRects[i]);
 
 
+	buttons[0]->display(screen);
 }
 
 coord client::getClickCoord(int x, int y)
@@ -238,8 +239,8 @@ coord client::getClickCoord(int x, int y)
 
 void client::initButtons()
 {
-	Buttons[0] = newRect(BOARD_X_OFFSET, BOARD_Y_OFFSET, MAPSIZE_X * GRID_SIZE, MAPSIZE_Y * GRID_SIZE);
 
+	buttons[0] = new Button("images/towerButton",652,60,80,120);
 
 }
 
