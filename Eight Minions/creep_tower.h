@@ -10,9 +10,9 @@ class Creep_Tower : public structure
 {
 public:
 	Creep_Tower();
-	Creep_Tower(int player, int newX, int newY);						//Client Constructor
-	Creep_Tower(int player, int newX, int newY, game_host *nManager);	//Server Constructor
-	void spawn();
+	Creep_Tower(int level, int player, int type, int newX, int newY);						//Client Constructor
+	Creep_Tower(int level, int player, int type, int newX, int newY, game_host *nManager);	//Server Constructor
+	void iterate();
 	bool upgrade();
 	bool changeType();
 

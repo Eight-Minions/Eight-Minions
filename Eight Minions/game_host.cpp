@@ -166,9 +166,9 @@ int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 			this->towerList.insertInOrder(newTower);
 			Tmap[x][y] = newTower;
 		}
-		else if(towerType == SPAWNERTOWER)
+		else if(towerType >= 5 && towerType <= 10)
 		{
-			Creep_Tower *newTower = new Creep_Tower(playerNumber,x,y, this);
+			Creep_Tower *newTower = new Creep_Tower(CREEPTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
 			this->towerList.insertInOrder(newTower);
 			Tmap[x][y] = newTower;
 		}

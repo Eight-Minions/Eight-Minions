@@ -3,12 +3,15 @@
 Creep_Tower::Creep_Tower() : structure()
 {
 }
-Creep_Tower::Creep_Tower(int player, int new_x, int new_y) : structure (CREEPTOWERSTARTLEVEL, player, -1, new_x, new_y)
-{
+Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y) : structure (CREEPTOWERSTARTLEVEL, player, type, new_x, new_y)
+{	
 }
-Creep_Tower::Creep_Tower(int player, int new_x, int new_y, game_host *nManager) : structure (CREEPTOWERSTARTLEVEL, player, -1, new_x, new_y)
+Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, game_host *nManager) : structure (CREEPTOWERSTARTLEVEL, player, type, new_x, new_y)
 {
 	manager = nManager;
+	cSpawner = new Spawner(nManager, player, true, NORM, 1);
+	cSpawner->setDelay(normCreepArr[CREEPTOWERSTARTLEVEL][5] * MAX_FPS);
+	paused = true;
 }
 void Creep_Tower::unpause()
 {
@@ -18,7 +21,7 @@ void Creep_Tower::pause()
 {
 	paused = true;
 }
-void Creep_Tower::spawn()
+void Creep_Tower::iterate()
 {
 	if(!paused)
 	{
@@ -42,5 +45,4 @@ bool Creep_Tower::changeType()
 {
 
 	return false;
-
 }

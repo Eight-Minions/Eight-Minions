@@ -20,6 +20,7 @@ Spawner::Spawner(game_host *nManager, int Player, bool isTower, coord nLoc)
 	creepType = NORM;
 	spawnerLevel = 1;
 	Loc = nLoc;
+	delay = CREEPTOWERDELAY;
 }
 Spawner::Spawner( game_host* nManager, int Player, bool isTower, int nCreepType, int nLevel)
 {
@@ -28,6 +29,7 @@ Spawner::Spawner( game_host* nManager, int Player, bool isTower, int nCreepType,
 	SpawnerCount = 0;
 	creepType = nCreepType;
 	spawnerLevel = nLevel;
+	delay = CREEPTOWERDELAY;
 }
 
 void Spawner::testing()
@@ -74,7 +76,7 @@ bool Spawner::iterate()
 			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 			
 			//CHANGES NEEDED HERE
-			curDelay = 50;
+			curDelay = delay;
 
 			//also, add handlers for if the player wants to save up a swarm.
 			return true;
@@ -125,4 +127,8 @@ int Spawner::getLevel()
 int Spawner::getType()
 {
 	return creepType;
+}
+void Spawner::setDelay(int newDelay)
+{
+	delay = newDelay;
 }

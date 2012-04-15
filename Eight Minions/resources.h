@@ -37,26 +37,47 @@
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+// Tower Type COnstants
+//Attack Towers
+#define BASICTOWER 0
+#define FASTTOWER 1
+#define AOETOWER 2
+#define HEAVYTOWER 3
+#define MINETOWER 4
+//Spawner Towers  
+#define GETCREEPTYPE 5 // Subtract 5 to get the creep type
+#define NORMCREEPTOWER 5
+#define FASTCREEPTOWER 6
+#define TANKCREEPTOWER 7
+#define SWARMCREEPTOWER	8
+#define TITANCREEPTOWER 9
+#define FATTYCREEPTOWER 10
+//Effect Towers
+#define SLOWTOWER 11
+#define SPEEDTOWER 12
+#define HEALTOWER 13
+
 //Animation
 #define ANIM_NUM 4
 
 #define MAXCREEPLEVEL 5
-#define MAXCREEPVARIABLES 5
+#define MAXCREEPVARIABLES 6
 
-#define MAX_FPS 30
+#define MAX_FPS 20
 
 //Creep types
 // Health Armor Speed Reward Price
-const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,2,1,2},	{5,1,3,3,5},	{8,2,3,6,10},	{12,3,4,12,15},	{20,4,5,15,20}};
-const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,3},	{3,0,5,2,5},	{5,1,5,4,8},	{8,1,6,8,12},	{12,2,7,10,15}};
-const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,1,1,2,4},	{5,2,1,5,8},	{8,3,2,10,16},	{12,4,2,15,22},	{20,5,3,20,28}};
-const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,2},	{3,0,3,1,3},	{5,1,4,2,4},	{8,1,4,2,5},	{10,2,5,3,6}};
-const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,3},	{8,1,1,5,7},	{11,2,2,10,15},	{15,3,2,15,21},	{25,4,3,20,27}};
-const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10},	{20,3,2,15,25},	{35,4,3,25,50},	{50,5,3,50,100},{100,7,4,100,250}};
+const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,2,1,2,2},		{5,1,3,3,5,2},		{8,2,3,6,10,2},		{12,3,4,12,15,2},	{20,4,5,15,20,2}};
+const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,3,2},		{3,0,5,2,5,2},		{5,1,5,4,8,2},		{8,1,6,8,12,2},		{12,2,7,10,15,2}};
+const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,1,1,2,4,3},		{5,2,1,5,8,3},		{8,3,2,10,16,3},	{12,4,2,15,22,3},	{20,5,3,20,28,3}};
+const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,2,1},		{3,0,3,1,3,1},		{5,1,4,2,4,1},		{8,1,4,2,5,1},		{10,2,5,3,6,1}};
+const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,3,3},		{8,1,1,5,7,3},		{11,2,2,10,15,3},	{15,3,2,15,21,3},	{25,4,3,20,27,3}};
+const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{20,3,2,15,25,5},	{35,4,3,25,50,5},	{50,5,3,50,100,5},	{100,7,4,100,250,5}};
 
 //Spawn Tower Definitions
 #define CREEPTOWERSTARTLEVEL 1
 #define STANDARDTOWERSTARTLEVEL 1
+#define CREEPTOWERDELAY 20
 
 //Map Constants
 #define MAPSIZE_X 26
@@ -93,15 +114,6 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10},	{20
 // Tower Constants
 #define MAXTOWERLEVEL 5
 #define MAXTOWERVARIABLES 5
-
-//Attack Towers
-#define BASICTOWER 0
-#define FASTTOWER 1
-#define AOETOWER 2
-#define HEAVYTOWER 3
-#define MINETOWER 4
-//Spawner Towers
-#define SPAWNERTOWER 5
 
 
 //Tower Types

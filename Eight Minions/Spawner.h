@@ -19,6 +19,7 @@ private:
 	
 
 	int curDelay; //the current delay until the next creep is spawned
+	int delay;
 
 	coord Loc; 
 	//the location of the spawner
@@ -53,6 +54,8 @@ public:
 
 	void setDifficulty();
 	void setDifIncrease(int n);
+
+	void setDelay(int newDelay);
 
 	int getLevel();
 	int getType();
