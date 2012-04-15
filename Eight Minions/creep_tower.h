@@ -6,7 +6,7 @@
 #include "game_host.h"
 #include "Spawner.h"
 
-class Creep_Tower : public tower
+class Creep_Tower : public structure
 {
 public:
 	Creep_Tower();

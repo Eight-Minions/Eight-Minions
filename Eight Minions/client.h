@@ -37,7 +37,7 @@ private:
 	SDL_Rect *textRects[TEXT_NUM];
 
 	cList<creep*> creeps;
-	cList<tower*> towers;
+	cList<structure*> towers;
 
 	vector<attackAnim*> attacks;
 

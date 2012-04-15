@@ -2,7 +2,7 @@
 #define TOWER_H
 #include "resources.h"
 
-class tower : public location
+class structure : public location
 {	
 private:
 	int player;
@@ -12,9 +12,9 @@ private:
 	SDL_Rect *r; 
 	bool passable;
 public:
-	tower();
-	tower(int level, int player, int type, int x, int y);
-	~tower();
+	structure();
+	structure(int level, int player, int type, int x, int y);
+	~structure();
 
 	int getLevel();
 	int getType();

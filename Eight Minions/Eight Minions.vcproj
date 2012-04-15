@@ -199,6 +199,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\FPS_Regulator.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\path.cpp"
 					>
 				</File>
@@ -282,6 +286,10 @@
 				</File>
 				<File
 					RelativePath=".\creep.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FPS_Regulator.h"
 					>
 				</File>
 				<File

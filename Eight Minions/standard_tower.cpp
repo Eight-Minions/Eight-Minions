@@ -1,15 +1,15 @@
 #include "standard_tower.h"
 
-Standard_Tower::Standard_Tower() : tower()
+Standard_Tower::Standard_Tower() : structure()
 {
 }
-Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : tower(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
+Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : structure(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
 	changeType(t);
 	attackTick = attackDuration;
 	coolDownTick = coolDownDuration;
 }
-Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : tower(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
+Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : structure(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
 	manager = nManager;
 	changeType(t);

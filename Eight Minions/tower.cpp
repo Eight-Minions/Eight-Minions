@@ -1,9 +1,9 @@
 #include "tower.h"
 
-tower::tower()
+structure::structure()
 {
 }
-tower::tower(int l, int p, int t, int set_x, int set_y)
+structure::structure(int l, int p, int t, int set_x, int set_y)
 {
 	player = p;
 	level = l;
@@ -13,23 +13,23 @@ tower::tower(int l, int p, int t, int set_x, int set_y)
 	img = IMG_Load("tower.png");
 	r = new SDL_Rect;
 }
-int tower::getLevel()
+int structure::getLevel()
 {
 	return this->level;
 }
-int tower::getType()
+int structure::getType()
 {
 	return this->type;
 }
-int tower::setType(int newType)
+int structure::setType(int newType)
 {
 	type = newType;
 	return type;
 }
-tower::~tower()
+structure::~structure()
 {
 }
-void tower::displayTower(SDL_Surface *screen)
+void structure::displayTower(SDL_Surface *screen)
 {
 	if(img != NULL)
 	{
@@ -38,14 +38,14 @@ void tower::displayTower(SDL_Surface *screen)
 		SDL_BlitSurface(this->img, NULL, screen, r);
 	}
 }
-int tower::getPlayer(){
+int structure::getPlayer(){
 	return player;
 }
-int tower::setLevel(int newLevel){
+int structure::setLevel(int newLevel){
 	level = newLevel;
 	return level;
 }
-void tower::iterate()
+void structure::iterate()
 {
 	cout << "Nothing to do for base tower type" << endl;
 }

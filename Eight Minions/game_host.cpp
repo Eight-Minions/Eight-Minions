@@ -44,8 +44,8 @@ int game_host::testrun()
 {
 	this->init();
 	this->init_net();
-	//this->waitForClients();
-	this->waitForClient_test();
+	this->waitForClients();
+	//this->waitForClient_test();
 
 	// placeTower(int playerNumber, int towerType, int x, int y);
 	placeTower(1,1,4,9);
@@ -66,7 +66,7 @@ int game_host::testrun()
 	int run = 1;
 	int nc = 0;
 	cListNode<creep*> *cur = NULL;
-	cListNode<tower*> *curTower = NULL;
+	cListNode<structure*> *curTower = NULL;
 	cListNode<creep*> *temp = NULL;
 	while(run)
 	{

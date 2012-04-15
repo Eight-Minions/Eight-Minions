@@ -8,6 +8,7 @@
 #include "standard_tower.h"
 #include "creep_tower.h"
 #include "player.h"
+#include "FPS_Regulator.h"
 
 #define MAX_MESSAGE_LENGTH 200
 
@@ -26,11 +27,11 @@ private:
 
 protected:
 	//Map variables
-	vector<vector<tower*>> Tmap; //map of pointers to the towers, NULL if no tower
+	vector<vector<structure*>> Tmap; //map of pointers to the towers, NULL if no tower
 	vector<vector<bool>> Nodemap; //boolean map, false means passable
 
 	cList<creep*> creepList; //the list of creeps, creeps contain their positions
-	cList<tower*> towerList;
+	cList<structure*> towerList;
 	int numCreeps; //may not need this...
 
 	Spawner	*p1Spawner, *p2Spawner; //spawner objects for each player
@@ -69,7 +70,7 @@ public:
 	int sendtoP1_test(string buff);
 
 	cList<creep*> * getCreepList();  // I'm not really sure that I should do this....
-	cList<tower*> * getTowerList();
+	cList<structure*> * getTowerList();
 	player * getPlayer(int playerNumber);
 
 	friend Spawner;

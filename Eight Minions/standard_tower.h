@@ -5,7 +5,7 @@
 #include "game_host.h"
 #include "UpdMess.h"
 
-class Standard_Tower : public tower
+class Standard_Tower : public structure
 {
 public:
 	Standard_Tower();

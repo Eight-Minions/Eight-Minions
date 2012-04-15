@@ -181,7 +181,7 @@ void client::displayCreeps()
 
 void client::displayTowers()
 {
-	cListNode<tower*> *cur = towers.getStart();
+	cListNode<structure*> *cur = towers.getStart();
 	while (cur != NULL)
 	{
 		cur->getData()->displayTower(screen);
