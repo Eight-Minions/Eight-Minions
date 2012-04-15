@@ -13,5 +13,5 @@ void FPS_Regulator::start()
 
 void FPS_Regulator::killTime()
 {
-	while(SDL_GetTicks() - ticks > FPS);
+	while(SDL_GetTicks() - ticks < (1000/FPS));
 }

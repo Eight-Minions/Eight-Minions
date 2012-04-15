@@ -44,8 +44,8 @@ int game_host::testrun()
 {
 	this->init();
 	this->init_net();
-	this->waitForClients();
-	//this->waitForClient_test();
+	//this->waitForClients();
+	this->waitForClient_test();
 
 	// placeTower(int playerNumber, int towerType, int x, int y);
 	placeTower(1,1,4,9);
@@ -65,32 +65,28 @@ int game_host::testrun()
 
 	int run = 1;
 	int nc = 0;
+
+	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
+
 	cListNode<creep*> *cur = NULL;
 	cListNode<structure*> *curTower = NULL;
 	cListNode<creep*> *temp = NULL;
 	while(run)
 	{
-		
+		reg->start();
 
 		p1Spawner->iterate();
 		p2Spawner->iterate();
-		curTower = towerList.getStart();
-		while(curTower != NULL)
-		{
+
+		for(curTower = towerList.getStart(); curTower != NULL; curTower = curTower->getNext())
 			curTower->getData()->iterate();
-			curTower = curTower->getNext();
-		}
-		cur = creepList.getStart(); //get the head of player ones creep list
-		while(cur != NULL)
+
+		for(cur = creepList.getStart(); cur != NULL;)
 		{ //loop through the list
 			if(cur->getData()->move()) //move each creep in the list
 			{
-				//int i = cur->getIndex();
-
 				players[cur->getData()->getPlayer() - 1].takeDamage();
-				cur->getData()->kill();  //SET CREEPS HEALTH TO 0 AND SEND UPDATE
-				
-				//creepList.deleteNode(i);
+				cur->getData()->kill(); 
 			}
 			else
 			{
@@ -110,7 +106,7 @@ int game_host::testrun()
 			//cur = cur->getNext(); //move to next creep in list
 		}
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent*/
-		SDL_Delay(30); //approx 30 times/second maybe reduce to 10?
+		reg->killTime();
 	}
 	return 0;
 }
