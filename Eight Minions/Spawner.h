@@ -36,7 +36,7 @@ private:
 public:
 	Spawner();
 	Spawner(game_host *nManager, int nPlayer, bool isTower, coord nLoc);
-	Spawner(game_host* nManager, int nPlayer, bool isTower, int nCreepType, int nLevel); //manager is the object that this Spawner class will manage spawning creeps for
+	Spawner(game_host* nManager, int nPlayer, bool isTower, int nCreepType, int nLevel, coord nLoc); //manager is the object that this Spawner class will manage spawning creeps for
 	
 	void testing();
 

@@ -10,6 +10,7 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	type = t;
 	this->setX(set_x);
 	this->setY(set_y);
+	this->passable = false;
 	r = new SDL_Rect;
 }
 int structure::getLevel()
@@ -51,4 +52,12 @@ void structure::iterate()
 int structure::getCost()
 {
 	return cost;
+}
+bool structure::getPassable()
+{
+	return passable;
+}
+void structure::setPassable(bool nPass)
+{
+	passable = nPass;
 }

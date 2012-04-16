@@ -16,6 +16,7 @@ public:
 	bool upgrade();
 	bool changeType(int newType);
 	int updateCost(int uLevel, int uType);
+	int getCost();
 
 	void pause();
 	void unpause();

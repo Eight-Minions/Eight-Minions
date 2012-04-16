@@ -26,8 +26,9 @@ Spawner::Spawner(game_host *nManager, int Player, bool Tower, coord nLoc)
 	if(!isTower)
 		generateWave();
 }
-Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, int nLevel)
+Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, int nLevel, coord nLoc)
 {
+	Loc = nLoc;
 	manager = nManager;
 	nPlayer = Player;
 	SpawnerCount = 0;

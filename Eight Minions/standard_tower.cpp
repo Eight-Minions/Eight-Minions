@@ -8,6 +8,7 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : stru
 	changeType(t);
 	attackTick = attackDuration;
 	coolDownTick = coolDownDuration;
+	this->setPassable(false);
 }
 Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : structure(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
@@ -15,6 +16,7 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_h
 	changeType(t);
 	attackTick = attackDuration;
 	coolDownTick = coolDownDuration;
+	this->setPassable(false);
 }
 void Standard_Tower::chooseClosestCreep(double radius)
 {
@@ -204,6 +206,7 @@ bool Standard_Tower::doDamage()
 						if(frontCreep->isAlive() == false)
 						{
 							int reward = frontCreep->getReward();
+							int curMoney = manager->getPlayer(this->getPlayer())->getMoney();
 							manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
 							// Update money value for player based on reward for killing the creep
 							int newMony = this->manager->getPlayer(this->getPlayer())->getMoney();

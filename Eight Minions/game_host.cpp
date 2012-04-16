@@ -51,16 +51,20 @@ int game_host::testrun()
 	this->waitForClient_test();
 
 	// placeTower(int playerNumber, int towerType, int x, int y);
+
 	placeTower(1,1,4,9);
-	placeTower(1,1,11,11);
+	//placeTower(1,1,11,11);
 	placeTower(1,1,3,9);
+	/*
 	placeTower(1,1,12,10);
 	placeTower(2,1,13,10);
 	placeTower(2,1,15,8);
 	placeTower(2,1,14,9);
 	placeTower(2,1,5,10);
+	*/
 	placeTower(1,NORMCREEPTOWER, 3, 8);
-	placeTower(2,NORMCREEPTOWER, 12, 3);
+	//placeTower(2,NORMCREEPTOWER, 12, 3);
+	
 	setNodemap();
 
 	spawnCreep(1,2,1,Bases[0]);
@@ -126,7 +130,14 @@ void game_host::setNodemap()
 {
 	for(int i = 0; i < MAPSIZE_X; i++)
 		for(int j = 0; j < MAPSIZE_Y; j++)
-			Nodemap[i][j] = (Tmap[i][j] != NULL);
+		{
+			if(Tmap[i][j] != NULL)
+			{
+				Nodemap[i][j] = !(Tmap[i][j])->getPassable();
+			}
+			else
+				Nodemap[i][j] = false;
+		}
 }
 
 void game_host::updatePaths()
@@ -179,7 +190,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 			{
 				if(2 <= this->getPlayer(playerNumber)->getMoney())
 				{
-					structure *newStructure = new structure(0, playerNumber, towerType, x, y);
+					structure *newStructure = new structure(STRUCTURESTARTLEVEL, playerNumber, towerType, x, y);
 					this->getPlayer(playerNumber)->spendMoney(2);
 					this->towerList.insertInOrder(newStructure);
 					Tmap[x][y] = newStructure;
@@ -213,6 +224,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 				Creep_Tower *newTower = new Creep_Tower(CREEPTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
 				if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
 				{
+					int newCost = newTower->getCost();
 					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
 					this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
