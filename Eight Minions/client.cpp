@@ -10,7 +10,7 @@ client::client()
 int client::init()
 {
 	//Start SDL
-	dump.open("dump.txt"); 
+	//dump.open("dump.txt"); 
 	if(SDL_Init( SDL_INIT_EVERYTHING ) == -1)
 	{
 		cout << "SDL Failed to initialize...\n";
@@ -69,6 +69,13 @@ void client::cleanup()
 	//do all freeing of memory and cleanup type stuff here
 
 	cout << "Cleanup needs more work\n";
+
+	SDLNet_UDP_Close(UDPsock);
+
+	// Close our server socket, cleanup SDL_net and finish!
+	SDLNet_TCP_Close(sd);
+
+	SDLNet_Quit();
 	SDL_free(background);
 	SDL_Quit();
 }
@@ -193,7 +200,7 @@ int client::testrun()
 	}
 
 	this->cleanup();
-	dump.close();
+	//dump.close();
 	return 0;
 }
 

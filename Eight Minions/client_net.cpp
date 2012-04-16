@@ -187,7 +187,7 @@ int client::recieveMessageToQueue()
 	while (packData != "NO MESSAGE")
 	{
 		len = packData.length();
-		dump << packData << endl;
+		//dump << packData << endl;
 		cout << packData << endl;
 		for(i = 0;i < len + 1; i++)
 		{
