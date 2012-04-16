@@ -180,7 +180,7 @@ int client::testrun()
 							else
 							{
 								int t_check = 1;
-								for(cListNode<structure*> *cur = towers->getStart(); cur != NULL && t_check; cur = cur->getNext())
+								for(cListNode<structure*> *cur = towers.getStart(); cur != NULL && t_check; cur = cur->getNext())
 								{
 									if (cur->getData()->getX() == temp.x && cur->getData()->getY() != temp.y)
 									{
