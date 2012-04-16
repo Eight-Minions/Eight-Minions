@@ -151,8 +151,6 @@ bool creep::move()
 }
 void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM])
 {
-	if(this->type == FATTY)
-		cout << "weird...\n";
 	if(image != NULL)
 	{
 		updateAnim();

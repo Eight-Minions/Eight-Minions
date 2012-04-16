@@ -298,7 +298,7 @@ coord client::getClickCoord(int x, int y)
 void client::initButtons()
 {
 
-	buttons[0] = new Button("images/towerButton",652,60,80,120);
+	buttons[0] = new Button("images/towerButton",652,60,71,92);
 
 }
 
