@@ -8,6 +8,7 @@ private:
 	int player;
 	int level;
 	int type;
+	int cost;
 	SDL_Rect *r; 
 	bool passable;
 public:
@@ -19,6 +20,7 @@ public:
 	int getType();
 	int setType(int newType);
 	int getPlayer();
+	int getCost();
 
 	bool getPassable();
 	void setPassable(bool nPass);

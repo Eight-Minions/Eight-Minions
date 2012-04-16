@@ -314,3 +314,7 @@ void Standard_Tower::iterate()
 	else
 		choose();
 }
+int Standard_Tower::getCost()
+{
+	return cost;
+}

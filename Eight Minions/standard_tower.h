@@ -26,6 +26,8 @@ public:
 	void sell();
 
 	int getID();
+	
+	int getCost();
 private:
 	game_host *manager;
 	queue<int> chosenCreeps;

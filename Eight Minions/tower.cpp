@@ -48,3 +48,7 @@ void structure::iterate()
 {
 	cout << "Nothing to do for base tower type" << endl;
 }
+int structure::getCost()
+{
+	return cost;
+}
