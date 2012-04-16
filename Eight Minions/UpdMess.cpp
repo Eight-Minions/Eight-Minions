@@ -6,11 +6,16 @@ UpdMess::UpdMess(int p, int t, ...)
 {
 
 	/*
-		Creep:			UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);	// For creep creation and upgrades
-		Creep:			UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);						// For position updates
-		Tower:			UpdMess(Player[1], TOWER, TowerID[4], X[2], Y[2], TowerType[2]);
-		Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
-		Player:			UpdMess(Player[1], PLAYERUPDATE, Health[3], Money[8]);
+		Creep:					UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);	// For creep creation and upgrades
+		Creep:					UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);						// For position updates
+		Tower:					UpdMess(Player[1], TOWER, TowerID[4], X[2], Y[2], TowerType[2]);
+		Player:					UpdMess(Player[1], PLAYERUPDATE, Health[3], Money[8]);
+		Tower Creation:			UpdMess(Player[1], TOWER, TOWERCREATION, TowerID[4], X[2], Y[2], TowerType[2]);
+		Tower Attack:			UpdMess(Player[1], TOWER, TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
+		Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE, TowerX[2], Tower[Y]);
+		Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE, TowerID[4]);
+		Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE, TowerID[4], newType[2]);	
+		Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE, TowerID[4], newValue);
 	*/
 	int var;
 	char buff[8];
@@ -23,44 +28,82 @@ UpdMess::UpdMess(int p, int t, ...)
 	messText += (t + '0');
 	this->type = t;
  
-	if(t == TOWERATTACK)
+	if(t == TOWER)
 	{ 
-		for(int i = 0; i < 4; i++)
+		var = va_arg(v1, int);
+		if(var = TOWERATTACK)
 		{
-			var = va_arg(v1, int);
-			// i = 0 AttackerX[2]
-			// i = 1 AttackerY[2]
-			// i = 3 AttackType
-			if( i == 0 || i == 1 || i == 3)
+			for(int i = 0; i < 4; i++)
 			{
-				if(var == 0)
-					messText += "00";
-				else
+				var = va_arg(v1, int);
+				// i = 0 AttackerX[2]
+				// i = 1 AttackerY[2]
+				// i = 3 AttackType
+				if( i == 0 || i == 1 || i == 3)
 				{
-					if(var < 10)
-						messText += '0';
-					messText += itoa(var,buff,10);
-				}
-			}
-			// i = 2 AttackedID[4]
-			else if(i == 2)
-			{
-				if(var == 0)
-					messText += "0000";
-				else
-				{
-					for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+					if(var == 0)
+						messText += "00";
+					else
 					{
-						messText += '0';
+						if(var < 10)
+							messText += '0';
+						messText += itoa(var,buff,10);
 					}
-					messText += itoa(var,buff,10);
 				}
-			}
-			else
-			{
-					//ERROR
+				// i = 2 AttackedID[4]
+				else if(i == 2)
+				{
+					if(var == 0)
+						messText += "0000";
+					else
+					{
+						for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+						{
+							messText += '0';
+						}
+						messText += itoa(var,buff,10);
+					}
+				}
+				else
+				{
+						//ERROR
+				}
 			}
 		}
+		else if(var = TOWERCREATION)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				var = va_arg(v1, int);
+				// TowerID
+				if(i == 0){
+					if(var == 0)
+						messText += "0000";
+					else
+					{
+						for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+						{
+							messText += '0';
+						}
+						messText += itoa(var,buff,10);
+					}
+				}
+				// i = 1 X
+				// i = 2 Y
+				// i = 3 TowerType
+				else{
+					if(var == 0)
+						messText += "00";
+					else
+					{
+						if(var < 10)
+							messText += '0';
+						messText += itoa(var,buff,10);
+					}
+				}
+			}
+		}
+		//else if(var = 
 	}
 	else if(t == CREEP || t == NEWCREEP)
 	{
@@ -130,38 +173,6 @@ UpdMess::UpdMess(int p, int t, ...)
 			else
 			{
 				// ERROR
-			}
-		}
-	}
-	else if(t == TOWER){
-		for (int i = 0; i < 4; i++)
-		{
-			var = va_arg(v1, int);
-			// TowerID
-			if(i == 0){
-				if(var == 0)
-					messText += "0000";
-				else
-				{
-					for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
-					{
-						messText += '0';
-					}
-					messText += itoa(var,buff,10);
-				}
-			}
-			// i = 1 X
-			// i = 2 Y
-			// i = 3 TowerType
-			else{
-				if(var == 0)
-					messText += "00";
-				else
-				{
-					if(var < 10)
-						messText += '0';
-					messText += itoa(var,buff,10);
-				}
 			}
 		}
 	}

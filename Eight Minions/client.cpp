@@ -10,7 +10,7 @@ client::client()
 int client::init()
 {
 	//Start SDL
-	//dump.open("dump.txt"); 
+	
 	if(SDL_Init( SDL_INIT_EVERYTHING ) == -1)
 	{
 		cout << "SDL Failed to initialize...\n";
@@ -53,7 +53,7 @@ void client::loadFiles()
 	creepImages[TITAN] = LoadImageCK("titan.png");
 	creepImages[FATTY] = LoadImageCK("fatty.png");
 
-	towerImages[BASICTOWER] = LoadImageCK("images/structure.png");
+	towerImages[STRUCTURE] = LoadImageCK("images/structure.png");
 	
 
 	attackImage = LoadImageCK("images/testAttack.png");

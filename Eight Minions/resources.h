@@ -19,14 +19,20 @@
 
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
 
-//Update Message Constants
-#define CREEP 0			// For an update on a creep
-#define NEWCREEP 1		// For a new creep
-#define TOWER 2			// For an update on a tower
-#define TOWERATTACK 3	// For an update on a tower attack
-#define PLAYERUPDATE 4	// For an update to the player
-#define PURCHASEREQUEST 5 //from the client to the server, request to purchase something
-#define MAX_NUM_VAL 10	// Max number of values in a single update
+//Standard UpdMess Definitions
+#define CREEP 0				// For an update on a creep
+#define NEWCREEP 1			// For a new creep
+#define PLAYERUPDATE 2		// For an update to the player
+#define PURCHASEREQUEST 3	//from the client to the server, request to purchase something
+#define TOWER 4				// For anything to do with a tower
+
+// Tower UpdMess Definitions
+#define TOWERCREATION 0
+#define TOWERATTACK 1
+#define TOWERPLACE 2
+#define TOWERUPGRADE 3
+#define TOWERCHANGE 4
+#define TOWERTOGGLE 5
 
 //Creep type definitions
 #define NUM_CREEPS 6 //the total number of creeps
@@ -37,22 +43,24 @@
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
-// Tower Type COnstants
-#define NUM_TOWERS 6
+// Tower Type Constants
+#define NUM_TOWERS 12
+// Structure 
+#define STRUCTURE 0
 //Attack Towers
-#define BASICTOWER 0
-#define FASTTOWER 1
-#define AOETOWER 2
-#define HEAVYTOWER 3
-#define MINETOWER 4
+#define NORMTOWER 1
+#define FASTTOWER 2
+#define AOETOWER 3
+#define HEAVYTOWER 4
+#define MINETOWER 5
 //Spawner Towers  
-#define GETCREEPTYPE 5 // Subtract 5 to get the creep type
-#define NORMCREEPTOWER 5
-#define FASTCREEPTOWER 6
-#define TANKCREEPTOWER 7
-#define SWARMCREEPTOWER	8
-#define TITANCREEPTOWER 9
-#define FATTYCREEPTOWER 10
+#define GETCREEPTYPE 6 // Subtract 5 to get the creep type
+#define NORMCREEPTOWER 6
+#define FASTCREEPTOWER 7
+#define TANKCREEPTOWER 8
+#define SWARMCREEPTOWER	9
+#define TITANCREEPTOWER 10
+#define FATTYCREEPTOWER 11
 //Effect Towers
 #define SLOWTOWER 11
 #define SPEEDTOWER 12
