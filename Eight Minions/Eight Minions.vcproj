@@ -195,6 +195,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\button.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\creep.cpp"
 					>
 				</File>
@@ -282,6 +286,10 @@
 				>
 				<File
 					RelativePath=".\attackAnim.h"
+					>
+				</File>
+				<File
+					RelativePath=".\button.h"
 					>
 				</File>
 				<File
