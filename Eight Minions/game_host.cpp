@@ -53,17 +53,15 @@ int game_host::testrun()
 	// placeTower(int playerNumber, int towerType, int x, int y);
 
 	placeTower(1,1,4,9);
-	//placeTower(1,1,11,11);
+	placeTower(1,1,11,11);
 	placeTower(1,1,3,9);
-	/*
 	placeTower(1,1,12,10);
 	placeTower(2,1,13,10);
 	placeTower(2,1,15,8);
 	placeTower(2,1,14,9);
 	placeTower(2,1,5,10);
-	*/
 	placeTower(1,NORMCREEPTOWER, 3, 8);
-	//placeTower(2,NORMCREEPTOWER, 12, 3);
+	placeTower(2,NORMCREEPTOWER, 12, 3);
 	
 	setNodemap();
 

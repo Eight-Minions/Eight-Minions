@@ -157,6 +157,7 @@ using std::ofstream;
 SDL_Rect *newRect(int x, int y, int w, int h);
 SDL_Color makeColor(int r, int g, int b);
 SDL_Surface *LoadImageCK(string filename);
+
 class structure;
 class game_host;
 class Spawner;
