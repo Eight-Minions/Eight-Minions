@@ -159,7 +159,7 @@ int client::testrun()
 						mouseClickMode = DEFAULT_MODE;
 					}
 
-					if(mouseClickMode != DEFAULT_MODE)
+					if(mouseClickMode == PLACE_FOUNDATION_MODE)
 					{
 						//find out what grid spot (if any) was clicked
 						//check if a tower exists in that spot
@@ -168,6 +168,14 @@ int client::testrun()
 						//server will then make one more check of all the requirements
 						//and then place it and subtract the given amount of money
 						//and then recalculate the nodemap and then the creep paths
+						if(event.button.x >= BOARD_X_OFFSET && event.button.x < BOARD_X_OFFSET + (GRID_SIZE * MAPSIZE_X) &&
+							event.button.y >= BOARD_Y_OFFSET && event.button.y < BOARD_Y_OFFSET + (GRID_SIZE * MAPSIZE_X))
+						{
+							coord temp = getClickCoord(event.button.x, event.button.y);
+
+							
+
+						}
 					}
 
 
@@ -219,7 +227,7 @@ void client::displayTowers()
 	cListNode<structure*> *cur = towers.getStart();
 	while (cur != NULL)
 	{
-		cur->getData()->displayTower(screen, towerImages[BASICTOWER]);
+		cur->getData()->displayTower(screen, towerImages[STRUCTURE]);
 		cur = cur->getNext();
 	}
 }

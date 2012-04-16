@@ -20,7 +20,6 @@
 class client
 {
 private:
-	//ofstream dump;
 	string server_addr;
 	unsigned int port;
 	IPaddress *ip;

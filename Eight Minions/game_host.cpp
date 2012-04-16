@@ -88,8 +88,14 @@ int game_host::testrun()
 		{ //loop through the list
 			if(cur->getData()->move()) //move each creep in the list
 			{
-				players[cur->getData()->getPlayer() - 1].takeDamage();
+				if(players[cur->getData()->getPlayer() - 1].takeDamage())
+				{
+					cout << "game over man, game over...\n";
+					system("pause");
+				}
 				cur->getData()->kill(); 
+
+
 
 				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), PLAYERUPDATE, getPlayer(cur->getData()->getPlayer())->getHealth(), getPlayer(cur->getData()->getPlayer())->getMoney()).getMT());
 			}
@@ -105,10 +111,8 @@ int game_host::testrun()
 			if(temp->getData()->isAlive() == false)
 			{
 				sendMessageToQueue(UpdMess(temp->getData()->getPlayer(),CREEP,temp->getIndex(),0,0,0).getMT());
-
 				creepList.deleteNode(temp->getIndex());
 			}
-			//cur = cur->getNext(); //move to next creep in list
 		}
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent*/
 		reg->killTime();
@@ -125,11 +129,17 @@ void game_host::setNodemap()
 
 void game_host::updatePaths()
 {
-	cListNode<creep*> *cur = NULL;
+	/*cListNode<creep*> *cur = NULL;
 	cur = creepList.getStart();
-	while (cur != NULL){
+	while (cur != NULL)
+	{
 		cur->getData()->recalcPath(Nodemap);
 		cur = cur->getNext();
+	}*/
+
+	for (cListNode<creep*> cur = creepList.getStart();cur != NULL; cur = cur.getNext())
+	{
+		cur->getData()->recalcPath(Nodemap);
 	}
 }
 

@@ -3,7 +3,7 @@
 
 player::player()
 {
-	this->health = 50;
+	this->health = 30;
 	this->money = 20;
 }
 

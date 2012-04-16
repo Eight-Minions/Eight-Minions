@@ -16,6 +16,7 @@ public:
 	void display(SDL_Surface* screen);
 
 	bool wasClicked(int clickX, int clickY);
+	bool isClicked();
 
 };
 #endif
