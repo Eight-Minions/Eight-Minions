@@ -170,7 +170,10 @@ int client::testrun()
 						//and then recalculate the nodemap and then the creep paths
 						if(placeTower(event.button.x,event.button.y))
 						{
-
+							mouseClickMode = DEFAULT_MODE;
+							//coord placeC = getClickCoord(event.button.x,event.button.y);
+							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
+							//sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,))
 						}
 
 					}
@@ -278,7 +281,7 @@ coord client::getClickCoord(int x, int y)
 void client::initButtons()
 {
 
-	buttons[0] = new Button("images/towerButton",652,60,71,92);
+	buttons[0] = new Button("images/towerButton",648,57,71,92);
 
 }
 
