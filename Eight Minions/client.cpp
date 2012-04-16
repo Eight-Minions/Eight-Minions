@@ -189,7 +189,7 @@ int client::testrun()
 								}
 								if(t_check)
 								{
-
+									//for(cListNode<creep*> *cur = )
 								}
 							}
 						}
