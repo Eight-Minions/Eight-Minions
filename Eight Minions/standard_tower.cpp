@@ -203,8 +203,10 @@ bool Standard_Tower::doDamage()
 						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 						if(frontCreep->isAlive() == false)
 						{
+							int reward = frontCreep->getReward();
 							manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
 							// Update money value for player based on reward for killing the creep
+							int newMony = this->manager->getPlayer(this->getPlayer())->getMoney();
 							manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
 
 						}

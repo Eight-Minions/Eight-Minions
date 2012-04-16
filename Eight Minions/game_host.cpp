@@ -59,6 +59,8 @@ int game_host::testrun()
 	placeTower(2,1,15,8);
 	placeTower(2,1,14,9);
 	placeTower(2,1,5,10);
+	placeTower(1,NORMCREEPTOWER, 3, 8);
+	placeTower(2,NORMCREEPTOWER, 12, 3);
 	setNodemap();
 
 	spawnCreep(1,2,1,Bases[0]);
@@ -182,7 +184,11 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 					this->towerList.insertInOrder(newStructure);
 					Tmap[x][y] = newStructure;
 				}
+				else
+					return 0;
 			}
+			else
+				return 0;
 		}
 		else if(towerType >= NORMTOWER && towerType <= MINETOWER)
 		{
@@ -195,7 +201,10 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 					this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
+				else
+					return 0;
 			}
+			else return 0;
 		}
 		else if(towerType >= NORMCREEPTOWER && towerType <= FATTYCREEPTOWER)
 		{
@@ -208,10 +217,15 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 					this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
+				else 
+					return 0;
 			}
+			else
+				return 0;
 		}
 		else
 			return 0;
+
 		setNodemap();
 		updatePaths();
 		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, 42, x, y, towerType).getMT());
