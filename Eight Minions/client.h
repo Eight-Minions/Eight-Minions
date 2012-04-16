@@ -79,6 +79,7 @@ public:
 	int testrun();
 
 	coord getClickCoord(int x, int y);
+	bool placeTower(int x, int y);
 
 	void setServerAddress(string);
 	void setPort(unsigned int);
@@ -88,6 +89,7 @@ public:
 	string recieveMessageUDP();
 	int recieveMessageToQueue();
 	int performUpdate(string upd);
+	int sendToServerUDP(string mess);
 
 	void savePlayerProfile();
 	

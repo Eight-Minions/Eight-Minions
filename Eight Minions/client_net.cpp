@@ -226,3 +226,14 @@ string client::recieveMessageUDP()
 	}
 	return "NO MESSAGE";
 }
+
+int client::sendToServerUDP( string mess )
+{
+	char *temp = (char *)malloc(mess.length() + 1);
+	strcpy(temp,mess.c_str());
+	strcpy((char *)UDPpack->data,(char *) temp);
+	UDPpack->len = mess.length() + 1;
+	SDLNet_UDP_Send(UDPsock,-1,UDPpack);
+
+	return 1;
+}

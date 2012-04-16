@@ -10,7 +10,7 @@ client::client()
 int client::init()
 {
 	//Start SDL
-	
+
 	if(SDL_Init( SDL_INIT_EVERYTHING ) == -1)
 	{
 		cout << "SDL Failed to initialize...\n";
@@ -32,7 +32,7 @@ int client::init()
 	Cblue = makeColor(30,70,255);
 	this->loadFiles();
 	this->initText();
-	
+
 
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
@@ -54,7 +54,7 @@ void client::loadFiles()
 	creepImages[FATTY] = LoadImageCK("fatty.png");
 
 	towerImages[STRUCTURE] = LoadImageCK("images/structure.png");
-	
+
 
 	attackImage = LoadImageCK("images/testAttack.png");
 
@@ -168,31 +168,11 @@ int client::testrun()
 						//server will then make one more check of all the requirements
 						//and then place it and subtract the given amount of money
 						//and then recalculate the nodemap and then the creep paths
-						if(event.button.x >= BOARD_X_OFFSET && event.button.x < BOARD_X_OFFSET + (GRID_SIZE * MAPSIZE_X) &&
-							event.button.y >= BOARD_Y_OFFSET && event.button.y < BOARD_Y_OFFSET + (GRID_SIZE * MAPSIZE_X))
+						if(placeTower(event.button.x,event.button.y))
 						{
-							coord temp = getClickCoord(event.button.x, event.button.y);
 
-							if(self->getMoney() < 2)
-							{
-								//NOT ENOUGH MONEY
-							}
-							else
-							{
-								int t_check = 1;
-								for(cListNode<structure*> *cur = towers.getStart(); cur != NULL && t_check; cur = cur->getNext())
-								{
-									if (cur->getData()->getX() == temp.x && cur->getData()->getY() != temp.y)
-									{
-										t_check = 0;
-									}
-								}
-								if(t_check)
-								{
-									//for(cListNode<creep*> *cur = )
-								}
-							}
 						}
+
 					}
 
 
@@ -314,6 +294,44 @@ void client::initText()
 	textRects[3] = newRect(325,10,0,0);
 	text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
 }
+
+bool client::placeTower( int x, int y )
+{
+	if(x >= BOARD_X_OFFSET && x < BOARD_X_OFFSET + (GRID_SIZE * MAPSIZE_X) &&
+		y >= BOARD_Y_OFFSET && y < BOARD_Y_OFFSET + (GRID_SIZE * MAPSIZE_X))
+	{
+		coord temp = getClickCoord(x, y);
+
+		if(self->getMoney() < 2)
+		{
+			return false;
+		}
+		else
+		{
+			int t_check = 1;
+			for(cListNode<structure*> *cur = towers.getStart(); cur != NULL && t_check; cur = cur->getNext())
+			{
+				if (cur->getData()->getX() == temp.x && cur->getData()->getY() != temp.y)
+				{
+					return false;
+				}
+			}
+			coord temp_c;
+			int c_check = 1;
+			for(cListNode<creep*> *cur = creeps.getStart(); cur != NULL && c_check; cur = cur->getNext() )
+			{
+				temp_c = getClickCoord(cur->getData()->getX(),cur->getData()->getY());
+				if(temp.x == temp_c.x && temp.y == temp_c.y )
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+}
+
+
 
 
 
