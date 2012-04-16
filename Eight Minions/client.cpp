@@ -308,11 +308,11 @@ void client::initText()
 	textRects[0] = newRect(10,10,0,0);
 	text[0] = TTF_RenderText_Solid( font, "Current Health: ", Cwhite);
 	textRects[1] = newRect(200,10,0,0);
-	text[1] = TTF_RenderText_Solid( font, itoa(self->getHealth(),buff,10), Cwhite);
+	text[1] = TTF_RenderText_Solid( font, _itoa(self->getHealth(),buff,10), Cwhite);
 	textRects[2] = newRect(240,10,0,0);
 	text[2] = TTF_RenderText_Solid( font, "Money:", Cblack);
 	textRects[3] = newRect(325,10,0,0);
-	text[3] = TTF_RenderText_Solid(font, itoa(self->getMoney(),buff,10), Cblack);
+	text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
 }
 
 

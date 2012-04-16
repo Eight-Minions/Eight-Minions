@@ -37,7 +37,7 @@ bool Button::wasClicked( int clickX, int clickY )
 
 bool Button::isClicked()
 {
-	return isPressed;
+	return (bool)isPressed;
 }
 
 
