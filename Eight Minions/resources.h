@@ -48,6 +48,7 @@
 #define NUM_TOWERS 12
 // Structure 
 #define STRUCTURE 0
+#define STRUCTURESTARTLEVEL 0
 //Attack Towers
 #define NORMTOWER 1
 #define FASTTOWER 2

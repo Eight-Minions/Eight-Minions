@@ -129,15 +129,16 @@ bool creep::move()
 	}
 	if(Ydir != 0 && getYd() * Ydir >= (next.y * GRID_SIZE * Ydir) + (BOARD_Y_OFFSET * Ydir))
 	{
+
+		double extra = (getYd() * Ydir) - ((next.y * GRID_SIZE * Ydir) + (BOARD_Y_OFFSET * Ydir));
+		prevPos = next;
+		p.pop();
 		if(p.isEmpty())
 		{
 			//creep got to enemy base, success.
 			cout << "creep got to base\n";
 			return true;
 		}
-		double extra = (getYd() * Ydir) - ((next.y * GRID_SIZE * Ydir) + (BOARD_Y_OFFSET * Ydir));
-		prevPos = next;
-		p.pop();
 		next = p.getNext();
 
 		Xdir = next.x - prevPos.x;
