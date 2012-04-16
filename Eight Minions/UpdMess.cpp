@@ -31,7 +31,7 @@ UpdMess::UpdMess(int p, int t, ...)
 	if(t == TOWER)
 	{ 
 		var = va_arg(v1, int);
-		if(var = TOWERATTACK)
+		if(var == TOWERATTACK)
 		{
 			for(int i = 0; i < 4; i++)
 			{
@@ -66,7 +66,7 @@ UpdMess::UpdMess(int p, int t, ...)
 				}
 				else
 				{
-						//ERROR
+						//
 				}
 			}
 		}
@@ -103,7 +103,107 @@ UpdMess::UpdMess(int p, int t, ...)
 				}
 			}
 		}
-		//else if(var = 
+		//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE, TowerX[2], Tower[Y]);
+		else if(var == TOWERPLACE)
+		{
+			for(int i = 0; i < 2; i++)
+			{
+				var = va_arg(v1, int);
+				// X and Y (len 2)
+				if(i == 0 || i == i)
+				{
+					if(var == 0)
+						messText += "00";
+					else
+					{
+						if(var < 10)
+							messText += '0';
+						messText += itoa(var,buff,10);
+					}
+				}
+			}
+		}	
+		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE, TowerID[4]);
+		else if(var == TOWERUPGRADE)
+		{
+			for(int i = 0; i < 1; i++)  // Not necessary, I did it for expansion...
+			{
+				var = va_arg(v1, int);
+				if(i == 0)
+				{
+					if(var == 0)
+						messText += "0000";
+					else
+					{
+						for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+						{
+							messText += '0';
+						}
+						messText += itoa(var,buff,10);
+					}
+				}
+			}
+		}
+		//Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE, TowerID[4], newType[2]);
+		else if(var == TOWERCHANGE)
+		{
+			for(int i = 0; i < 2; i++)
+			{
+				if(i == 0)
+				{
+					if(var == 0)
+						messText += "0000";
+					else
+					{
+						for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+						{
+							messText += '0';
+						}
+						messText += itoa(var,buff,10);
+					}
+				}
+				else if(i == 1)
+				{
+					if(var == 0)
+						messText += "00";
+					else
+					{
+						if(var < 10)
+							messText += '0';
+						messText += itoa(var,buff,10);
+					}
+				}
+			}
+		}
+		//Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE, TowerID[4], newValue);
+		else if(var == TOWERTOGGLE)
+		{
+			for(int i = 0; i < 2; i++)
+			{
+				if(i == 0)
+				{
+					if(var == 0)
+						messText += "0000";
+					else
+					{
+						for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+						{
+							messText += '0';
+						}
+						messText += itoa(var,buff,10);
+					}
+				}
+				else if(i == 1)
+				{
+					if(var == 0)
+						messText += "0";
+					else
+					{
+						messText += itoa(var,buff,10);
+					}
+				}
+			}
+		}
 	}
 	else if(t == CREEP || t == NEWCREEP)
 	{
@@ -254,29 +354,63 @@ UpdMess::UpdMess(string m)
 	}
 	else if(type == TOWER)
 	{
-		val.resize(3);
-		// ID
-		id1 = 1000 * (m[2] - '0') + 100 * (m[3] - '0') + 10 * (m[4] - '0') + (m[5] - '0');
-		// X
-		val[0] = 10 * (m[6] - '0') + (m[7] - '0');
-		// Y
-		val[1] = 10 * (m[8] - '0') + (m[9] - '0');
-		// TYPE
-		val[2] = 10 * (m[10] - '0') + (m[11] - '0');
-	}
-	else if(type == TOWERATTACK)
-	{
-		val.resize(3);
-		// Attacker's X
+		val.resize(1);
 		val[0] = 10 * (m[2] - '0') + (m[3] - '0');
-		// Attacker's Y
-		val[1] = 10 * (m[4] - '0') + (m[5] - '0');
-		// Who got attacked
-		id1= 1000 * (m[6] - '0') + 100 * (m[7] - '0') + 10 * (m[8] - '0') + (m[9] - '0');
-		// ATTACK TYPE
-		val[2] = 10 * (m[10] - '0') + (m[11] - '0');
+		if(val[0] == TOWERCREATION)
+		{
+			val.resize(4);
+			// ID
+			id1 = 1000 * (m[4] - '0') + 100 * (m[5] - '0') + 10 * (m[6] - '0') + (m[7] - '0');
+			// X
+			val[1] = 10 * (m[8] - '0') + (m[9] - '0');
+			// Y
+			val[2] = 10 * (m[10] - '0') + (m[11] - '0');
+			// TYPE
+			val[3] = 10 * (m[12] - '0') + (m[13] - '0');
+		}
+		else if(val[0] == TOWERATTACK)
+		{
+			val.resize(4);
+			// Attacker's X
+			val[1] = 10 * (m[4] - '0') + (m[5] - '0');
+			// Attacker's Y
+			val[2] = 10 * (m[6] - '0') + (m[7] - '0');
+			// Who got attacked
+			id1 = 1000 * (m[8] - '0') + 100 * (m[9] - '0') + 10 * (m[10] - '0') + (m[11] - '0');
+			// ATTACK TYPE
+			val[3] = 10 * (m[12] - '0') + (m[13] - '0');
+		}
+		//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE, TowerX[2], Tower[Y]);
+		else if(val[0] == TOWERPLACE)
+		{
+			val.resize(3);
+			// Placement X
+			val[1] = 10 * (m[4] - '0') + (m[5] - '0');
+			// Placement Y
+			val[2] = 10 * (m[6] - '0') + (m[7] - '0'); 
+		}
+		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE, TowerID[4]);
+		else if(val[0] == TOWERUPGRADE)
+		{
+			id1 = 1000 * (m[4] - '0') + 100 * (m[5] - '0') + 10 * (m[6] - '0') + (m[7] - '0');
+		}
+		//Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE, TowerID[4], newType[2]);	
+		else if(val[0] == TOWERCHANGE)
+		{
+			val.resize(2);
+			id1 = 1000 * (m[4] - '0') + 100 * (m[5] - '0') + 10 * (m[6] - '0') + (m[7] - '0');
+			val[1] = 10 * (m[8] - '0') + (m[9] - '0');
+		}
+		//Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE, TowerID[4], newValue);
+		else if(val[0] == TOWERTOGGLE)
+		{
+			val.resize(2);
+			id1 = 1000 * (m[4] - '0') + 100 * (m[5] - '0') + 10 * (m[6] - '0') + (m[7] - '0');
+			val[1] = (m[8] - '0');
+		}
+		else
+			m.append("ERROR Undefined Type");
 	}
-	//	Health[3], Money[8]);
 	else if(type == PLAYERUPDATE){
 		val.resize(2);
 		val[0] = 100 * (m[2] - '0') + 10 * (m[3] - '0') + (m[4] - '0');
@@ -290,6 +424,7 @@ UpdMess::UpdMess(string m)
 UpdMess::~UpdMess()
 {
 }
+/*
 int UpdMess::setMess(string m)
 {
 	if(m == "NO MESSAGE")
@@ -335,7 +470,7 @@ int UpdMess::setMess(string m)
 	}
 	return 1;
 }
-
+*/
 string UpdMess::getMT()
 {
 	return messText;
