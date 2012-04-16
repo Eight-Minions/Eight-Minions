@@ -135,20 +135,23 @@ int client::performUpdate(string upd)
 	}
 	else if(updateType == TOWER)
 	{
-		if(towers.checkForObjectWithID(update.getId1()))
+		if(update.getVal(0) == TOWERCREATION)
 		{
-			towers.getObjectWithID(update.getId1())->setX(update.getVal(0));
-			towers.getObjectWithID(update.getId1())->setY(update.getVal(1));
-			towers.getObjectWithID(update.getId1())->setType(update.getVal(2));
+			if(towers.checkForObjectWithID(update.getId1()))
+			{
+				towers.getObjectWithID(update.getId1())->setX(update.getVal(1));
+				towers.getObjectWithID(update.getId1())->setY(update.getVal(2));
+				towers.getObjectWithID(update.getId1())->setType(update.getVal(3));
+			}
+			else
+			{
+				towers.insertInOrder(new structure(1,update.getPlayer(), update.getVal(3),update.getVal(1),update.getVal(2)));
+			}
 		}
-		else
+		else if(update.getVal(0) == TOWERATTACK)
 		{
-			towers.insertInOrder(new structure(1,update.getPlayer(), update.getVal(2),update.getVal(0),update.getVal(1)));
+			attacks.push_back(new attackAnim(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(3)],update.getId1()));
 		}
-	}
-	else if(updateType == TOWERATTACK)
-	{
-		attacks.push_back(new attackAnim(update.getVal(0) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(1) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(2)],update.getId1()));
 	}
 	else if(updateType == PLAYERUPDATE)
 	{

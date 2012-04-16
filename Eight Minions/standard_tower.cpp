@@ -38,7 +38,7 @@ void Standard_Tower::chooseClosestCreep(double radius)
 	}
 	if(closestCreep != NULL)
 	{
-		manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
+		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
 		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
@@ -64,7 +64,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 	}
 	if(closestCreep != NULL)
 	{
-		manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
+		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
 		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
@@ -79,7 +79,7 @@ void Standard_Tower::chooseNeighbors(double radius)
 			double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
 			if(currentDistance < radius)
 			{
-				manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
+				manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
 				chosenCreeps.push(cur->getIndex());
 			}
 		}
@@ -98,7 +98,7 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, location positio
 			if(currentDistance < radius)
 			{
 				//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
-				manager->sendMessageToQueue(UpdMess(this->getPlayer(), TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
+				manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
 				chosenCreeps.push(cur->getIndex());
 			}
 		}
