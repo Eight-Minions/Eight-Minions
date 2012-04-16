@@ -69,7 +69,7 @@ UpdMess::UpdMess(int p, int t, ...)
 				}
 			}
 		}
-		else if(var = TOWERCREATION)
+		else if(var == TOWERCREATION)
 		{
 			for (int i = 0; i < 4; i++)
 			{
