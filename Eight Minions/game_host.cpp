@@ -188,7 +188,7 @@ int game_host::placeTower( int playerNumber, int towerType, int x, int y)
 
 			setNodemap();
 			updatePaths();
-			sendMessageToQueue(UpdMess(playerNumber, TOWER, 42, x,y,towerType).getMT());
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, 42, x,y,towerType).getMT());
 			return 1;
 	}
 	else
