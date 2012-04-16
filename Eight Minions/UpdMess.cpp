@@ -36,7 +36,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		{
 			if(var < 10)
 				messText += '0';
-			messText += itoa(var,buff,10);
+			messText += _itoa(var,buff,10);
 		}
 		if(var == TOWERATTACK)
 		{
@@ -54,7 +54,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 				// i = 2 AttackedID[4]
@@ -68,7 +68,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 				else
@@ -92,7 +92,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 				// i = 1 X
@@ -105,7 +105,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 			}
@@ -125,7 +125,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 			}
@@ -146,7 +146,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 			}
@@ -166,7 +166,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 				else if(i == 1)
@@ -177,7 +177,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 			}
@@ -197,7 +197,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 				else if(i == 1)
@@ -206,7 +206,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						messText += "0";
 					else
 					{
-						messText += itoa(var,buff,10);
+						messText += _itoa(var,buff,10);
 					}
 				}
 			}
@@ -232,7 +232,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += _itoa(var,buff,10);
 				}
 			
 			}
@@ -249,7 +249,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += _itoa(var,buff,10);
 				}
 			}
 			// Creep Type
@@ -260,7 +260,7 @@ UpdMess::UpdMess(int p, int t, ...)
 				{
 					if(var < 10)
 						messText += '0';
-					messText += itoa(var,buff,10);
+					messText += _itoa(var,buff,10);
 				}
 			}
 			// Creep Level
@@ -274,7 +274,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-					messText += itoa(var,buff,10);
+					messText += _itoa(var,buff,10);
 				}
 			}
 			else
@@ -299,7 +299,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += _itoa(var,buff,10);
 				}
 			}
 			// Money
@@ -313,7 +313,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += _itoa(var,buff,10);
 				}
 			}
 			else

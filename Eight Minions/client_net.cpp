@@ -160,8 +160,8 @@ int client::performUpdate(string upd)
 			self->setHealth(update.getVal(0));
 			self->setMoney(update.getVal(1));
 			char buff[8];
-			text[1] = TTF_RenderText_Solid( font, itoa(self->getHealth(),buff,10), Cwhite);
-			text[3] = TTF_RenderText_Solid(font, itoa(self->getMoney(),buff,10), Cblack);
+			text[1] = TTF_RenderText_Solid( font, _itoa(self->getHealth(),buff,10), Cwhite);
+			text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
 		}
 	}
 	else
