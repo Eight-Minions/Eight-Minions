@@ -171,9 +171,9 @@ int client::testrun()
 						if(placeTower(event.button.x,event.button.y))
 						{
 							mouseClickMode = DEFAULT_MODE;
-							//coord placeC = getClickCoord(event.button.x,event.button.y);
+							coord placeC = getClickCoord(event.button.x,event.button.y);
 							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
-							//sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,))
+							sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y));
 						}
 
 					}
