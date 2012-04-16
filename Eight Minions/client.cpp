@@ -173,8 +173,25 @@ int client::testrun()
 						{
 							coord temp = getClickCoord(event.button.x, event.button.y);
 
-							
+							if(self->getMoney() < 2)
+							{
+								//NOT ENOUGH MONEY
+							}
+							else
+							{
+								int t_check = 1;
+								for(cListNode<structure*> *cur = towers->getStart(); cur != NULL && t_check; cur = cur->getNext())
+								{
+									if (cur->getData()->getX() == temp.x && cur->getData()->getY() != temp.y)
+									{
+										t_check = 0;
+									}
+								}
+								if(t_check)
+								{
 
+								}
+							}
 						}
 					}
 
