@@ -243,7 +243,7 @@ bool Standard_Tower::upgrade()
 bool Standard_Tower::changeType(int newType)
 {
 	waiting = false;
-	if(getType() == BASICTOWER)
+	if(getType() == NORMTOWER)
 	{
 		damageValue =			basicArr[getLevel() - 1][0];
 		armorPenetration =		basicArr[getLevel() - 1][1];
