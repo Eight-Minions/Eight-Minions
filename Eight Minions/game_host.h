@@ -22,7 +22,7 @@ private:
 	TCPsocket player1sd, player2sd;
 	SDLNet_SocketSet socketset;
 	UDPsocket p1UDPsock, p2UDPsock;
-	UDPpacket *UDPpack1, *UDPpack2;
+	UDPpacket *UDPpack1, *UDPpack2, *UDPrpack;
 	string updateCollection;
 
 protected:
@@ -62,6 +62,10 @@ public:
 
 	string recieveMessagep1();
 	string recieveMessagep2();
+	string recieveMessageUDP();
+
+	bool recieveFromClients(string upd);
+	int performUpdate(string upd);
 
 	void sendMessageToQueue(string mess);
 	void parseQueue();
@@ -69,7 +73,9 @@ public:
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);
 
-	cList<creep*> * getCreepList();  // I'm not really sure that I should do this....
+	
+
+	cList<creep*> * getCreepList();
 	cList<structure*> * getTowerList();
 	player * getPlayer(int playerNumber);
 

@@ -39,6 +39,12 @@ int game_host::init_net()
 		exit(EXIT_FAILURE);
 	}
 
+	if (!(this->UDPrpack = SDLNet_AllocPacket(512)))
+	{
+		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
+
 	socketset = SDLNet_AllocSocketSet(4);
 
 	cout << "Init completed\n";
@@ -235,4 +241,86 @@ void game_host::sendMessageToQueue(string mess)
 			updateCollection += "\n";
 		updateCollection += mess;
 	}
+}
+
+string game_host::recieveMessageUDP()
+{
+	if(!p1UDPsock)
+	{
+		return "UDP Socket Not Set";
+	}
+	if (SDLNet_UDP_Recv(this->p1UDPsock,UDPrpack))
+	{
+		string retStr = (char *)UDPrpack->data;
+		if(retStr != "")
+		{
+			return retStr;
+		}
+	}
+	return "NO MESSAGE";
+}
+
+bool game_host::recieveFromClients(string upd)
+{
+	string packData = recieveMessageUDP();
+	string temp;
+	while (packData != "NO MESSAGE")
+	{
+		cout << packData << endl;
+		performUpdate(packData);
+		packData = recieveMessageUDP();
+	}
+	return true;
+}
+int game_host::performUpdate(string upd)
+{
+	int updateType = 0;
+	UpdMess update(upd);
+	updateType = update.getType();
+
+	if(updateType == TOWER)
+	{
+		int subType = update.getVal(0);
+		//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
+		if(subType == TOWERPLACE)
+		{
+			// placeTower(int playerNumber, int towerType, int x, int y);
+			placeTower(update.getPlayer(), STRUCTURE, update.getVal(1), update.getVal(2));
+			return 1;
+		}	
+		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
+		else if(subType == TOWERUPGRADE)
+		{
+			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			{
+				return towerList.getNodeWithID(update.getVal(1))->getData()->upgrade();
+			}
+			return 0;
+		}
+		//Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE[2], TowerID[4], newType[2]);	
+		else if(subType == TOWERCHANGE)
+		{
+			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			{
+				return towerList.getNodeWithID(update.getVal(1))->getData()->changeType(update.getVal(2));
+			}
+			return 0;
+		}
+		//Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE[2], TowerID[4], newValue);
+		else if(subType == TOWERTOGGLE)
+		{
+			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			{
+				if(towerList.getNodeWithID(update.getVal(1))->getData()->getType() >= NORMCREEPTOWER && towerList.getNodeWithID(update.getVal(1))->getData()->getType() <= FATTYCREEPTOWER)
+				{
+					if(update.getVal(2) == 1)
+						towerList.getNodeWithID(update.getVal(1))->getData()->pause();
+					else if(update.getVal(2) == 0)
+						towerList.getNodeWithID(update.getVal(1))->getData()->unpause();
+				}
+			}
+			return 0;
+		}
+	}
+	return 0;
 }

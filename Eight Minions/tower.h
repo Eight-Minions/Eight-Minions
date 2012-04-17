@@ -25,6 +25,11 @@ public:
 	bool getPassable();
 	void setPassable(bool nPass);
 
+	virtual bool upgrade();
+	virtual bool changeType(int newType);
+	virtual void pause();
+	virtual void unpause();
+
 	int setLevel(int newLevel);
 
 	virtual void iterate();
