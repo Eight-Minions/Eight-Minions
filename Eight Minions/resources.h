@@ -86,7 +86,7 @@ const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,2,1},		{3,
 const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,3,3},		{8,1,1,5,7,3},		{11,2,2,10,15,3},	{15,3,2,15,21,3},	{25,4,3,20,27,3}};
 const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{20,3,2,15,25,5},	{35,4,3,25,50,5},	{50,5,3,50,100,5},	{100,7,4,100,250,5}};
 
-const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,5,2};
+const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 //Spawn Tower Definitions
 #define CREEPTOWERSTARTLEVEL 1
 #define STANDARDTOWERSTARTLEVEL 1
