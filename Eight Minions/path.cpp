@@ -131,7 +131,7 @@ int Path::genPath(vector<vector<bool>> nMap)
 	do 
 	{
 		aStar[sel].expanded = true;
-		sel = 0;
+		sel = -1;
 		min_h = 100000;
 		for(i = 0; i < aStar.size(); i++)
 		{
@@ -144,6 +144,11 @@ int Path::genPath(vector<vector<bool>> nMap)
 					min_h = h;
 				}
 			}
+		}
+		if(sel == -1)
+		{
+			cout << "no avaliable path\n";
+			return -1;
 		}
 
 	} while (!expand(aStar[sel], sel));

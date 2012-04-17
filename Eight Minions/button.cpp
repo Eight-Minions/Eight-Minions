@@ -29,7 +29,7 @@ bool Button::wasClicked( int clickX, int clickY )
 	if(clickX >= rect->x && clickX <= rect->x + rect->w && clickY >= rect->y && clickY <= rect->y + rect->h)
 	{
 		isPressed = (isPressed + 1) % 2;
-		return (bool)isPressed;
+		return isPressed == 1;
 	}
 	else
 		return false;
@@ -37,7 +37,12 @@ bool Button::wasClicked( int clickX, int clickY )
 
 bool Button::isClicked()
 {
-	return (bool)isPressed;
+	return isPressed == 1;
+}
+
+void Button::setClick( bool nPress )
+{
+	isPressed = nPress;
 }
 
 

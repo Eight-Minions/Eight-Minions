@@ -46,9 +46,9 @@ int game_host::run()
 int game_host::testrun()
 {
 	this->init();
-	this->init_net();
+	//this->init_net();
 	//this->waitForClients();
-	this->waitForClient_test();
+	//this->waitForClient_test();
 
 	// placeTower(int playerNumber, int towerType, int x, int y);
 
@@ -65,9 +65,10 @@ int game_host::testrun()
 	
 	setNodemap();
 
+
+	spawnCreep(2,1,1,Bases[1]);
 	spawnCreep(1,2,1,Bases[0]);
 	spawnCreep(1,3,1,Bases[0]);
-	spawnCreep(2,1,1,Bases[1]);
 	spawnCreep(2,0,1,Bases[1]);
 
 	int run = 1;

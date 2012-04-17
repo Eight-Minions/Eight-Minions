@@ -17,6 +17,7 @@ public:
 
 	bool wasClicked(int clickX, int clickY);
 	bool isClicked();
+	void setClick(bool nPress);
 
 };
 #endif

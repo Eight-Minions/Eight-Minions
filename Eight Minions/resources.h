@@ -17,6 +17,7 @@
 #include "UpdMess.h"
 #include "path.h"
 
+//to calculate total number of lines, press ctrl + shift + f and search .cpp and .h files for the regular expression ^:b*[^:b#/]+.*$
 
 #define TCP_NODELAY 1 // THIS LINE FIXES SLOWNESS!!!!
 
