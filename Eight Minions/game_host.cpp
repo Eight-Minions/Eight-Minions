@@ -58,6 +58,8 @@ int game_host::testrun()
 	placeTower(1,1,12,10);
 	placeTower(2,1,13,10);
 	placeTower(2,1,15,8);
+	placeTower(2,1,16,7);
+	placeTower(2,1,16,6);
 	placeTower(2,1,14,9);
 	placeTower(2,1,5,10);
 	placeTower(1,NORMCREEPTOWER, 3, 8);
@@ -66,10 +68,12 @@ int game_host::testrun()
 	setNodemap();
 
 
+	/*
 	spawnCreep(2,1,1,Bases[1]);
 	spawnCreep(1,2,1,Bases[0]);
 	spawnCreep(1,3,1,Bases[0]);
 	spawnCreep(2,0,1,Bases[1]);
+	*/
 
 	int run = 1;
 	int nc = 0;

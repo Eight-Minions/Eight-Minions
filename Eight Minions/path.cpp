@@ -148,7 +148,7 @@ int Path::genPath(vector<vector<bool>> nMap)
 		if(sel == -1)
 		{
 			//cout << "no avaliable path\n";
-			return -1;
+			return 0;
 		}
 
 	} while (!expand(aStar[sel], sel));
