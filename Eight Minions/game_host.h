@@ -64,7 +64,7 @@ public:
 	string recieveMessagep2();
 	string recieveMessageUDP();
 
-	bool recieveFromClients(string upd);
+	bool recieveFromClients();
 	int performUpdate(string upd);
 
 	void sendMessageToQueue(string mess);

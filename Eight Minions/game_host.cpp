@@ -87,7 +87,7 @@ int game_host::testrun()
 	{
 		reg->start();
 
-		recieveFromClients(recieveMessageUDP());
+		recieveFromClients();
 
 		p1Spawner->iterate();
 		p2Spawner->iterate();
