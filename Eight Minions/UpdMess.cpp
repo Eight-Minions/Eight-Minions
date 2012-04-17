@@ -7,7 +7,7 @@ UpdMess::UpdMess(int p, int t, ...)
 
 	/*
 		Creep:					UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);	// For creep creation and upgrades
-		Creep:					UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5]);						// For position updates
+		Creep:					UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5], Direction[1]);						// For position updates
 		Player:					UpdMess(Player[1], PLAYERUPDATE, Health[3], Money[8]);
 		Tower Creation:			UpdMess(Player[1], TOWER, TOWERCREATION[2], TowerID[4], X[2], Y[2], TowerType[2]);
 		Tower Attack:			UpdMess(Player[1], TOWER, TOWERATTACK[2], AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);

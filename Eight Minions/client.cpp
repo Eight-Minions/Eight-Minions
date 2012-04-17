@@ -62,7 +62,8 @@ void client::loadFiles()
 
 	for(int i = 0; i < 4; i++)
 	{
-		SpriteMaps[i][0] = newRect(0,i * GRID_SIZE,GRID_SIZE,GRID_SIZE);
+		for(int j = 0; j < 5; j++)
+			SpriteMaps[i][j] = newRect(j * GRID_SIZE,i * GRID_SIZE,GRID_SIZE,GRID_SIZE);
 	}
 }
 
@@ -153,23 +154,12 @@ int client::testrun()
 					//event.button.y; //y coordinate of click on the window
 
 					if(buttons[0]->wasClicked(event.button.x, event.button.y))
-					{
 						mouseClickMode = PLACE_FOUNDATION_MODE; 
-					}
 					else
-					{
 						mouseClickMode = DEFAULT_MODE;
-					}
 
 					if(mouseClickMode == PLACE_FOUNDATION_MODE)
 					{
-						//find out what grid spot (if any) was clicked
-						//check if a tower exists in that spot
-						//if none, check if player has enough money
-						//if they do, send message to server to buy the tower
-						//server will then make one more check of all the requirements
-						//and then place it and subtract the given amount of money
-						//and then recalculate the nodemap and then the creep paths
 						if(placeTower(event.button.x,event.button.y))
 						{
 							mouseClickMode = DEFAULT_MODE;
@@ -301,6 +291,13 @@ void client::initText()
 
 bool client::placeTower( int x, int y )
 {
+	//find out what grid spot (if any) was clicked
+	//check if a tower exists in that spot
+	//if none, check if player has enough money
+	//if they do, send message to server to buy the tower
+	//server will then make one more check of all the requirements
+	//and then place it and subtract the given amount of money
+	//and then recalculate the nodemap and then the creep paths
 	if(x >= BOARD_X_OFFSET && x < BOARD_X_OFFSET + (GRID_SIZE * MAPSIZE_X) &&
 		y >= BOARD_Y_OFFSET && y < BOARD_Y_OFFSET + (GRID_SIZE * MAPSIZE_X))
 	{

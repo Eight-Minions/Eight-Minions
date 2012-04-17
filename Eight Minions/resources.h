@@ -70,7 +70,7 @@
 #define HEALTOWER 13
 
 //Animation
-#define ANIM_NUM 4
+#define ANIM_NUM 5
 
 #define MAXCREEPLEVEL 5
 #define MAXCREEPVARIABLES 6

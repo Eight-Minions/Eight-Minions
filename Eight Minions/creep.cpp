@@ -10,7 +10,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	level = l;
 	animIndex = 0;
 	animTiming = 5;
-	animCount = 0;
+	animCount = 1;
 	player = p;
 	prevPos.x = set_x;
 	prevPos.y = set_y;
@@ -40,6 +40,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		fastCreepArr[level-1][2];
 		reward =	fastCreepArr[level-1][3];
 		price =		fastCreepArr[level-1][4];
+		
 	}
 	else if(type == SWARM)
 	{
@@ -48,6 +49,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		swarmCreepArr[level-1][2];
 		reward =	swarmCreepArr[level-1][3];
 		price =		swarmCreepArr[level-1][4];
+		animCount = 5;
 	}
 	else if(type == TITAN)
 	{
@@ -157,14 +159,16 @@ void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spri
 		updateAnim();
 		this->r->x = this->getX();
 		this->r->y = this->getY();
-		SDL_BlitSurface(image, spriteMap[0], screen, r);
+		SDL_BlitSurface(image, spriteMap[animIndex], screen, r);
 	}
 	else
 		cout << "No image for creep.\n";
 }
 void creep::updateAnim()
 {
-
+	animIndex++;
+	if(animIndex >= animCount)
+		animIndex = 0;
 }
 void creep::recalcPath( vector<vector<bool>> nMap )
 {
