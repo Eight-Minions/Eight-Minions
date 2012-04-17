@@ -19,15 +19,18 @@ private:
 
 	int Xdir;
 	int Ydir;
+	int dispDir;
 
 	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
 	coord prevPos;
 
 	int animIndex;
 	int animTiming;
+	int animDelay;
 	int animCount;
 public:
 	Path p;
+	
 	creep(int type, int pl, int level, int x, int y);
 	creep();
 	~creep();
@@ -53,6 +56,8 @@ public:
 	int getDir();
 
 	bool isAlive();
+	void setDir( int nDir );
+	int getDispDir();
 };
 
 #endif

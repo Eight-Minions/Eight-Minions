@@ -208,7 +208,7 @@ void client::displayCreeps()
 	cListNode<creep*> *cur = creeps.getStart();
 	while(cur != NULL)
 	{
-		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getType()], SpriteMaps[cur->getData()->getDir()]);
+		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getType()], SpriteMaps[cur->getData()->getDispDir()]);
 		cur = cur->getNext();
 	}
 }

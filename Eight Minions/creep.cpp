@@ -9,11 +9,13 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	type = t;
 	level = l;
 	animIndex = 0;
-	animTiming = 5;
+	animTiming = 4;
+	animDelay = 4;
 	animCount = 1;
 	player = p;
 	prevPos.x = set_x;
 	prevPos.y = set_y;
+	dispDir = 0;
 	this->p.setStart(prevPos);
 	this->setX(set_x * GRID_SIZE + BOARD_X_OFFSET);  // Should probably have a generic starting point for each side 
 	this->setY(set_y * GRID_SIZE + BOARD_Y_OFFSET);
@@ -40,7 +42,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		fastCreepArr[level-1][2];
 		reward =	fastCreepArr[level-1][3];
 		price =		fastCreepArr[level-1][4];
-		
+
 	}
 	else if(type == SWARM)
 	{
@@ -166,9 +168,15 @@ void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spri
 }
 void creep::updateAnim()
 {
-	animIndex++;
-	if(animIndex >= animCount)
-		animIndex = 0;
+	if(animDelay == 0)
+	{
+		animIndex++;
+		if(animIndex >= animCount)
+			animIndex = 0;
+		animDelay = animTiming;
+	}
+	else
+		animDelay--;
 }
 void creep::recalcPath( vector<vector<bool>> nMap )
 {
@@ -235,4 +243,14 @@ void creep::kill()
 	setX(0);
 	setY(0);
 	alive = false;
+}
+
+void creep::setDir( int nDir )
+{
+	dispDir = nDir;
+}
+
+int creep::getDispDir()
+{
+	return dispDir;
 }

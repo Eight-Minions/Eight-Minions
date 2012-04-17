@@ -117,10 +117,25 @@ int client::performUpdate(string upd)
 			}
 			else
 			{
-				creeps.getObjectWithID(update.getId1())->setPlayer(update.getPlayer());
-				creeps.getObjectWithID(update.getId1())->setX(update.getVal(0));
-				creeps.getObjectWithID(update.getId1())->setY(update.getVal(1));
-				creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
+				creep *temp = creeps.getObjectWithID(update.getId1());
+				temp->setPlayer(update.getPlayer());
+				int xdif = update.getVal(0) - temp->getX();
+				if( xdif < 0)
+					temp->setDir(0);
+				else if(	xdif > 0)
+					temp->setDir(2);
+				else
+				{
+					int ydif = update.getVal(1);
+					if(ydif < 0)
+						temp->setDir(3);
+					else if(ydif > 0)
+						temp->setDir(1);
+				}
+
+				temp->setX(update.getVal(0));
+				temp->setY(update.getVal(1));
+				temp->setHealth(update.getVal(2));
 			}
 		}
 		else
