@@ -285,8 +285,12 @@ int game_host::performUpdate(string upd)
 		if(subType == TOWERPLACE)
 		{
 			// placeTower(int playerNumber, int towerType, int x, int y);
-			placeTower(update.getPlayer(), STRUCTURE, update.getVal(1), update.getVal(2));
-			return 1;
+			if(isEmptyLocation(update.getVal(1), update.getVal(2)))
+			{
+				placeTower(update.getPlayer(), STRUCTURE, update.getVal(1), update.getVal(2));
+				return 1;
+			}
+			return 0;
 		}	
 		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
 		else if(subType == TOWERUPGRADE)

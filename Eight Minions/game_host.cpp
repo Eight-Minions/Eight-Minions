@@ -87,6 +87,8 @@ int game_host::testrun()
 	{
 		reg->start();
 
+		recieveFromClients(recieveMessageUDP());
+
 		p1Spawner->iterate();
 		p2Spawner->iterate();
 
@@ -103,9 +105,6 @@ int game_host::testrun()
 					system("pause");
 				}
 				cur->getData()->kill(); 
-
-
-
 				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), PLAYERUPDATE, getPlayer(cur->getData()->getPlayer())->getHealth(), getPlayer(cur->getData()->getPlayer())->getMoney()).getMT());
 			}
 			else
@@ -114,7 +113,6 @@ int game_host::testrun()
 				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(),CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
 				cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
 			}
-			
 			temp = cur;
 			cur = cur->getNext();
 			if(temp->getData()->isAlive() == false)
@@ -145,14 +143,6 @@ void game_host::setNodemap()
 
 void game_host::updatePaths()
 {
-	/*cListNode<creep*> *cur = NULL;
-	cur = creepList.getStart();
-	while (cur != NULL)
-	{
-		cur->getData()->recalcPath(Nodemap);
-		cur = cur->getNext();
-	}*/
-
 	for (cListNode<creep*> *cur = creepList.getStart(); cur != NULL; cur = cur->getNext())
 	{
 		cur->getData()->recalcPath(Nodemap);
@@ -161,7 +151,6 @@ void game_host::updatePaths()
 
 void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
 	creep *newCreep = new creep(creepType, playerNumber, creepLevel, spawnCoord.x, spawnCoord.y);
-	//newCreep->p.setStart(spawnCoord);
 	int nIndex;
 	if(playerNumber == 1)
 	{
@@ -261,4 +250,23 @@ player * game_host::getPlayer(int playerNumber)
 		return &players[1];
 	else
 		return NULL;
+}
+
+bool game_host::isEmptyLocation(int xLoc, int yLoc)
+{
+
+	cListNode<creep*> *curCreepNode = creepList.getStart();
+	cListNode<structure*> *curTowerNode = towerList.getStart();
+	while(curCreepNode != NULL)
+	{
+		if(((int)((curCreepNode->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)) == xLoc)
+		{	
+			if(((int)((curCreepNode->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)) == yLoc)
+				return false;
+		}
+		curCreepNode = curCreepNode->getNext();
+	}
+	if(Tmap[xLoc][yLoc] != NULL)
+		return false;
+	return true;
 }

@@ -73,11 +73,10 @@ public:
 	int sendtop1UDP(string mess);
 	int sendtoP1_test(string buff);
 
-	
-
 	cList<creep*> * getCreepList();
 	cList<structure*> * getTowerList();
 	player * getPlayer(int playerNumber);
+	bool isEmptyLocation(int xLoc, int yLoc);
 
 	friend Spawner;
 
