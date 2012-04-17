@@ -284,25 +284,42 @@ int game_host::performUpdate(string upd)
 		//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 		if(subType == TOWERPLACE)
 		{
+			// placeTower(int playerNumber, int towerType, int x, int y);
+			placeTower(update.getPlayer(), STRUCTURE, update.getVal(1), update.getVal(2));
 			return 1;
 		}	
 		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
 		else if(subType == TOWERUPGRADE)
 		{
-			
-			return 1;
+			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			{
+				return towerList.getNodeWithID(update.getVal(1))->getData()->upgrade();
+			}
+			return 0;
 		}
 		//Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE[2], TowerID[4], newType[2]);	
 		else if(subType == TOWERCHANGE)
 		{
-
-			return 1;
+			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			{
+				return towerList.getNodeWithID(update.getVal(1))->getData()->changeType(update.getVal(2));
+			}
+			return 0;
 		}
 		//Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE[2], TowerID[4], newValue);
 		else if(subType == TOWERTOGGLE)
 		{
-
-			return 1;
+			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			{
+				if(towerList.getNodeWithID(update.getVal(1))->getData()->getType() >= NORMCREEPTOWER && towerList.getNodeWithID(update.getVal(1))->getData()->getType() <= FATTYCREEPTOWER)
+				{
+					if(update.getVal(2) == 1)
+						towerList.getNodeWithID(update.getVal(1))->getData()->pause();
+					else if(update.getVal(2) == 0)
+						towerList.getNodeWithID(update.getVal(1))->getData()->unpause();
+				}
+			}
+			return 0;
 		}
 	}
 	return 0;

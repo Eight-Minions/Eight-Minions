@@ -49,6 +49,25 @@ void structure::iterate()
 {
 	cout << "Nothing to do for base tower type" << endl;
 }
+
+bool structure::upgrade()
+{
+	cout << "Nothing to do for base tower type" << endl;
+	return false;
+}
+bool structure::changeType(int newType)
+{
+	cout << "Nothing to do for base tower type" << endl;
+	return false;
+}
+void structure::pause()
+{
+	cout << "Nothing to do for base tower type" << endl;
+}
+void structure::unpause()
+{
+	cout << "Nothing to do for base tower type" << endl;
+}
 int structure::getCost()
 {
 	return cost;
