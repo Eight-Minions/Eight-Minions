@@ -136,6 +136,8 @@ int client::testrun()
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
+	sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,15,15).getMT());
+
 	while(run)
 	{
 		reg->start();
@@ -163,6 +165,7 @@ int client::testrun()
 						if(placeTower(event.button.x,event.button.y))
 						{
 							mouseClickMode = DEFAULT_MODE;
+							//buttons[0]->setClick(false);
 							coord placeC = getClickCoord(event.button.x,event.button.y);
 							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 							sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
@@ -330,6 +333,8 @@ bool client::placeTower( int x, int y )
 			return true;
 		}
 	}
+	else
+		return false;
 }
 
 
