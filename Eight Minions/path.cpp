@@ -160,6 +160,7 @@ int Path::genPath(vector<vector<bool>> nMap)
 		temp = aStar[temp.parent_index];
 		fPath.push(temp.self);
 	}while(temp.parent.x != -1);
+	pop();
 	return 1;
 
 }
