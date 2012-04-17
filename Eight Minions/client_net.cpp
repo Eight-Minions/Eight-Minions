@@ -206,7 +206,7 @@ int client::recieveMessageToQueue()
 	{
 		len = packData.length();
 		//dump << packData << endl;
-		cout << packData << endl;
+		//cout << packData << endl;
 		for(i = 0;i < len + 1; i++)
 		{
 			if(packData[i] != '\n' && packData[i] != '\0')

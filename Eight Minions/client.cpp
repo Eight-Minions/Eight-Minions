@@ -155,12 +155,12 @@ int client::testrun()
 					//event.button.x; //x coordinate of click on the window
 					//event.button.y; //y coordinate of click on the window
 
-					if(buttons[0]->wasClicked(event.button.x, event.button.y))
+					/*if(buttons[0]->wasClicked(event.button.x, event.button.y))
 						mouseClickMode = PLACE_FOUNDATION_MODE; 
 					else
-						mouseClickMode = DEFAULT_MODE;
+						mouseClickMode = DEFAULT_MODE;*/
 
-					if(mouseClickMode == PLACE_FOUNDATION_MODE)
+					if(mouseClickMode == PLACE_FOUNDATION_MODE || 1)
 					{
 						if(placeTower(event.button.x,event.button.y))
 						{
@@ -310,7 +310,8 @@ bool client::placeTower( int x, int y )
 		{
 			return false;
 		}
-		else
+		return true;
+		/*else
 		{
 			int t_check = 1;
 			for(cListNode<structure*> *cur = towers.getStart(); cur != NULL && t_check; cur = cur->getNext())
@@ -331,7 +332,7 @@ bool client::placeTower( int x, int y )
 				}
 			}
 			return true;
-		}
+		}*/
 	}
 	else
 		return false;

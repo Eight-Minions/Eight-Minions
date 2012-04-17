@@ -180,7 +180,7 @@ int game_host::sendToClientsUDP(string mess)
 	strcpy((char *)UDPpack1->data,(char *) temp);
 	UDPpack1->len = mess.length() + 1;
 	SDLNet_UDP_Send(p1UDPsock,10,UDPpack1); //<--should send to both clients
-	cout << mess << "\n";
+	//cout << mess << "\n";
 	/*
 	strcpy((char *)UDPpack2->data, mess.c_str());
 	UDPpack2->len = mess.length();
@@ -227,7 +227,7 @@ void game_host::sendMessageToQueue(string mess)
 {
 	if(this->updateCollection.length() + mess.length() + 1 > MAX_MESSAGE_LENGTH || mess == "SEND")
 	{
-		cout << updateCollection << endl;
+		//cout << updateCollection << endl;
 		if(updateCollection != "") //ensure a NULL message is not sent
 			sendToClientsUDP(updateCollection);
 		if(mess != "SEND")

@@ -45,9 +45,10 @@ int structure::setLevel(int newLevel){
 	level = newLevel;
 	return level;
 }
+
 void structure::iterate()
 {
-	cout << "Nothing to do for base tower type" << endl;
+	//cout << "Nothing to do for base tower type" << endl;
 }
 
 bool structure::upgrade()

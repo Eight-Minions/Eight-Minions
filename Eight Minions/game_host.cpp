@@ -86,7 +86,6 @@ int game_host::testrun()
 	while(run)
 	{
 		reg->start();
-
 		recieveFromClients();
 
 		p1Spawner->iterate();
@@ -111,7 +110,7 @@ int game_host::testrun()
 			{
 				//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
 				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(),CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
-				cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
+				//cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
 			}
 			temp = cur;
 			cur = cur->getNext();
@@ -143,10 +142,13 @@ void game_host::setNodemap()
 
 void game_host::updatePaths()
 {
+	cout << "updating paths";
 	for (cListNode<creep*> *cur = creepList.getStart(); cur != NULL; cur = cur->getNext())
 	{
+		cout << ".";
 		cur->getData()->recalcPath(Nodemap);
 	}
+	cout << "done!\n";
 }
 
 void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord){
@@ -254,7 +256,7 @@ player * game_host::getPlayer(int playerNumber)
 
 bool game_host::isEmptyLocation(int xLoc, int yLoc)
 {
-
+	cout << "checking empty...";
 	cListNode<creep*> *curCreepNode = creepList.getStart();
 	cListNode<structure*> *curTowerNode = towerList.getStart();
 	while(curCreepNode != NULL)
@@ -268,5 +270,6 @@ bool game_host::isEmptyLocation(int xLoc, int yLoc)
 	}
 	if(Tmap[xLoc][yLoc] != NULL)
 		return false;
+	cout << "it is empty.\n";
 	return true;
 }

@@ -39,7 +39,7 @@ private:
 	coord goal;
 	stack<coord> p;
 	coord mapsize;
-	stack<coord> fPath;
+	vector<coord> fPath;
 	vector<aStarNode> aStar;
 public:
 	Path();

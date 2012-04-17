@@ -121,6 +121,7 @@ return 1;
 int Path::genPath(vector<vector<bool>> nMap)
 {
 	Nodemap = nMap;
+	aStar.clear();
 	aStar.push_back(makeAstar(start,gC(-1,-1),0,intDist(start, goal.x, goal.y), -1));
 	Nodemap[start.x][start.y] = true;
 	expand(aStar[0],0);
@@ -153,12 +154,13 @@ int Path::genPath(vector<vector<bool>> nMap)
 
 	} while (!expand(aStar[sel], sel));
 
+	fPath.clear();
 	aStarNode temp = aStar[aStar.size() - 1];
-	fPath.push(temp.self);
+	fPath.push_back(temp.self);
 	do 
 	{
 		temp = aStar[temp.parent_index];
-		fPath.push(temp.self);
+		fPath.push_back(temp.self);
 	}while(temp.parent.x != -1);
 	pop();
 	return 1;
@@ -226,7 +228,7 @@ void Path::setGoal(coord g)
 
 coord Path::getNext()
 {
-	return fPath.top();
+	return fPath[fPath.size() - 1];
 }
 
 bool Path::isEmpty()
@@ -236,7 +238,7 @@ bool Path::isEmpty()
 
 void Path::pop()
 {
-	fPath.pop();
+	fPath.pop_back();
 }
 
 void Path::setNodemap( vector<vector<bool>> nMap )

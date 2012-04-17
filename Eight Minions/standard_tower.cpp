@@ -217,8 +217,6 @@ bool Standard_Tower::doDamage()
 				}
 			}
 			chosenCreeps.pop();
-			if(chosenCreeps.empty() == true)
-				cout << "empty queue";
 		}
 		attackTick = attackDuration;
 		waiting = false;

@@ -13,5 +13,7 @@ void FPS_Regulator::start()
 
 void FPS_Regulator::killTime()
 {
+	if(ticks + (1000/FPS) < SDL_GetTicks())
+		cout << "FPS DROP.\n";
 	while(SDL_GetTicks() - ticks < (1000/FPS));
 }

@@ -68,6 +68,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		normCreepArr[level-0][2];
 		reward =	normCreepArr[level-0][3];
 		price =		normCreepArr[level-0][4];
+		animCount = 4;
 	}
 	else
 	{
