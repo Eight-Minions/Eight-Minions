@@ -46,9 +46,9 @@ int game_host::run()
 int game_host::testrun()
 {
 	this->init();
-	//this->init_net();
+	this->init_net();
 	//this->waitForClients();
-	//this->waitForClient_test();
+	this->waitForClient_test();
 
 	// placeTower(int playerNumber, int towerType, int x, int y);
 

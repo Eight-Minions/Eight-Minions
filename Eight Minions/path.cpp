@@ -147,7 +147,7 @@ int Path::genPath(vector<vector<bool>> nMap)
 		}
 		if(sel == -1)
 		{
-			cout << "no avaliable path\n";
+			//cout << "no avaliable path\n";
 			return -1;
 		}
 
