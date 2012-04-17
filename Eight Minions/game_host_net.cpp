@@ -260,7 +260,7 @@ string game_host::recieveMessageUDP()
 	return "NO MESSAGE";
 }
 
-bool game_host::recieveFromClients(string upd)
+bool game_host::recieveFromClients()
 {
 	string packData = recieveMessageUDP();
 	string temp;
