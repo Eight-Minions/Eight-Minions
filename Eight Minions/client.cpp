@@ -210,7 +210,11 @@ int client::testrun()
 						{
 							curSelectedTower = this->getClickCoord(event.button.x, event.button.y);
 							if (towerExistsAt(curSelectedTower))
+							{
 								mouseClickMode = SELECT_TOWER_MODE;
+								char buff[5];
+								text[15] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
+							}
 							else
 								mouseClickMode = DEFAULT_MODE;
 						}
@@ -347,7 +351,8 @@ void client::displayUI()
 		}
 		SDL_BlitSurface(text[11 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]);
 		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getType()], NULL, screen, textRects[10]);
-		SDL_BlitSurface(text[12], NULL, screen, textRects[])
+		SDL_BlitSurface(text[12], NULL, screen, textRects[11]);
+		SDL_BlitSurface(text[13], NULL, screen, textRects[12]);
 	}
 }
 
@@ -407,8 +412,10 @@ void client::initText()
 
 	textRects[10] = newRect(650, 492,0,0); //where to display the towers image
 
-	textRects[11] = newRect(697,495,0,0);
+	textRects[11] = newRect(697,495,0,0); //where to display the level text
 	text[14] = TTF_RenderText_Solid(font10, "Level:", Cblack);
+	textRects[12] = newRect(730,495,0,0);
+	text[15] = TTF_RenderText_Solid(font10, "1", Cblack);
 	
 
 }
