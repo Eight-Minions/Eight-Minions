@@ -363,3 +363,46 @@ bool client::removeTowerRecieve(int towerID)
 	}
 	return false;
 }
+bool client::upgradeTowerSend(int x, int y)
+{
+	cListNode<structure*> *curTower = towers.getStart();
+	while (curTower != NULL)
+	{
+		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
+		{
+			if(curTower->getData()->getLevel() < 5)
+			{
+
+
+				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERDELETE, curTower->getIndex()).getMT());
+			}
+		}
+		curTower = curTower->getNext();
+	}	
+	return false;
+}
+bool client::upgradeTowerRecieve(int towerID)
+{
+
+	return false;
+}
+bool client::changeTowerTypeSend(int x, int y, int newType)
+{
+	
+	return false;
+}
+bool client::changeTowerRecieve(int towerID, int newType)
+{
+
+	return false;
+}
+bool client::toggelTowerSend(int x, int y)
+{
+
+	return false;
+}
+bool client::toggleTowerRecieve(int towerID, int newState)
+{
+
+	return false;
+}
