@@ -39,7 +39,7 @@ bool Creep_Tower::upgrade()
 		{
 			this->manager->getPlayer(this->getPlayer())->spendMoney(cost);
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel() + 1, gC(this->getX(), this->getY()));
-			cSpawner->setDelay((delay * MAX_FPS)*(1.1-((this->getLevel())/10)));
+			cSpawner->setDelay((delay * MAX_FPS)*((11-this->getLevel())/10));
 			cost = updateCost(this->getLevel()+1, this->getType());
 			return true;
 		}
