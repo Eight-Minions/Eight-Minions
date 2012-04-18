@@ -195,7 +195,7 @@ void creep::updateAnim()
 void creep::recalcPath( vector<vector<bool>> nMap )
 {
 	p.setStart(p.getNext());
-	p.genPath(nMap);
+	p.genPath(nMap,true);
 }
 int creep::getHealth()
 {

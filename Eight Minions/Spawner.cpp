@@ -80,7 +80,7 @@ bool Spawner::iterate()
 			creep *retCreep = new creep(creepType,nPlayer,spawnerLevel,Loc.x,Loc.y);
 			//retCreep->p.setStart(Loc);
 			retCreep->p.setGoal(manager->Bases[nPlayer % 2]);
-			retCreep->p.genPath(manager->Nodemap);
+			retCreep->p.genPath(manager->Nodemap, false);
 			creepIndex = manager->creepList.insertInOrder(retCreep);
 			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 
@@ -100,7 +100,7 @@ bool Spawner::iterate()
 			SpawnerDelay.pop();
 			creep *retCreep = SpawnerQueue.front();
 			SpawnerQueue.pop();
-			retCreep->p.genPath(manager->Nodemap);
+			retCreep->p.genPath(manager->Nodemap, false);
 			creepIndex = manager->creepList.insertInOrder(retCreep);
 			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 			if(SpawnerQueue.empty())

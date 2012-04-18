@@ -181,13 +181,13 @@ void game_host::spawnCreep(int playerNumber, int creepType, int creepLevel, coor
 	if(playerNumber == 1)
 	{
 		newCreep->p.setGoal(Bases[1]);
-		newCreep->p.genPath(Nodemap);
+		newCreep->p.genPath(Nodemap, false);
 		nIndex = creepList.insertInOrder(newCreep);
 	}
 	else
 	{
 		newCreep->p.setGoal(Bases[0]);
-		newCreep->p.genPath(Nodemap);
+		newCreep->p.genPath(Nodemap, false);
 		nIndex = creepList.insertInOrder(newCreep);
 	}
 	sendMessageToQueue(UpdMess(playerNumber,NEWCREEP,nIndex,newCreep->getX(),newCreep->getY(),newCreep->getHealth(),newCreep->getType(),newCreep->getLevel()).getMT());
@@ -210,7 +210,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 				if(2 <= this->getPlayer(playerNumber)->getMoney())
 				{
 					Nodemap[x][y] = true;
-					if(!pathTestCreep->p.genPath(Nodemap))
+					if(!pathTestCreep->p.genPath(Nodemap, false))
 					{
 						Nodemap[x][y] = false;
 						return 0;
@@ -298,20 +298,20 @@ player * game_host::getPlayer(int playerNumber)
 
 bool game_host::isEmptyLocation(int xLoc, int yLoc)
 {
-	cout << "checking empty...";
 	cListNode<creep*> *curCreepNode = creepList.getStart();
-	cListNode<structure*> *curTowerNode = towerList.getStart();
+	int compX, compY;
 	while(curCreepNode != NULL)
 	{
-		if(((curCreepNode->getData()->getX() - BOARD_X_OFFSET) >= (xLoc * GRID_SIZE)) && ((curCreepNode->getData()->getX() + BOARD_X_OFFSET) < (xLoc * GRID_SIZE)))
-		{	
-			if(((curCreepNode->getData()->getY() - BOARD_Y_OFFSET) >= (yLoc * GRID_SIZE)) && ((curCreepNode->getData()->getY() + BOARD_Y_OFFSET) < (yLoc * GRID_SIZE)))
+		compX = curCreepNode->getData()->getX();
+		if((compX - BOARD_X_OFFSET > (xLoc - 1) * GRID_SIZE) && (compX - BOARD_X_OFFSET < (xLoc + 1) * GRID_SIZE))
+		{
+			compY = curCreepNode->getData()->getY();
+			if((compY - BOARD_Y_OFFSET > (yLoc - 1) * GRID_SIZE) && (compY - BOARD_Y_OFFSET < (yLoc + 1) * GRID_SIZE))
 				return false;
 		}
 		curCreepNode = curCreepNode->getNext();
 	}
 	if(Tmap[xLoc][yLoc] != NULL)
 		return false;
-	cout << "it is empty.\n";
 	return true;
 }

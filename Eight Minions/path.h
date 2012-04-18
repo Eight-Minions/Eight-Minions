@@ -46,7 +46,7 @@ public:
 
 	vector<coord> fPath;
 
-	int genPath(vector<vector<bool>> nMap);
+	int genPath(vector<vector<bool>> nMap, bool recalc);
 	bool expand( aStarNode n, int n_index);
 	coord move(coord cur); //possibly redundant at this point.
 	void setStart(coord s);
