@@ -196,6 +196,7 @@ void game_host::spawnCreep( creep *newCreep )
 
 int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 {
+	int newTowerID = 0;
 	if(Tmap[x][y] == NULL)
 	{
 		if(towerType == STRUCTURE)
@@ -206,7 +207,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 				{
 					structure *newStructure = new structure(STRUCTURESTARTLEVEL, playerNumber, towerType, x, y);
 					this->getPlayer(playerNumber)->spendMoney(2);
-					this->towerList.insertInOrder(newStructure);
+					newTowerID = this->towerList.insertInOrder(newStructure);
 					Tmap[x][y] = newStructure;
 				}
 				else
@@ -223,7 +224,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 				if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
 				{
 					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
-					this->towerList.insertInOrder(newTower);
+					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
 				else
@@ -240,7 +241,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 				{
 					int newCost = newTower->getCost();
 					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
-					this->towerList.insertInOrder(newTower);
+					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
 				else 
@@ -251,11 +252,9 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 		}
 		else
 			return 0;
-
-		//setNodemap(); - unneccesary
 		Nodemap[x][y] = true;
 		updatePaths(x,y);
-		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, 42, x, y, towerType).getMT());
+		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, newTowerID, x, y, towerType).getMT());
 		return 1;
 	}
 	else
@@ -294,9 +293,9 @@ bool game_host::isEmptyLocation(int xLoc, int yLoc)
 	cListNode<structure*> *curTowerNode = towerList.getStart();
 	while(curCreepNode != NULL)
 	{
-		if((((int)((curCreepNode->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)) >= xLoc) && (((int)((curCreepNode->getData()->getX() + BOARD_X_OFFSET)/GRID_SIZE)) <= xLoc))
+		if(((curCreepNode->getData()->getX() - BOARD_X_OFFSET) >= (xLoc * GRID_SIZE)) && ((curCreepNode->getData()->getX() + BOARD_X_OFFSET) <= (xLoc * GRID_SIZE)))
 		{	
-			if((((int)((curCreepNode->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)) >= yLoc) && (((int)((curCreepNode->getData()->getY() + BOARD_Y_OFFSET)/GRID_SIZE)) <= yLoc))
+			if(((curCreepNode->getData()->getY() - BOARD_Y_OFFSET) >= (yLoc * GRID_SIZE)) && ((curCreepNode->getData()->getY() + BOARD_Y_OFFSET) <= (yLoc * GRID_SIZE)))
 				return false;
 		}
 		curCreepNode = curCreepNode->getNext();
