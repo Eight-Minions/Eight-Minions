@@ -108,7 +108,7 @@ const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 #define NUM_BUTTONS 10
 
 //Number of text objects
-#define TEXT_NUM 5
+#define TEXT_NUM 20
 
 //Movement Constant
 #define CLOCK_CAP .50

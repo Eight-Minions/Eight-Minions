@@ -16,6 +16,8 @@
 //Mouse click mode definitions
 #define DEFAULT_MODE 0
 #define PLACE_FOUNDATION_MODE 1
+#define PLACE_MINE_MODE 2
+#define SELECT_TOWER_MODE 3
 
 class client
 {
@@ -29,6 +31,8 @@ private:
 	UDPpacket *UDPpack;
 
 	int mouseClickMode;
+	coord curSelectedTower;
+	structure *curSelectedTowerPtr;
 
 	//Surfaces - surfaces are basically loaded images that we can readily blit(display) to the screen
 	SDL_Surface* screen;
@@ -57,6 +61,7 @@ private:
 
 	//Fonts here.
 	TTF_Font *font; //testing font
+	TTF_Font *font10;
 
 	//Colors
 	SDL_Color Cblack;
@@ -81,7 +86,7 @@ public:
 
 	coord getClickCoord(int x, int y);
 
-	bool placeTower(int x, int y);
+	bool boardWasClicked(int x, int y);
 
 	bool removeTowerSend(int x, int y);
 	bool removeTowerRecieve(int towerID);
@@ -106,7 +111,8 @@ public:
 	int sendToServerUDP(string mess);
 
 	void savePlayerProfile();
-	
+	bool towerExistsAt( coord curSelectedTower );
+
 	//this function will take any of the players individual stats, experience, purchased upgrades, and any other
 	//relevant data, save it to a file, lock it with the players password, and encrypt it so they cant cheat and modify it.
 };

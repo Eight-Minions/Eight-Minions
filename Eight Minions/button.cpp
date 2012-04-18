@@ -1,7 +1,7 @@
 #include "button.h"
 
 
-Button::Button( string baseImageName, int x, int y, int width, int height )
+Button::Button( string baseImageName, int x, int y, int width, int height)
 {
 	string temp;
 	rect = newRect(x,y,width,height);
@@ -24,7 +24,7 @@ void Button::display( SDL_Surface* screen )
 	}
 }
 
-bool Button::wasClicked( int clickX, int clickY )
+bool Button::wasClicked( int clickX, int clickY)
 {
 	if(clickX >= rect->x && clickX <= rect->x + rect->w && clickY >= rect->y && clickY <= rect->y + rect->h)
 	{
