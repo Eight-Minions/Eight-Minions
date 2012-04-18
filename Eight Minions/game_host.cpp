@@ -294,9 +294,9 @@ bool game_host::isEmptyLocation(int xLoc, int yLoc)
 	cListNode<structure*> *curTowerNode = towerList.getStart();
 	while(curCreepNode != NULL)
 	{
-		if(((int)((curCreepNode->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)) == xLoc)
+		if((((int)((curCreepNode->getData()->getX() - BOARD_X_OFFSET)/GRID_SIZE)) >= xLoc) && (((int)((curCreepNode->getData()->getX() + BOARD_X_OFFSET)/GRID_SIZE)) <= xLoc))
 		{	
-			if(((int)((curCreepNode->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)) == yLoc)
+			if((((int)((curCreepNode->getData()->getY() - BOARD_Y_OFFSET)/GRID_SIZE)) >= yLoc) && (((int)((curCreepNode->getData()->getY() + BOARD_Y_OFFSET)/GRID_SIZE)) <= yLoc))
 				return false;
 		}
 		curCreepNode = curCreepNode->getNext();
