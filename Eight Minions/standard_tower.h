@@ -22,12 +22,9 @@ public:
 
 	bool upgrade();
 	bool changeType(int newType);
-	
-	void sell();
-
 	int getID();
-	
 	int getCost();
+	int updateCost(int costLevel, int costType);
 private:
 	game_host *manager;
 	queue<int> chosenCreeps;

@@ -246,67 +246,71 @@ bool Standard_Tower::upgrade()
 bool Standard_Tower::changeType(int newType)
 {
 	waiting = false;
-	if(getType() == NORMTOWER)
+	if(getLevel() >= 1 && getLevel() <= 5)
 	{
-		damageValue =			basicArr[getLevel() - 1][0];
-		armorPenetration =		basicArr[getLevel() - 1][1];
-		range =					basicArr[getLevel() - 1][2];
-		coolDownDuration =		basicArr[getLevel() - 1][3];
-		cost =					basicArr[getLevel() - 1][4];
-		attackDuration =		BASICATTACKDELAY;
-		attackType  =			ATTACKONECREEP;
-		attackStrategy =		ATTACKCLOSESTTOTOWER;
-	}
-	else if(getType() == FASTTOWER)
-	{
-		damageValue =			fastArr[getLevel() - 1][0];
-		armorPenetration =		fastArr[getLevel() - 1][1];
-		range =					fastArr[getLevel() - 1][2];
-		coolDownDuration =		fastArr[getLevel() - 1][3];
-		cost =					fastArr[getLevel() - 1][4];
-		attackDuration =		FASTATTACKDELAY;
-		attackType =			ATTACKONECREEP;
-		attackStrategy =		ATTACKCLOSESTTOTOWER;
-	}
-	else if(getType() == AOETOWER)
-	{
-		damageValue =			fastArr[getLevel() - 1][0];
-		armorPenetration =		fastArr[getLevel() - 1][1];
-		range =					fastArr[getLevel() - 1][2];
-		coolDownDuration =		fastArr[getLevel() - 1][3];
-		cost =					fastArr[getLevel() - 1][4];
-		attackDuration =		AOEATTACKDELAY;
-		attackType =			AREAOFEFFECT;
-		attackStrategy =		ATTACKCLOSESTTOTOWER;
-	}
-	else if(getType() == HEAVYTOWER)
-	{
-		damageValue =			heavyArr[getLevel() - 1][0];
-		armorPenetration =		heavyArr[getLevel() - 1][1];
-		range =					heavyArr[getLevel() - 1][2];
-		coolDownDuration =		heavyArr[getLevel() - 1][3];
-		cost =					heavyArr[getLevel() - 1][4];
-		attackDuration =		HEAVYATTACKDELAY;
-		attackType =			ATTACKONECREEP;
-		attackStrategy =		ATTACKCLOSESTTOTOWER;
-	}
-	else if(getType() == MINETOWER)
-	{
-		damageValue =			mineArr[getLevel() - 1][0];
-		armorPenetration =		mineArr[getLevel() - 1][1];
-		range =					mineArr[getLevel() - 1][2];
-		coolDownDuration =		mineArr[getLevel() - 1][3];
-		cost =					mineArr[getLevel() - 1][4];
-		attackDuration =		MINEATTACKDELAY;
-		attackType =			AREAOFEFFECT;
-		attackStrategy =		ATTACKCLOSESTTOTOWER;
+		setType(newType);
+		cost = updateCost(getLevel() - 1, getType());
+		if(newType >= NORMTOWER && newType <= MINETOWER)
+		{
+			if(getType() == NORMTOWER)
+			{
+				damageValue =			basicArr[getLevel() - 1][0];
+				armorPenetration =		basicArr[getLevel() - 1][1];
+				range =					basicArr[getLevel() - 1][2];
+				coolDownDuration =		basicArr[getLevel() - 1][3];
+				attackDuration =		BASICATTACKDELAY;
+				attackType  =			ATTACKONECREEP;
+				attackStrategy =		ATTACKCLOSESTTOTOWER;
+			}
+			else if(getType() == FASTTOWER)
+			{
+				damageValue =			fastArr[getLevel() - 1][0];
+				armorPenetration =		fastArr[getLevel() - 1][1];
+				range =					fastArr[getLevel() - 1][2];
+				coolDownDuration =		fastArr[getLevel() - 1][3];
+				attackDuration =		FASTATTACKDELAY;
+				attackType =			ATTACKONECREEP;
+				attackStrategy =		ATTACKCLOSESTTOTOWER;
+			}
+			else if(getType() == AOETOWER)
+			{
+				damageValue =			fastArr[getLevel() - 1][0];
+				armorPenetration =		fastArr[getLevel() - 1][1];
+				range =					fastArr[getLevel() - 1][2];
+				coolDownDuration =		fastArr[getLevel() - 1][3];
+				attackDuration =		AOEATTACKDELAY;
+				attackType =			AREAOFEFFECT;
+				attackStrategy =		ATTACKCLOSESTTOTOWER;
+			}
+			else if(getType() == HEAVYTOWER)
+			{
+				damageValue =			heavyArr[getLevel() - 1][0];
+				armorPenetration =		heavyArr[getLevel() - 1][1];
+				range =					heavyArr[getLevel() - 1][2];
+				coolDownDuration =		heavyArr[getLevel() - 1][3];
+				attackDuration =		HEAVYATTACKDELAY;
+				attackType =			ATTACKONECREEP;
+				attackStrategy =		ATTACKCLOSESTTOTOWER;
+			}
+			else if(getType() == MINETOWER)
+			{
+				damageValue =			mineArr[getLevel() - 1][0];
+				armorPenetration =		mineArr[getLevel() - 1][1];
+				range =					mineArr[getLevel() - 1][2];
+				coolDownDuration =		mineArr[getLevel() - 1][3];
+				attackDuration =		MINEATTACKDELAY;
+				attackType =			AREAOFEFFECT;
+				attackStrategy =		ATTACKCLOSESTTOTOWER;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
 	}
 	else
 		return false;
 	return true;
-}
-void Standard_Tower::sell()
-{
 }
 void Standard_Tower::iterate()
 {
@@ -320,4 +324,31 @@ void Standard_Tower::iterate()
 int Standard_Tower::getCost()
 {
 	return cost;
+}
+int Standard_Tower::updateCost(int costLevel, int costType)
+{
+	if(costLevel >= 0 && costLevel <= 4)
+	{
+		if(costType == NORMTOWER)
+		{
+			return basicArr[costLevel][4];
+		}
+		else if(costType == FASTTOWER)
+		{
+			return fastArr[costLevel][4];
+		}
+		else if(costType == AOETOWER)
+		{
+			return areaOfEffectArr[costLevel][4];
+		}
+		else if(costType == HEAVYTOWER)
+		{
+			return heavyArr[costLevel][4];
+		}
+		else if(costType == MINETOWER)
+		{
+			return mineArr[costLevel][4];
+		}
+	}
+	return 0;
 }

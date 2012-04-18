@@ -160,7 +160,7 @@ int client::performUpdate(string upd)
 			}
 			else
 			{
-				towers.insertInOrder(new structure(1,update.getPlayer(), update.getVal(3),update.getVal(1),update.getVal(2)));
+				towers.insertInOrder(new structure(1 ,update.getPlayer(), update.getVal(3),update.getVal(1),update.getVal(2)));
 			}
 		}
 		else if(update.getVal(0) == TOWERATTACK)
@@ -170,6 +170,18 @@ int client::performUpdate(string upd)
 		else if(update.getVal(0) == TOWERDELETE)
 		{
 			this->removeTowerRecieve(update.getId1());
+		}
+		else if(update.getVal(0) == TOWERUPGRADE)
+		{
+			this->upgradeTowerRecieve(update.getId1());
+		}
+		else if(update.getVal(0) == TOWERCHANGE)
+		{
+			this->changeTowerRecieve(update.getId1(), update.getVal(1));
+		}
+		else if(update.getVal(0) == TOWERTOGGLE)
+		{
+			this->toggleTowerRecieve(update.getId1(), update.getVal(1));
 		}
 	}
 	else if(updateType == PLAYERUPDATE)
