@@ -338,7 +338,26 @@ bool client::placeTower( int x, int y )
 		return false;
 }
 
-
-
-
-
+bool client::removeTowerSend(int x, int y) // Accepts Grid X and Grid Y
+{
+	cListNode<structure*> *curTower = towers.getStart();
+	while (curTower != NULL)
+	{
+		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
+		{
+			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERDELETE, curTower->getIndex()).getMT());
+			return true;  // Sent message
+		}
+		curTower = curTower->getNext();
+	}	
+	return false; // not found
+}
+bool client::removeTowerRecieve(int towerID)
+{
+	if(towers.checkForObjectWithID(towerID))
+	{	
+		towers.deleteNode(towerID);
+		return true;
+	}
+	return false;
+}

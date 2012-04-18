@@ -77,6 +77,7 @@ int game_host::testrun()
 
 	int run = 1;
 	int nc = 0;
+	bool deletedACreep = false;
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
@@ -110,7 +111,7 @@ int game_host::testrun()
 			{
 				//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
 				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(),CREEP,cur->getIndex(),cur->getData()->getX(),cur->getData()->getY(),cur->getData()->getHealth()).getMT());
-				//cout << cur->getData()->getX() << " " << cur->getData()->getY() << "\n";
+
 			}
 			temp = cur;
 			cur = cur->getNext();
@@ -118,8 +119,15 @@ int game_host::testrun()
 			{
 				sendMessageToQueue(UpdMess(temp->getData()->getPlayer(),CREEP,temp->getIndex(),0,0,0).getMT());
 				creepList.deleteNode(temp->getIndex());
+				deletedACreep = true;
 			}
 		}
+		if(deletedACreep) // Send a player update.
+		{
+			sendMessageToQueue(UpdMess(players[0].getPnum(), PLAYERUPDATE, players[0].getHealth(), players[0].getMoney()).getMT());
+			sendMessageToQueue(UpdMess(players[1].getPnum(), PLAYERUPDATE, players[1].getHealth(), players[1].getMoney()).getMT());
+		}
+		deletedACreep = false;
 		sendMessageToQueue("SEND"); //this to ensure that all updates for this pass are sent*/
 		reg->killTime();
 	}
@@ -239,6 +247,19 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 	}
 	else
 		return 0;
+}
+bool game_host::removeTower(int towerID)
+{
+	if(towerList.checkForObjectWithID(towerID))
+	{
+		sendMessageToQueue(UpdMess(towerList.getNodeWithID(towerID)->getData()->getPlayer(), TOWER, TOWERDELETE, towerID).getMT());  // Sends back the delete confirmation (aka a delete command for the client);
+		Tmap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = NULL;
+		towerList.deleteNode(towerID);
+		setNodemap();
+		updatePaths();
+		return true;
+	}
+	return false;
 }
 cList<creep*> *game_host::getCreepList()
 {

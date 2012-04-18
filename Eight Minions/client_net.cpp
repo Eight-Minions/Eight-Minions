@@ -167,6 +167,10 @@ int client::performUpdate(string upd)
 		{
 			attacks.push_back(new attackAnim(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(3)],update.getId1()));
 		}
+		else if(update.getVal(0) == TOWERDELETE)
+		{
+			this->removeTowerRecieve(update.getId1());
+		}
 	}
 	else if(updateType == PLAYERUPDATE)
 	{

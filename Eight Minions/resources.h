@@ -35,6 +35,7 @@
 #define TOWERUPGRADE 3
 #define TOWERCHANGE 4
 #define TOWERTOGGLE 5
+#define TOWERDELETE 6
 
 //Creep type definitions
 #define NUM_CREEPS 6 //the total number of creeps

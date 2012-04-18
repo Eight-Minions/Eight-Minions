@@ -79,7 +79,10 @@ public:
 	int testrun();
 
 	coord getClickCoord(int x, int y);
+
 	bool placeTower(int x, int y);
+	bool removeTowerSend(int x, int y);
+	bool removeTowerRecieve(int towerID);
 
 	void setServerAddress(string);
 	void setPort(unsigned int);

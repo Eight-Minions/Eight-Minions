@@ -56,6 +56,7 @@ public:
 	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord);
 	void spawnCreep(creep *newCreep);
 	int placeTower(int playerNumber, int towerType, int x, int y);
+	bool removeTower(int towerID);
 
 	int sendToClients(string);
 	int sendToClientsUDP(string mess);
