@@ -81,8 +81,18 @@ public:
 	coord getClickCoord(int x, int y);
 
 	bool placeTower(int x, int y);
+
 	bool removeTowerSend(int x, int y);
 	bool removeTowerRecieve(int towerID);
+
+	bool upgradeTowerSend(int x, int y);
+	bool upgradeTowerRecieve(int towerID);
+
+	bool changeTowerTypeSend(int x, int y, int newType);
+	bool changeTowerRecieve(int towerID, int newType);
+
+	bool toggelTowerSend(int x, int y);
+	bool toggleTowerRecieve(int towerID, int newState);
 
 	void setServerAddress(string);
 	void setPort(unsigned int);
