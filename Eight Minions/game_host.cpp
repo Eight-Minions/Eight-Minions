@@ -25,6 +25,10 @@ int game_host::init()
 	p1Spawner = new Spawner(this, 1, false, Bases[0]);
 	p2Spawner = new Spawner(this, 2, false, Bases[1]);
 
+	pathTestCreep = new creep(0, 1, 1, Bases[0].x, Bases[0].y);
+	pathTestCreep->p.setGoal(Bases[1]);
+	pathTestCreep->p.setStart(Bases[0]);
+
 	p1Spawner->addCreepType(SWARM);
 	p2Spawner->addCreepType(FATTY);
 	return 0;
@@ -205,6 +209,12 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 			{
 				if(2 <= this->getPlayer(playerNumber)->getMoney())
 				{
+					Nodemap[x][y] = true;
+					if(!pathTestCreep->p.genPath(Nodemap))
+					{
+						Nodemap[x][y] = false;
+						return 0;
+					}
 					structure *newStructure = new structure(STRUCTURESTARTLEVEL, playerNumber, towerType, x, y);
 					this->getPlayer(playerNumber)->spendMoney(2);
 					newTowerID = this->towerList.insertInOrder(newStructure);
@@ -252,7 +262,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 		}
 		else
 			return 0;
-		Nodemap[x][y] = true;
+		//Nodemap[x][y] = true;
 		updatePaths(x,y);
 		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, newTowerID, x, y, towerType).getMT());
 		return 1;

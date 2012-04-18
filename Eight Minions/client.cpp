@@ -33,7 +33,6 @@ int client::init()
 	this->loadFiles();
 	this->initText();
 
-
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, this->sd);
 	initButtons();

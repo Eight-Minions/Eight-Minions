@@ -132,7 +132,8 @@ int Path::genPath(vector<vector<bool>> nMap)
 	do 
 	{
 		aStar[sel].expanded = true;
-		sel = -1;
+		//aStar.erase(aStar.begin() + sel);
+		//sel = -1;
 		min_h = 100000;
 		for(i = 0; i < aStar.size(); i++)
 		{
@@ -146,7 +147,8 @@ int Path::genPath(vector<vector<bool>> nMap)
 				}
 			}
 		}
-		if(sel == -1)
+		//if(sel == -1)
+		if(min_h == 100000)
 		{
 			//cout << "no avaliable path\n";
 			return 0;
@@ -169,44 +171,48 @@ int Path::genPath(vector<vector<bool>> nMap)
 
 bool Path::expand( aStarNode n, int n_index)
 {
-	if(n.self.x >= 1 && Nodemap[n.self.x - 1][n.self.y] == false)
+	int temp = n.self.x - 1;
+	if(n.self.x >= 1 && Nodemap[temp][n.self.y] == false)
 	{
-		Nodemap[n.self.x - 1][n.self.y] = true;
-		int dist = intDist(goal, n.self.x - 1, n.self.y);
-		aStar.push_back(makeAstar(gC(n.self.x - 1, n.self.y),n.self,n.pathLength + 1, dist, n_index));
+		Nodemap[temp][n.self.y] = true;
+		int dist = intDist(goal, temp, n.self.y);
+		aStar.push_back(makeAstar(gC(temp, n.self.y),n.self,n.pathLength + 1, dist, n_index));
 		if(dist == 0)
 		{
 			//goal found, stop.
 			return true;
 		}		
 	}
-	if(n.self.x < MAPSIZE_X - 1 && Nodemap[n.self.x + 1][n.self.y] == false)
+	temp = n.self.x + 1;
+	if(n.self.x < MAPSIZE_X - 1 && Nodemap[temp][n.self.y] == false)
 	{
-		Nodemap[n.self.x + 1][n.self.y] = true;
-		int dist = intDist(goal, n.self.x + 1, n.self.y);
-		aStar.push_back(makeAstar(gC(n.self.x + 1, n.self.y),n.self,n.pathLength + 1, dist, n_index));
+		Nodemap[temp][n.self.y] = true;
+		int dist = intDist(goal,temp, n.self.y);
+		aStar.push_back(makeAstar(gC(temp, n.self.y),n.self,n.pathLength + 1, dist, n_index));
 		if(dist == 0)
 		{
 			//goal found, stop.
 			return true;
 		}	
 	}
-	if(n.self.y >= 1 && Nodemap[n.self.x][n.self.y  - 1] == false)
+	temp = n.self.y  - 1;
+	if(n.self.y >= 1 && Nodemap[n.self.x][temp] == false)
 	{
-		Nodemap[n.self.x][n.self.y  - 1] = true;
-		int dist = intDist(goal, n.self.x, n.self.y - 1);
-		aStar.push_back(makeAstar(gC(n.self.x, n.self.y - 1),n.self,n.pathLength + 1, dist, n_index));
+		Nodemap[n.self.x][temp] = true;
+		int dist = intDist(goal, n.self.x, temp);
+		aStar.push_back(makeAstar(gC(n.self.x, temp),n.self,n.pathLength + 1, dist, n_index));
 		if(dist == 0)
 		{
 			//goal found, stop.
 			return true;
 		}		
 	}
-	if(n.self.y < MAPSIZE_Y - 1 && Nodemap[n.self.x][n.self.y + 1] == false)
+	temp = n.self.y + 1;
+	if(n.self.y < MAPSIZE_Y - 1 && Nodemap[n.self.x][temp] == false)
 	{
-		Nodemap[n.self.x][n.self.y + 1] = true;
-		int dist = intDist(goal, n.self.x,n.self.y + 1);
-		aStar.push_back(makeAstar(gC(n.self.x,n.self.y + 1),n.self,n.pathLength + 1, dist, n_index));
+		Nodemap[n.self.x][temp] = true;
+		int dist = intDist(goal, n.self.x, temp);
+		aStar.push_back(makeAstar(gC(n.self.x,temp),n.self,n.pathLength + 1, dist, n_index));
 		if(dist == 0)
 		{
 			//goal found, stop.

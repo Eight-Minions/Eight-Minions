@@ -32,7 +32,8 @@ protected:
 
 	cList<creep*> creepList; //the list of creeps, creeps contain their positions
 	cList<structure*> towerList;
-	int numCreeps; //may not need this...
+
+	creep *pathTestCreep;
 
 	Spawner	*p1Spawner, *p2Spawner; //spawner objects for each player
 

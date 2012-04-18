@@ -48,6 +48,7 @@ private:
 	cList<creep*> creeps;
 	cList<structure*> towers;
 
+
 	vector<attackAnim*> attacks;
 
 	string updateQueue;
