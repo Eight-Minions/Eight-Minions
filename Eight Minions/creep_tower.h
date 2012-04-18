@@ -14,10 +14,13 @@ public:
 	Creep_Tower(int level, int player, int type, int newX, int newY, game_host *nManager);	//Server Constructor
 	void iterate();
 	bool upgrade();
+	bool upgradeClient();
 	bool changeType(int newType);
+	bool changeTypeClient(int newType);
 	int updateCost(int uLevel, int uType);
 	int getCost();
 
+	bool isPaused();
 	void pause();
 	void unpause();
 private:

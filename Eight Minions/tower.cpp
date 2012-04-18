@@ -45,30 +45,6 @@ int structure::setLevel(int newLevel){
 	level = newLevel;
 	return level;
 }
-
-void structure::iterate()
-{
-	//cout << "Nothing to do for base tower type" << endl;
-}
-
-bool structure::upgrade()
-{
-	cout << "Nothing to do for base tower type" << endl;
-	return false;
-}
-bool structure::changeType(int newType)
-{
-	cout << "Nothing to do for base tower type" << endl;
-	return false;
-}
-void structure::pause()
-{
-	cout << "Nothing to do for base tower type" << endl;
-}
-void structure::unpause()
-{
-	cout << "Nothing to do for base tower type" << endl;
-}
 int structure::getCost()
 {
 	return cost;
@@ -81,3 +57,43 @@ void structure::setPassable(bool nPass)
 {
 	passable = nPass;
 }
+
+// Virtuals
+void structure::iterate()
+{
+	cout << "Nothing to do for base tower type" << endl;
+}
+bool structure::isPaused()
+{
+	cout << "Nothing to do for base tower type" << endl;
+	return false;
+}
+void structure::pause()
+{
+	cout << "Nothing to do for base tower type" << endl;
+}
+void structure::unpause()
+{
+	cout << "Nothing to do for base tower type" << endl;
+}
+bool structure::upgrade()
+{
+	cout << "Nothing to do for base tower type" << endl;
+	return false;
+}
+bool structure::upgradeClient()
+{
+	cout << "Nothing to do for base tower type" << endl;
+	return false;
+}
+bool structure::changeType(int newType)
+{
+	cout << "Nothing to do for base tower type" << endl;
+	return false;
+}
+bool structure::changeTypeClient(int newType)
+{
+	cout << "Nothing to do for base tower type" << endl;
+	return false;
+}
+//End Virtuals

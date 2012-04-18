@@ -25,14 +25,17 @@ public:
 	bool getPassable();
 	void setPassable(bool nPass);
 
-	virtual bool upgrade();
-	virtual bool changeType(int newType);
+	virtual void iterate();
+	virtual bool isPaused();
 	virtual void pause();
 	virtual void unpause();
+	virtual bool upgrade();
+	virtual bool upgradeClient();
+	virtual bool changeType(int newType);
+	virtual bool changeTypeClient(int newType);
 
 	int setLevel(int newLevel);
 
-	virtual void iterate();
 
 	void displayTower(SDL_Surface *screen, SDL_Surface* image);
 };
