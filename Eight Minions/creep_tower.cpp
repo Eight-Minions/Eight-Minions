@@ -37,12 +37,24 @@ bool Creep_Tower::upgrade()
 	{
 		if(this->cost < this->manager->getPlayer(this->getPlayer())->getMoney())
 		{
+			
 			this->manager->getPlayer(this->getPlayer())->spendMoney(cost);
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel() + 1, gC(this->getX(), this->getY()));
 			cSpawner->setDelay((delay * MAX_FPS)*(1.1-((this->getLevel())/10)));
 			cost = updateCost(this->getLevel()+1, this->getType());
+			this->setLevel(this->getLevel() + 1);
 			return true;
 		}
+	}
+	return false;
+}
+bool Creep_Tower::upgradeClient()
+{
+	if(this->getLevel() < 5)
+	{
+		cost = updateCost(this->getLevel()+1, this->getType());
+		this->setLevel(this->getLevel() + 1);
+		return true;
 	}
 	return false;
 }
@@ -59,6 +71,16 @@ bool Creep_Tower::changeType(int newType)
 			this->setType(newType);
 			return true;
 		}
+	}
+	return false;
+}
+bool Creep_Tower::changeTypeClient(int newType)
+{
+	if(newType >= NORMCREEPTOWER && newType <= FATTYCREEPTOWER && newType != this->getType())
+	{
+		cost = updateCost(this->getLevel()+1, newType);
+		this->setType(newType);
+		return true;
 	}
 	return false;
 }
@@ -100,4 +122,8 @@ int Creep_Tower::updateCost(int uLevel, int uType)
 int Creep_Tower::getCost()
 {
 	return this->cost;
+}
+bool Creep_Tower::isPaused()
+{
+	return paused;
 }

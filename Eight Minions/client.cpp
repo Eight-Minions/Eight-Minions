@@ -372,9 +372,13 @@ bool client::upgradeTowerSend(int x, int y)
 		{
 			if(curTower->getData()->getLevel() < 5)
 			{
-				if(this->self->getMoney() >= curTower->getData()->getCost()) // I know this is probably wrong
+				if(this->self->getMoney() >= curTower->getData()->getCost())
+				{// I know this is probably wrong
 					sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERDELETE, curTower->getIndex()).getMT());
+					return true;
+				}
 			}
+			return false;
 		}
 		curTower = curTower->getNext();
 	}	
@@ -382,26 +386,67 @@ bool client::upgradeTowerSend(int x, int y)
 }
 bool client::upgradeTowerRecieve(int towerID)
 {
-
+	if(towers.checkForObjectWithID(towerID))
+	{
+		towers.getNodeWithID(towerID)->getData()->upgradeClient();
+		return true;
+	}
 	return false;
 }
 bool client::changeTowerTypeSend(int x, int y, int newType)
 {
-	
+	cListNode<structure*> *curTower = towers.getStart();
+	while (curTower != NULL)
+	{
+		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
+		{
+			if(curTower->getData()->getType() != newType)
+			{
+				// Check for money here?
+				//Or just do on server side?
+				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, curTower->getIndex(), newType).getMT());
+			}
+			return false;
+		}
+		curTower = curTower->getNext();
+	}
 	return false;
 }
 bool client::changeTowerRecieve(int towerID, int newType)
 {
-
+	if(towers.checkForObjectWithID(towerID))
+	{
+		towers.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
+		return true;
+	}
 	return false;
 }
 bool client::toggelTowerSend(int x, int y)
 {
-
+	cListNode<structure*> *curTower = towers.getStart();
+	while (curTower != NULL)
+	{
+		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
+		{
+			if(curTower->getData()->isPaused())
+				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, false).getMT());
+			else
+				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, true).getMT());
+			return true;
+		}
+		curTower = curTower->getNext();
+	}
 	return false;
 }
 bool client::toggleTowerRecieve(int towerID, int newState)
 {
-
+	if(towers.checkForObjectWithID(towerID))
+	{
+		if(newState == true)
+			towers.getNodeWithID(towerID)->getData()->pause();
+		else
+			towers.getNodeWithID(towerID)->getData()->unpause();
+		return true;
+	}
 	return false;
 }
