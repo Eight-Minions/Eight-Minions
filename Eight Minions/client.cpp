@@ -372,9 +372,8 @@ bool client::upgradeTowerSend(int x, int y)
 		{
 			if(curTower->getData()->getLevel() < 5)
 			{
-
-
-				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERDELETE, curTower->getIndex()).getMT());
+				if(this->self->getMoney() >= curTower->getData()->getCost()) // I know this is probably wrong
+					sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERDELETE, curTower->getIndex()).getMT());
 			}
 		}
 		curTower = curTower->getNext();
