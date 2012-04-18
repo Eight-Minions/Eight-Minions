@@ -12,7 +12,7 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	manager = nManager;
 	cost = updateCost(level, type);
 	cSpawner = new Spawner(nManager, player, true, NORM, 1, gC(this->getX(), this->getY()));
-	cSpawner->setDelay(normCreepArr[CREEPTOWERSTARTLEVEL][5] * MAX_FPS);
+	cSpawner->setDelay(normCreepArr[CREEPTOWERSTARTLEVEL][5] * MAX_FPS + 30);
 	paused = false;
 	this->setPassable(true);
 }
@@ -40,7 +40,7 @@ bool Creep_Tower::upgrade()
 			
 			this->manager->getPlayer(this->getPlayer())->spendMoney(cost);
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel() + 1, gC(this->getX(), this->getY()));
-			cSpawner->setDelay((delay * MAX_FPS)*(1.1-((this->getLevel())/10)));
+			cSpawner->setDelay((delay)*((11-this->getLevel())/10));
 			cost = updateCost(this->getLevel()+1, this->getType());
 			this->setLevel(this->getLevel() + 1);
 			return true;

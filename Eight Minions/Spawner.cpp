@@ -83,7 +83,7 @@ bool Spawner::iterate()
 			retCreep->p.genPath(manager->Nodemap);
 			creepIndex = manager->creepList.insertInOrder(retCreep);
 			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
-			
+
 			//CHANGES NEEDED HERE
 			curDelay = delay;
 
@@ -145,14 +145,16 @@ void Spawner::generateWave()
 			tempCreep = new creep(creepType,this->nPlayer,spawnerLevel,Loc.x,Loc.y);
 			tempCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 			SpawnerQueue.push(tempCreep);
-			SpawnerDelay.push(normCreepArr[this->getLevel()][5] * MAX_FPS);
+			if(i < creepBaseSpawnNum[creepType] - 1)
+				SpawnerDelay.push(normCreepArr[this->getLevel()][5] * MAX_FPS);
 			break;
 
 		case FAST:
 			tempCreep = new creep(creepType,this->nPlayer,spawnerLevel,Loc.x,Loc.y);
 			tempCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 			SpawnerQueue.push(tempCreep);
-			SpawnerDelay.push(fastCreepArr[this->getLevel()][5] * MAX_FPS);
+			if(i < creepBaseSpawnNum[creepType] - 1)
+				SpawnerDelay.push(fastCreepArr[this->getLevel()][5] * MAX_FPS);
 			break;
 
 		case SWARM:
@@ -163,42 +165,51 @@ void Spawner::generateWave()
 			tempCreep = new creep(creepType,this->nPlayer,1,Loc.x,Loc.y);
 			tempCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 			SpawnerQueue.push(tempCreep);
-			SpawnerDelay.push(swarmCreepArr[this->getLevel()][5] * MAX_FPS);
+			if(i < creepBaseSpawnNum[creepType] - 1)
+				SpawnerDelay.push(swarmCreepArr[this->getLevel()][5] * MAX_FPS);
 			break;
 
 		case TANK:
 			tempCreep = new creep(creepType,this->nPlayer,spawnerLevel,Loc.x,Loc.y);
 			tempCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 			SpawnerQueue.push(tempCreep);
-			SpawnerDelay.push(tankCreepArr[this->getLevel()][5] * MAX_FPS);
+			if(i < creepBaseSpawnNum[creepType] - 1)
+				SpawnerDelay.push(tankCreepArr[this->getLevel()][5] * MAX_FPS);
 			break;
 
 		case FATTY:
 			tempCreep = new creep(creepType,this->nPlayer,spawnerLevel,Loc.x,Loc.y);
 			tempCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 			SpawnerQueue.push(tempCreep);
-			SpawnerDelay.push(fattyCreepArr[this->getLevel()][5] * MAX_FPS);
+			if(i < creepBaseSpawnNum[creepType] - 1)
+				SpawnerDelay.push(fattyCreepArr[this->getLevel()][5] * MAX_FPS);
 			break;
 
 		case TITAN:
 			tempCreep = new creep(creepType,this->nPlayer,spawnerLevel,Loc.x,Loc.y);
 			tempCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 			SpawnerQueue.push(tempCreep);
-			SpawnerDelay.push(titanCreepArr[this->getLevel()][5] * MAX_FPS);
+			if(i < creepBaseSpawnNum[creepType] - 1)
+				SpawnerDelay.push(titanCreepArr[this->getLevel()][5] * MAX_FPS);
 			break;
 
 		}
+		if(i == creepBaseSpawnNum[creepType] - 1)
+			SpawnerDelay.push(3 * MAX_FPS);
 
 	}
 }
+
 int Spawner::getLevel()
 {
 	return spawnerLevel;
 }
+
 int Spawner::getType()
 {
 	return creepType;
 }
+
 void Spawner::setDelay(int newDelay)
 {
 	delay = newDelay;

@@ -107,6 +107,19 @@ bool creep::move()
 
 	Xdir = next.x - prevPos.x;
 	Ydir = next.y - prevPos.y;
+	if(Xdir == 0 && Ydir == 0)
+	{
+		p.pop();
+		if(p.isEmpty())
+		{
+			cout << "creep has reached its goal, please kill it off\n";
+			return true;
+		}
+		coord next = p.getNext();
+
+		Xdir = next.x - prevPos.x;
+		Ydir = next.y - prevPos.y;
+	}
 
 	setX(getXd() + (speed * Xdir * CLOCK_CAP));
 	setY(getYd() + (speed * Ydir * CLOCK_CAP));
