@@ -15,6 +15,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
 		Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE[2], TowerID[4], newType[2]);	
 		Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE[2], TowerID[4], newValue);
+		Tower Delete			UpdMess(Player[1], TOWER, TOWERDELETE, TowerID[4]);
 	*/
 	int var;
 	char buff[8];
@@ -156,6 +157,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		{
 			for(int i = 0; i < 2; i++)
 			{
+				var = va_arg(v1, int);
 				if(i == 0)
 				{
 					if(var == 0)
@@ -187,6 +189,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		{
 			for(int i = 0; i < 2; i++)
 			{
+				var = va_arg(v1, int);
 				if(i == 0)
 				{
 					if(var == 0)
@@ -209,6 +212,20 @@ UpdMess::UpdMess(int p, int t, ...)
 						messText += itoa(var,buff,10);
 					}
 				}
+			}
+		}
+		else if(var == TOWERDELETE)
+		{
+			var = va_arg(v1, int);
+			if(var == 0)
+				messText += "0000";
+			else
+			{
+				for(int n = 3 - (int)floor(log10((double)var)); n > 0; n--)
+				{
+					messText += '0';
+				}
+				messText += itoa(var,buff,10);
 			}
 		}
 	}
@@ -414,6 +431,10 @@ UpdMess::UpdMess(string m)
 			val.resize(2);
 			id1 = 1000 * (m[4] - '0') + 100 * (m[5] - '0') + 10 * (m[6] - '0') + (m[7] - '0');
 			val[1] = (m[8] - '0');
+		}
+		else if(val[0] == TOWERDELETE)
+		{
+			id1 = 1000 * (m[4] - '0') + 100 * (m[5] - '0') + 10 * (m[6] - '0') + (m[7] - '0');
 		}
 		else
 			m.append("ERROR Undefined Type");

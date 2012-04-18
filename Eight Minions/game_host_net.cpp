@@ -295,35 +295,42 @@ int game_host::performUpdate(string upd)
 		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
 		else if(subType == TOWERUPGRADE)
 		{
-			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			if(towerList.checkForObjectWithID(update.getId1()) == true)
 			{
-				return towerList.getNodeWithID(update.getVal(1))->getData()->upgrade();
+				return towerList.getNodeWithID(update.getId1())->getData()->upgrade();
 			}
 			return 0;
 		}
 		//Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE[2], TowerID[4], newType[2]);	
 		else if(subType == TOWERCHANGE)
 		{
-			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			if(towerList.checkForObjectWithID(update.getId1()) == true)
 			{
-				return towerList.getNodeWithID(update.getVal(1))->getData()->changeType(update.getVal(2));
+				return towerList.getNodeWithID(update.getId1())->getData()->changeType(update.getVal(2));
 			}
 			return 0;
 		}
 		//Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE[2], TowerID[4], newValue);
 		else if(subType == TOWERTOGGLE)
 		{
-			if(towerList.checkForObjectWithID(update.getVal(1)) == true)
+			if(towerList.checkForObjectWithID(update.getId1()))
 			{
-				if(towerList.getNodeWithID(update.getVal(1))->getData()->getType() >= NORMCREEPTOWER && towerList.getNodeWithID(update.getVal(1))->getData()->getType() <= FATTYCREEPTOWER)
+				if(towerList.getNodeWithID(update.getId1())->getData()->getType() >= NORMCREEPTOWER && towerList.getNodeWithID(update.getId1())->getData()->getType() <= FATTYCREEPTOWER)
 				{
-					if(update.getVal(2) == 1)
-						towerList.getNodeWithID(update.getVal(1))->getData()->pause();
-					else if(update.getVal(2) == 0)
-						towerList.getNodeWithID(update.getVal(1))->getData()->unpause();
+					if(update.getVal(1) == 1)
+						towerList.getNodeWithID(update.getId1())->getData()->pause();
+					else if(update.getVal(1) == 0)
+						towerList.getNodeWithID(update.getId1())->getData()->unpause();
 				}
 			}
 			return 0;
+		}
+		else if(subType == TOWERDELETE)
+		{	
+			if(towerList.checkForObjectWithID(update.getId1()))
+			{
+				removeTower(update.getId1());
+			}
 		}
 	}
 	return 0;
