@@ -136,7 +136,6 @@ int client::testrun()
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
-	sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,15,15).getMT());
 
 	while(run)
 	{
@@ -155,17 +154,20 @@ int client::testrun()
 					//event.button.x; //x coordinate of click on the window
 					//event.button.y; //y coordinate of click on the window
 
-					/*if(buttons[0]->wasClicked(event.button.x, event.button.y))
-						mouseClickMode = PLACE_FOUNDATION_MODE; 
-					else
-						mouseClickMode = DEFAULT_MODE;*/
+					if(buttons[0]->wasClicked(event.button.x, event.button.y))
+					{
+						if(mouseClickMode == DEFAULT_MODE)
+							mouseClickMode = PLACE_FOUNDATION_MODE; 
+						else
+							mouseClickMode = DEFAULT_MODE;
+					}
 
-					if(mouseClickMode == PLACE_FOUNDATION_MODE || 1)
+					if(mouseClickMode == PLACE_FOUNDATION_MODE)
 					{
 						if(placeTower(event.button.x,event.button.y))
 						{
 							mouseClickMode = DEFAULT_MODE;
-							//buttons[0]->setClick(false);
+							buttons[0]->setClick(false);
 							coord placeC = getClickCoord(event.button.x,event.button.y);
 							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 							sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
@@ -313,25 +315,25 @@ bool client::placeTower( int x, int y )
 		return true;
 		/*else
 		{
-			int t_check = 1;
-			for(cListNode<structure*> *cur = towers.getStart(); cur != NULL && t_check; cur = cur->getNext())
-			{
-				if (cur->getData()->getX() == temp.x && cur->getData()->getY() != temp.y)
-				{
-					return false;
-				}
-			}
-			coord temp_c;
-			int c_check = 1;
-			for(cListNode<creep*> *cur = creeps.getStart(); cur != NULL && c_check; cur = cur->getNext() )
-			{
-				temp_c = getClickCoord(cur->getData()->getX(),cur->getData()->getY());
-				if(temp.x == temp_c.x && temp.y == temp_c.y )
-				{
-					return false;
-				}
-			}
-			return true;
+		int t_check = 1;
+		for(cListNode<structure*> *cur = towers.getStart(); cur != NULL && t_check; cur = cur->getNext())
+		{
+		if (cur->getData()->getX() == temp.x && cur->getData()->getY() != temp.y)
+		{
+		return false;
+		}
+		}
+		coord temp_c;
+		int c_check = 1;
+		for(cListNode<creep*> *cur = creeps.getStart(); cur != NULL && c_check; cur = cur->getNext() )
+		{
+		temp_c = getClickCoord(cur->getData()->getX(),cur->getData()->getY());
+		if(temp.x == temp_c.x && temp.y == temp_c.y )
+		{
+		return false;
+		}
+		}
+		return true;
 		}*/
 	}
 	else

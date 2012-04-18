@@ -52,7 +52,7 @@ public:
 	int testrun();
 
 	void setNodemap();
-	void updatePaths();
+	void updatePaths(int newX, int newY);
 	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord);
 	void spawnCreep(creep *newCreep);
 	int placeTower(int playerNumber, int towerType, int x, int y);

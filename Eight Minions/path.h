@@ -39,11 +39,12 @@ private:
 	coord goal;
 	stack<coord> p;
 	coord mapsize;
-	vector<coord> fPath;
 	vector<aStarNode> aStar;
 public:
 	Path();
 	Path(int x, int y);
+
+	vector<coord> fPath;
 
 	int genPath(vector<vector<bool>> nMap);
 	bool expand( aStarNode n, int n_index);

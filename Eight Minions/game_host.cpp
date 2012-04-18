@@ -140,13 +140,25 @@ void game_host::setNodemap()
 		}
 }
 
-void game_host::updatePaths()
+void game_host::updatePaths(int newX, int newY)
 {
 	cout << "updating paths";
+	bool doRecalc = false;
+	int i;
+	int len;
+	creep *temp;
 	for (cListNode<creep*> *cur = creepList.getStart(); cur != NULL; cur = cur->getNext())
 	{
 		cout << ".";
-		cur->getData()->recalcPath(Nodemap);
+		temp = cur->getData();
+		len = temp->p.fPath.size();
+		for(i = 0; i < len && !doRecalc; i++)
+		{
+			if(temp->p.fPath[i].x == newX && temp->p.fPath[i].y == newY)
+				doRecalc = true;
+		}
+		if(doRecalc)
+			temp->recalcPath(Nodemap);		
 	}
 	cout << "done!\n";
 }
@@ -232,8 +244,9 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 		else
 			return 0;
 
-		setNodemap();
-		updatePaths();
+		//setNodemap(); - unneccesary
+		Nodemap[x][y] = true;
+		updatePaths(x,y);
 		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, 42, x, y, towerType).getMT());
 		return 1;
 	}
