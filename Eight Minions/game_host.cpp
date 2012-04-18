@@ -266,10 +266,10 @@ bool game_host::removeTower(int towerID)
 	if(towerList.checkForObjectWithID(towerID))
 	{
 		sendMessageToQueue(UpdMess(towerList.getNodeWithID(towerID)->getData()->getPlayer(), TOWER, TOWERDELETE, towerID).getMT());  // Sends back the delete confirmation (aka a delete command for the client);
+		updatePaths(towerList.getNodeWithID(towerID)->getData()->getX(), towerList.getNodeWithID(towerID)->getData()->getY());
 		Tmap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = NULL;
+		Nodemap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = false;
 		towerList.deleteNode(towerID);
-		setNodemap(); the whole nodemap doesnt need to be updated, just one spot
-		updatePaths(); this changed too
 		return true;
 	}
 	return false;
