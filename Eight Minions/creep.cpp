@@ -90,6 +90,7 @@ int creep::damage(int d)
 	this->health = this->health - d;
 	if(health <= 0)
 	{
+		health = 0;
 		alive = false;
 		return 0;
 	}
