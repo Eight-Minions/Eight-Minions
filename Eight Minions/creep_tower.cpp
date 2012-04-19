@@ -6,6 +6,7 @@ Creep_Tower::Creep_Tower() : structure()
 Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y) : structure (level, player, type, new_x, new_y)
 {	
 	this->setPassable(true);
+	unpause();
 	updateSell();
 }
 Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, game_host *nManager) : structure (level, player, type, new_x, new_y)
@@ -15,6 +16,7 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	cSpawner = new Spawner(nManager, player, true, NORM, 1, gC(this->getX(), this->getY()));
 	cSpawner->setDelay(normCreepArr[CREEPTOWERSTARTLEVEL][5] * MAX_FPS + 30);
 	updateSell();
+	unpause();
 	this->setPassable(true);
 }
 

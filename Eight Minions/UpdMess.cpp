@@ -14,6 +14,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 		Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
 		Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE[2], TowerID[4], newType[2]);	
+		//140500101
 		Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE[2], TowerID[4], newValue);
 		Tower Delete			UpdMess(Player[1], TOWER, TOWERDELETE, TowerID[4]);
 	*/

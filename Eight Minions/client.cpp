@@ -294,9 +294,6 @@ int client::testrun()
 							mouseClickMode = DEFAULT_MODE;
 					}
 
-
-
-
 					if(boardWasClicked(event.button.x,event.button.y))
 					{
 						if(mouseClickMode == DEFAULT_MODE || mouseClickMode == SELECT_TOWER_MODE)

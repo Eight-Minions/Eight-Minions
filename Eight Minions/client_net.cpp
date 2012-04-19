@@ -342,6 +342,7 @@ bool client::toggleTowerSend(int Tid)
 {
 	if(towers.getNodeWithID(Tid)->getData()->getType() >= NORMCREEPTOWER && towers.getNodeWithID(Tid)->getData()->getType() <= FATTYCREEPTOWER)
 	{
+		//bool state = towers.getNodeWithID(Tid)->getData()->isPaused();
 		if(towers.getNodeWithID(Tid)->getData()->isPaused())
 			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, Tid, false).getMT());
 		else
