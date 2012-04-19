@@ -2,7 +2,6 @@
 #define MINE_H
 
 #include "resources.h"
-#include "tower.h"
 #include "standard_tower.h"
 
 class Mine : public Standard_Tower
@@ -14,8 +13,6 @@ public:
 	~Mine();
 
 	void iterate();
-	bool choose();
-	bool doDamage();
 	bool isOnTop();
 	
 	bool upgrade();

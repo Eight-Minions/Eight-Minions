@@ -46,7 +46,8 @@ void Standard_Tower::chooseClosestCreep(double radius)
 		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
-void Standard_Tower::chooseClosestCreepToPosition(double radius, location position)
+/*
+void Standard_Tower::chooseClosestCreepToPosition(double radius, coord position)
 {
 	double distanceClosest = radius;
 	cListNode<creep*> *cur = NULL;
@@ -57,7 +58,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			double currentDistance = sqrt(pow(cur->getData()->getXd() - (position.getX()),2) + pow(cur->getData()->getYd() - (position.getY()),2));
+			double currentDistance = sqrt(pow(cur->getData()->getXd() - (position.x),2) + pow(cur->getData()->getYd() - (position.y),2));
 			if(currentDistance < distanceClosest)
 			{
 				closestCreep = cur;
@@ -72,6 +73,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, location positi
 		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
+*/
 void Standard_Tower::chooseNeighbors(double radius)
 {
 	cListNode<creep*> *cur = this->manager->getCreepList()->getStart();
@@ -90,7 +92,8 @@ void Standard_Tower::chooseNeighbors(double radius)
 		cur = cur->getNext();
 	}
 }
-void Standard_Tower::chooseNeighborsNearPosition(double radius, location position)
+/*
+void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)
 {
 	cListNode<creep*> *cur = this->manager->getCreepList()->getStart();
 
@@ -98,7 +101,7 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, location positio
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			double currentDistance = sqrt(pow(cur->getData()->getXd() - (position.getX()),2) + pow(cur->getData()->getYd() - (position.getY()),2));
+			double currentDistance = sqrt(pow(cur->getData()->getXd() - (position.x),2) + pow(cur->getData()->getYd() - (position.y),2));
 			if(currentDistance < radius)
 			{
 				//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
@@ -109,6 +112,7 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, location positio
 		cur = cur->getNext();
 	}
 }
+*/
 /*
 	choses creeps if the cool down is 0
 	returns true if something was chosen
@@ -137,11 +141,11 @@ bool Standard_Tower::choose()
 			{
 				if(this->getPlayer() == 1) // Don't know if this is correct
 				{
-					this->chooseNeighborsNearPosition(range, location(PLAYERONEX, PLAYERONEY)); // Attack near own base
+					//this->chooseNeighborsNearPosition(range, gC(PLAYERONEX, PLAYERONEY)); // Attack near own base
 				}
 				else if(this->getPlayer() == 2)
 				{
-					this->chooseNeighborsNearPosition(range, location(PLAYERTWOX, PLAYERTWOY));  // Attack near own base
+					//this->chooseNeighborsNearPosition(range, gC(PLAYERTWOX, PLAYERTWOY));  // Attack near own base
 				}
 				else 
 					return false;
@@ -150,11 +154,11 @@ bool Standard_Tower::choose()
 			{
 				if(this->getPlayer() == 1)
 				{
-					this->chooseClosestCreepToPosition(range, location(PLAYERONEX, PLAYERTWOY)); // Attack near own base
+					//this->chooseClosestCreepToPosition(range, gC(PLAYERONEX, PLAYERTWOY)); // Attack near own base
 				}	
 				else if(this->getPlayer() == 2)
 				{
-					this->chooseClosestCreepToPosition(range, location(PLAYERONEX, PLAYERTWOY)); // Attack near own base
+					//this->chooseClosestCreepToPosition(range, gC(PLAYERONEX, PLAYERTWOY)); // Attack near own base
 				}
 				else 
 					return false;

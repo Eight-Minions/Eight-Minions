@@ -9,12 +9,40 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	level = l;
 	type = t;
 	paused = false;
-	this->setX(set_x);
-	this->setY(set_y);
 	this->passable = false;
 	r = new SDL_Rect;
 	sellReward = 1;
 }
+structure::~structure()
+{
+}
+int structure::getX(){
+	return (int)floor(this->x);
+}
+int structure::getY(){
+	return (int)floor(this->y);
+}
+void structure::setX(double new_x){
+	this->x = new_x;
+}
+void structure::setY(double new_y){
+	this->y = new_y;
+}
+
+double structure::getXd()
+{
+	return x;
+}
+double structure::getYd()
+{
+	return y;
+}
+coord structure::gC( int x, int y )
+{
+	coord n = {x,y};
+	return n;
+}
+
 int structure::getLevel()
 {
 	return this->level;
@@ -27,9 +55,6 @@ int structure::setType(int newType)
 {
 	type = newType;
 	return type;
-}
-structure::~structure()
-{
 }
 void structure::displayTower(SDL_Surface *screen, SDL_Surface *image)
 {

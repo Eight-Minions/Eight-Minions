@@ -8,6 +8,7 @@
 #include "standard_tower.h"
 #include "creep_tower.h"
 #include "obstacle.h"
+//#include "mine.h"
 #include "player.h"
 #include "FPS_Regulator.h"
 

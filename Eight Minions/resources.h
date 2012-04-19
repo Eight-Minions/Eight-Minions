@@ -170,22 +170,4 @@ class structure;
 class game_host;
 class Spawner;
 
-class location
-{
-private:
-	double x;
-	double y;
-public:
-	location();
-	location(int new_x, int new_y);
-	~location();
-	int getX();
-	int getY();
-	double getXd();
-	double getYd();
-	void setX(double new_x);
-	void setY(double new_y);
-	coord gC(int x, int y);
-};
-
 #endif
