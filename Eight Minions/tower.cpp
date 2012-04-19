@@ -131,17 +131,15 @@ void structure::iterate()
 }
 bool structure::isPaused()
 {
-	//this function likes other functions of the same sex.
-	//cout << "Nothing to do for base tower type" << endl;
-	return false;
+	return paused;
 }
 void structure::pause()
 {
-	cout << "Nothing to do for base tower type" << endl;
+	paused = true;
 }
 void structure::unpause()
 {
-	cout << "Nothing to do for base tower type" << endl;
+	paused = false;
 }
 bool structure::upgrade()
 {

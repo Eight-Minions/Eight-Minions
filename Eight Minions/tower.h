@@ -14,6 +14,8 @@ private:
 	bool passable;
 	double x;
 	double y;
+protected:
+	bool paused;
 public:
 	structure();
 	structure(int level, int player, int type, int x, int y);
@@ -39,10 +41,11 @@ public:
 	bool getPassable();
 	void setPassable(bool nPass);
 
-	virtual void iterate();
 	virtual bool isPaused();
 	virtual void pause();
- 	virtual void unpause();
+	virtual void unpause();
+
+	virtual void iterate();
  	virtual bool upgrade();
 	virtual bool upgradeClient();
 	virtual bool changeType(int newType);

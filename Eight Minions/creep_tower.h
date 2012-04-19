@@ -35,8 +35,6 @@ private:
 	int creepLevel;
 	int delay;
 	int maxQueue;
-
-	bool paused;
 };
 
 #endif
