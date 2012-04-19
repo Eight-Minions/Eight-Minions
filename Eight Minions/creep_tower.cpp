@@ -6,7 +6,7 @@ Creep_Tower::Creep_Tower() : structure()
 Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y) : structure (level, player, type, new_x, new_y)
 {	
 	this->setPassable(true);
-	unpause();
+	this->unpause();
 	updateSell();
 }
 Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, game_host *nManager) : structure (level, player, type, new_x, new_y)
@@ -16,26 +16,13 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	cSpawner = new Spawner(nManager, player, true, NORM, 1, gC(this->getX(), this->getY()));
 	cSpawner->setDelay(normCreepArr[CREEPTOWERSTARTLEVEL][5] * MAX_FPS + 30);
 	updateSell();
-	unpause();
+	this->unpause();
 	this->setPassable(true);
+	
 }
-
-bool Creep_Tower::isPaused()
-{
-	return paused;
-}
-void Creep_Tower::unpause()
-{
-	paused = false;
-}
-void Creep_Tower::pause()
-{
-	paused = true;
-}
-
 void Creep_Tower::iterate()
 {
-	if(!isPaused())
+	if(!this->isPaused())
 	{
 		cSpawner->iterate();
 	}
@@ -144,4 +131,17 @@ void Creep_Tower::updateSell()
 		newSell += updateCost(i, getType());
 	}
 	this->setSellReward(((int)(newSell / 2)));
+}
+
+bool Creep_Tower::isPaused()
+{
+	return paused;
+}
+void Creep_Tower::pause()
+{
+	paused = true;
+}
+void Creep_Tower::unpause()
+{
+	paused = false;
 }
