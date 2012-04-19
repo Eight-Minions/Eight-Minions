@@ -35,7 +35,7 @@ private:
 	int delay;
 	int maxQueue;
 
-	bool paused;
+	//bool paused;
 };
 
 #endif
