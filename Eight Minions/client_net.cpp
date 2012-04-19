@@ -338,22 +338,13 @@ bool client::changeTowerRecieve(int towerID, int newType)
 	}
 	return false;
 }
-bool client::toggleTowerSend(int x, int y)
+bool client::toggleTowerSend(int Tid)
 {
-	cListNode<structure*> *curTower = towers.getStart();
-	while (curTower != NULL)
-	{
-		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
-		{
-			if(curTower->getData()->isPaused())
-				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, false).getMT());
-			else
-				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, true).getMT());
-			return true;
-		}
-		curTower = curTower->getNext();
-	}
-	return false;
+	if(towers.getNodeWithID(Tid)->getData()->isPaused())
+		sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, false).getMT());
+	else
+		sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, true).getMT());
+	return true;
 }
 bool client::toggleTowerRecieve(int towerID, int newState)
 {

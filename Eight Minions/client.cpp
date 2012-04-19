@@ -209,7 +209,7 @@ int client::testrun()
 					{
 						if(buttons[8]->wasClicked(event.button.x, event.button.y))
 						{
-							
+							toggleTowerSend(curTowerId);
 						}
 					}
 					if(buttons[0]->wasClicked(event.button.x, event.button.y))
@@ -250,6 +250,8 @@ int client::testrun()
 								char buff[5];
 								SDL_FreeSurface(text[15]);
 								text[15] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
+								if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
+									buttons[8]->setClick(!curSelectedTowerPtr->isPaused());
 							}
 							else
 								mouseClickMode = DEFAULT_MODE;

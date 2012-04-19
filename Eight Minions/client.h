@@ -98,7 +98,7 @@ public:
 	bool changeTowerTypeSend(int Tid, int newType);
 	bool changeTowerRecieve(int towerID, int newType);
 
-	bool toggleTowerSend(int x, int y);
+	bool toggleTowerSend(int Tid);
 	bool toggleTowerRecieve(int towerID, int newState);
 
 	void setServerAddress(string);

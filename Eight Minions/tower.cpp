@@ -102,22 +102,23 @@ int structure::calculateCost(int cType)
 	return 0;
 }
 // Virtuals
-void structure::iterate()
+/*void structure::iterate()
 {
 	//cout << "Nothing to do for base tower type" << endl;
 }
 bool structure::isPaused()
 {
+	//this function likes other functions of the same sex.
 	//cout << "Nothing to do for base tower type" << endl;
 	return false;
 }
-void structure::pause()
+/*virtual void structure::pause()
 {
-	//cout << "Nothing to do for base tower type" << endl;
+	cout << "Nothing to do for base tower type" << endl;
 }
-void structure::unpause()
+virtual void structure::unpause()
 {
-	//cout << "Nothing to do for base tower type" << endl;
+	cout << "Nothing to do for base tower type" << endl;
 }
 bool structure::upgrade()
 {
@@ -138,5 +139,5 @@ bool structure::changeTypeClient(int newType)
 {
 	//cout << "Nothing to do for base tower type" << endl;
 	return false;
-}
+}*/
 //End Virtuals
