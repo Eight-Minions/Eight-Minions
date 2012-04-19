@@ -3,7 +3,7 @@
 
 #include "resources.h"
 
-class creep : public location
+class creep
 {
 private:
 	int player;
@@ -28,12 +28,23 @@ private:
 	int animTiming;
 	int animDelay;
 	int animCount;
+
+	double x;
+	double y;
 public:
 	Path p;
 	
 	creep(int type, int pl, int level, int x, int y);
 	creep();
 	~creep();
+
+	int getX();
+	int getY();
+	double getXd();
+	double getYd();
+	void setX(double new_x);
+	void setY(double new_y);
+	coord gC(int x, int y);
 
 	bool move();
 	void recalcPath(vector<vector<bool>> nMap);

@@ -42,8 +42,10 @@ int main(int argc, char* argv[]){
 		Standard_Tower *newST = new Standard_Tower(1, 1, NORMTOWER, 3, 5);
 		Creep_Tower *newCT = new Creep_Tower(1 , 2, FASTCREEPTOWER, 5, 6);
 
-		newST->upgrade();
-		newCT->upgrade();
+		newST->upgradeClient();
+		newCT->upgradeClient();
+
+		int sell1 = newST->getSellReward();
 	}
 	else if(c == 4)
 	{
