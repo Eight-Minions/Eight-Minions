@@ -59,6 +59,8 @@ void client::loadFiles()
 	towerImages[FASTTOWER] = LoadImageCK("images/fastTower.png");
 	towerImages[AOETOWER] = LoadImageCK("images/AOEtower.png");
 	towerImages[HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
+	towerImages[MINETOWER] = LoadImageCK("images/mineTower.png");
+
 	attackImage = LoadImageCK("images/testAttack.png");
 
 	for(int i = 0; i < 4; i++)
