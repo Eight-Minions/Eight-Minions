@@ -27,6 +27,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		tankCreepArr[level-1][2];
 		reward =	tankCreepArr[level-1][3];
 		price =		tankCreepArr[level-1][4];
+		animCount = 4;
 	}
 	else if(type == FATTY){
 		// Health Armor Speed Reward Price
@@ -35,6 +36,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		fattyCreepArr[level-1][2];
 		reward =	fattyCreepArr[level-1][3];
 		price =		fattyCreepArr[level-1][4];
+		animCount = 6;
 	}
 	else if(type == FAST){
 		health =	fastCreepArr[level-1][0];
@@ -61,6 +63,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		titanCreepArr[level-1][2];
 		reward =	titanCreepArr[level-1][3];
 		price =		titanCreepArr[level-1][4];
+		animCount = 4;
 	}
 	else if(type == NORM)
 	{

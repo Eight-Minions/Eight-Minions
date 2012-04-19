@@ -83,7 +83,7 @@ const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 #define OBSTACLE 20
 
 //Animation
-#define ANIM_NUM 5
+#define ANIM_NUM 6
 
 #define MAX_FPS 20
 
@@ -117,7 +117,7 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{
 #define TEXT_NUM 20
 
 //Movement Constant
-#define CLOCK_CAP .50
+#define CLOCK_CAP .35
 
 //Player Base Location
 #define PLAYERONEX 0

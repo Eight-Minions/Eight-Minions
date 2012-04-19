@@ -49,9 +49,9 @@ void client::loadFiles()
 	creepImages[NORM] = LoadImageCK("norm.png");
 	creepImages[FAST] = LoadImageCK("images/Minions_Creeps_Fast_Top_Sprite.png");
 	creepImages[SWARM] = LoadImageCK("images/Minions_Creeps_Swarm_Top_Sprite.png");
-	creepImages[TANK] = LoadImageCK("tank.png");
-	creepImages[TITAN] = LoadImageCK("titan.png");
-	creepImages[FATTY] = LoadImageCK("fatty.png");
+	creepImages[TANK] = LoadImageCK("images/Minions_Creeps_High-A_Top_Sprite.png");
+	creepImages[TITAN] = LoadImageCK("images/Minions_Creeps_Boss_Top_Sprite.png");
+	creepImages[FATTY] = LoadImageCK("images/Minions_Creeps_High-H_Top_Sprite.png");
 
 	towerImages[STRUCTURE] = LoadImageCK("images/structure.png");
 	towerImages[NORMCREEPTOWER] = LoadImageCK("images/spawnTower.png");
@@ -63,7 +63,7 @@ void client::loadFiles()
 
 	for(int i = 0; i < 4; i++)
 	{
-		for(int j = 0; j < 5; j++)
+		for(int j = 0; j < ANIM_NUM; j++)
 			SpriteMaps[i][j] = newRect(j * GRID_SIZE,i * GRID_SIZE,GRID_SIZE,GRID_SIZE);
 	}
 }
@@ -464,11 +464,11 @@ void client::initText()
 	text[9] = TTF_RenderText_Solid(font, "Basic Tower", Cblack);
 	text[10] = TTF_RenderText_Solid(font, "Spawner Tower", Cblack);
 
-	textRects[9] = newRect(650,365,0,0); //where to display towers owner
+	textRects[9] = newRect(650,360,0,0); //where to display towers owner
 	text[12] = TTF_RenderText_Solid(font, "Player One", Cblack);
 	text[13] = TTF_RenderText_Solid(font, "Player Two", Cblack);
 
-	textRects[10] = newRect(650, 389,0,0); //where to display the towers image
+	textRects[10] = newRect(650, 384,0,0); //where to display the towers image
 
 	textRects[11] = newRect(697,389,0,0); //where to display the level text
 	text[14] = TTF_RenderText_Solid(font10, "Level:", Cblack);
