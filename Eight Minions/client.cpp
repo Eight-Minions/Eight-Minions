@@ -48,7 +48,7 @@ void client::loadFiles()
 
 	creepImages[NORM] = LoadImageCK("norm.png");
 	creepImages[FAST] = LoadImageCK("images/Minions_Creeps_Fast_Top_Sprite.png");
-	creepImages[SWARM] = LoadImageCK("swarm.png");
+	creepImages[SWARM] = LoadImageCK("images/Minions_Creeps_Swarm_Top_Sprite.png");
 	creepImages[TANK] = LoadImageCK("tank.png");
 	creepImages[TITAN] = LoadImageCK("titan.png");
 	creepImages[FATTY] = LoadImageCK("fatty.png");
@@ -57,6 +57,7 @@ void client::loadFiles()
 	towerImages[NORMCREEPTOWER] = LoadImageCK("images/spawnTower.png");
 	towerImages[NORMTOWER] = LoadImageCK("images/normTower.png");
 	towerImages[FASTTOWER] = LoadImageCK("images/fastTower.png");
+	towerImages[AOETOWER] = LoadImageCK("images/AOEtower.png");
 
 	attackImage = LoadImageCK("images/testAttack.png");
 
@@ -181,7 +182,7 @@ int client::testrun()
 					{
 						buttons[4]->setClick(false);
 						//somehow upgrade the tower
-						//upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
+						upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
 
 						
 					}

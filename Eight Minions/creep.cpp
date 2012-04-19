@@ -52,7 +52,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		swarmCreepArr[level-1][2];
 		reward =	swarmCreepArr[level-1][3];
 		price =		swarmCreepArr[level-1][4];
-		animCount = 5;
+		animCount = 4;
 	}
 	else if(type == TITAN)
 	{

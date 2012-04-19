@@ -154,14 +154,9 @@ int client::performUpdate(string upd)
 		{
 			if(towers.checkForObjectWithID(update.getId1()))
 			{
-				towers.getObjectWithID(update.getId1())->setX(update.getVal(1));
-				towers.getObjectWithID(update.getId1())->setY(update.getVal(2));
-				towers.getObjectWithID(update.getId1())->setType(update.getVal(3));
+				towers.deleteNode(update.getId1());
 			}
-			else
-			{
-				towers.insertInOrder(new structure(1 ,update.getPlayer(), update.getVal(3),update.getVal(1),update.getVal(2)));
-			}
+			towers.insertWithID(update.getId1(), new structure(1 ,update.getPlayer(), update.getVal(3),update.getVal(1),update.getVal(2)));
 		}
 		else if(update.getVal(0) == TOWERATTACK)
 		{
@@ -318,6 +313,8 @@ bool client::upgradeTowerRecieve(int towerID)
 	if(towers.checkForObjectWithID(towerID))
 	{
 		towers.getNodeWithID(towerID)->getData()->upgradeClient();
+		char buff[4];
+		text[15] = TTF_RenderText_Solid(font10, itoa(towers.getNodeWithID(towerID)->getData()->getLevel(),buff,10), Cblack);
 		return true;
 	}
 	return false;
