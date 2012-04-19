@@ -37,12 +37,6 @@ double structure::getYd()
 {
 	return y;
 }
-coord structure::gC( int x, int y )
-{
-	coord n = {x,y};
-	return n;
-}
-
 int structure::getLevel()
 {
 	return this->level;

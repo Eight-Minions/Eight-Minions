@@ -99,7 +99,6 @@ void creep::setX(double new_x){
 void creep::setY(double new_y){
 	this->y = new_y;
 }
-
 double creep::getXd()
 {
 	return x;
@@ -107,11 +106,6 @@ double creep::getXd()
 double creep::getYd()
 {
 	return y;
-}
-coord creep::gC( int x, int y )
-{
-	coord n = {x,y};
-	return n;
 }
 int creep::damage(int d)
 {

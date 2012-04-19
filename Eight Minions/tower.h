@@ -27,7 +27,6 @@ public:
 	double getYd();
 	void setX(double new_x);
 	void setY(double new_y);
-	coord gC(int x, int y);
 
 	int getLevel();
 	int getType();

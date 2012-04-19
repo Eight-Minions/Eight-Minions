@@ -44,7 +44,6 @@ public:
 	double getYd();
 	void setX(double new_x);
 	void setY(double new_y);
-	coord gC(int x, int y);
 
 	bool move();
 	void recalcPath(vector<vector<bool>> nMap);
