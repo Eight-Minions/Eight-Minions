@@ -59,7 +59,7 @@ public:
 	void spawnCreep(creep *newCreep);
 	int placeTower(int playerNumber, int towerType, int x, int y);
 	bool placeTowerForced(int playerNumber, int towerType, int x, int y, int towerID);
-	bool removeTower(int towerID);
+	bool removeTower(int towerID, int playerNum);
 	bool removeTowerLocal(int towerID);
 	bool changeStructure(int structureID, int newType);
 

@@ -265,6 +265,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 		//Nodemap[x][y] = true;
 		updatePaths(x,y);
 		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, newTowerID, x, y, towerType).getMT());
+		sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
 		return 1;
 	}
 	else
@@ -307,16 +308,16 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 		return false;
 	return false;
 }
-bool game_host::removeTower(int towerID)
+bool game_host::removeTower(int towerID, int playerNum)
 {
 	if(towerList.checkForObjectWithID(towerID))
 	{
-		int remPlayer = towerList.getNodeWithID(towerID)->getData()->getPlayer();
-		sendMessageToQueue(UpdMess(remPlayer, TOWER, TOWERDELETE, towerID).getMT());  // Sends back the delete confirmation (aka a delete command for the client);
+		//int remPlayer = towerList.getNodeWithID(towerID)->getData()->getPlayer();
+		sendMessageToQueue(UpdMess(playerNum, TOWER, TOWERDELETE, towerID).getMT());  // Sends back the delete confirmation (aka a delete command for the client);
 		Tmap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = NULL;
 		Nodemap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = false;
-		this->getPlayer(remPlayer)->addMoney(towerList.getNodeWithID(towerID)->getData()->getSellReward());
-		sendMessageToQueue(UpdMess(remPlayer, PLAYERUPDATE, this->getPlayer(remPlayer)->getHealth(), this->getPlayer(remPlayer)->getMoney()).getMT());
+		this->getPlayer(playerNum)->addMoney(towerList.getNodeWithID(towerID)->getData()->getSellReward());
+		sendMessageToQueue(UpdMess(playerNum, PLAYERUPDATE, this->getPlayer(playerNum)->getHealth(), this->getPlayer(playerNum)->getMoney()).getMT());
 		towerList.deleteNode(towerID);
 		return true;
 	}

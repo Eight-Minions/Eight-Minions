@@ -160,6 +160,7 @@ int client::testrun()
 						buttons[5]->wasClicked(event.button.x, event.button.y);
 						buttons[6]->wasClicked(event.button.x, event.button.y);
 						buttons[7]->wasClicked(event.button.x, event.button.y);
+						buttons[8]->wasClicked(event.button.x, event.button.y);
 					}
 				}
 			}
@@ -205,11 +206,17 @@ int client::testrun()
 						//change structure to a fast tower
 						changeTowerTypeSend(curTowerId,FASTTOWER);
 					}
+					if (buttons[8]->isClicked())
+					{
+						buttons[8]->setClick(false);
+						//change structure to an AOE tower
+						changeTowerTypeSend(curTowerId,AOETOWER);
+					}
 					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
 					{
-						if(buttons[8]->wasClickedState(event.button.x, event.button.y))
+						if(buttons[12]->wasClickedState(event.button.x, event.button.y))
 						{
-							buttons[8]->wasClicked(event.button.x, event.button.y);
+							buttons[12]->wasClicked(event.button.x, event.button.y);
 							toggleTowerSend(curTowerId);
 						}
 					}
@@ -252,7 +259,7 @@ int client::testrun()
 								SDL_FreeSurface(text[15]);
 								text[15] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
 								if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
-									buttons[8]->setClick(!curSelectedTowerPtr->isPaused());
+									buttons[12]->setClick(!curSelectedTowerPtr->isPaused());
 							}
 							else
 								mouseClickMode = DEFAULT_MODE;
@@ -377,6 +384,7 @@ void client::displayUI()
 			buttons[5]->display(screen);
 			buttons[6]->display(screen);
 			buttons[7]->display(screen);
+			buttons[8]->display(screen);
 			break;
 		case NORMTOWER:
 			SDL_BlitSurface(text[9], NULL, screen,  textRects[8]);
@@ -389,7 +397,7 @@ void client::displayUI()
 		case FATTYCREEPTOWER:
 			SDL_BlitSurface(text[10], NULL, screen, textRects[8]);
 			if(self->getPnum() == curSelectedTowerPtr->getPlayer())
-				buttons[8]->display(screen);
+				buttons[12]->display(screen);
 			break;
 
 		}
@@ -429,8 +437,9 @@ void client::initButtons()
 	buttons[5] = new Button("images/attackTowerButton",738,410,36,36);
 	buttons[6] = new Button("images/spawnTowerButton",738,447,36,36);
 	buttons[7] = new Button("images/fastTowerButton",738,484,36,36);
+	buttons[8] = new Button("images/AOETowerButton",738,521,36,36);
 	//pause button (for creep towers)
-	buttons[8] = new Button("images/pauseButton",649,465,36,36);
+	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
 
 

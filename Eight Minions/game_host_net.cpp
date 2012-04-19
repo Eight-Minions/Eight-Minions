@@ -341,7 +341,7 @@ int game_host::performUpdate(string upd)
 		{	
 			if(towerList.checkForObjectWithID(update.getId1()))
 			{
-				removeTower(update.getId1());
+				removeTower(update.getId1(), update.getPlayer());
 			}
 		}
 	}
