@@ -230,6 +230,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\obstacle.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\standard_tower.cpp"
 						>
 					</File>
@@ -321,6 +325,10 @@
 					>
 					<File
 						RelativePath=".\creep_tower.h"
+						>
+					</File>
+					<File
+						RelativePath=".\obstacle.h"
 						>
 					</File>
 					<File
