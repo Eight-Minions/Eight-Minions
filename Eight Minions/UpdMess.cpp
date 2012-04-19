@@ -256,8 +256,6 @@ UpdMess::UpdMess(int p, int t, ...)
 			// Health
 			else if(i == 3)
 			{
-				if (var > 10)
-					cout << "weird...\n";
 				if(var == 0)
 					messText += "00000";
 				else

@@ -78,17 +78,26 @@ bool Spawner::iterate()
 		{
 			int creepIndex;
 			creep *retCreep = new creep(creepType,nPlayer,spawnerLevel,Loc.x,Loc.y);
-			//retCreep->p.setStart(Loc);
-			retCreep->p.setGoal(manager->Bases[nPlayer % 2]);
-			retCreep->p.genPath(manager->Nodemap, false);
-			creepIndex = manager->creepList.insertInOrder(retCreep);
-			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
+			if(retCreep->getPrice() <= manager->getPlayer(nPlayer)->getMoney())
+			{
+				retCreep->p.setGoal(manager->Bases[nPlayer % 2]);
+				retCreep->p.genPath(manager->Nodemap, false);
+				manager->getPlayer(nPlayer)->spendMoney(retCreep->getPrice());
+				creepIndex = manager->creepList.insertInOrder(retCreep);
+				manager->sendMessageToQueue(UpdMess(nPlayer, PLAYERUPDATE, manager->getPlayer(nPlayer)->getHealth(), manager->getPlayer(nPlayer)->getMoney()).getMT());
+				manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 
-			//CHANGES NEEDED HERE
-			curDelay = delay;
+				//CHANGES NEEDED HERE
+				curDelay = delay;
 
-			//also, add handlers for if the player wants to save up a swarm.
-			return true;
+				//also, add handlers for if the player wants to save up a swarm.
+				return true;
+			}
+			else
+			{
+				cout << "Not enough money for creep" << endl;
+				return false;
+			}
 		}
 		return false;
 	}

@@ -233,7 +233,10 @@ bool Standard_Tower::upgrade()
 	if(getLevel() < 5)
 	{
 		if(manager->getPlayer(this->getPlayer())->getMoney() < cost)
+		{
+			cout << "Not enough money. Player: " << this->getPlayer() << " Money: " << manager->getPlayer(this->getPlayer())->getMoney() << " Cost: " << cost << endl;
 			return false;
+		}
 		else
 		{
 			manager->getPlayer(this->getPlayer())->spendMoney(cost);

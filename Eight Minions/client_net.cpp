@@ -335,7 +335,7 @@ bool client::changeTowerRecieve(int towerID, int newType)
 	}
 	return false;
 }
-bool client::toggelTowerSend(int x, int y)
+bool client::toggleTowerSend(int x, int y)
 {
 	cListNode<structure*> *curTower = towers.getStart();
 	while (curTower != NULL)
