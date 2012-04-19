@@ -58,7 +58,7 @@ void client::loadFiles()
 	towerImages[NORMTOWER] = LoadImageCK("images/normTower.png");
 	towerImages[FASTTOWER] = LoadImageCK("images/fastTower.png");
 	towerImages[AOETOWER] = LoadImageCK("images/AOEtower.png");
-
+	towerImages[HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
 	attackImage = LoadImageCK("images/testAttack.png");
 
 	for(int i = 0; i < 4; i++)
@@ -183,9 +183,8 @@ int client::testrun()
 					if (buttons[4]->isClicked())
 					{
 						buttons[4]->setClick(false);
-						//somehow upgrade the tower
+						//upgrade the towers level
 						upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
-
 						
 					}
 					if (buttons[5]->isClicked())
@@ -193,24 +192,28 @@ int client::testrun()
 						buttons[5]->setClick(false);
 						//change structure to a basic tower
 						changeTowerTypeSend(curTowerId,NORMTOWER);
+						mouseClickMode = DEFAULT_MODE;
 					}
 					if (buttons[6]->isClicked())
 					{
 						buttons[6]->setClick(false);
 						//change structure to a spawner tower
 						changeTowerTypeSend(curTowerId,NORMCREEPTOWER);
+						mouseClickMode = DEFAULT_MODE;
 					}
 					if (buttons[7]->isClicked())
 					{
 						buttons[7]->setClick(false);
 						//change structure to a fast tower
 						changeTowerTypeSend(curTowerId,FASTTOWER);
+						mouseClickMode = DEFAULT_MODE;
 					}
 					if (buttons[8]->isClicked())
 					{
 						buttons[8]->setClick(false);
 						//change structure to an AOE tower
 						changeTowerTypeSend(curTowerId,AOETOWER);
+						mouseClickMode = DEFAULT_MODE;
 					}
 					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
 					{
@@ -256,8 +259,8 @@ int client::testrun()
 							{
 								mouseClickMode = SELECT_TOWER_MODE;
 								char buff[5];
-								SDL_FreeSurface(text[15]);
-								text[15] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
+								SDL_FreeSurface(text[19]);
+								text[19] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
 								if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
 									buttons[12]->setClick(!curSelectedTowerPtr->isPaused());
 							}
@@ -385,6 +388,7 @@ void client::displayUI()
 			buttons[6]->display(screen);
 			buttons[7]->display(screen);
 			buttons[8]->display(screen);
+			buttons[9]->display(screen);
 			break;
 		case NORMTOWER:
 			SDL_BlitSurface(text[9], NULL, screen,  textRects[8]);
@@ -401,10 +405,10 @@ void client::displayUI()
 			break;
 
 		}
-		SDL_BlitSurface(text[11 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]); //player number
+		SDL_BlitSurface(text[15 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]); //player number
 		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
-		SDL_BlitSurface(text[14], NULL, screen, textRects[11]);
-		SDL_BlitSurface(text[15], NULL, screen, textRects[12]);
+		SDL_BlitSurface(text[18], NULL, screen, textRects[11]);
+		SDL_BlitSurface(text[19], NULL, screen, textRects[12]);
 	}
 }
 
@@ -438,6 +442,7 @@ void client::initButtons()
 	buttons[6] = new Button("images/spawnTowerButton",738,447,36,36);
 	buttons[7] = new Button("images/fastTowerButton",738,484,36,36);
 	buttons[8] = new Button("images/AOETowerButton",738,521,36,36);
+	buttons[9] = new Button("images/heavyTowerButton",738,558,36,36);
 	//pause button (for creep towers)
 	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
@@ -463,17 +468,20 @@ void client::initText()
 	text[8] = TTF_RenderText_Solid(font, "Structure", Cblack);
 	text[9] = TTF_RenderText_Solid(font, "Basic Tower", Cblack);
 	text[10] = TTF_RenderText_Solid(font, "Spawner Tower", Cblack);
+	text[11] = TTF_RenderText_Solid(font, "Fast Tower", Cblack);
+	text[12] = TTF_RenderText_Solid(font, "AOE Tower", Cblack);
+	text[13] = TTF_RenderText_Solid(font, "Heavy Tower", Cblack);
 
 	textRects[9] = newRect(650,360,0,0); //where to display towers owner
-	text[12] = TTF_RenderText_Solid(font, "Player One", Cblack);
-	text[13] = TTF_RenderText_Solid(font, "Player Two", Cblack);
+	text[16] = TTF_RenderText_Solid(font, "Player One", Cblack);
+	text[17] = TTF_RenderText_Solid(font, "Player Two", Cblack);
 
 	textRects[10] = newRect(650, 384,0,0); //where to display the towers image
 
 	textRects[11] = newRect(697,389,0,0); //where to display the level text
-	text[14] = TTF_RenderText_Solid(font10, "Level:", Cblack);
+	text[18] = TTF_RenderText_Solid(font10, "Level:", Cblack);
 	textRects[12] = newRect(755,389,0,0); //where to display the level number
-	text[15] = TTF_RenderText_Solid(font10, "1", Cblack);
+	text[19] = TTF_RenderText_Solid(font10, "1", Cblack);
 	
 
 }
