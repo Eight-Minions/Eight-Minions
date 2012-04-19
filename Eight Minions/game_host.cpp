@@ -280,6 +280,7 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 		{
 			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
 			this->towerList.insertWithID(towerID, newTower);
+			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
 			return true;
 		}
@@ -293,6 +294,7 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 		{
 			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
 			this->towerList.insertWithID(towerID, newTower);
+			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
 			return true;
 		}
@@ -309,6 +311,17 @@ bool game_host::removeTower(int towerID)
 	if(towerList.checkForObjectWithID(towerID))
 	{
 		sendMessageToQueue(UpdMess(towerList.getNodeWithID(towerID)->getData()->getPlayer(), TOWER, TOWERDELETE, towerID).getMT());  // Sends back the delete confirmation (aka a delete command for the client);
+		Tmap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = NULL;
+		Nodemap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = false;
+		towerList.deleteNode(towerID);
+		return true;
+	}
+	return false;
+}
+bool game_host::removeTowerLocal(int towerID)
+{
+	if(towerList.checkForObjectWithID(towerID))
+	{
 		Tmap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = NULL;
 		Nodemap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = false;
 		towerList.deleteNode(towerID);
@@ -363,7 +376,7 @@ bool game_host::changeStructure(int structureID, int newType)
 			setY = towerList.getNodeWithID(structureID)->getData()->getY();
 			playerNumber = towerList.getNodeWithID(structureID)->getData()->getPlayer();
 			// Remove the old tower
-			removeTower(structureID);
+			removeTowerLocal(structureID);
 			return placeTowerForced(playerNumber, newType, setX, setY, structureID);
 		}
 	}
