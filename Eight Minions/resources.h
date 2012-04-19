@@ -72,9 +72,9 @@
 #define CREEPTOWERDELAY 20
 #define GETCREEPTYPE 6 // Subtract 5 to get the creep type
 //Effect Towers
-#define SLOWTOWER 11
-#define SPEEDTOWER 12
-#define HEALTOWER 13
+#define SLOWTOWER 12
+#define SPEEDTOWER 13
+#define HEALTOWER 14
 
 //Animation
 #define ANIM_NUM 5

@@ -47,7 +47,7 @@ public:
 	}
  	virtual bool upgrade()
 	{
-		//cout << "Nothing to do for base tower type" << endl;
+		cout << "Nothing to do for base tower type" << endl;
 		return false;
 	}
 	virtual bool upgradeClient()
