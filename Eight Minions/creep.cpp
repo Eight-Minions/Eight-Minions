@@ -107,9 +107,14 @@ double creep::getYd()
 {
 	return y;
 }
-int creep::damage(int d)
+int creep::damage(int d, int a)
 {
-	this->health = this->health - d;
+	int calcD = d;
+	if(this->armor > a)
+	{
+		calcD = calcD - (this->getArmor() - a);
+	}
+	this->health = this->health - calcD;
 	if(health <= 0)
 	{
 		health = 0;

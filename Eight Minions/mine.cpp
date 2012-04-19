@@ -94,7 +94,7 @@ void Mine::doDamage()
 			{
 				if(frontCreep->isAlive() == true)
 				{
-					frontCreep->damage(damageValue);
+					frontCreep->damage(this->damageValue, this->armorPen);
 					manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 				}
 			}

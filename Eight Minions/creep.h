@@ -48,7 +48,7 @@ public:
 	bool move();
 	void recalcPath(vector<vector<bool>> nMap);
 
-	int damage(int damage);
+	int damage(int damage, int armor);
 	void kill();
 
 	void displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM]);

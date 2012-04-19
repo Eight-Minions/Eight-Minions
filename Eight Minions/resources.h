@@ -37,6 +37,7 @@
 #define TOWERTOGGLE 5
 #define TOWERDELETE 6
 #define TOWERSTRATEGY 7
+#define MINEPLACE 8
 
 //Creep type definitions
 #define NUM_CREEPS 6 //the total number of creeps

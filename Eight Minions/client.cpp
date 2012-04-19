@@ -324,7 +324,14 @@ int client::testrun()
 						}
 						else if(mouseClickMode == PLACE_MINE_MODE)
 						{
-							//place a mine
+							if(self->getMoney() >= mineArr[0][4])
+							{
+								mouseClickMode = DEFAULT_MODE;
+								buttons[0]->setClick(false);
+								coord placeC = getClickCoord(event.button.x,event.button.y);
+								//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
+								sendToServerUDP(UpdMess(self->getPnum(),TOWER, MINEPLACE,placeC.x,placeC.y).getMT());
+							}
 						}
 					}
 

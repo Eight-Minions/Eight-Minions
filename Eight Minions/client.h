@@ -5,6 +5,8 @@
 #include "SDL_ttf.h"
 #include "creep.h"
 #include "tower.h"
+#include "obstacle.h"
+#include "mine.h"
 #include "player.h"
 #include "attackAnim.h"
 #include "button.h"
