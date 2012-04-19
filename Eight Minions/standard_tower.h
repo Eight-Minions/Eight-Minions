@@ -12,9 +12,9 @@ public:
 	Standard_Tower(int l, int p, int t, int set_x, int set_y);
 	Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager);
 	void chooseClosestCreep(double radius);
-	//void chooseClosestCreepToPosition(double radius, coord position);
+	void chooseClosestCreepToPosition(double radius, coord position);
 	void chooseNeighbors(double radius);
-	//void chooseNeighborsNearPosition(double radius, coord position);
+	void chooseNeighborsNearPosition(double radius, coord position);
 
 	bool choose();
 	bool doDamage();

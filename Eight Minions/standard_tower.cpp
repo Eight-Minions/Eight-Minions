@@ -46,7 +46,7 @@ void Standard_Tower::chooseClosestCreep(double radius)
 		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
-/*
+
 void Standard_Tower::chooseClosestCreepToPosition(double radius, coord position)
 {
 	double distanceClosest = radius;
@@ -73,7 +73,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, coord position)
 		chosenCreeps.push(closestCreep->getIndex());
 	}
 }
-*/
+
 void Standard_Tower::chooseNeighbors(double radius)
 {
 	cListNode<creep*> *cur = this->manager->getCreepList()->getStart();
@@ -92,7 +92,7 @@ void Standard_Tower::chooseNeighbors(double radius)
 		cur = cur->getNext();
 	}
 }
-/*
+
 void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)
 {
 	cListNode<creep*> *cur = this->manager->getCreepList()->getStart();
@@ -112,7 +112,7 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)
 		cur = cur->getNext();
 	}
 }
-*/
+
 /*
 	choses creeps if the cool down is 0
 	returns true if something was chosen
