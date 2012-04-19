@@ -312,8 +312,11 @@ bool client::upgradeTowerRecieve(int towerID)
 {
 	if(towers.checkForObjectWithID(towerID))
 	{
-		towers.getNodeWithID(towerID)->getData()->upgradeClient();
+		//towers.getNodeWithID(towerID)->getData()->upgradeClient();
+		if(towers.getNodeWithID(towerID)->getData()->getLevel() < 5)
+			towers.getNodeWithID(towerID)->getData()->setLevel(towers.getNodeWithID(towerID)->getData()->getLevel() + 1);
 		char buff[4];
+		SDL_FreeSurface(text[15]);
 		text[15] = TTF_RenderText_Solid(font10, itoa(towers.getNodeWithID(towerID)->getData()->getLevel(),buff,10), Cblack);
 		return true;
 	}

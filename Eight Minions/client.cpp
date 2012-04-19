@@ -169,7 +169,8 @@ int client::testrun()
 				{
 					//event.button.x; //x coordinate of click on the window
 					//event.button.y; //y coordinate of click on the window
-
+	
+					
 					if(buttons[3]->isClicked())
 					{
 						buttons[3]->setClick(false);
@@ -203,6 +204,13 @@ int client::testrun()
 						buttons[7]->setClick(false);
 						//change structure to a fast tower
 						changeTowerTypeSend(curTowerId,FASTTOWER);
+					}
+					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
+					{
+						if(buttons[8]->wasClicked(event.button.x, event.button.y))
+						{
+							
+						}
 					}
 					if(buttons[0]->wasClicked(event.button.x, event.button.y))
 					{
@@ -377,6 +385,7 @@ void client::displayUI()
 		case TITANCREEPTOWER:
 		case FATTYCREEPTOWER:
 			SDL_BlitSurface(text[10], NULL, screen, textRects[8]);
+			buttons[8]->display(screen);
 			break;
 
 		}
@@ -416,7 +425,10 @@ void client::initButtons()
 	buttons[5] = new Button("images/attackTowerButton",738,450,36,36);
 	buttons[6] = new Button("images/spawnTowerButton",738,487,36,36);
 	buttons[7] = new Button("images/fastTowerButton",738,524,36,36);
+	//pause button (for creep towers)
+	buttons[8] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
+
 
 
 }
