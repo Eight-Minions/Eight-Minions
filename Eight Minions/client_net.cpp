@@ -122,11 +122,11 @@ int client::performUpdate(string upd)
 				int xdif = update.getVal(0) - temp->getX();
 				if( xdif < 0)
 					temp->setDir(0);
-				else if(	xdif > 0)
+				else if(xdif > 0)
 					temp->setDir(2);
 				else
 				{
-					int ydif = update.getVal(1);
+					int ydif = update.getVal(1) - temp->getY();
 					if(ydif < 0)
 						temp->setDir(3);
 					else if(ydif > 0)
