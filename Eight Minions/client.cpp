@@ -426,9 +426,9 @@ void client::initButtons()
 	//upgrade button
 	buttons[4] = new Button("images/upgradeButton",754,564,36,36);
 	//change type (for structures)
-	buttons[5] = new Button("images/attackTowerButton",738,450,36,36);
-	buttons[6] = new Button("images/spawnTowerButton",738,487,36,36);
-	buttons[7] = new Button("images/fastTowerButton",738,524,36,36);
+	buttons[5] = new Button("images/attackTowerButton",738,410,36,36);
+	buttons[6] = new Button("images/spawnTowerButton",738,447,36,36);
+	buttons[7] = new Button("images/fastTowerButton",738,484,36,36);
 	//pause button (for creep towers)
 	buttons[8] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
