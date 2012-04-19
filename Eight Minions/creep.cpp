@@ -79,7 +79,6 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		reward = 0;
 		price = 0;
 	}
-
 }
 creep::~creep()
 {
