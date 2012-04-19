@@ -33,6 +33,7 @@ private:
 	int mouseClickMode;
 	coord curSelectedTower;
 	structure *curSelectedTowerPtr;
+	int curTowerId;
 
 	//Surfaces - surfaces are basically loaded images that we can readily blit(display) to the screen
 	SDL_Surface* screen;
@@ -94,7 +95,7 @@ public:
 	bool upgradeTowerSend(int x, int y);
 	bool upgradeTowerRecieve(int towerID);
 
-	bool changeTowerTypeSend(int x, int y, int newType);
+	bool changeTowerTypeSend(int Tid, int newType);
 	bool changeTowerRecieve(int towerID, int newType);
 
 	bool toggelTowerSend(int x, int y);
