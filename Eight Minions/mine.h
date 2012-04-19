@@ -12,12 +12,18 @@ public:
 	Mine(int level, int player, int type, int set_x, int set_y);
 	Mine(int level, int player, int type, int set_x, int set_y, game_host *nManager);
 	~Mine();
+
+	void iterate();
+	bool choose();
+	bool doDamage();
+	bool isOnTop();
+	
+	bool upgrade();
 private:
 	game_host *manager;
 	queue<int> chosenCreeps;
 
 	int cost;
 	int range;
-
 };
 #endif
