@@ -4,7 +4,7 @@
 #include "resources.h"
 #include "standard_tower.h"
 
-class Mine : public Standard_Tower
+class Mine : public structure
 {
 public:
 	Mine();
@@ -14,13 +14,19 @@ public:
 
 	void iterate();
 	bool isOnTop();
-	
+	void choose();
+	void doDamage();
+
 	bool upgrade();
+	int updateCost(int cLevel);
+
+	int getCost();
 private:
 	game_host *manager;
 	queue<int> chosenCreeps;
 
 	int cost;
+	int damageValue;
 	int range;
 };
 #endif
