@@ -20,9 +20,11 @@ public:
 	int updateCost(int uLevel, int uType);
 	int getCost();
 
+	/*
 	bool isPaused();
 	void pause();
 	void unpause();
+	*/
 private:
 	Spawner *cSpawner;
 	game_host *manager;

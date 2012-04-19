@@ -16,6 +16,11 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	paused = false;
 	this->setPassable(true);
 }
+/*
+bool Creep_Tower::isPaused()
+{
+	return paused;
+}
 void Creep_Tower::unpause()
 {
 	paused = false;
@@ -24,6 +29,7 @@ void Creep_Tower::pause()
 {
 	paused = true;
 }
+*/
 void Creep_Tower::iterate()
 {
 	if(!paused)
@@ -122,8 +128,4 @@ int Creep_Tower::updateCost(int uLevel, int uType)
 int Creep_Tower::getCost()
 {
 	return this->cost;
-}
-bool Creep_Tower::isPaused()
-{
-	return paused;
 }
