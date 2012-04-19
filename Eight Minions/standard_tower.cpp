@@ -243,13 +243,22 @@ bool Standard_Tower::upgrade()
 	}
 	return false;
 }
+bool Standard_Tower::upgradeClient()
+{
+	if(getLevel() < 5)
+	{
+		setLevel(getLevel() + 1);
+		return changeType(getType());
+	}
+	return false;
+}
 bool Standard_Tower::changeType(int newType)
 {
 	waiting = false;
 	if(getLevel() >= 1 && getLevel() <= 5)
 	{
 		setType(newType);
-		cost = updateCost(getLevel() - 1, getType());
+		cost = updateCost(getLevel(), getType());
 		if(newType >= NORMTOWER && newType <= MINETOWER)
 		{
 			if(getType() == NORMTOWER)

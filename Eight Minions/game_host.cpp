@@ -282,6 +282,7 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 			this->towerList.insertWithID(towerID, newTower);
 			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
 			return true;
 		}
 		else
@@ -296,6 +297,7 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 			this->towerList.insertWithID(towerID, newTower);
 			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
 			return true;
 		}
 		else 
@@ -303,8 +305,7 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 	}
 	else
 		return false;
-	sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
-	return true;
+	return false;
 }
 bool game_host::removeTower(int towerID)
 {

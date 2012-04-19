@@ -297,7 +297,8 @@ int game_host::performUpdate(string upd)
 		{
 			if(towerList.checkForObjectWithID(update.getId1()) == true)
 			{
-				return towerList.getNodeWithID(update.getId1())->getData()->upgrade();
+				if(towerList.getNodeWithID(update.getId1())->getData()->getType() != STRUCTURE)
+					return towerList.getNodeWithID(update.getId1())->getData()->upgrade();
 			}
 			return 0;
 		}
