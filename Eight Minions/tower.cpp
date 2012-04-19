@@ -57,7 +57,50 @@ void structure::setPassable(bool nPass)
 {
 	passable = nPass;
 }
-
+int structure::calculateCost(int cType)
+{
+	if(cType == NORMTOWER)
+	{
+		return basicArr[0][4];
+	}
+	else if(cType == FASTTOWER)
+	{
+		return fastArr[0][4];
+	}
+	else if(cType == AOETOWER)
+	{
+		return areaOfEffectArr[0][4];
+	}
+	else if(cType == HEAVYTOWER)
+	{
+		return heavyArr[0][4];
+	}
+	else if(cType == NORMCREEPTOWER)
+	{
+		return 40 * normCreepArr[0][4];
+	}
+	else if(cType == FASTCREEPTOWER)
+	{
+		return 40 * fastCreepArr[0][4];
+	}
+	else if(cType == TANKCREEPTOWER)
+	{
+		return 40 * tankCreepArr[0][4];
+	}
+	else if(cType == SWARMCREEPTOWER)
+	{
+		return 40 * swarmCreepArr[0][4];
+	}
+	else if(cType == TITANCREEPTOWER)
+	{
+		return 40 * titanCreepArr[0][4];
+	}
+	else if(cType == FATTYCREEPTOWER)
+	{
+		return 40 * fattyCreepArr[0][4];
+	}
+	return 0;
+}
 // Virtuals
 void structure::iterate()
 {

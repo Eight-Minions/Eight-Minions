@@ -57,7 +57,9 @@ public:
 	void spawnCreep(int playerNumber, int creepType, int creepLevel, coord spawnCoord);
 	void spawnCreep(creep *newCreep);
 	int placeTower(int playerNumber, int towerType, int x, int y);
+	bool placeTowerForced(int playerNumber, int towerType, int x, int y, int towerID);
 	bool removeTower(int towerID);
+	bool changeStructure(int structureID, int newType);
 
 	int sendToClients(string);
 	int sendToClientsUDP(string mess);

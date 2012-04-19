@@ -270,6 +270,40 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 	else
 		return 0;
 }
+
+bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, int towerID)
+{
+	if(towerType >= NORMTOWER && towerType <= MINETOWER)
+	{
+		Standard_Tower *newTower = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+		{
+			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+			this->towerList.insertWithID(towerID, newTower);
+			Tmap[x][y] = newTower;
+			return true;
+		}
+		else
+			return false;
+	}
+	else if(towerType >= NORMCREEPTOWER && towerType <= FATTYCREEPTOWER)
+	{
+		Creep_Tower *newTower = new Creep_Tower(CREEPTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+		{
+			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+			this->towerList.insertWithID(towerID, newTower);
+			Tmap[x][y] = newTower;
+			return true;
+		}
+		else 
+			return false;
+	}
+	else
+		return false;
+	sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+	return true;
+}
 bool game_host::removeTower(int towerID)
 {
 	if(towerList.checkForObjectWithID(towerID))
@@ -314,4 +348,24 @@ bool game_host::isEmptyLocation(int xLoc, int yLoc)
 	if(Tmap[xLoc][yLoc] != NULL)
 		return false;
 	return true;
+}
+bool game_host::changeStructure(int structureID, int newType)
+{
+	int setX = 0;
+	int setY = 0;
+	int playerNumber = 0;
+	if(towerList.checkForObjectWithID(structureID))
+	{
+		if(towerList.getNodeWithID(structureID)->getData()->getType() == STRUCTURE)
+		{
+			// Set values
+			setX = towerList.getNodeWithID(structureID)->getData()->getX();
+			setY = towerList.getNodeWithID(structureID)->getData()->getY();
+			playerNumber = towerList.getNodeWithID(structureID)->getData()->getPlayer();
+			// Remove the old tower
+			removeTower(structureID);
+			return placeTowerForced(playerNumber, newType, setX, setY, structureID);
+		}
+	}
+	return false;
 }
