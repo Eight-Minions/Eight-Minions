@@ -207,7 +207,7 @@ bool Standard_Tower::doDamage()
 				{
 					if(frontCreep->isAlive() == true)
 					{
-						frontCreep->damage(damageValue);
+						frontCreep->damage(this->damageValue, this->armorPenetration);
 						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 						if(frontCreep->isAlive() == false)
 						{
