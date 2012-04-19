@@ -297,7 +297,8 @@ int game_host::performUpdate(string upd)
 		{
 			if(towerList.checkForObjectWithID(update.getId1()) == true)
 			{
-				return towerList.getNodeWithID(update.getId1())->getData()->upgrade();
+				if(towerList.getNodeWithID(update.getId1())->getData()->getType() != STRUCTURE)
+					return towerList.getNodeWithID(update.getId1())->getData()->upgrade();
 			}
 			return 0;
 		}
@@ -306,7 +307,11 @@ int game_host::performUpdate(string upd)
 		{
 			if(towerList.checkForObjectWithID(update.getId1()) == true)
 			{
-				return towerList.getNodeWithID(update.getId1())->getData()->changeType(update.getVal(2));
+				if(towerList.getNodeWithID(update.getId1())->getData()->getType() == STRUCTURE)
+				{
+					return changeStructure(update.getId1(), update.getVal(1));
+				}
+				return towerList.getNodeWithID(update.getId1())->getData()->changeType(update.getVal(1));
 			}
 			return 0;
 		}

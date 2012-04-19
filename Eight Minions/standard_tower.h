@@ -21,6 +21,7 @@ public:
 	void iterate();
 
 	bool upgrade();
+	bool upgradeClient();
 	bool changeType(int newType);
 	int getID();
 	int getCost();

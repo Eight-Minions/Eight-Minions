@@ -59,6 +59,7 @@ public:
 	int placeTower(int playerNumber, int towerType, int x, int y);
 	bool placeTowerForced(int playerNumber, int towerType, int x, int y, int towerID);
 	bool removeTower(int towerID);
+	bool removeTowerLocal(int towerID);
 	bool changeStructure(int structureID, int newType);
 
 	int sendToClients(string);
