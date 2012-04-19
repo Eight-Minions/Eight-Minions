@@ -9,6 +9,8 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	level = l;
 	type = t;
 	paused = false;
+	this->setX(set_x);
+	this->setY(set_y);
 	this->passable = false;
 	r = new SDL_Rect;
 	sellReward = 1;
