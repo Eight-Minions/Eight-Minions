@@ -207,7 +207,7 @@ int client::testrun()
 					}
 					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
 					{
-						if(buttons[8]->wasClicked(event.button.x, event.button.y))
+						if(buttons[8]->wasClickedState(event.button.x, event.button.y))
 						{
 							toggleTowerSend(curTowerId);
 						}

@@ -18,6 +18,6 @@ public:
 	bool wasClicked(int clickX, int clickY);
 	bool isClicked();
 	void setClick(bool nPress);
-
+	bool wasClickedState( int clickX, int clickY);
 };
 #endif
