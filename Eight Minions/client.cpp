@@ -154,6 +154,12 @@ int client::testrun()
 						buttons[3]->wasClicked(event.button.x, event.button.y);
 					if(curSelectedTowerPtr->getType() != STRUCTURE)
 						buttons[4]->wasClicked(event.button.x, event.button.y);
+					if(curSelectedTowerPtr->getType() == STRUCTURE)
+					{
+						buttons[5]->wasClicked(event.button.x, event.button.y);
+						buttons[6]->wasClicked(event.button.x, event.button.y);
+						buttons[7]->wasClicked(event.button.x, event.button.y);
+					}
 				}
 			}
 			if(event.type == SDL_MOUSEBUTTONUP)
@@ -178,6 +184,24 @@ int client::testrun()
 						//upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
 
 						
+					}
+					if (buttons[5]->isClicked())
+					{
+						buttons[5]->setClick(false);
+						//change structure to a basic tower
+						changeTowerTypeSend(curTowerId,NORMTOWER);
+					}
+					if (buttons[6]->isClicked())
+					{
+						buttons[6]->setClick(false);
+						//change structure to a spawner tower
+						changeTowerTypeSend(curTowerId,NORMCREEPTOWER);
+					}
+					if (buttons[7]->isClicked())
+					{
+						buttons[7]->setClick(false);
+						//change structure to a fast tower
+						changeTowerTypeSend(curTowerId,FASTTOWER);
 					}
 					if(buttons[0]->wasClicked(event.button.x, event.button.y))
 					{
@@ -338,6 +362,9 @@ void client::displayUI()
 		{
 		case STRUCTURE:
 			SDL_BlitSurface(text[8], NULL, screen, textRects[8]);
+			buttons[5]->display(screen);
+			buttons[6]->display(screen);
+			buttons[7]->display(screen);
 			break;
 		case NORMTOWER:
 			SDL_BlitSurface(text[9], NULL, screen,  textRects[8]);
@@ -382,10 +409,12 @@ void client::initButtons()
 	buttons[1] = new Button("images/mineButton",721,57,71,92);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
-	//upgrade buttons
+	//upgrade button
 	buttons[4] = new Button("images/upgradeButton",754,564,36,36);
-	
-
+	//change type (for structures)
+	buttons[5] = new Button("images/attackTowerButton",738,450,36,36);
+	buttons[6] = new Button("images/spawnTowerButton",738,487,36,36);
+	buttons[7] = new Button("images/fastTowerButton",738,524,36,36);
 	//change type (for creep towers)
 
 
@@ -439,123 +468,13 @@ bool client::boardWasClicked( int x, int y)
 		return false;
 }
 
-bool client::removeTowerSend(int x, int y) // Accepts Grid X and Grid Y
-{
-	cListNode<structure*> *curTower = towers.getStart();
-	while (curTower != NULL)
-	{
-		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
-		{
-			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERDELETE, curTower->getIndex()).getMT());
-			return true;  // Sent message
-		}
-		curTower = curTower->getNext();
-	}	
-	return false; // not found
-}
-bool client::removeTowerRecieve(int towerID)
-{
-	if(towers.checkForObjectWithID(towerID))
-	{	
-		towers.deleteNode(towerID);
-		return true;
-	}
-	return false;
-}
-bool client::upgradeTowerSend(int x, int y)
-{
-	cListNode<structure*> *curTower = towers.getStart();
-	while (curTower != NULL)
-	{
-		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
-		{
-			if(curTower->getData()->getLevel() < 5)
-			{
-				if(this->self->getMoney() >= curTower->getData()->getCost())
-				{// I know this is probably wrong
-					sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERDELETE, curTower->getIndex()).getMT());
-					return true;
-				}
-			}
-			return false;
-		}
-		curTower = curTower->getNext();
-	}	
-	return false;
-}
-bool client::upgradeTowerRecieve(int towerID)
-{
-	if(towers.checkForObjectWithID(towerID))
-	{
-		towers.getNodeWithID(towerID)->getData()->upgradeClient();
-		return true;
-	}
-	return false;
-}
-bool client::changeTowerTypeSend(int x, int y, int newType)
-{
-	cListNode<structure*> *curTower = towers.getStart();
-	while (curTower != NULL)
-	{
-		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
-		{
-			if(curTower->getData()->getType() != newType)
-			{
-				// Check for money here?
-				//Or just do on server side?
-				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, curTower->getIndex(), newType).getMT());
-			}
-			return false;
-		}
-		curTower = curTower->getNext();
-	}
-	return false;
-}
-bool client::changeTowerRecieve(int towerID, int newType)
-{
-	if(towers.checkForObjectWithID(towerID))
-	{
-		towers.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
-		return true;
-	}
-	return false;
-}
-bool client::toggelTowerSend(int x, int y)
-{
-	cListNode<structure*> *curTower = towers.getStart();
-	while (curTower != NULL)
-	{
-		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
-		{
-			if(curTower->getData()->isPaused())
-				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, false).getMT());
-			else
-				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, true).getMT());
-			return true;
-		}
-		curTower = curTower->getNext();
-	}
-	return false;
-}
-bool client::toggleTowerRecieve(int towerID, int newState)
-{
-	if(towers.checkForObjectWithID(towerID))
-	{
-		if(newState == true)
-			towers.getNodeWithID(towerID)->getData()->pause();
-		else
-			towers.getNodeWithID(towerID)->getData()->unpause();
-		return true;
-	}
-	return false;
-}
-
 bool client::towerExistsAt( coord curSelectedTower )
 {
 	for(cListNode<structure*> *cur = towers.getStart(); cur != NULL; cur = cur->getNext())
 	{
 		if(cur->getData()->getX() == curSelectedTower.x && cur->getData()->getY() == curSelectedTower.y)
 		{
+			curTowerId = cur->getIndex();
 			curSelectedTowerPtr = cur->getData();
 			return true;
 		}
