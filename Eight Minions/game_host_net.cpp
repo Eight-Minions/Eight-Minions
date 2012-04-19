@@ -292,6 +292,15 @@ int game_host::performUpdate(string upd)
 			}
 			return 0;
 		}	
+		else if(subType == MINEPLACE)
+		{
+			if(isEmptyLocation(update.getVal(1), update.getVal(2)))
+			{
+				placeTower(update.getPlayer(), MINETOWER, update.getVal(1), update.getVal(2));
+				return 1;
+			}
+			return 0;
+		}
 		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
 		else if(subType == TOWERUPGRADE)
 		{

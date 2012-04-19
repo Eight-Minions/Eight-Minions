@@ -1,4 +1,4 @@
-#ifndef OBSTACLE_H_H
+#ifndef OBSTACLE_H
 #define OBSTACLE_H
 
 #include "resources.h"

@@ -324,8 +324,6 @@ bool client::upgradeTowerRecieve(int towerID)
 }
 bool client::changeTowerTypeSend( int Tid, int newType )
 {
-	// Check for money here?
-	//Or just do on server side?
 	sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, Tid, newType).getMT());
 	return true;
 }
