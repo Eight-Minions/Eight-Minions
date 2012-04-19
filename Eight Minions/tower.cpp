@@ -13,6 +13,7 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	this->setY(set_y);
 	this->passable = false;
 	r = new SDL_Rect;
+	sellReward = 1;
 }
 int structure::getLevel()
 {
@@ -154,4 +155,12 @@ void structure::pause()
 void structure::unpause()
 {
 	paused = false;
+}
+void structure::setSellReward(int newReward)
+{
+	sellReward = newReward;
+}
+int structure::getSellReward()
+{
+	return sellReward;
 }
