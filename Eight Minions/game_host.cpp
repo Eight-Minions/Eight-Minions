@@ -228,11 +228,27 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 			else
 				return 0;
 		}
-		else if(towerType >= NORMTOWER && towerType <= MINETOWER)
+		else if(towerType >= NORMTOWER && towerType <= HEAVYTOWER)
 		{
 			if(Tmap[x][y] == NULL)
 			{
 				Standard_Tower *newTower = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+				if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+				{
+					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+					newTowerID = this->towerList.insertInOrder(newTower);
+					Tmap[x][y] = newTower;
+				}
+				else
+					return 0;
+			}
+			else return 0;
+		}
+		else if(towerType == MINETOWER)
+		{
+			if(Tmap[x][y] == NULL)
+			{
+				Mine *newTower = new Mine(MINETOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
 				if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
 				{
 					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
@@ -264,7 +280,6 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 		}
 		else
 			return 0;
-		//Nodemap[x][y] = true;
 		updatePaths(x,y);
 		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, newTowerID, x, y, towerType).getMT());
 		sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
@@ -276,9 +291,24 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 
 bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, int towerID)
 {
-	if(towerType >= NORMTOWER && towerType <= MINETOWER)
+	if(towerType >= NORMTOWER && towerType <= HEAVYTOWER)
 	{
 		Standard_Tower *newTower = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+		{
+			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+			this->towerList.insertWithID(towerID, newTower);
+			Nodemap[newTower->getX()][newTower->getY()] = true;
+			Tmap[x][y] = newTower;
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+			return true;
+		}
+		else
+			return false;
+	}
+	else if(towerType == MINETOWER)
+	{
+		Mine *newTower = new Mine(MINETOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
 		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
 		{
 			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());

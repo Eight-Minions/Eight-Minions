@@ -12,8 +12,6 @@ private:
 	int sellReward; 
 	SDL_Rect *r; 
 	bool passable;
-	bool paused;
-
 	double x;
 	double y;
 public:
@@ -40,44 +38,15 @@ public:
 
 	bool getPassable();
 	void setPassable(bool nPass);
-	bool isPaused();
-	void pause();
-	void unpause();
 
-	virtual void iterate()
-	{
-		cout << "Nothing to do for base tower type" << endl;
-	}
-	/*
-	virtual void pause()
-	{
-		cout << "Nothing to do for base tower type" << endl;
-	}
- 	virtual void unpause()
-	{
-		cout << "Nothing to do for base tower type" << endl;
-	}
-	*/
- 	virtual bool upgrade()
-	{
-		cout << "Nothing to do for base tower type" << endl;
-		return false;
-	}
-	virtual bool upgradeClient()
-	{
-		cout << "Nothing to do for base tower type" << endl;
-		return false;
-	}
-	virtual bool changeType(int newType)
-	{
-		cout << "Nothing to do for base tower type" << endl;
-		return false;
-	}
-	virtual bool changeTypeClient(int newType)
-	{
-		cout << "Nothing to do for base tower type" << endl;
-		return false;
-	}
+	virtual void iterate();
+	virtual bool isPaused();
+	virtual void pause();
+ 	virtual void unpause();
+ 	virtual bool upgrade();
+	virtual bool upgradeClient();
+	virtual bool changeType(int newType);
+	virtual bool changeTypeClient(int newType);
 
 	int setLevel(int newLevel);
 

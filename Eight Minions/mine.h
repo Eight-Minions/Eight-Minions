@@ -19,6 +19,7 @@ public:
 
 	bool upgrade();
 	int updateCost(int cLevel);
+	void updateStats(int cLevel);
 
 	int getCost();
 private:
@@ -27,6 +28,7 @@ private:
 
 	int cost;
 	int damageValue;
+	int armorPen;
 	int range;
 };
 #endif

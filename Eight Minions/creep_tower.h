@@ -21,11 +21,11 @@ public:
 	int getCost();
 	void updateSell();
 
-	/*
+	
 	bool isPaused();
 	void pause();
 	void unpause();
-	*/
+	
 private:
 	Spawner *cSpawner;
 	game_host *manager;
@@ -36,7 +36,7 @@ private:
 	int delay;
 	int maxQueue;
 
-	//bool paused;
+	bool paused;
 };
 
 #endif
