@@ -13,7 +13,7 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	cost = updateCost(level, type);
 	cSpawner = new Spawner(nManager, player, true, NORM, 1, gC(this->getX(), this->getY()));
 	cSpawner->setDelay(normCreepArr[CREEPTOWERSTARTLEVEL][5] * MAX_FPS + 30);
-	paused = false;
+	//paused = false;
 	this->setPassable(true);
 }
 /*
@@ -32,7 +32,7 @@ void Creep_Tower::pause()
 */
 void Creep_Tower::iterate()
 {
-	if(!paused)
+	if(!isPaused())
 	{
 		cSpawner->iterate();
 	}
