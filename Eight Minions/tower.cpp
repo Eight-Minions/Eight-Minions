@@ -17,6 +17,7 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 }
 structure::~structure()
 {
+	delete r;
 }
 int structure::getX(){
 	return (int)floor(this->x);

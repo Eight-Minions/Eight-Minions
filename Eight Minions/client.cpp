@@ -78,10 +78,47 @@ void client::cleanup()
 
 	SDLNet_UDP_Close(UDPsock);
 
+	for(int i = 0; i < NUM_TOWERS; i++)
+	{
+		if(towerImages[i] != NULL)
+			SDL_FreeSurface(towerImages[i]);
+	}
+
+	for(int i = 0; i < NUM_CREEPS; i++)
+	{
+		if(creepImages[i] != NULL)
+			SDL_FreeSurface(creepImages[i]);
+	}
+
+	for(int i = 0; i < TEXT_NUM; i++)
+		if(text[i] != NULL)
+			SDL_FreeSurface(text[i]);
+
+	if(attackImage != NULL)
+		SDL_FreeSurface(attackImage);
+
+	creeps.~cList();
+	towers.~cList();
+
+	for(int i = 0; i < attacks.size(); i++)
+	{
+		if(attacks[i] != NULL)
+			delete attacks[i];
+	}
+
+	delete self;
+
+	SDL_free(font);
+	SDL_free(font10);
+
 	// Close our server socket, cleanup SDL_net and finish!
 	SDLNet_TCP_Close(sd);
+	
+	delete ip;
 
 	SDLNet_Quit();
+
+	SDL_free(screen);
 	SDL_free(background);
 	SDL_Quit();
 }
