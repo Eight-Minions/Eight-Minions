@@ -311,9 +311,12 @@ bool game_host::removeTower(int towerID)
 {
 	if(towerList.checkForObjectWithID(towerID))
 	{
-		sendMessageToQueue(UpdMess(towerList.getNodeWithID(towerID)->getData()->getPlayer(), TOWER, TOWERDELETE, towerID).getMT());  // Sends back the delete confirmation (aka a delete command for the client);
+		int remPlayer = towerList.getNodeWithID(towerID)->getData()->getPlayer();
+		sendMessageToQueue(UpdMess(remPlayer, TOWER, TOWERDELETE, towerID).getMT());  // Sends back the delete confirmation (aka a delete command for the client);
 		Tmap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = NULL;
 		Nodemap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = false;
+		this->getPlayer(remPlayer)->addMoney(towerList.getNodeWithID(towerID)->getData()->getSellReward());
+		sendMessageToQueue(UpdMess(remPlayer, PLAYERUPDATE, this->getPlayer(remPlayer)->getHealth(), this->getPlayer(remPlayer)->getMoney()).getMT());
 		towerList.deleteNode(towerID);
 		return true;
 	}
