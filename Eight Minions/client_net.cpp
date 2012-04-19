@@ -340,11 +340,14 @@ bool client::changeTowerRecieve(int towerID, int newType)
 }
 bool client::toggleTowerSend(int Tid)
 {
-	if(towers.getNodeWithID(Tid)->getData()->isPaused())
-		sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, false).getMT());
-	else
-		sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, true).getMT());
-	return true;
+	if(towers.getNodeWithID(Tid)->getData()->getType() >= NORMCREEPTOWER && towers.getNodeWithID(Tid)->getData()->getType() <= FATTYCREEPTOWER)
+	{
+		if(towers.getNodeWithID(Tid)->getData()->isPaused())
+			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, Tid, false).getMT());
+		else
+			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, Tid, true).getMT());
+		return true;
+	}
 }
 bool client::toggleTowerRecieve(int towerID, int newState)
 {

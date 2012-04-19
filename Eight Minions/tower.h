@@ -11,6 +11,7 @@ private:
 	int cost;
 	SDL_Rect *r; 
 	bool passable;
+	bool paused;
 public:
 	structure();
 	structure(int level, int player, int type, int x, int y);
@@ -26,17 +27,15 @@ public:
 
 	bool getPassable();
 	void setPassable(bool nPass);
+	bool isPaused();
+	void pause();
+	void unpause();
 
 	virtual void iterate()
 	{
 		cout << "Nothing to do for base tower type" << endl;
 	}
-	virtual bool isPaused()
-	{
-		//this function likes other functions of the same sex.
-		cout << "Nothing to do for base tower type" << endl;
-		return false;
-	}
+	/*
 	virtual void pause()
 	{
 		cout << "Nothing to do for base tower type" << endl;
@@ -45,6 +44,7 @@ public:
 	{
 		cout << "Nothing to do for base tower type" << endl;
 	}
+	*/
  	virtual bool upgrade()
 	{
 		cout << "Nothing to do for base tower type" << endl;

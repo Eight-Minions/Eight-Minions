@@ -326,6 +326,7 @@ int game_host::performUpdate(string upd)
 		{
 			if(towerList.checkForObjectWithID(update.getId1()))
 			{
+				int towerTypeRec = towerList.getNodeWithID(update.getId1())->getData()->getType();
 				if(towerList.getNodeWithID(update.getId1())->getData()->getType() >= NORMCREEPTOWER && towerList.getNodeWithID(update.getId1())->getData()->getType() <= FATTYCREEPTOWER)
 				{
 					if(update.getVal(1) == 1)
