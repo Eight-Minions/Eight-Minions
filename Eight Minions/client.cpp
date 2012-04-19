@@ -59,6 +59,8 @@ void client::loadFiles()
 	towerImages[FASTTOWER] = LoadImageCK("images/fastTower.png");
 	towerImages[AOETOWER] = LoadImageCK("images/AOEtower.png");
 	towerImages[HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
+	towerImages[MINETOWER] = LoadImageCK("images/mineTower.png");
+
 	attackImage = LoadImageCK("images/testAttack.png");
 
 	for(int i = 0; i < 4; i++)
@@ -161,6 +163,7 @@ int client::testrun()
 						buttons[6]->wasClicked(event.button.x, event.button.y);
 						buttons[7]->wasClicked(event.button.x, event.button.y);
 						buttons[8]->wasClicked(event.button.x, event.button.y);
+						buttons[9]->wasClicked(event.button.x, event.button.y);
 					}
 				}
 			}
@@ -213,6 +216,13 @@ int client::testrun()
 						buttons[8]->setClick(false);
 						//change structure to an AOE tower
 						changeTowerTypeSend(curTowerId,AOETOWER);
+						mouseClickMode = DEFAULT_MODE;
+					}
+					if (buttons[9]->isClicked())
+					{
+						buttons[9]->setClick(false);
+						//change structure to an AOE tower
+						changeTowerTypeSend(curTowerId,HEAVYTOWER);
 						mouseClickMode = DEFAULT_MODE;
 					}
 					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
