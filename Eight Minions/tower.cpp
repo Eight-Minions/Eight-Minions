@@ -141,3 +141,16 @@ bool structure::changeTypeClient(int newType)
 	return false;
 }*/
 //End Virtuals
+
+bool structure::isPaused()
+{
+	return paused;
+}
+void structure::pause()
+{
+	paused = true;
+}
+void structure::unpause()
+{
+	paused = false;
+}
