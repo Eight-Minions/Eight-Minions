@@ -8,7 +8,6 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	player = p;
 	level = l;
 	type = t;
-	paused = false;
 	this->setX(set_x);
 	this->setY(set_y);
 	this->passable = false;
@@ -125,7 +124,7 @@ int structure::calculateCost(int cType)
 	return 0;
 }
 // Virtuals
-/*void structure::iterate()
+void structure::iterate()
 {
 	//cout << "Nothing to do for base tower type" << endl;
 }
@@ -135,11 +134,11 @@ bool structure::isPaused()
 	//cout << "Nothing to do for base tower type" << endl;
 	return false;
 }
-/*virtual void structure::pause()
+void structure::pause()
 {
 	cout << "Nothing to do for base tower type" << endl;
 }
-virtual void structure::unpause()
+void structure::unpause()
 {
 	cout << "Nothing to do for base tower type" << endl;
 }
@@ -162,21 +161,8 @@ bool structure::changeTypeClient(int newType)
 {
 	//cout << "Nothing to do for base tower type" << endl;
 	return false;
-}*/
+}
 //End Virtuals
-
-bool structure::isPaused()
-{
-	return paused;
-}
-void structure::pause()
-{
-	paused = true;
-}
-void structure::unpause()
-{
-	paused = false;
-}
 void structure::setSellReward(int newReward)
 {
 	sellReward = newReward;

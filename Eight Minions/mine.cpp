@@ -6,11 +6,17 @@ Mine::Mine() : structure()
 Mine::Mine(int level, int player, int type, int set_x, int set_y) : structure(level, player, type, set_x, set_y)
 {
 	cost = updateCost(level);
+	updateStats(level - 1);
+	this->setPassable(true);
+	this->setSellReward(0);
 }
 Mine::Mine(int level, int player, int type, int set_x, int set_y, game_host *nManager) : structure(level, player, type, set_x, set_y)
 {
 	manager = nManager;
 	cost = updateCost(level);
+	updateStats(level - 1);
+	this->setPassable(true);
+	this->setSellReward(0);
 }
 Mine::~Mine()
 {
@@ -48,6 +54,7 @@ bool Mine::upgrade()
 		{
 			this->setLevel(this->getLevel() + 1);
 			cost = updateCost(this->getLevel());
+			updateStats(this->getLevel() - 1);
 			return true;
 		}
 	}
@@ -89,16 +96,6 @@ void Mine::doDamage()
 				{
 					frontCreep->damage(damageValue);
 					manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
-					if(frontCreep->isAlive() == false)
-					{
-						int reward = frontCreep->getReward();
-						int curMoney = manager->getPlayer(this->getPlayer())->getMoney();
-						manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
-						// Update money value for player based on reward for killing the creep
-						int newMony = this->manager->getPlayer(this->getPlayer())->getMoney();
-						manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
-
-					}
 				}
 			}
 		}
@@ -116,4 +113,19 @@ int Mine::updateCost(int cLevel)
 		return mineArr[cLevel][4];
 	}
 	return 0;
+}
+void Mine::updateStats(int cLevel)
+{
+	if(cLevel >= 0 && cLevel <= 4)
+	{
+		damageValue = mineArr[cLevel][0];
+		armorPen = mineArr[cLevel][1];
+		range = mineArr[cLevel][2];
+	}
+	else
+	{
+		damageValue = 0;
+		armorPen = 0;
+		range = 0;
+	}
 }

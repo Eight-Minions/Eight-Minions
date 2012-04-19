@@ -58,7 +58,9 @@
 #define FASTTOWER 2
 #define AOETOWER 3
 #define HEAVYTOWER 4
+//*******Mine Towers ******
 #define MINETOWER 5
+#define MINETOWERSTARTLEVEL 1
 //
 #define STANDARDTOWERSTARTLEVEL 1
 //*******Spawners and Spawner Towers*******
