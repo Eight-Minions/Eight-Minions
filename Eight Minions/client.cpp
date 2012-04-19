@@ -205,10 +205,11 @@ int client::testrun()
 						//change structure to a fast tower
 						changeTowerTypeSend(curTowerId,FASTTOWER);
 					}
-					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
+					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
 					{
 						if(buttons[8]->wasClickedState(event.button.x, event.button.y))
 						{
+							buttons[8]->wasClicked(event.button.x, event.button.y);
 							toggleTowerSend(curTowerId);
 						}
 					}
@@ -387,7 +388,8 @@ void client::displayUI()
 		case TITANCREEPTOWER:
 		case FATTYCREEPTOWER:
 			SDL_BlitSurface(text[10], NULL, screen, textRects[8]);
-			buttons[8]->display(screen);
+			if(self->getPnum() == curSelectedTowerPtr->getPlayer())
+				buttons[8]->display(screen);
 			break;
 
 		}
