@@ -9,6 +9,7 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : stru
 	attackTick = attackDuration;
 	coolDownTick = coolDownDuration;
 	this->setPassable(false);
+	updateSell();
 }
 Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : structure(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
@@ -17,6 +18,7 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_h
 	attackTick = attackDuration;
 	coolDownTick = coolDownDuration;
 	this->setPassable(false);
+	updateSell();
 }
 void Standard_Tower::chooseClosestCreep(double radius)
 {
@@ -241,6 +243,7 @@ bool Standard_Tower::upgrade()
 		{
 			manager->getPlayer(this->getPlayer())->spendMoney(cost);
 			setLevel(getLevel() + 1);
+			updateSell();
 			return changeType(getType()); // Doesn't actually change the type, just updates the values
 		}
 	}
@@ -251,6 +254,7 @@ bool Standard_Tower::upgradeClient()
 	if(getLevel() < 5)
 	{
 		setLevel(getLevel() + 1);
+		updateSell();
 		return changeType(getType());
 	}
 	return false;
@@ -262,6 +266,7 @@ bool Standard_Tower::changeType(int newType)
 	{
 		setType(newType);
 		cost = updateCost(getLevel(), getType());
+		updateSell();
 		if(newType >= NORMTOWER && newType <= MINETOWER)
 		{
 			if(getType() == NORMTOWER)
@@ -363,4 +368,13 @@ int Standard_Tower::updateCost(int costLevel, int costType)
 		}
 	}
 	return 0;
+}
+void Standard_Tower::updateSell()
+{
+	int newSell = 1;
+	for(int i = 0; i < getLevel() - 1; i++)
+	{
+		newSell += updateCost(i, getType());
+	}
+	this->setSellReward(((int)(newSell / 2)));
 }

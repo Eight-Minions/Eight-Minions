@@ -6,6 +6,7 @@ Creep_Tower::Creep_Tower() : structure()
 Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y) : structure (level, player, type, new_x, new_y)
 {	
 	this->setPassable(true);
+	updateSell();
 }
 Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, game_host *nManager) : structure (level, player, type, new_x, new_y)
 {
@@ -13,7 +14,7 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	cost = updateCost(level, type);
 	cSpawner = new Spawner(nManager, player, true, NORM, 1, gC(this->getX(), this->getY()));
 	cSpawner->setDelay(normCreepArr[CREEPTOWERSTARTLEVEL][5] * MAX_FPS + 30);
-	//paused = false;
+	updateSell();
 	this->setPassable(true);
 }
 /*
@@ -49,6 +50,7 @@ bool Creep_Tower::upgrade()
 			cSpawner->setDelay((delay)*((11-this->getLevel())/10));
 			cost = updateCost(this->getLevel()+1, this->getType());
 			this->setLevel(this->getLevel() + 1);
+			updateSell();
 			return true;
 		}
 	}
@@ -60,6 +62,7 @@ bool Creep_Tower::upgradeClient()
 	{
 		cost = updateCost(this->getLevel()+1, this->getType());
 		this->setLevel(this->getLevel() + 1);
+		updateSell();
 		return true;
 	}
 	return false;
@@ -75,6 +78,7 @@ bool Creep_Tower::changeType(int newType)
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel(),gC(this->getX(), this->getY()));
 			cost = updateCost(this->getLevel()+1, newType);
 			this->setType(newType);
+			updateSell();
 			return true;
 		}
 	}
@@ -86,6 +90,7 @@ bool Creep_Tower::changeTypeClient(int newType)
 	{
 		cost = updateCost(this->getLevel()+1, newType);
 		this->setType(newType);
+		updateSell();
 		return true;
 	}
 	return false;
@@ -128,4 +133,13 @@ int Creep_Tower::updateCost(int uLevel, int uType)
 int Creep_Tower::getCost()
 {
 	return this->cost;
+}
+void Creep_Tower::updateSell()
+{
+	int newSell = 1;
+	for(int i = 0; i < getLevel() - 1; i++)
+	{
+		newSell += updateCost(i, getType());
+	}
+	this->setSellReward(((int)(newSell / 2)));
 }

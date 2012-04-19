@@ -19,6 +19,7 @@ public:
 	bool changeTypeClient(int newType);
 	int updateCost(int uLevel, int uType);
 	int getCost();
+	void updateSell();
 
 	/*
 	bool isPaused();

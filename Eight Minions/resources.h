@@ -36,6 +36,7 @@
 #define TOWERCHANGE 4
 #define TOWERTOGGLE 5
 #define TOWERDELETE 6
+#define TOWERSTRATEGY 7
 
 //Creep type definitions
 #define NUM_CREEPS 6 //the total number of creeps
@@ -52,7 +53,7 @@
 #define STRUCTURE 0
 //
 #define STRUCTURESTARTLEVEL 1
-//Attack Towers
+//*******Attack Towers*******
 #define NORMTOWER 1
 #define FASTTOWER 2
 #define AOETOWER 3
@@ -60,7 +61,9 @@
 #define MINETOWER 5
 //
 #define STANDARDTOWERSTARTLEVEL 1
-//Spawner Towers  
+//*******Spawners and Spawner Towers*******
+const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
+//Spawn Tower Definitions
 #define NORMCREEPTOWER 6
 #define FASTCREEPTOWER 7
 #define TANKCREEPTOWER 8
@@ -71,18 +74,21 @@
 #define CREEPTOWERSTARTLEVEL 1
 #define CREEPTOWERDELAY 20
 #define GETCREEPTYPE 6 // Subtract 5 to get the creep type
-//Effect Towers
+//*******Effect Towers*******
 #define SLOWTOWER 12
 #define SPEEDTOWER 13
 #define HEALTOWER 14
 
+//*******Obstacles*******
+#define OBSTACLE 20
+
 //Animation
 #define ANIM_NUM 5
 
+#define MAX_FPS 20
+
 #define MAXCREEPLEVEL 5
 #define MAXCREEPVARIABLES 6
-
-#define MAX_FPS 20
 
 //Creep types
 // Health Armor Speed Reward Price Spawn
@@ -92,10 +98,6 @@ const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,1,1,2,4,3},		{5,
 const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,2,1},		{3,0,3,1,3,1},		{5,1,4,2,4,1},		{8,1,4,2,5,1},		{10,2,5,3,6,1}};
 const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,3,3},		{8,1,1,5,7,3},		{11,2,2,10,15,3},	{15,3,2,15,21,3},	{25,4,3,20,27,3}};
 const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{20,3,2,15,25,5},	{35,4,3,25,50,5},	{50,5,3,50,100,5},	{100,7,4,100,250,5}};
-
-const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
-//Spawn Tower Definitions
-
 
 //Map Constants
 #define MAPSIZE_X 26

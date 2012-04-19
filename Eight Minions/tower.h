@@ -9,6 +9,7 @@ private:
 	int level;
 	int type;
 	int cost;
+	int sellReward; 
 	SDL_Rect *r; 
 	bool passable;
 	bool paused;
@@ -22,6 +23,8 @@ public:
 	int setType(int newType);
 	int getPlayer();
 	int getCost();
+	void setSellReward(int newReward);
+	int getSellReward();
 
 	int calculateCost(int cType);
 
