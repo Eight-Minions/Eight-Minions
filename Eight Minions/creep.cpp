@@ -42,6 +42,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		speed =		fastCreepArr[level-1][2];
 		reward =	fastCreepArr[level-1][3];
 		price =		fastCreepArr[level-1][4];
+		animCount = 4;
 
 	}
 	else if(type == SWARM)

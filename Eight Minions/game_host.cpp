@@ -30,7 +30,7 @@ int game_host::init()
 	pathTestCreep->p.setStart(Bases[0]);
 
 	p1Spawner->addCreepType(SWARM);
-	p2Spawner->addCreepType(FATTY);
+	p2Spawner->addCreepType(FAST);
 	return 0;
 }
 

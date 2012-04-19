@@ -42,12 +42,12 @@ int client::init()
 void client::loadFiles()
 {
 	//loading files here
-	this->background = IMG_Load("images/Minions_UI_ShittyGrid.png");
+	this->background = IMG_Load("images/Minions_UI_ModGrid.png");
 	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
 	font10 = TTF_OpenFont("pirulen.ttf",10 );
 
 	creepImages[NORM] = LoadImageCK("norm.png");
-	creepImages[FAST] = LoadImageCK("fast.png");
+	creepImages[FAST] = LoadImageCK("images/Minions_Creeps_Fast_Top_Sprite.png");
 	creepImages[SWARM] = LoadImageCK("swarm.png");
 	creepImages[TANK] = LoadImageCK("tank.png");
 	creepImages[TITAN] = LoadImageCK("titan.png");
@@ -175,7 +175,9 @@ int client::testrun()
 					{
 						buttons[4]->setClick(false);
 						//somehow upgrade the tower
-						upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
+						//upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
+
+						
 					}
 					if(buttons[0]->wasClicked(event.button.x, event.button.y))
 					{
@@ -213,6 +215,7 @@ int client::testrun()
 							{
 								mouseClickMode = SELECT_TOWER_MODE;
 								char buff[5];
+								SDL_FreeSurface(text[15]);
 								text[15] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
 							}
 							else
@@ -349,10 +352,10 @@ void client::displayUI()
 			break;
 
 		}
-		SDL_BlitSurface(text[11 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]);
-		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getType()], NULL, screen, textRects[10]);
-		SDL_BlitSurface(text[12], NULL, screen, textRects[11]);
-		SDL_BlitSurface(text[13], NULL, screen, textRects[12]);
+		SDL_BlitSurface(text[11 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]); //player number
+		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
+		SDL_BlitSurface(text[14], NULL, screen, textRects[11]);
+		SDL_BlitSurface(text[15], NULL, screen, textRects[12]);
 	}
 }
 
@@ -401,20 +404,20 @@ void client::initText()
 	text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
 	
 	//for tower display
-	textRects[8] = newRect(650,443,0,0); //where to display tower name
+	textRects[8] = newRect(650,341,0,0); //where to display tower name
 	text[8] = TTF_RenderText_Solid(font, "Structure", Cblack);
 	text[9] = TTF_RenderText_Solid(font, "Basic Tower", Cblack);
 	text[10] = TTF_RenderText_Solid(font, "Spawner Tower", Cblack);
 
-	textRects[9] = newRect(650,468,0,0); //where to display towers owner
+	textRects[9] = newRect(650,365,0,0); //where to display towers owner
 	text[12] = TTF_RenderText_Solid(font, "Player One", Cblack);
 	text[13] = TTF_RenderText_Solid(font, "Player Two", Cblack);
 
-	textRects[10] = newRect(650, 492,0,0); //where to display the towers image
+	textRects[10] = newRect(650, 389,0,0); //where to display the towers image
 
-	textRects[11] = newRect(697,495,0,0); //where to display the level text
+	textRects[11] = newRect(697,389,0,0); //where to display the level text
 	text[14] = TTF_RenderText_Solid(font10, "Level:", Cblack);
-	textRects[12] = newRect(730,495,0,0);
+	textRects[12] = newRect(755,389,0,0); //where to display the level number
 	text[15] = TTF_RenderText_Solid(font10, "1", Cblack);
 	
 
