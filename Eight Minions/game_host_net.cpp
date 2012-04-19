@@ -333,6 +333,7 @@ int game_host::performUpdate(string upd)
 						towerList.getNodeWithID(update.getId1())->getData()->pause();
 					else if(update.getVal(1) == 0)
 						towerList.getNodeWithID(update.getId1())->getData()->unpause();
+					sendMessageToQueue(UpdMess(towerList.getNodeWithID(update.getId1())->getData()->getPlayer(), TOWER, TOWERTOGGLE, update.getId1(), towerList.getNodeWithID(update.getId1())->getData()->isPaused()).getMT());
 				}
 			}
 			return 0;
