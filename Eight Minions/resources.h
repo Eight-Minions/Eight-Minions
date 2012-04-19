@@ -50,21 +50,27 @@
 #define NUM_TOWERS 12
 // Structure 
 #define STRUCTURE 0
-#define STRUCTURESTARTLEVEL 0
+//
+#define STRUCTURESTARTLEVEL 1
 //Attack Towers
 #define NORMTOWER 1
 #define FASTTOWER 2
 #define AOETOWER 3
 #define HEAVYTOWER 4
 #define MINETOWER 5
+//
+#define STANDARDTOWERSTARTLEVEL 1
 //Spawner Towers  
-#define GETCREEPTYPE 6 // Subtract 5 to get the creep type
 #define NORMCREEPTOWER 6
 #define FASTCREEPTOWER 7
 #define TANKCREEPTOWER 8
 #define SWARMCREEPTOWER	9
 #define TITANCREEPTOWER 10
 #define FATTYCREEPTOWER 11
+//
+#define CREEPTOWERSTARTLEVEL 1
+#define CREEPTOWERDELAY 20
+#define GETCREEPTYPE 6 // Subtract 5 to get the creep type
 //Effect Towers
 #define SLOWTOWER 11
 #define SPEEDTOWER 12
@@ -89,9 +95,7 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{
 
 const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 //Spawn Tower Definitions
-#define CREEPTOWERSTARTLEVEL 1
-#define STANDARDTOWERSTARTLEVEL 1
-#define CREEPTOWERDELAY 20
+
 
 //Map Constants
 #define MAPSIZE_X 26
@@ -128,7 +132,6 @@ const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 // Tower Constants
 #define MAXTOWERLEVEL 5
 #define MAXTOWERVARIABLES 5
-
 
 //Tower Types
 // Damage ArmorPenetration Range Speed Cost

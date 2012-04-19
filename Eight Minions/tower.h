@@ -22,6 +22,8 @@ public:
 	int getPlayer();
 	int getCost();
 
+	int calculateCost(int cType);
+
 	bool getPassable();
 	void setPassable(bool nPass);
 
