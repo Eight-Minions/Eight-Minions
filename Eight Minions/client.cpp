@@ -186,6 +186,17 @@ int client::testrun()
 			{
 				run = 0;
 			}
+			if(event.type == SDL_KEYDOWN)
+			{
+				if(event.key.keysym.sym == SDLK_SPACE)
+				{
+					if(mouseClickMode == DEFAULT_MODE)
+					{
+						mouseClickMode = PLACE_FOUNDATION_MODE;
+						buttons[0]->setClick(true);
+					}
+				}
+			}
 			if(event.type == SDL_MOUSEBUTTONDOWN)
 			{
 				if(mouseClickMode == SELECT_TOWER_MODE)
@@ -313,14 +324,15 @@ int client::testrun()
 						}
 						else if(mouseClickMode == PLACE_FOUNDATION_MODE)
 						{
+							mouseClickMode = DEFAULT_MODE;
+							buttons[0]->setClick(false);
 							if(self->getMoney() >= 2)
 							{
-								mouseClickMode = DEFAULT_MODE;
-								buttons[0]->setClick(false);
 								coord placeC = getClickCoord(event.button.x,event.button.y);
 								//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 								sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
 							}
+					
 						}
 						else if(mouseClickMode == PLACE_MINE_MODE)
 						{
