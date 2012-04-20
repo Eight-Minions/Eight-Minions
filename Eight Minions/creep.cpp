@@ -225,7 +225,7 @@ void creep::updateAnim()
 	else
 		animDelay--;
 }
-void creep::recalcPath( vector<vector<bool>> nMap )
+void creep::recalcPath( vector<vector<bool> > nMap )
 {
 	p.setStart(p.getNext());
 	p.genPath(nMap,true);

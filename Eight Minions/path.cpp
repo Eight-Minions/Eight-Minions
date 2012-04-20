@@ -118,7 +118,7 @@ p.pop();
 return 1;
 }*/
 
-int Path::genPath(vector<vector<bool>> nMap, bool recalc)
+int Path::genPath(vector<vector<bool> > nMap, bool recalc)
 {
 	Nodemap = nMap;
 	aStar.clear();
@@ -248,7 +248,7 @@ void Path::pop()
 	fPath.pop_back();
 }
 
-void Path::setNodemap( vector<vector<bool>> nMap )
+void Path::setNodemap( vector<vector<bool> > nMap )
 {
 	Nodemap = nMap;
 }

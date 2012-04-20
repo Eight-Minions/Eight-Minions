@@ -34,7 +34,7 @@ typedef struct aStarNode
 class Path
 {
 private:
-	vector<vector<bool>> Nodemap;
+	vector<vector<bool> > Nodemap;
 	coord start;
 	coord goal;
 	stack<coord> p;
@@ -46,12 +46,12 @@ public:
 
 	vector<coord> fPath;
 
-	int genPath(vector<vector<bool>> nMap, bool recalc);
+	int genPath(vector<vector<bool> > nMap, bool recalc);
 	bool expand( aStarNode n, int n_index);
 	coord move(coord cur); //possibly redundant at this point.
 	void setStart(coord s);
 	void setGoal(coord g);
-	void setNodemap(vector<vector<bool>> nMap);
+	void setNodemap(vector<vector<bool> > nMap);
 	int numPaths(coord c);
 	queue<coord> getPath();
 	coord getNext();

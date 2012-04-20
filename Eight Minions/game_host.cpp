@@ -89,6 +89,7 @@ int game_host::testrun()
 
 	cListNode<creep*> *cur = NULL;
 	cListNode<structure*> *curTower = NULL;
+	cListNode<structure*> *tempTower = NULL;
 	cListNode<creep*> *temp = NULL;
 	while(run)
 	{
@@ -104,7 +105,12 @@ int game_host::testrun()
 			if(curTower->getData()->getType() == MINETOWER)
 			{
 				if(curTower->getData()->isAlive() == false)
+				{
+					tempTower = curTower->getNext();
 					this->removeTower(curTower->getIndex(), curTower->getData()->getPlayer());
+					curTower = tempTower;
+					tempTower = NULL;
+				}
 			}
 		}
 

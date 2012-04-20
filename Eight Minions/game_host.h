@@ -29,8 +29,8 @@ private:
 
 protected:
 	//Map variables
-	vector<vector<structure*>> Tmap; //map of pointers to the towers, NULL if no tower
-	vector<vector<bool>> Nodemap; //boolean map, false means passable
+	vector<vector<structure*> > Tmap; //map of pointers to the towers, NULL if no tower
+	vector<vector<bool> > Nodemap; //boolean map, false means passable
 
 	cList<creep*> creepList; //the list of creeps, creeps contain their positions
 	cList<structure*> towerList;

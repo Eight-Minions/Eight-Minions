@@ -46,7 +46,7 @@ public:
 	void setY(double new_y);
 
 	bool move();
-	void recalcPath(vector<vector<bool>> nMap);
+	void recalcPath(vector<vector<bool> > nMap);
 
 	int damage(int damage, int armorPen);
 	void kill();
