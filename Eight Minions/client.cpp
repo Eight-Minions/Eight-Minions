@@ -61,7 +61,7 @@ void client::loadFiles()
 	towerImages[HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
 	towerImages[MINETOWER] = LoadImageCK("images/mineTower.png");
 
-	attackImage = LoadImageCK("images/testAttack.png");
+	attackImage = LoadImageCK("images/attackAnimSprites.png");
 
 	for(int i = 0; i < 4; i++)
 	{
@@ -167,7 +167,7 @@ int client::testrun()
 		return -1;
 	}
 	//main run loop
-	int run = 1;
+	run_game = 1;
 	UpdMess testMess;
 	string temp;
 	int n_rec = 0;
@@ -176,7 +176,7 @@ int client::testrun()
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
-	while(run)
+	while(run_game)
 	{
 		reg->start();
 		//gather input - the following series of if-statements will handle all user input
@@ -184,7 +184,7 @@ int client::testrun()
 		{
 			if(event.type == SDL_QUIT)
 			{
-				run = 0;
+				run_game = 0;
 			}
 			if(event.type == SDL_KEYDOWN)
 			{
@@ -535,7 +535,6 @@ void client::initButtons()
 	//pause button (for creep towers)
 	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
-
 
 
 }

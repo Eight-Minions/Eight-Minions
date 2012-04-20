@@ -60,6 +60,8 @@ private:
 
 	string updateQueue;
 
+	int run_game;
+
 	player *self;
 
 	//Fonts here.

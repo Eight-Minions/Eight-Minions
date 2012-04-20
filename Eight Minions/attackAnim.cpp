@@ -7,7 +7,7 @@ attackAnim::attackAnim( int startX, int startY, int nType, int nTick, int nTarge
 	type = nType;
 	TickTimer = nTick;
 	animIndex = 0;
-	animMax = 5;
+	animMax = 4;
 	targetIndex = nTargetIndex;
 	sprite_r = newRect(0,ANIM_SIZE * type,ANIM_SIZE,ANIM_SIZE);
 	place_r = newRect(x,y,ANIM_SIZE,ANIM_SIZE);
