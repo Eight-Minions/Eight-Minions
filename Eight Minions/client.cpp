@@ -440,9 +440,24 @@ void client::displayUI()
 			buttons[7]->display(screen);
 			buttons[8]->display(screen);
 			buttons[9]->display(screen);
+
+			SDL_BlitSurface(text[20], NULL, screen, textRects[13]);
+			SDL_BlitSurface(text[21], NULL, screen, textRects[14]);
+			SDL_BlitSurface(text[22], NULL, screen, textRects[15]);
+			SDL_BlitSurface(text[23], NULL, screen, textRects[16]);
+			SDL_BlitSurface(text[24], NULL, screen, textRects[17]);
 			break;
 		case NORMTOWER:
 			SDL_BlitSurface(text[9], NULL, screen,  textRects[8]);
+			break;
+		case FASTTOWER:
+			SDL_BlitSurface(text[11], NULL, screen, textRects[8]);
+			break;
+		case AOETOWER:
+			SDL_BlitSurface(text[12], NULL, screen, textRects[8]);
+			break;
+		case HEAVYTOWER:
+			SDL_BlitSurface(text[13], NULL, screen, textRects[8]);
 			break;
 		case NORMCREEPTOWER:
 		case FASTCREEPTOWER:
@@ -489,11 +504,11 @@ void client::initButtons()
 	//upgrade button
 	buttons[4] = new Button("images/upgradeButton",754,564,36,36);
 	//change type (for structures)
-	buttons[5] = new Button("images/attackTowerButton",738,410,36,36);
-	buttons[6] = new Button("images/spawnTowerButton",738,447,36,36);
-	buttons[7] = new Button("images/fastTowerButton",738,484,36,36);
-	buttons[8] = new Button("images/AOETowerButton",738,521,36,36);
-	buttons[9] = new Button("images/heavyTowerButton",738,558,36,36);
+	buttons[5] = new Button("images/attackTowerButton",700,410,36,36);
+	buttons[6] = new Button("images/spawnTowerButton",700,447,36,36);
+	buttons[7] = new Button("images/fastTowerButton",700,484,36,36);
+	buttons[8] = new Button("images/AOETowerButton",700,521,36,36);
+	buttons[9] = new Button("images/heavyTowerButton",700,558,36,36);
 	//pause button (for creep towers)
 	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
@@ -535,8 +550,21 @@ void client::initText()
 	text[18] = TTF_RenderText_Solid(font10, "Level:", Cblack);
 	textRects[12] = newRect(755,389,0,0); //where to display the level number
 	text[19] = TTF_RenderText_Solid(font10, "1", Cblack);
-	
 
+	textRects[13] = newRect(738,410,0,0); //standard tower cost text
+	text[20] = TTF_RenderText_Solid(font, "$10", Cblack);
+
+	textRects[14] = newRect(738,447,0,0); //spawner tower cost text
+	text[21] = TTF_RenderText_Solid(font, "$??", Cblack);
+
+	textRects[15] = newRect(738,484,0,0); //fast tower cost text
+	text[22] = TTF_RenderText_Solid(font, "$12", Cblack);
+
+	textRects[16] = newRect(738,521,0,0); //AOE tower cost text
+	text[23] = TTF_RenderText_Solid(font, "$20", Cblack);
+
+	textRects[17] = newRect(738,558,0,0); //heavy tower cost text
+	text[24] = TTF_RenderText_Solid(font, "$25", Cblack);
 }
 
 bool client::boardWasClicked( int x, int y)

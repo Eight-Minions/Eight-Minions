@@ -114,10 +114,10 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{
 #define SCREEN_HEIGHT 608
 
 //Number of Buttons 
-#define NUM_BUTTONS 10
+#define NUM_BUTTONS 15
 
 //Number of text objects
-#define TEXT_NUM 20
+#define TEXT_NUM 30
 
 //Movement Constant
 #define CLOCK_CAP .35
