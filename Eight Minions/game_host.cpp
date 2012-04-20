@@ -127,6 +127,12 @@ int game_host::testrun()
 				if(players[cur->getData()->getPlayer() % 2].takeDamage())
 				{
 					cout << "game over man, game over...\n";
+					if(getPlayer(1)->getHealth() <= 0)  
+						sendMessageToQueue(UpdMess(0, GAMEOVER, 2).getMT()); //Player 1's health is 0 so Say player 2 won;
+					else if(getPlayer(2)->getHealth() <= 0) 
+						sendMessageToQueue(UpdMess(0, GAMEOVER, 1).getMT()); //Player 2's health is 0 so say player 1 won.
+					else
+						cout << "Issue in calculation of winner" << endl;
 					sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), PLAYERUPDATE, getPlayer(cur->getData()->getPlayer())->getHealth(), getPlayer(cur->getData()->getPlayer())->getMoney()).getMT());
 					system("pause");
 				}

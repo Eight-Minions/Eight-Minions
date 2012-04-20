@@ -190,6 +190,10 @@ int client::performUpdate(string upd)
 			text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
 		}
 	}
+	else if(updateType == GAMEOVER)
+	{
+		gameOverRecieve(update.getVal(0));
+	}
 	else
 	{
 		return 0;
@@ -365,4 +369,10 @@ bool client::toggleTowerRecieve(int towerID, int newState)
 		return true;
 	}
 	return false;
+}
+
+int client::gameOverRecieve(int winner)
+{
+	// Not sure what to do here. I think this is for you Jeromy
+	return winner;
 }

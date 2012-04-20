@@ -103,6 +103,8 @@ public:
 	bool toggleTowerSend(int Tid);
 	bool toggleTowerRecieve(int towerID, int newState);
 
+	int gameOverRecieve(int winner);
+
 	void setServerAddress(string);
 	void setPort(unsigned int);
 	int connectToServer();

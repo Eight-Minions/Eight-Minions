@@ -13,7 +13,6 @@ public:
 	UpdMess(int player, int type, ...);
 	UpdMess(string m);
 	~UpdMess();
-	//int setMess(string m);
 	string getMT();
 
 	int getVal(int n);

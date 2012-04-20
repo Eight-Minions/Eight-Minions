@@ -25,8 +25,8 @@
 #define CREEP 0				// For an update on a creep
 #define NEWCREEP 1			// For a new creep
 #define PLAYERUPDATE 2		// For an update to the player
-#define PURCHASEREQUEST 3	//from the client to the server, request to purchase something
-#define TOWER 4				// For anything to do with a tower
+#define TOWER 3 			// For anything to do with a tower
+#define GAMEOVER 4			// Sends the winning player
 
 // Tower UpdMess Definitions
 #define TOWERCREATION 0
