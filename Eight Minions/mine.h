@@ -22,6 +22,7 @@ public:
 	void updateStats(int cLevel);
 
 	int getCost();
+
 private:
 	game_host *manager;
 	queue<int> chosenCreeps;
@@ -30,5 +31,6 @@ private:
 	int damageValue;
 	int armorPen;
 	int range;
+
 };
 #endif

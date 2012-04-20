@@ -14,6 +14,8 @@ private:
 	bool passable;
 	double x;
 	double y;
+
+	bool alive;
 protected:
 	bool paused;
 public:
@@ -50,8 +52,12 @@ public:
 	virtual bool upgradeClient();
 	virtual bool changeType(int newType);
 	virtual bool changeTypeClient(int newType);
+	
+	void kill();
 
 	int setLevel(int newLevel);
+
+	bool isAlive();
 
 
 	void displayTower(SDL_Surface *screen, SDL_Surface* image);

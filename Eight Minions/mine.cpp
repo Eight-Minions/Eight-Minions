@@ -9,6 +9,7 @@ Mine::Mine(int level, int player, int type, int set_x, int set_y) : structure(le
 	updateStats(level - 1);
 	this->setPassable(true);
 	this->setSellReward(0);
+
 }
 Mine::Mine(int level, int player, int type, int set_x, int set_y, game_host *nManager) : structure(level, player, type, set_x, set_y)
 {
@@ -17,6 +18,7 @@ Mine::Mine(int level, int player, int type, int set_x, int set_y, game_host *nMa
 	updateStats(level - 1);
 	this->setPassable(true);
 	this->setSellReward(0);
+
 }
 Mine::~Mine()
 {
@@ -27,6 +29,7 @@ void Mine::iterate()
 	{
 		choose();
 		doDamage();
+		this->kill();
 	}
 }
 bool Mine::isOnTop()

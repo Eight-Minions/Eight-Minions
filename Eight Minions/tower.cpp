@@ -13,6 +13,7 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	this->passable = false;
 	r = new SDL_Rect;
 	sellReward = 1;
+	alive = true;
 }
 structure::~structure()
 {
@@ -169,4 +170,12 @@ void structure::setSellReward(int newReward)
 int structure::getSellReward()
 {
 	return sellReward;
+}
+void structure::kill()
+{
+	alive = false;
+}
+bool structure::isAlive()
+{
+	return alive;
 }

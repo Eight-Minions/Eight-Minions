@@ -99,7 +99,14 @@ int game_host::testrun()
 		p2Spawner->iterate();
 
 		for(curTower = towerList.getStart(); curTower != NULL; curTower = curTower->getNext())
+		{
 			curTower->getData()->iterate();
+			if(curTower->getData()->getType() == MINETOWER)
+			{
+				if(curTower->getData()->isAlive() == false)
+					this->removeTower(curTower->getIndex(), curTower->getData()->getPlayer());
+			}
+		}
 
 		for(cur = creepList.getStart(); cur != NULL;)
 		{ //loop through the list
