@@ -151,6 +151,7 @@ int Path::genPath(vector<vector<bool> > nMap, bool recalc)
 		if(min_h == 100000)
 		{
 			//cout << "no avaliable path\n";
+			fPath.clear();
 			return 0;
 		}
 

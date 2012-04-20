@@ -28,6 +28,7 @@ Spawner::Spawner(game_host *nManager, int Player, bool Tower, coord nLoc)
 		generateWave();
 		curDelay = 200;
 	}
+
 }
 Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, int nLevel, coord nLoc)
 {
@@ -45,6 +46,7 @@ Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, i
 		generateWave();
 		curDelay = 200;
 	}
+	
 }
 
 void Spawner::testing()

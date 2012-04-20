@@ -113,7 +113,7 @@ void client::cleanup()
 
 	// Close our server socket, cleanup SDL_net and finish!
 	SDLNet_TCP_Close(sd);
-	
+
 	delete ip;
 
 	SDLNet_Quit();
@@ -221,8 +221,8 @@ int client::testrun()
 				{
 					//event.button.x; //x coordinate of click on the window
 					//event.button.y; //y coordinate of click on the window
-	
-					
+
+
 					if(buttons[3]->isClicked())
 					{
 						buttons[3]->setClick(false);
@@ -236,7 +236,7 @@ int client::testrun()
 						buttons[4]->setClick(false);
 						//upgrade the towers level
 						upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
-						
+
 					}
 					if (buttons[5]->isClicked())
 					{
@@ -329,10 +329,18 @@ int client::testrun()
 							if(self->getMoney() >= 2)
 							{
 								coord placeC = getClickCoord(event.button.x,event.button.y);
+								bool valid = false;
+								if(self->getPnum() == 1)
+									if(placeC.x < MAPSIZE_X / 2)
+										valid = true;
+								if(self->getPnum() == 2)
+									if(placeC.x >= MAPSIZE_X / 2)
+										valid = true;
 								//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
-								sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
+								if(valid)
+									sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
 							}
-					
+
 						}
 						else if(mouseClickMode == PLACE_MINE_MODE)
 						{
@@ -447,17 +455,20 @@ void client::displayUI()
 		{
 		case STRUCTURE:
 			SDL_BlitSurface(text[8], NULL, screen, textRects[8]);
-			buttons[5]->display(screen);
-			buttons[6]->display(screen);
-			buttons[7]->display(screen);
-			buttons[8]->display(screen);
-			buttons[9]->display(screen);
+			if(curSelectedTowerPtr->getPlayer() == self->getPnum())
+			{
+				buttons[5]->display(screen);
+				buttons[6]->display(screen);
+				buttons[7]->display(screen);
+				buttons[8]->display(screen);
+				buttons[9]->display(screen);
 
-			SDL_BlitSurface(text[20], NULL, screen, textRects[13]);
-			SDL_BlitSurface(text[21], NULL, screen, textRects[14]);
-			SDL_BlitSurface(text[22], NULL, screen, textRects[15]);
-			SDL_BlitSurface(text[23], NULL, screen, textRects[16]);
-			SDL_BlitSurface(text[24], NULL, screen, textRects[17]);
+				SDL_BlitSurface(text[20], NULL, screen, textRects[13]);
+				SDL_BlitSurface(text[21], NULL, screen, textRects[14]);
+				SDL_BlitSurface(text[22], NULL, screen, textRects[15]);
+				SDL_BlitSurface(text[23], NULL, screen, textRects[16]);
+				SDL_BlitSurface(text[24], NULL, screen, textRects[17]);
+			}
 			break;
 		case NORMTOWER:
 			SDL_BlitSurface(text[9], NULL, screen,  textRects[8]);
@@ -542,7 +553,7 @@ void client::initText()
 	text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
 
 	textRects[4] = newRect(600,16,0,0);
-	
+
 	//for tower display
 	textRects[8] = newRect(650,341,0,0); //where to display tower name
 	text[8] = TTF_RenderText_Solid(font, "Structure", Cblack);
