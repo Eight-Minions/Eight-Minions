@@ -38,14 +38,10 @@ int main(int argc, char* argv[]){
 	}
 	else if(c == 3)
 	{
-		structure *newS = new structure(1, 2, STRUCTURE, 2, 3);
-		Standard_Tower *newST = new Standard_Tower(1, 1, NORMTOWER, 3, 5);
-		Creep_Tower *newCT = new Creep_Tower(1 , 2, FASTCREEPTOWER, 5, 6);
-
-		newST->upgradeClient();
-		newCT->upgradeClient();
-
-		int sell1 = newST->getSellReward();
+		//creep::creep(int t, int p, int l, int set_x, int set_y)
+		creep *test = new creep(2,1,3,5,5);
+		cout << test->getHealth() << " " << test->getArmor() << endl;
+		cout << test->damage(5,2) << endl;
 	}
 	else if(c == 4)
 	{

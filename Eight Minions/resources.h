@@ -105,8 +105,8 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{
 //Map Constants
 #define MAPSIZE_X 26
 #define MAPSIZE_Y 20
-#define BOARD_X_OFFSET 0
-#define BOARD_Y_OFFSET 63
+#define BOARD_X_OFFSET 8
+#define BOARD_Y_OFFSET 57
 #define GRID_SIZE 24
 
 //Screen Size Constants

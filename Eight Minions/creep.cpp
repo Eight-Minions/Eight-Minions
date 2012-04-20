@@ -114,6 +114,10 @@ int creep::damage(int d, int a)
 	{
 		calcD = calcD - (this->getArmor() - a);
 	}
+	else
+	{
+		calcD = 0;
+	}
 	this->health = this->health - calcD;
 	if(health <= 0)
 	{
