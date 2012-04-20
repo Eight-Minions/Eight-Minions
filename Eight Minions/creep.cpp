@@ -68,10 +68,10 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	else if(type == NORM)
 	{
 		health =	normCreepArr[level-1][0];
-		armor =		normCreepArr[level-0][1];
-		speed =		normCreepArr[level-0][2];
-		reward =	normCreepArr[level-0][3];
-		price =		normCreepArr[level-0][4];
+		armor =		normCreepArr[level-1][1];
+		speed =		normCreepArr[level-1][2];
+		reward =	normCreepArr[level-1][3];
+		price =		normCreepArr[level-1][4];
 		animCount = 4;
 	}
 	else
@@ -110,7 +110,7 @@ double creep::getYd()
 int creep::damage(int d, int a)
 {
 	int calcD = d;
-	if(this->armor > a)
+	if(a >= this->armor)
 	{
 		calcD = calcD - (this->getArmor() - a);
 	}

@@ -29,10 +29,10 @@ int game_host::init()
 	pathTestCreep->p.setGoal(Bases[1]);
 	pathTestCreep->p.setStart(Bases[0]);
 
-	p1Spawner->addCreepType(TANK);
-	p1Spawner->addCreepType(TITAN);
-	p2Spawner->addCreepType(FATTY);
-	p2Spawner->addCreepType(FAST);
+	//p1Spawner->addCreepType(TANK);
+	//p1Spawner->addCreepType(TITAN);
+	//p2Spawner->addCreepType(FATTY);
+	//p2Spawner->addCreepType(FAST);
 	return 0;
 }
 
@@ -58,18 +58,18 @@ int game_host::testrun()
 
 	// placeTower(int playerNumber, int towerType, int x, int y);
 
-	placeTower(1,1,4,9);
-	placeTower(1,1,11,11);
-	placeTower(1,1,3,9);
-	placeTower(1,1,12,10);
-	placeTower(2,1,13,10);
-	placeTower(2,1,15,8);
-	placeTower(2,1,16,7);
-	placeTower(2,1,16,6);
-	placeTower(2,1,14,9);
-	placeTower(2,1,5,10);
-	placeTower(1,NORMCREEPTOWER, 3, 8);
-	placeTower(2,NORMCREEPTOWER, 12, 3);
+	//placeTower(1,1,4,9);
+	//placeTower(1,1,11,11);
+	//placeTower(1,1,3,9);
+	//placeTower(1,1,12,10);
+	//placeTower(2,1,13,10);
+	//placeTower(2,1,15,8);
+	//placeTower(2,1,16,7);
+	//placeTower(2,1,16,6);
+	//placeTower(2,1,14,9);
+	//placeTower(2,1,5,10);
+	//placeTower(1,NORMCREEPTOWER, 3, 8);
+	//placeTower(2,NORMCREEPTOWER, 12, 3);
 	
 	setNodemap();
 
@@ -99,7 +99,7 @@ int game_host::testrun()
 		p1Spawner->iterate();
 		p2Spawner->iterate();
 
-		for(curTower = towerList.getStart(); curTower != NULL; curTower = curTower->getNext())
+		for(curTower = towerList.getStart(); curTower != NULL;)
 		{
 			curTower->getData()->iterate();
 			if(curTower->getData()->getType() == MINETOWER)
@@ -111,16 +111,23 @@ int game_host::testrun()
 					curTower = tempTower;
 					tempTower = NULL;
 				}
+				else
+					curTower = curTower->getNext();
 			}
+			else
+				curTower = curTower->getNext();
+
+
 		}
 
 		for(cur = creepList.getStart(); cur != NULL;)
 		{ //loop through the list
 			if(cur->getData()->move()) //move each creep in the list
 			{
-				if(players[cur->getData()->getPlayer() - 1].takeDamage())
+				if(players[cur->getData()->getPlayer() % 2].takeDamage())
 				{
 					cout << "game over man, game over...\n";
+					sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), PLAYERUPDATE, getPlayer(cur->getData()->getPlayer())->getHealth(), getPlayer(cur->getData()->getPlayer())->getMoney()).getMT());
 					system("pause");
 				}
 				cur->getData()->kill(); 
@@ -232,6 +239,7 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 					}
 					structure *newStructure = new structure(STRUCTURESTARTLEVEL, playerNumber, towerType, x, y);
 					this->getPlayer(playerNumber)->spendMoney(2);
+					sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
 					newTowerID = this->towerList.insertInOrder(newStructure);
 					Tmap[x][y] = newStructure;
 				}
@@ -310,6 +318,7 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
 		{
 			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+			sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
 			this->towerList.insertWithID(towerID, newTower);
 			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;

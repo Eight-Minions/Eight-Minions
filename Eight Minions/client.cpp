@@ -327,7 +327,7 @@ int client::testrun()
 							if(self->getMoney() >= mineArr[0][4])
 							{
 								mouseClickMode = DEFAULT_MODE;
-								buttons[0]->setClick(false);
+								buttons[1]->setClick(false);
 								coord placeC = getClickCoord(event.button.x,event.button.y);
 								//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 								sendToServerUDP(UpdMess(self->getPnum(),TOWER, MINEPLACE,placeC.x,placeC.y).getMT());
@@ -416,7 +416,7 @@ void client::displayUI()
 	SDL_BlitSurface(text[2], NULL,screen,textRects[2]);
 	SDL_BlitSurface(text[3], NULL,screen,textRects[3]);
 
-
+	SDL_BlitSurface(text[15 + self->getPnum()], NULL, screen, textRects[4]);
 
 	buttons[0]->display(screen);
 	buttons[1]->display(screen);
@@ -513,6 +513,8 @@ void client::initText()
 	text[2] = TTF_RenderText_Solid( font, "Money:", Cblack);
 	textRects[3] = newRect(325,10,0,0);
 	text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
+
+	textRects[4] = newRect(600,16,0,0);
 	
 	//for tower display
 	textRects[8] = newRect(650,341,0,0); //where to display tower name
