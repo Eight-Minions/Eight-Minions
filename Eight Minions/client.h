@@ -76,6 +76,7 @@ private:
 public:
 	client();
 	int init();
+	void handleInput();
 	void loadFiles();
 	void initButtons();
 	void initText();

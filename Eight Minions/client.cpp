@@ -178,209 +178,11 @@ int client::testrun()
 
 	while(run_game)
 	{
-		reg->start();
-		//gather input - the following series of if-statements will handle all user input
-		if( SDL_PollEvent( &event ) )
-		{
-			if(event.type == SDL_QUIT)
-			{
-				run_game = 0;
-			}
-			if(event.type == SDL_KEYDOWN)
-			{
-				if(event.key.keysym.sym == SDLK_SPACE)
-				{
-					if(mouseClickMode == DEFAULT_MODE)
-					{
-						mouseClickMode = PLACE_FOUNDATION_MODE;
-						buttons[0]->setClick(true);
-					}
-				}
-			}
-			if(event.type == SDL_MOUSEBUTTONDOWN)
-			{
-				if(mouseClickMode == SELECT_TOWER_MODE)
-				{
-					if(curSelectedTowerPtr->getPlayer() == self->getPnum())
-						buttons[3]->wasClicked(event.button.x, event.button.y);
-					if(curSelectedTowerPtr->getType() != STRUCTURE)
-						buttons[4]->wasClicked(event.button.x, event.button.y);
-					if(curSelectedTowerPtr->getType() == STRUCTURE)
-					{
-						buttons[5]->wasClicked(event.button.x, event.button.y);
-						buttons[6]->wasClicked(event.button.x, event.button.y);
-						buttons[7]->wasClicked(event.button.x, event.button.y);
-						buttons[8]->wasClicked(event.button.x, event.button.y);
-						buttons[9]->wasClicked(event.button.x, event.button.y);
-					}
-				}
-			}
-			if(event.type == SDL_MOUSEBUTTONUP)
-			{
-				if(event.button.button == SDL_BUTTON_LEFT)
-				{
-					//event.button.x; //x coordinate of click on the window
-					//event.button.y; //y coordinate of click on the window
-
-
-					if(buttons[3]->isClicked())
-					{
-						buttons[3]->setClick(false);
-						//sell tower
-						removeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
-						mouseClickMode = DEFAULT_MODE;
-						curSelectedTowerPtr = NULL;
-					}
-					if (buttons[4]->isClicked())
-					{
-						buttons[4]->setClick(false);
-						//upgrade the towers level
-						upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
-
-					}
-					if (buttons[5]->isClicked())
-					{
-						buttons[5]->setClick(false);
-						//change structure to a basic tower
-						changeTowerTypeSend(curTowerId,NORMTOWER);
-						mouseClickMode = DEFAULT_MODE;
-					}
-					if (buttons[6]->isClicked())
-					{
-						buttons[6]->setClick(false);
-						//change structure to a spawner tower
-						changeTowerTypeSend(curTowerId,NORMCREEPTOWER);
-						mouseClickMode = DEFAULT_MODE;
-					}
-					if (buttons[7]->isClicked())
-					{
-						buttons[7]->setClick(false);
-						//change structure to a fast tower
-						changeTowerTypeSend(curTowerId,FASTTOWER);
-						mouseClickMode = DEFAULT_MODE;
-					}
-					if (buttons[8]->isClicked())
-					{
-						buttons[8]->setClick(false);
-						//change structure to an AOE tower
-						changeTowerTypeSend(curTowerId,AOETOWER);
-						mouseClickMode = DEFAULT_MODE;
-					}
-					if (buttons[9]->isClicked())
-					{
-						buttons[9]->setClick(false);
-						//change structure to an AOE tower
-						changeTowerTypeSend(curTowerId,HEAVYTOWER);
-						mouseClickMode = DEFAULT_MODE;
-					}
-					if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
-					{
-						if(buttons[12]->wasClickedState(event.button.x, event.button.y))
-						{
-							buttons[12]->wasClicked(event.button.x, event.button.y);
-							toggleTowerSend(curTowerId);
-						}
-					}
-					if(buttons[0]->wasClicked(event.button.x, event.button.y))
-					{
-						if(mouseClickMode != PLACE_FOUNDATION_MODE)
-						{
-							if(mouseClickMode == PLACE_MINE_MODE)
-								buttons[1]->setClick(false);
-							mouseClickMode = PLACE_FOUNDATION_MODE; 
-						}
-						else
-							mouseClickMode = DEFAULT_MODE;
-					}
-
-					if(buttons[1]->wasClicked(event.button.x, event.button.y))
-					{
-						if(mouseClickMode != PLACE_MINE_MODE)
-						{
-							if(mouseClickMode == PLACE_FOUNDATION_MODE)
-								buttons[0]->setClick(false);
-							mouseClickMode = PLACE_MINE_MODE; 
-						}
-						else
-							mouseClickMode = DEFAULT_MODE;
-					}
-
-					if(boardWasClicked(event.button.x,event.button.y))
-					{
-						if(mouseClickMode == DEFAULT_MODE || mouseClickMode == SELECT_TOWER_MODE)
-						{
-							curSelectedTower = this->getClickCoord(event.button.x, event.button.y);
-							if (towerExistsAt(curSelectedTower))
-							{
-								mouseClickMode = SELECT_TOWER_MODE;
-								char buff[5];
-								SDL_FreeSurface(text[19]);
-								text[19] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
-								if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
-									buttons[12]->setClick(!curSelectedTowerPtr->isPaused());
-							}
-							else
-								mouseClickMode = DEFAULT_MODE;
-						}
-						else if(mouseClickMode == PLACE_FOUNDATION_MODE)
-						{
-							mouseClickMode = DEFAULT_MODE;
-							buttons[0]->setClick(false);
-							if(self->getMoney() >= 2)
-							{
-								coord placeC = getClickCoord(event.button.x,event.button.y);
-								bool valid = false;
-								if(self->getPnum() == 1)
-									if(placeC.x < MAPSIZE_X / 2)
-										valid = true;
-								if(self->getPnum() == 2)
-									if(placeC.x >= MAPSIZE_X / 2)
-										valid = true;
-								//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
-								if(valid)
-									sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
-							}
-
-						}
-						else if(mouseClickMode == PLACE_MINE_MODE)
-						{
-							if(self->getMoney() >= mineArr[0][4])
-							{
-								mouseClickMode = DEFAULT_MODE;
-								buttons[1]->setClick(false);
-								coord placeC = getClickCoord(event.button.x,event.button.y);
-								//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
-								sendToServerUDP(UpdMess(self->getPnum(),TOWER, MINEPLACE,placeC.x,placeC.y).getMT());
-							}
-						}
-					}
-
-					//////////////////////////////////////////////////////////////
-					//Your goal, using this information, make the game do things
-					//when you click, i.e. clicking a tower displays info about it
-					//clicking the 'buy' menu (or whatever we decide to have) opens 
-					//a menu of things to buy. clicking a tower to buy and clicking a 
-					//spot on the map checks if the tower can go there and then puts it 
-					//there, subtracts money, and any other tasks that need to be done
-					//some of this will require server message which i will explain/help
-					//with, but i dont want to do everything. so this is not my task
-					///////////////////////////////////////////////////////////////
-				}
-			}
-		}
-
-
-
-		//Recieve messages to queue does a lot of work
-		//first it will recieve messages (while there are messages to be recieved)
-		//then it will parse those messages and make changes to the game as specified by the messages
-		recieveMessageToQueue();
-
-		//display will print everything out to the screen
-		this->display();
-
-
-		reg->killTime();
+		reg->start(); //start the fps regulator
+		handleInput(); //handle user input
+		recieveMessageToQueue(); //receive and parse server messages
+		this->display();//display will print everything out to the screen
+		reg->killTime(); //wait a certain amount of time to 
 	}
 
 	this->cleanup();
@@ -617,4 +419,196 @@ bool client::towerExistsAt( coord curSelectedTower )
 		}
 	}
 	return false;
+}
+
+void client::handleInput()
+{
+	if( SDL_PollEvent( &event ) )
+	{
+		if(event.type == SDL_QUIT)
+		{
+			run_game = 0;
+		}
+		if(event.type == SDL_KEYDOWN)
+		{
+			if(event.key.keysym.sym == SDLK_SPACE)
+			{
+				if(mouseClickMode == DEFAULT_MODE)
+				{
+					mouseClickMode = PLACE_FOUNDATION_MODE;
+					buttons[0]->setClick(true);
+				}
+			}
+		}
+		if(event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			if(mouseClickMode == SELECT_TOWER_MODE)
+			{
+				if(curSelectedTowerPtr->getPlayer() == self->getPnum())
+					buttons[3]->wasClicked(event.button.x, event.button.y);
+				if(curSelectedTowerPtr->getType() != STRUCTURE)
+					buttons[4]->wasClicked(event.button.x, event.button.y);
+				if(curSelectedTowerPtr->getType() == STRUCTURE)
+				{
+					buttons[5]->wasClicked(event.button.x, event.button.y);
+					buttons[6]->wasClicked(event.button.x, event.button.y);
+					buttons[7]->wasClicked(event.button.x, event.button.y);
+					buttons[8]->wasClicked(event.button.x, event.button.y);
+					buttons[9]->wasClicked(event.button.x, event.button.y);
+				}
+			}
+		}
+		if(event.type == SDL_MOUSEBUTTONUP)
+		{
+			if(event.button.button == SDL_BUTTON_LEFT)
+			{
+				//event.button.x; //x coordinate of click on the window
+				//event.button.y; //y coordinate of click on the window
+
+
+				if(buttons[3]->isClicked())
+				{
+					buttons[3]->setClick(false);
+					//sell tower
+					removeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
+					mouseClickMode = DEFAULT_MODE;
+					curSelectedTowerPtr = NULL;
+				}
+				if (buttons[4]->isClicked())
+				{
+					buttons[4]->setClick(false);
+					//upgrade the towers level
+					upgradeTowerSend(curSelectedTowerPtr->getX(),curSelectedTowerPtr->getY());
+
+				}
+				if (buttons[5]->isClicked())
+				{
+					buttons[5]->setClick(false);
+					//change structure to a basic tower
+					changeTowerTypeSend(curTowerId,NORMTOWER);
+					mouseClickMode = DEFAULT_MODE;
+				}
+				if (buttons[6]->isClicked())
+				{
+					buttons[6]->setClick(false);
+					//change structure to a spawner tower
+					changeTowerTypeSend(curTowerId,NORMCREEPTOWER);
+					mouseClickMode = DEFAULT_MODE;
+				}
+				if (buttons[7]->isClicked())
+				{
+					buttons[7]->setClick(false);
+					//change structure to a fast tower
+					changeTowerTypeSend(curTowerId,FASTTOWER);
+					mouseClickMode = DEFAULT_MODE;
+				}
+				if (buttons[8]->isClicked())
+				{
+					buttons[8]->setClick(false);
+					//change structure to an AOE tower
+					changeTowerTypeSend(curTowerId,AOETOWER);
+					mouseClickMode = DEFAULT_MODE;
+				}
+				if (buttons[9]->isClicked())
+				{
+					buttons[9]->setClick(false);
+					//change structure to an AOE tower
+					changeTowerTypeSend(curTowerId,HEAVYTOWER);
+					mouseClickMode = DEFAULT_MODE;
+				}
+				if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
+				{
+					if(buttons[12]->wasClickedState(event.button.x, event.button.y))
+					{
+						buttons[12]->wasClicked(event.button.x, event.button.y);
+						toggleTowerSend(curTowerId);
+					}
+				}
+				if(buttons[0]->wasClicked(event.button.x, event.button.y))
+				{
+					if(mouseClickMode != PLACE_FOUNDATION_MODE)
+					{
+						if(mouseClickMode == PLACE_MINE_MODE)
+							buttons[1]->setClick(false);
+						mouseClickMode = PLACE_FOUNDATION_MODE; 
+					}
+					else
+						mouseClickMode = DEFAULT_MODE;
+				}
+
+				if(buttons[1]->wasClicked(event.button.x, event.button.y))
+				{
+					if(mouseClickMode != PLACE_MINE_MODE)
+					{
+						if(mouseClickMode == PLACE_FOUNDATION_MODE)
+							buttons[0]->setClick(false);
+						mouseClickMode = PLACE_MINE_MODE; 
+					}
+					else
+						mouseClickMode = DEFAULT_MODE;
+				}
+
+				if(boardWasClicked(event.button.x,event.button.y))
+				{
+					if(mouseClickMode == DEFAULT_MODE || mouseClickMode == SELECT_TOWER_MODE)
+					{
+						curSelectedTower = this->getClickCoord(event.button.x, event.button.y);
+						if (towerExistsAt(curSelectedTower))
+						{
+							mouseClickMode = SELECT_TOWER_MODE;
+							char buff[5];
+							SDL_FreeSurface(text[19]);
+							text[19] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
+							if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
+								buttons[12]->setClick(!curSelectedTowerPtr->isPaused());
+						}
+						else
+							mouseClickMode = DEFAULT_MODE;
+					}
+					else if(mouseClickMode == PLACE_FOUNDATION_MODE)
+					{
+						mouseClickMode = DEFAULT_MODE;
+						buttons[0]->setClick(false);
+						if(self->getMoney() >= 2)
+						{
+							coord placeC = getClickCoord(event.button.x,event.button.y);
+							bool valid = false;
+							if(self->getPnum() == 1)
+								if(placeC.x < MAPSIZE_X / 2)
+									valid = true;
+							if(self->getPnum() == 2)
+								if(placeC.x >= MAPSIZE_X / 2)
+									valid = true;
+							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
+							if(valid)
+								sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
+						}
+
+					}
+					else if(mouseClickMode == PLACE_MINE_MODE)
+					{
+						if(self->getMoney() >= mineArr[0][4])
+						{
+							mouseClickMode = DEFAULT_MODE;
+							buttons[1]->setClick(false);
+							coord placeC = getClickCoord(event.button.x,event.button.y);
+							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
+							sendToServerUDP(UpdMess(self->getPnum(),TOWER, MINEPLACE,placeC.x,placeC.y).getMT());
+						}
+					}
+				}
+
+				//////////////////////////////////////////////////////////////
+				//Your goal, using this information, make the game do things
+				//when you click, i.e. clicking a tower displays info about it
+				//clicking the 'buy' menu (or whatever we decide to have) opens 
+				//a menu of things to buy. clicking a tower to buy and clicking a 
+				//spot on the map checks if the tower can go there and then puts it 
+				//there, subtracts money, and any other tasks that need to be done
+				//some of this will require server message which i will explain/help
+				//with, but i dont want to do everything. so this is not my task
+				///////////////////////////////////////////////////////////////
+			}
+		}
+	}
 }
