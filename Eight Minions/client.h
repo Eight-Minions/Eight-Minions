@@ -60,6 +60,8 @@ private:
 
 	string updateQueue;
 
+	int run_game;
+
 	player *self;
 
 	//Fonts here.
@@ -74,6 +76,7 @@ private:
 public:
 	client();
 	int init();
+	void handleInput();
 	void loadFiles();
 	void initButtons();
 	void initText();

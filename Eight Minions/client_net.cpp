@@ -374,5 +374,40 @@ bool client::toggleTowerRecieve(int towerID, int newState)
 int client::gameOverRecieve(int winner)
 {
 	// Not sure what to do here. I think this is for you Jeromy
+	//ten four
+
+	//load game over image (happy image for win, sad image for lose)
+	//create text saying which player won
+
+	SDL_Surface *messageBox = LoadImageCK("images/messageBox.png");
+	SDL_Surface *gameOverText;
+	SDL_Rect* message_box = newRect(50,50,0,0);
+	SDL_Rect* gotext = newRect(150,150,0,0);
+	if(self->getPnum() == winner)
+	{
+		gameOverText = TTF_RenderText_Solid(font, "Congratulations! you defeated your opponent!",Cblack);
+	}
+	else
+	{
+		gameOverText = TTF_RenderText_Solid(font, "You lost....",Cblack);
+	}
+
+	while(this->run_game == 1)
+	{
+		if( SDL_PollEvent( &event ) )
+		{
+			if(event.type == SDL_QUIT || event.type == SDL_KEYDOWN)
+			{
+				run_game = 0;
+			}
+		}
+		SDL_BlitSurface(messageBox,NULL,screen,message_box);
+		SDL_BlitSurface(gameOverText,NULL,screen,gotext);
+		SDL_Flip(screen);
+		SDL_Delay(50);
+	}
+	//display it
+	//wait for some keypress or mouse click to end the game
+
 	return winner;
 }
