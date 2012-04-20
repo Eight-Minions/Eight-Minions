@@ -382,10 +382,10 @@ int client::gameOverRecieve(int winner)
 	SDL_Surface *messageBox = LoadImageCK("images/messageBox.png");
 	SDL_Surface *gameOverText;
 	SDL_Rect* message_box = newRect(50,50,0,0);
-	SDL_Rect* gotext = newRect(150,150,0,0);
+	SDL_Rect* gotext = newRect(100,150,0,0);
 	if(self->getPnum() == winner)
 	{
-		gameOverText = TTF_RenderText_Solid(font, "Congratulations! you defeated your opponent!",Cblack);
+		gameOverText = TTF_RenderText_Solid(font, "Congratulations! You Won!",Cblack);
 	}
 	else
 	{

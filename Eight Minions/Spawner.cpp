@@ -157,11 +157,11 @@ void Spawner::generateWave()
 		SpawnerDelay.pop();
 	int spawnNum = creepBaseSpawnNum[creepType];
 	//creep number selection.
-	if(waveNumber < 6)
+	spawnNum /= 2;
+	if(waveNumber > 10)
 	{
-		spawnNum = (spawnNum / (6 - waveNumber)) + 1;
+		spawnNum += (waveNumber - 5) / 5;
 	}
-
 	for(int i = 0; i < spawnNum; i++) 
 	{
 		switch(creepType)
@@ -220,7 +220,7 @@ void Spawner::generateWave()
 
 		}
 		if(i == spawnNum - 1)
-			SpawnerDelay.push(5 * MAX_FPS);
+			SpawnerDelay.push(25 * MAX_FPS);
 
 	}
 }

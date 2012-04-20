@@ -40,8 +40,8 @@ private:
 	//Surfaces - surfaces are basically loaded images that we can readily blit(display) to the screen
 	SDL_Surface* screen;
 	SDL_Surface* background;
-	SDL_Surface* creepImages[NUM_CREEPS]; //holds sprite sheets for each creep
-	SDL_Surface* towerImages[NUM_TOWERS];
+	SDL_Surface* creepImages[2][NUM_CREEPS]; //holds sprite sheets for each creep
+	SDL_Surface* towerImages[2][NUM_TOWERS];
 	SDL_Surface* attackImage;
 	SDL_Surface* text[TEXT_NUM];
 	

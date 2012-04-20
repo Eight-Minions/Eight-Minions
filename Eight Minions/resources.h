@@ -120,7 +120,7 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{
 #define TEXT_NUM 30
 
 //Movement Constant
-#define CLOCK_CAP .35
+#define CLOCK_CAP .40
 
 //Player Base Location
 #define PLAYERONEX 0

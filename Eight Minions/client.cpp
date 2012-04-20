@@ -45,22 +45,39 @@ void client::loadFiles()
 	this->background = IMG_Load("images/Minions_UI_ModGrid.png");
 	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
 	font10 = TTF_OpenFont("pirulen.ttf",10 );
+	string filepath;
+	string temp;
 
-	creepImages[NORM] = LoadImageCK("norm.png");
-	creepImages[FAST] = LoadImageCK("images/Minions_Creeps_Fast_Top_Sprite.png");
-	creepImages[SWARM] = LoadImageCK("images/Minions_Creeps_Swarm_Top_Sprite.png");
-	creepImages[TANK] = LoadImageCK("images/Minions_Creeps_High-A_Top_Sprite.png");
-	creepImages[TITAN] = LoadImageCK("images/Minions_Creeps_Boss_Top_Sprite.png");
-	creepImages[FATTY] = LoadImageCK("images/Minions_Creeps_High-H_Top_Sprite.png");
+	for(int i = 0; i < 2; i++)
+	{
+		filepath = "images/";
+		filepath += ('1' + i);
+		filepath += '/';
 
-	towerImages[STRUCTURE] = LoadImageCK("images/structure.png");
-	towerImages[NORMCREEPTOWER] = LoadImageCK("images/spawnTower.png");
-	towerImages[NORMTOWER] = LoadImageCK("images/normTower.png");
-	towerImages[FASTTOWER] = LoadImageCK("images/fastTower.png");
-	towerImages[AOETOWER] = LoadImageCK("images/AOEtower.png");
-	towerImages[HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
-	towerImages[MINETOWER] = LoadImageCK("images/mineTower.png");
+		temp = filepath + "norm.png";
+		creepImages[i][NORM] = LoadImageCK(temp);
+		temp = filepath + "Minions_Creeps_Fast_Top_Sprite.png";
+		creepImages[i][FAST] = LoadImageCK(temp);
+		temp = filepath + "Minions_Creeps_Swarm_Top_Sprite.png";
+		creepImages[i][SWARM] = LoadImageCK(temp);
+		temp = filepath + "Minions_Creeps_High-A_Top_Sprite.png";
+		creepImages[i][TANK] = LoadImageCK(temp);
+		temp = filepath + "Minions_Creeps_Boss_Top_Sprite.png";
+		creepImages[i][TITAN] = LoadImageCK(temp);
+		temp = filepath + "Minions_Creeps_High-H_Top_Sprite.png";
+		creepImages[i][FATTY] = LoadImageCK(temp);
 
+
+		towerImages[i][STRUCTURE] = LoadImageCK("images/structure.png");
+		towerImages[i][NORMCREEPTOWER] = LoadImageCK("images/spawnTower.png");
+		temp = filepath + "Minions_Towers_Normal_Top.png";
+		towerImages[i][NORMTOWER] = LoadImageCK(temp);
+		towerImages[i][FASTTOWER] = LoadImageCK("images/fastTower.png");
+		temp = filepath + "Minions_Towers_AOE_Top.png";
+		towerImages[i][AOETOWER] = LoadImageCK(temp);
+		towerImages[i][HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
+		towerImages[i][MINETOWER] = LoadImageCK("images/mineTower.png");
+	}
 	attackImage = LoadImageCK("images/attackAnimSprites.png");
 
 	for(int i = 0; i < 4; i++)
@@ -78,16 +95,20 @@ void client::cleanup()
 
 	SDLNet_UDP_Close(UDPsock);
 
-	for(int i = 0; i < NUM_TOWERS; i++)
+	for(int p = 0; p < 2; p++)
 	{
-		if(towerImages[i] != NULL)
-			SDL_FreeSurface(towerImages[i]);
-	}
+		for(int i = 0; i < NUM_TOWERS; i++)
+		{
+			if(towerImages[i] != NULL)
+				SDL_FreeSurface(towerImages[p][i]);
+		}
 
-	for(int i = 0; i < NUM_CREEPS; i++)
-	{
-		if(creepImages[i] != NULL)
-			SDL_FreeSurface(creepImages[i]);
+
+		for(int i = 0; i < NUM_CREEPS; i++)
+		{
+			if(creepImages[i] != NULL)
+				SDL_FreeSurface(creepImages[p][i]);
+		}
 	}
 
 	for(int i = 0; i < TEXT_NUM; i++)
@@ -195,7 +216,7 @@ void client::displayCreeps()
 	cListNode<creep*> *cur = creeps.getStart();
 	while(cur != NULL)
 	{
-		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getType()], SpriteMaps[cur->getData()->getDispDir()]);
+		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getPlayer() - 1][cur->getData()->getType()], SpriteMaps[cur->getData()->getDispDir()]);
 		cur = cur->getNext();
 	}
 }
@@ -205,7 +226,7 @@ void client::displayTowers()
 	cListNode<structure*> *cur = towers.getStart();
 	while (cur != NULL)
 	{
-		cur->getData()->displayTower(screen, towerImages[cur->getData()->getType()]);
+		cur->getData()->displayTower(screen, towerImages[cur->getData()->getPlayer() - 1][cur->getData()->getType()]);
 		cur = cur->getNext();
 	}
 }
@@ -297,7 +318,7 @@ void client::displayUI()
 
 		}
 		SDL_BlitSurface(text[15 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]); //player number
-		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
+		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getPlayer()][curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
 		SDL_BlitSurface(text[18], NULL, screen, textRects[11]);
 		SDL_BlitSurface(text[19], NULL, screen, textRects[12]);
 	}

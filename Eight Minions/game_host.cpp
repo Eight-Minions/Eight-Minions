@@ -116,8 +116,6 @@ int game_host::testrun()
 			}
 			else
 				curTower = curTower->getNext();
-
-
 		}
 
 		for(cur = creepList.getStart(); cur != NULL;)
@@ -134,7 +132,7 @@ int game_host::testrun()
 					else
 						cout << "Issue in calculation of winner" << endl;
 					sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), PLAYERUPDATE, getPlayer(cur->getData()->getPlayer())->getHealth(), getPlayer(cur->getData()->getPlayer())->getMoney()).getMT());
-					system("pause");
+					run = 0;
 				}
 				cur->getData()->kill(); 
 				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), PLAYERUPDATE, getPlayer(cur->getData()->getPlayer())->getHealth(), getPlayer(cur->getData()->getPlayer())->getMoney()).getMT());
