@@ -28,9 +28,12 @@ private:
 	string updateCollection;
 
 protected:
+	string mapName;
+
 	//Map variables
 	vector<vector<structure*> > Tmap; //map of pointers to the towers, NULL if no tower
 	vector<vector<bool> > Nodemap; //boolean map, false means passable
+	vector<coord> obstructionList;
 
 	cList<creep*> creepList; //the list of creeps, creeps contain their positions
 	cList<structure*> towerList;
@@ -85,13 +88,11 @@ public:
 	player * getPlayer(int playerNumber);
 	bool isEmptyLocation(int xLoc, int yLoc);
 
-	friend Spawner;
 
-	/*
+	string getMapName();
+	bool loadMap(string filename);
+
 	friend Spawner;
-	friend tower;
-	friend Standard_Tower;
-	*/
 };
 
 #endif

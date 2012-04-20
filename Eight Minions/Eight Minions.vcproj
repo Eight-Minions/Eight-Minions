@@ -184,10 +184,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\map.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\resources.cpp"
 				>
 			</File>
@@ -310,10 +306,6 @@
 				</File>
 				<File
 					RelativePath=".\FPS_Regulator.h"
-					>
-				</File>
-				<File
-					RelativePath=".\map.h"
 					>
 				</File>
 				<File

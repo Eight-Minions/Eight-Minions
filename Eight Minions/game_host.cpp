@@ -56,30 +56,9 @@ int game_host::testrun()
 	//this->waitForClients();
 	this->waitForClient_test();
 
-	// placeTower(int playerNumber, int towerType, int x, int y);
+	loadMap("TestMap.map");
 
-	//placeTower(1,1,4,9);
-	//placeTower(1,1,11,11);
-	//placeTower(1,1,3,9);
-	//placeTower(1,1,12,10);
-	//placeTower(2,1,13,10);
-	//placeTower(2,1,15,8);
-	//placeTower(2,1,16,7);
-	//placeTower(2,1,16,6);
-	//placeTower(2,1,14,9);
-	//placeTower(2,1,5,10);
-	//placeTower(1,NORMCREEPTOWER, 3, 8);
-	//placeTower(2,NORMCREEPTOWER, 12, 3);
-	
 	setNodemap();
-
-
-	/*
-	spawnCreep(2,1,1,Bases[1]);
-	spawnCreep(1,2,1,Bases[0]);
-	spawnCreep(1,3,1,Bases[0]);
-	spawnCreep(2,0,1,Bases[1]);
-	*/
 
 	int run = 1;
 	int nc = 0;
@@ -444,4 +423,75 @@ bool game_host::changeStructure(int structureID, int newType)
 		}
 	}
 	return false;
+}
+
+string game_host::getMapName()
+{
+	return mapName;
+}
+bool game_host::loadMap(string filename)
+{
+	obstructionList.clear();
+	string buff;
+	ifstream input;
+	input.open(filename.c_str(),ifstream::in); 
+	int readArray[MAPSIZE_X][MAPSIZE_Y];
+	if(input!= NULL)
+	{
+		int yCount = 0;
+		while(!input.eof())
+		{
+			input >> buff;
+			if(buff.length() == MAPSIZE_X)
+			{
+				for(int xCount =  0; xCount < buff.length(); xCount++)
+				{
+					if(buff[xCount] == '1')
+					{
+						readArray[xCount][yCount] = 1;
+					}
+					else if(buff[xCount] == '0')
+					{
+						readArray[xCount][yCount] = 0;
+					}
+					else
+					{
+						cout << "Error reading file: Unexpected character. Not 1 or 0" << endl;
+					}
+				}
+			}
+			else
+			{
+				cout << "Error reading file: Invalid X line length" << endl;
+				return false;
+			}
+			yCount++;
+		}
+		if(yCount != MAPSIZE_Y)
+		{
+			cout << "Error reading file: Invalid Y line length" << endl;
+			return false;
+		}
+	}
+	else
+	{
+		cout << "File not found, unable to load" << endl;	
+		return false;
+	}
+	for(int xLoc = 0; xLoc <= MAPSIZE_X; xLoc++)
+	{
+		for(int yLoc = 0; yLoc <= MAPSIZE_Y; yLoc++)
+		{
+			if(readArray[xLoc][yLoc] = 1)
+			{
+				obstructionList.push_back(gC(xLoc,yLoc));
+			}
+		}
+	}
+	for(int i = 0; i < obstructionList.size(); i++)
+	{
+		placeTower(0, OBSTACLE, obstructionList.at(i).x, obstructionList.at(i).y);
+	}
+	input.close();
+	return true;
 }

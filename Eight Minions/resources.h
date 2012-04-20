@@ -164,6 +164,7 @@ using std::list;
 using std::vector;
 using std::fstream;
 using std::ofstream;
+using std::ifstream;
 
 SDL_Rect *newRect(int x, int y, int w, int h);
 SDL_Color makeColor(int r, int g, int b);
