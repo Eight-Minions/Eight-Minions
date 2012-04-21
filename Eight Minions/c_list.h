@@ -1,17 +1,17 @@
 #ifndef C_LIST_H
 #define C_LIST_H
 
-#include <queue>
+#include <vector>
 #include "c_list_node.h"
 
-using std::queue;
+using std::vector;
 
 template <class T>
 class cList
 {
 private:
 	cListNode<T> *start;
-	queue<int> freeIterators;
+	vector<int> freeIterators;
 	int maxIterator;
 	int size;
 public:
@@ -45,7 +45,7 @@ cList<T>::cList ()
 	start = NULL;
 	maxIterator = 100;
 	for(int i = 0; i < 100; i++)
-		freeIterators.push(i);
+		freeIterators.push_back(i);
 	size = 0;
 }
 // Delete the List
@@ -92,8 +92,8 @@ int cList<T>::insertInOrder(T newData){
 	}
 	else
 	{
-		new_iterator = freeIterators.front();
-		freeIterators.pop();
+		new_iterator = freeIterators.back();
+		freeIterators.pop_back();
 	}
 	newNode->setForcedIndex(new_iterator);
 	cur = this->getStart();
@@ -124,11 +124,17 @@ bool cList<T>::insertWithID(int set_id, T newData)
 {
 	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
 	newNode = new cListNode<T> (newData);
+	for(unsigned int i = 0; i < freeIterators.size(); i++)
+	{
+		if(freeIterators.at(i) == set_id)
+		{
+			freeIterators.erase(freeIterators.begin() + i);
+		}
+	}
 	if(checkForObjectWithID(set_id) == false)
 	{
 		newNode->setForcedIndex(set_id);
 		cur = this->getStart();
-		
 		if (cur == NULL) 
 		{
 			newNode->setNext(NULL);
@@ -187,7 +193,7 @@ bool cList<T>::deleteNode(int searchIndex)
 			{
 				prev->setNext(cur->getNext());
 			}
-			freeIterators.push(searchIndex);
+			freeIterators.push_back(searchIndex);
 			delete (cur);
 			this->size--;
 			return true;
@@ -237,5 +243,4 @@ cListNode<T> * cList<T>::getNodeWithID(int search_id)
 	}
 	return NULL;
 }
-
 #endif

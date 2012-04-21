@@ -38,10 +38,13 @@ int main(int argc, char* argv[]){
 	}
 	else if(c == 3)
 	{
-		//creep::creep(int t, int p, int l, int set_x, int set_y)
-		creep *test = new creep(2,1,3,5,5);
-		cout << test->getHealth() << " " << test->getArmor() << endl;
-		cout << test->damage(5,2) << endl;
+		cList<int> testList;
+		testList.insertInOrder(1);
+		testList.insertInOrder(2);
+		testList.insertInOrder(3);
+		testList.insertInOrder(4);
+		testList.insertInOrder(5);
+		testList.deleteNode(1);
 	}
 	else if(c == 4)
 	{
