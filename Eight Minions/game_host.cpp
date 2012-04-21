@@ -51,25 +51,23 @@ int game_host::run()
 
 int game_host::testrun()
 {
+	cListNode<creep*> *cur = NULL;
+	cListNode<structure*> *curTower = NULL;
+	cListNode<structure*> *tempTower = NULL;
+	cListNode<creep*> *temp = NULL;
+	int run = 1;
+	int nc = 0;
+	bool deletedACreep = false;
+
 	this->init();
 	this->init_net();
 	//this->waitForClients();
 	this->waitForClient_test();
 
 	loadMap("TestMap.map");
-
-	setNodemap();
-
-	int run = 1;
-	int nc = 0;
-	bool deletedACreep = false;
-
+	setNodemap();	
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
-	cListNode<creep*> *cur = NULL;
-	cListNode<structure*> *curTower = NULL;
-	cListNode<structure*> *tempTower = NULL;
-	cListNode<creep*> *temp = NULL;
 	while(run)
 	{
 		reg->start();
@@ -478,11 +476,11 @@ bool game_host::loadMap(string filename)
 		cout << "File not found, unable to load" << endl;	
 		return false;
 	}
-	for(int xLoc = 0; xLoc <= MAPSIZE_X; xLoc++)
+	for(int xLoc = 0; xLoc < MAPSIZE_X; xLoc++)
 	{
-		for(int yLoc = 0; yLoc <= MAPSIZE_Y; yLoc++)
+		for(int yLoc = 0; yLoc < MAPSIZE_Y; yLoc++)
 		{
-			if(readArray[xLoc][yLoc] = 1)
+			if(readArray[xLoc][yLoc] == 1)
 			{
 				obstructionList.push_back(gC(xLoc,yLoc));
 			}
