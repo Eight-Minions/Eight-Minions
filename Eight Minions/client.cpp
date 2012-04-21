@@ -271,6 +271,15 @@ void client::displayUI()
 		buttons[0]->display(screen);
 		buttons[1]->display(screen);
 	}
+	else if(menuMode == 2)
+	{
+		buttons[21]->display(screen);
+		buttons[22]->display(screen);
+		buttons[23]->display(screen);
+		buttons[24]->display(screen);
+		buttons[25]->display(screen);
+
+	}
 
 	if(mouseClickMode == SELECT_TOWER_MODE)
 	{
@@ -326,7 +335,7 @@ void client::displayUI()
 
 		}
 		SDL_BlitSurface(text[15 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]); //player number
-		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getPlayer()][curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
+		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getPlayer() - 1][curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
 		SDL_BlitSurface(text[18], NULL, screen, textRects[11]);
 		SDL_BlitSurface(text[19], NULL, screen, textRects[12]);
 	}
@@ -351,8 +360,8 @@ coord client::getClickCoord(int x, int y)
 void client::initButtons()
 {
 
-	buttons[0] = new Button("images/towerButton",648,87,71,92);
-	buttons[1] = new Button("images/mineButton",721,87,71,92);
+	buttons[0] = new Button("images/towerButton",648,87,71,62);
+	buttons[1] = new Button("images/mineButton",721,87,71,62);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
 	//upgrade button
@@ -372,6 +381,11 @@ void client::initButtons()
 	buttons[19] = new Button("images/towerMenuButton",648,57,71,28);
 	buttons[20] = new Button("images/baseMenuButton",721,57,71,28);
 
+	buttons[21] = new Button("images/addFast",648,88,71,62);
+	buttons[22] = new Button("images/addSwarm",721,88,71,62);
+	buttons[23] = new Button("images/addHighH",648,152,71,62);
+	buttons[24] = new Button("images/addHighA",721,152,71,62);
+	buttons[25] = new Button("images/addTitan",648,215,71,62);
 
 }
 
