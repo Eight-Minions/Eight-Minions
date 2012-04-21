@@ -38,6 +38,8 @@ private:
 	structure *curSelectedTowerPtr;
 	int curTowerId;
 
+	int baseLevel;
+
 	//Surfaces - surfaces are basically loaded images that we can readily blit(display) to the screen
 	SDL_Surface* screen;
 	SDL_Surface* background;
@@ -106,6 +108,12 @@ public:
 
 	bool toggleTowerSend(int Tid);
 	bool toggleTowerRecieve(int towerID, int newState);
+
+	bool upgradeBaseSend();
+	bool upgradeBaseRecieve();
+
+	bool addTypeToBaseSend(int newType);
+	bool addTypeToBaseRecieve(int newType);
 
 	int gameOverRecieve(int winner);
 
