@@ -38,7 +38,17 @@ int main(int argc, char* argv[]){
 	}
 	else if(c == 3)
 	{
+<<<<<<< HEAD
 
+=======
+		cList<int> testList;
+		testList.insertInOrder(1);
+		testList.insertInOrder(2);
+		testList.insertInOrder(3);
+		testList.insertInOrder(4);
+		testList.insertInOrder(5);
+		testList.deleteNode(1);
+>>>>>>> origin/HEAD
 	}
 	else if(c == 4)
 	{

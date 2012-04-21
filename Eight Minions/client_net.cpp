@@ -120,6 +120,7 @@ int client::performUpdate(string upd)
 				creep *temp = creeps.getObjectWithID(update.getId1());
 				temp->setPlayer(update.getPlayer());
 				int xdif = update.getVal(0) - temp->getX();
+
 				if( xdif < 0)
 					temp->setDir(0);
 				else if(xdif > 0)
