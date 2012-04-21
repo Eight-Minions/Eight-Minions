@@ -195,6 +195,13 @@ int client::performUpdate(string upd)
 	{
 		gameOverRecieve(update.getVal(0));
 	}
+	else if(updateType == BASE)
+	{
+		if(update.getVal(0) == UPGRADE)
+			this->upgradeBaseRecieve();
+		else if(update.getVal(0) == ADDTYPE)
+			this->addTypeToBaseRecieve(update.getVal(1));
+	}
 	else
 	{
 		return 0;
@@ -411,4 +418,30 @@ int client::gameOverRecieve(int winner)
 	//wait for some keypress or mouse click to end the game
 
 	return winner;
+}
+
+bool client::upgradeBaseSend()
+{
+	sendToServerUDP(UpdMess(this->self->getPnum(), BASE, UPGRADE).getMT());
+	return true;
+}
+bool client::upgradeBaseRecieve()
+{
+	this->baseLevel += 1;
+	string buff = "Level ";
+	buff += (baseLevel + '0');
+	SDL_FreeSurface(text[25]);
+	text[25] = TTF_RenderText_Solid(font, buff.c_str(), Cblack);
+	return true;
+}
+bool client::addTypeToBaseSend(int newType)
+{
+	sendToServerUDP(UpdMess(this->self->getPnum(), BASE, ADDTYPE, newType).getMT());
+	return true;
+}
+bool client::addTypeToBaseRecieve(int newType)
+{
+
+	// JEROMY
+	return true;
 }

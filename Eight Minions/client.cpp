@@ -5,6 +5,7 @@
 client::client()
 {
 	this->ip = new IPaddress;
+	baseLevel = 1;
 }
 
 int client::init()
@@ -259,6 +260,7 @@ void client::displayUI()
 	SDL_BlitSurface(text[1], NULL,screen,textRects[1]);
 	SDL_BlitSurface(text[2], NULL,screen,textRects[2]);
 	SDL_BlitSurface(text[3], NULL,screen,textRects[3]);
+	SDL_BlitSurface(text[25], NULL, screen, textRects[18]);
 
 	SDL_BlitSurface(text[15 + self->getPnum()], NULL, screen, textRects[4]);
 
@@ -436,6 +438,9 @@ void client::initText()
 
 	textRects[17] = newRect(738,558,0,0); //heavy tower cost text
 	text[24] = TTF_RenderText_Solid(font, "$25", Cblack);
+
+	textRects[18] = newRect(432, 558,0,0); // Base Level
+	text[25] = TTF_RenderText_Solid(font, "Level 1", Cblack);
 }
 
 bool client::boardWasClicked( int x, int y)

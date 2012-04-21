@@ -61,7 +61,10 @@ public:
 	void setDelay(int newDelay);
 
 	int getLevel();
+	void setLevel(int newLevel);
 	int getType();
+
+	bool isInSpawner(int checkType);
 	
 };
 

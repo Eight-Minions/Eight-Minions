@@ -9,6 +9,8 @@ UpdMess::UpdMess(int p, int t, ...)
 		Creep:					UpdMess(Player[1], NEWCREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);	// For creep creation and upgrades
 		Creep:					UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5], Direction[1]);						// For position updates
 		Player:					UpdMess(Player[1], PLAYERUPDATE, Health[3], Money[8]);
+		Add Type to Base:		UpdMess(Player[1], BASE, ADDTYPE, addType[2]);
+		Upgrade Base:			UpdMess(Player[1], BASE, UPGRADE);
 		Tower Creation:			UpdMess(Player[1], TOWER, TOWERCREATION[2], TowerID[4], X[2], Y[2], TowerType[2]);
 		Tower Attack:			UpdMess(Player[1], TOWER, TOWERATTACK[2], AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
 		Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
@@ -30,7 +32,38 @@ UpdMess::UpdMess(int p, int t, ...)
 	this->p = p;
 	messText += (t + '0');
 	this->type = t;
- 
+
+	if(t == BASE)
+	{
+		var = va_arg(v1, int);
+		if(var == 0)
+			messText += "00";
+		else
+		{
+			if(var < 10)
+				messText += '0';
+			messText += itoa(var,buff,10);
+		}
+		if(var == ADDTYPE)
+		{
+			var = va_arg(v1, int);
+			if(var == 0)
+				messText += "00";
+			else
+			{
+				if(var < 10)
+					messText += '0';
+				messText += itoa(var,buff,10);
+			}
+		}
+		else if(var == UPGRADE)
+		{
+			// Do nothing for now.
+		}
+		else
+		{
+		}
+	}
 	if(t == TOWER)
 	{ 
 		var = va_arg(v1, int);
@@ -378,9 +411,25 @@ UpdMess::UpdMess(string m)
 		val[1] = 1000 * (m[10] - '0') + 100 * (m[11] - '0') + 10 * (m[12] - '0') + (m[13] - '0');
 		// HEALTH
 		val[2] = 10000 * (m[14] - '0') + 1000 * (m[15] - '0') + 100 * (m[16] - '0') + 10 * (m[17] - '0') + (m[18] - '0');
-
 		//UpdMess(Player[1], CREEP, CreepID[4], X[4], Y[4], Health[5], Type[2], Level[3]);
-
+	}
+	else if(type == BASE)
+	{	
+		val.resize(1);
+		val[0] = 10 * (m[2] - '0') + (m[3] - '0');
+		if(val[0] == ADDTYPE)
+		{
+			val.resize(2);
+			val[1] = 10 * (m[4] - '0') + (m[5] - '0'); 
+		}
+		else if(val[0] == UPGRADE)
+		{
+			// Do nothing
+		}
+		else
+		{
+			//break
+		}
 	}
 	else if(type == TOWER)
 	{
