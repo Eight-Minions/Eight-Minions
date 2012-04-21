@@ -488,7 +488,7 @@ bool game_host::loadMap(string filename)
 	}
 	for(int i = 0; i < obstructionList.size(); i++)
 	{
-		placeTower(0, OBSTACLE, obstructionList.at(i).x, obstructionList.at(i).y);
+		placeTower(1, OBSTACLE, obstructionList.at(i).x, obstructionList.at(i).y);
 	}
 	input.close();
 	return true;

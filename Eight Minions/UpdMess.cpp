@@ -16,7 +16,8 @@ UpdMess::UpdMess(int p, int t, ...)
 		Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE[2], TowerID[4], newType[2]);	
 		Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE[2], TowerID[4], newValue);
 		Tower Delete			UpdMess(Player[1], TOWER, TOWERDELETE, TowerID[4]);
-		Mine Placement:			UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
+		Mine Placement:			UpdMess(Player[1], TOWER, MINEPLACE[2], TowerX[2], Tower[Y]);
+		Obstruction Placement:	UpdMess(Player[1], TOWER, OBSTACLEPLACE[2], TowerX[2], Tower[Y]);
 		Game Over:				UpdMess(Player[1], GAMEOVER, Winner[1]);
 	*/	
 	int var;
@@ -114,7 +115,7 @@ UpdMess::UpdMess(int p, int t, ...)
 			}
 		}
 		//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE, TowerX[2], Tower[Y]);
-		else if(var == TOWERPLACE || var == MINEPLACE)
+		else if(var == TOWERPLACE || var == MINEPLACE || var == OBSTACLEPLACE)
 		{
 			for(int i = 0; i < 2; i++)
 			{
@@ -410,7 +411,7 @@ UpdMess::UpdMess(string m)
 			val[3] = 10 * (m[12] - '0') + (m[13] - '0');
 		}
 		//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE, TowerX[2], Tower[Y]);
-		else if(val[0] == TOWERPLACE || val[0] == MINEPLACE)
+		else if(val[0] == TOWERPLACE || val[0] == MINEPLACE || val[0] == OBSTACLEPLACE)
 		{
 			val.resize(3);
 			// Placement X
