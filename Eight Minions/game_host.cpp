@@ -262,6 +262,17 @@ int game_host::placeTower(int playerNumber, int towerType, int x, int y)
 			}
 			else return 0;
 		}
+		else if(towerType == OBSTACLE)
+		{
+			if(Tmap[x][y] == NULL)
+			{
+				Obstacle *newTower = new Obstacle(OBSTACLE, x, y);
+				newTowerID = this->towerList.insertInOrder(newTower);
+				Tmap[x][y] = newTower;
+			}
+			else
+				return 0;
+		}
 		else if(towerType >= NORMCREEPTOWER && towerType <= FATTYCREEPTOWER)
 		{
 			if(Tmap[x][y] == NULL)
@@ -308,6 +319,14 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 		}
 		else
 			return false;
+	}
+	else if(towerType == OBSTACLE)
+	{
+		Obstacle *newTower = new Obstacle(OBSTACLE, x, y);
+		this->towerList.insertWithID(towerID, newTower);
+		Nodemap[newTower->getX()][newTower->getY()] = true;
+		Tmap[x][y] = newTower;
+		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
 	}
 	else if(towerType == MINETOWER)
 	{
