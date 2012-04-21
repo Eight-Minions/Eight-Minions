@@ -209,7 +209,6 @@ int client::testrun()
 	}
 
 	this->cleanup();
-	//dump.close();
 	return 0;
 }
 
@@ -505,6 +504,16 @@ void client::handleInput()
 					buttons[9]->wasClicked(event.button.x, event.button.y);
 				}
 			}
+
+			if(menuMode == 2)
+			{
+				buttons[21]->wasClicked(event.button.x, event.button.y);
+				buttons[22]->wasClicked(event.button.x, event.button.y);
+				buttons[23]->wasClicked(event.button.x, event.button.y);
+				buttons[24]->wasClicked(event.button.x, event.button.y);
+				buttons[25]->wasClicked(event.button.x, event.button.y);
+			}
+
 			if(buttons[19]->wasClicked(event.button.x, event.button.y))
 			{
 				menuMode = 1;
@@ -573,6 +582,36 @@ void client::handleInput()
 					//change structure to an AOE tower
 					changeTowerTypeSend(curTowerId,HEAVYTOWER);
 					mouseClickMode = DEFAULT_MODE;
+				}
+				if (buttons[21]->isClicked())
+				{
+					buttons[21]->setClick(false);
+					//add fast type creep to players spawner
+
+				}
+				if (buttons[22]->isClicked())
+				{
+					buttons[22]->setClick(false);
+					//add swarm type creep to players spawner
+
+				}
+				if (buttons[23]->isClicked())
+				{
+					buttons[23]->setClick(false);
+					//add highHealth type creep to players spawner
+
+				}
+				if (buttons[24]->isClicked())
+				{
+					buttons[24]->setClick(false);
+					//add highArmor type creep to players spawner
+
+				}
+				if (buttons[25]->isClicked())
+				{
+					buttons[25]->setClick(false);
+					//add titan type creep to players spawner
+
 				}
 				if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
 				{
