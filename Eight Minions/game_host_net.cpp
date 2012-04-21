@@ -355,5 +355,7 @@ int game_host::performUpdate(string upd)
 			}
 		}
 	}
+	sendMessageToQueue(UpdMess(1, PLAYERUPDATE, getPlayer(1)->getHealth(), getPlayer(1)->getMoney()).getMT());
+	sendMessageToQueue(UpdMess(2, PLAYERUPDATE, getPlayer(2)->getHealth(), getPlayer(2)->getMoney()).getMT());
 	return 0;
 }
