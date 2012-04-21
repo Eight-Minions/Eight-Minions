@@ -517,12 +517,14 @@ void client::handleInput()
 			if(buttons[19]->wasClicked(event.button.x, event.button.y))
 			{
 				menuMode = 1;
-				buttons[19]->setClick(false);
+				buttons[19]->setClick(true);
+				buttons[20]->setClick(false);
 			}
 			if(buttons[20]->wasClicked(event.button.x, event.button.y))
 			{
 				menuMode = 2;
-				buttons[20]->setClick(false);
+				buttons[20]->setClick(true);
+				buttons[19]->setClick(false);
 			}
 		}
 		if(event.type == SDL_MOUSEBUTTONUP)
