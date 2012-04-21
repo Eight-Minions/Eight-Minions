@@ -27,6 +27,13 @@
 #define PLAYERUPDATE 2		// For an update to the player
 #define TOWER 3 			// For anything to do with a tower
 #define GAMEOVER 4			// Sends the winning player
+#define BASE 5				// Base updates
+
+// Base UpdMess Definitions
+#define UPGRADE 0
+#define ADDTYPE 1
+
+
 
 // Tower UpdMess Definitions
 #define TOWERCREATION 0
@@ -48,6 +55,15 @@
 #define SWARM 3 // low armor, low health, average speed, high numbers
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
+
+// Base Definitions
+#define BASEUPGRADECOST 500
+#define ADDFAST 40
+#define ADDTANK 90
+#define ADDSWARM 50
+#define ADDTITAN 250
+#define ADDFATTY 80
+const int addSpawnArr[NUM_CREEPS] = {0, ADDFAST, ADDTANK, ADDSWARM, ADDTITAN, ADDFATTY};
 
 // Tower Type Constants
 #define NUM_TOWERS 12

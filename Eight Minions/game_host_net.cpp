@@ -354,7 +354,76 @@ int game_host::performUpdate(string upd)
 				removeTower(update.getId1(), update.getPlayer());
 			}
 		}
+
 	}
+	else if(updateType == BASE)
+	{
+		int subType = update.getVal(0);
+		if(subType == UPGRADE)
+		{
+			if(this->getPlayer(update.getPlayer())->getMoney() >= BASEUPGRADECOST)
+			{
+				if(update.getPlayer() == 1)
+				{
+					if(this->p1Spawner->getLevel() < 5)
+					{
+						this->p1Spawner->setLevel(this->p1Spawner->getLevel() + 1);
+						sendMessageToQueue(UpdMess(1, BASE, UPGRADE).getMT());
+					}
+					else 
+						return -1;
+				}
+				else if(update.getPlayer() == 2)
+				{
+					if(this->p2Spawner->getLevel() < 5)
+					{
+						this->p2Spawner->setLevel(this->p2Spawner->getLevel() + 1);
+						sendMessageToQueue(UpdMess(2, BASE, UPGRADE).getMT());
+					}
+					else
+						return -1;
+				}
+				else
+					return -1;
+			}
+		}
+		else if(subType == ADDTYPE)
+		{
+			int addType = update.getVal(1);
+			if(!(addType >= FAST && addType <= FATTY))
+				return -1;
+			if(update.getPlayer() == 1)
+			{
+				if(this->p1Spawner->isInSpawner(addType))
+					return -1;	// Already in the spawner
+			}
+			else if(update.getPlayer() == 2)
+			{
+				if(this->p2Spawner->isInSpawner(addType))
+					return -1;  // Already in the spawner
+			}
+			else
+				return -1;
+			if(this->getPlayer(update.getPlayer())->getMoney() >= addSpawnArr[addType])
+			{
+				this->getPlayer(update.getPlayer())->spendMoney(addSpawnArr[addType]);
+				if(update.getPlayer() == 1)
+				{
+					this->p1Spawner->addCreepType(addType);
+					sendMessageToQueue(UpdMess(1, BASE, ADDTYPE, addType).getMT());
+				}
+				else
+				{
+					this->p2Spawner->addCreepType(addType);
+					sendMessageToQueue(UpdMess(2, BASE, ADDTYPE, addType).getMT());
+				}
+			}
+		}
+		else
+			return -1;
+	}
+	else 
+		return -1;
 	sendMessageToQueue(UpdMess(1, PLAYERUPDATE, getPlayer(1)->getHealth(), getPlayer(1)->getMoney()).getMT());
 	sendMessageToQueue(UpdMess(2, PLAYERUPDATE, getPlayer(2)->getHealth(), getPlayer(2)->getMoney()).getMT());
 	return 0;
