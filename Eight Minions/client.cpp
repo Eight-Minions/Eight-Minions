@@ -77,6 +77,7 @@ void client::loadFiles()
 		towerImages[i][AOETOWER] = LoadImageCK(temp);
 		towerImages[i][HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
 		towerImages[i][MINETOWER] = LoadImageCK("images/mineTower.png");
+		towerImages[i][OBSTACLE] = LoadImageCK("images/rock.png");
 	}
 	attackImage = LoadImageCK("images/attackAnimSprites.png");
 
@@ -261,6 +262,9 @@ void client::displayUI()
 
 	SDL_BlitSurface(text[15 + self->getPnum()], NULL, screen, textRects[4]);
 
+	buttons[19]->display(screen);
+	buttons[20]->display(screen);
+
 	buttons[0]->display(screen);
 	buttons[1]->display(screen);
 
@@ -343,8 +347,8 @@ coord client::getClickCoord(int x, int y)
 void client::initButtons()
 {
 
-	buttons[0] = new Button("images/towerButton",648,57,71,92);
-	buttons[1] = new Button("images/mineButton",721,57,71,92);
+	buttons[0] = new Button("images/towerButton",648,80,71,92);
+	buttons[1] = new Button("images/mineButton",721,80,71,92);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
 	//upgrade button
@@ -358,6 +362,11 @@ void client::initButtons()
 	//pause button (for creep towers)
 	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
+	//13- 18
+
+	//menu buttons
+	buttons[19] = new Button("images/towerMenuButton",648,47,71,28);
+	buttons[20] = new Button("images/baseMenuButton",721,47,71,28);
 
 
 }
