@@ -124,6 +124,7 @@ bool cList<T>::insertWithID(int set_id, T newData)
 {
 	cListNode<T> *newNode = NULL, *cur = NULL, *prev = NULL;
 	newNode = new cListNode<T> (newData);
+	/*
 	for(unsigned int i = 0; i < freeIterators.size(); i++)
 	{
 		if(freeIterators.at(i) == set_id)
@@ -131,6 +132,7 @@ bool cList<T>::insertWithID(int set_id, T newData)
 			freeIterators.erase(freeIterators.begin() + i);
 		}
 	}
+	*/
 	if(checkForObjectWithID(set_id) == false)
 	{
 		newNode->setForcedIndex(set_id);
