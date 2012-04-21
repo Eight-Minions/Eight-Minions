@@ -195,6 +195,7 @@ int client::testrun()
 	int n_rec = 0;
 
 	mouseClickMode = DEFAULT_MODE;
+	menuMode = 1;
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
@@ -265,8 +266,11 @@ void client::displayUI()
 	buttons[19]->display(screen);
 	buttons[20]->display(screen);
 
-	buttons[0]->display(screen);
-	buttons[1]->display(screen);
+	if(menuMode == 1)
+	{
+		buttons[0]->display(screen);
+		buttons[1]->display(screen);
+	}
 
 	if(mouseClickMode == SELECT_TOWER_MODE)
 	{
@@ -347,8 +351,8 @@ coord client::getClickCoord(int x, int y)
 void client::initButtons()
 {
 
-	buttons[0] = new Button("images/towerButton",648,80,71,92);
-	buttons[1] = new Button("images/mineButton",721,80,71,92);
+	buttons[0] = new Button("images/towerButton",648,87,71,92);
+	buttons[1] = new Button("images/mineButton",721,87,71,92);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
 	//upgrade button
@@ -365,8 +369,8 @@ void client::initButtons()
 	//13- 18
 
 	//menu buttons
-	buttons[19] = new Button("images/towerMenuButton",648,47,71,28);
-	buttons[20] = new Button("images/baseMenuButton",721,47,71,28);
+	buttons[19] = new Button("images/towerMenuButton",648,57,71,28);
+	buttons[20] = new Button("images/baseMenuButton",721,57,71,28);
 
 
 }
@@ -486,6 +490,16 @@ void client::handleInput()
 					buttons[8]->wasClicked(event.button.x, event.button.y);
 					buttons[9]->wasClicked(event.button.x, event.button.y);
 				}
+			}
+			if(buttons[19]->wasClicked(event.button.x, event.button.y))
+			{
+				menuMode = 1;
+				buttons[19]->setClick(false);
+			}
+			if(buttons[20]->wasClicked(event.button.x, event.button.y))
+			{
+				menuMode = 2;
+				buttons[20]->setClick(false);
 			}
 		}
 		if(event.type == SDL_MOUSEBUTTONUP)
