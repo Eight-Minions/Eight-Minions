@@ -33,6 +33,7 @@ private:
 	UDPpacket *UDPpack;
 
 	int mouseClickMode;
+	int menuMode;
 	coord curSelectedTower;
 	structure *curSelectedTowerPtr;
 	int curTowerId;

@@ -38,10 +38,7 @@ int main(int argc, char* argv[]){
 	}
 	else if(c == 3)
 	{
-		//creep::creep(int t, int p, int l, int set_x, int set_y)
-		creep *test = new creep(2,1,3,5,5);
-		cout << test->getHealth() << " " << test->getArmor() << endl;
-		cout << test->damage(5,2) << endl;
+
 	}
 	else if(c == 4)
 	{
