@@ -216,10 +216,18 @@ int client::testrun()
 void client::displayCreeps()
 {
 	cListNode<creep*> *cur = creeps.getStart();
+	cListNode<creep*> *temp;
 	while(cur != NULL)
 	{
 		cur->getData()->displayCreep(screen,creepImages[cur->getData()->getPlayer() - 1][cur->getData()->getType()], SpriteMaps[cur->getData()->getDispDir()]);
-		cur = cur->getNext();
+		if(!cur->getData()->isAlive())
+		{
+			temp = cur->getNext();
+			creeps.deleteNode(cur->getIndex());
+			cur = temp;
+		}
+		else
+			cur = cur->getNext();
 	}
 }
 
@@ -594,31 +602,33 @@ void client::handleInput()
 				{
 					buttons[21]->setClick(false);
 					//add fast type creep to players spawner
+					addTypeToBaseSend(FAST);
 
 				}
 				if (buttons[22]->isClicked())
 				{
 					buttons[22]->setClick(false);
 					//add swarm type creep to players spawner
+					addTypeToBaseSend(SWARM);
 
 				}
 				if (buttons[23]->isClicked())
 				{
 					buttons[23]->setClick(false);
 					//add highHealth type creep to players spawner
-
+					addTypeToBaseSend(FATTY);
 				}
 				if (buttons[24]->isClicked())
 				{
 					buttons[24]->setClick(false);
 					//add highArmor type creep to players spawner
-
+					addTypeToBaseSend(TANK);
 				}
 				if (buttons[25]->isClicked())
 				{
 					buttons[25]->setClick(false);
 					//add titan type creep to players spawner
-
+					addTypeToBaseSend(TITAN);
 				}
 				if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
 				{

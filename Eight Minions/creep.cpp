@@ -20,7 +20,8 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 	this->setX(set_x * GRID_SIZE + BOARD_X_OFFSET);  // Should probably have a generic starting point for each side 
 	this->setY(set_y * GRID_SIZE + BOARD_Y_OFFSET);
 	this->r = new SDL_Rect;
-	if(type == TANK){
+	if(type == TANK)
+	{
 		// Health Armor Speed Reward Price
 		health =	tankCreepArr[level-1][0];
 		armor =		tankCreepArr[level-1][1];
@@ -29,7 +30,8 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		price =		tankCreepArr[level-1][4];
 		animCount = 4;
 	}
-	else if(type == FATTY){
+	else if(type == FATTY)
+	{
 		// Health Armor Speed Reward Price
 		health =	fattyCreepArr[level-1][0];
 		armor =		fattyCreepArr[level-1][1];
@@ -38,7 +40,8 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		price =		fattyCreepArr[level-1][4];
 		animCount = 6;
 	}
-	else if(type == FAST){
+	else if(type == FAST)
+	{
 		health =	fastCreepArr[level-1][0];
 		armor =		fastCreepArr[level-1][1];
 		speed =		fastCreepArr[level-1][2];
@@ -82,6 +85,8 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		reward = 0;
 		price = 0;
 	}
+
+	timeOfLastUpdate = SDL_GetTicks() + 500;
 }
 creep::~creep()
 {
@@ -203,6 +208,10 @@ bool creep::move()
 }
 void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM])
 {
+	if(SDL_GetTicks() - timeOfLastUpdate >= 2000)
+	{
+		this->kill();
+	}
 	if(image != NULL)
 	{
 		updateAnim();
@@ -300,4 +309,14 @@ void creep::setDir( int nDir )
 int creep::getDispDir()
 {
 	return dispDir;
+}
+
+int creep::getTimeout()
+{
+	return timeOfLastUpdate;
+}
+
+void creep::setUpdateTime( int nTime )
+{
+	timeOfLastUpdate = nTime;
 }

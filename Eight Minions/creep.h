@@ -17,11 +17,13 @@ private:
 
 	bool alive;
 
+	int timeOfLastUpdate;
+
 	int Xdir;
 	int Ydir;
 	int dispDir;
 
-	SDL_Rect *r; //could we include this rect inside the locations class? it would be nice
+	SDL_Rect *r; 
 	coord prevPos;
 
 	int animIndex;
@@ -64,6 +66,9 @@ public:
 	int getReward();
 	int getPrice();
 	int getDir();
+
+	int getTimeout();
+	void setUpdateTime(int nTime);
 
 	bool isAlive();
 	void setDir( int nDir );

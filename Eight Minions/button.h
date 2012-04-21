@@ -10,6 +10,7 @@ private:
 	SDL_Rect *rect;
 	SDL_Surface* image[2];
 	int isPressed;
+	bool lock;
 public:
 	Button(string baseImageName, int x, int y, int width, int height);
 
@@ -19,5 +20,7 @@ public:
 	bool isClicked();
 	void setClick(bool nPress);
 	bool wasClickedState( int clickX, int clickY);
+
+	void Lock();
 };
 #endif

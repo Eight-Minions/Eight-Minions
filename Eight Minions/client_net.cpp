@@ -110,7 +110,8 @@ int client::performUpdate(string upd)
 	updateType = update.getType();
 	if(updateType == CREEP)
 	{
-		if(creeps.checkForObjectWithID(update.getId1())){
+		if(creeps.checkForObjectWithID(update.getId1()))
+		{
 			if(update.getVal(2) <= 0) //delete dead creeps
 			{
 				creeps.deleteNode(update.getId1());
@@ -137,6 +138,7 @@ int client::performUpdate(string upd)
 				temp->setX(update.getVal(0));
 				temp->setY(update.getVal(1));
 				temp->setHealth(update.getVal(2));
+				temp->setUpdateTime(SDL_GetTicks());
 			}
 		}
 		else
@@ -442,6 +444,27 @@ bool client::addTypeToBaseSend(int newType)
 bool client::addTypeToBaseRecieve(int newType)
 {
 
-	// JEROMY
+	int buttonNum = 0;
+	switch(newType)
+	{
+	case FAST:
+		buttonNum = 21;
+		break;
+	case SWARM:
+		buttonNum = 22;
+		break;
+	case FATTY:
+		buttonNum = 23;
+		break;
+	case TANK:
+		buttonNum = 24;
+		break;
+	case TITAN:
+		buttonNum = 25;
+		break;
+	}
+
+	buttons[buttonNum]->setClick(true);
+	buttons[buttonNum]->Lock();
 	return true;
 }

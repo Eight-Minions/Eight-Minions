@@ -10,6 +10,7 @@ Button::Button( string baseImageName, int x, int y, int width, int height)
 	temp = baseImageName + "Down.png";
 	image[1] = LoadImageCK(temp);
 	isPressed = 0;
+	lock = false;
 }
 
 void Button::display( SDL_Surface* screen )
@@ -26,6 +27,8 @@ void Button::display( SDL_Surface* screen )
 
 bool Button::wasClicked( int clickX, int clickY)
 {
+	if(lock)
+		return false;
 	if(clickX >= rect->x && clickX <= rect->x + rect->w && clickY >= rect->y && clickY <= rect->y + rect->h)
 	{
 		isPressed = (isPressed + 1) % 2;
@@ -47,12 +50,17 @@ bool Button::wasClickedState( int clickX, int clickY)
 
 bool Button::isClicked()
 {
-	return isPressed == 1;
+	return (!lock) && (isPressed == 1);
 }
 
 void Button::setClick( bool nPress )
 {
 	isPressed = nPress;
+}
+
+void Button::Lock()
+{
+	lock = true;
 }
 
 
