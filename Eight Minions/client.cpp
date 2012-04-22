@@ -198,7 +198,11 @@ int client::testrun()
 	mouseClickMode = DEFAULT_MODE;
 	menuMode = 1;
 
+	pMess = new FadeMessage(font,50,550,MAX_FPS,1,Cblack);
+
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
+
+	pMess->setMessage("Play Game!");
 
 	while(run_game)
 	{
@@ -271,6 +275,8 @@ void client::displayUI()
 	SDL_BlitSurface(text[25], NULL, screen, textRects[18]);
 
 	SDL_BlitSurface(text[15 + self->getPnum()], NULL, screen, textRects[4]);
+
+	pMess->display(screen);
 
 	buttons[19]->display(screen);
 	buttons[20]->display(screen);
@@ -489,6 +495,10 @@ void client::handleInput()
 		{
 			run_game = 0;
 		}
+		if( event.type == SDL_MOUSEMOTION )
+		{
+			pMess->checkMouseover(event.button.x, event.button.y);
+		}
 		if(event.type == SDL_KEYDOWN)
 		{
 			if(event.key.keysym.sym == SDLK_SPACE)
@@ -697,6 +707,8 @@ void client::handleInput()
 							if(valid)
 								sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
 						}
+						else
+							pMess->setMessage("Not Enough Money...");
 
 					}
 					else if(mouseClickMode == PLACE_MINE_MODE)
@@ -709,6 +721,8 @@ void client::handleInput()
 							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 							sendToServerUDP(UpdMess(self->getPnum(),TOWER, MINEPLACE,placeC.x,placeC.y).getMT());
 						}
+						else
+							pMess->setMessage("Not Enough Money for Mine...");
 					}
 				}
 

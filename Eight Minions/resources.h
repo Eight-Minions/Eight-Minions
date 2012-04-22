@@ -16,6 +16,7 @@
 #include "c_list.h"
 #include "UpdMess.h"
 #include "path.h"
+#include "FadeMessage.h"
 
 //to calculate total number of lines, press ctrl + shift + f and search .cpp and .h files for the regular expression ^:b*[^:b#/]+.*$
 
