@@ -43,3 +43,10 @@ void FadeMessage::checkMouseover( int x, int y )
 	else
 		paused = false;
 }
+
+FadeMessage::~FadeMessage()
+{
+	SDL_FreeSurface(text);
+	delete r;
+	delete font;
+}

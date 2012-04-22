@@ -23,6 +23,7 @@ private:
 	bool paused;
 public:
 	FadeMessage(TTF_Font* nFont, int x, int y, int FPS, int nFadeTime, SDL_Color nColor);
+	~FadeMessage();
 
 	void setMessage(string nMess);
 	void display(SDL_Surface *screen);

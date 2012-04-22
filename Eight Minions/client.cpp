@@ -682,26 +682,46 @@ void client::handleInput()
 				{
 					buttons[13]->setClick(false);
 					//change spawner to spawn fast creeps.
+					if(self->getMoney() >= fastCreepArr[0][4] * 20)
+						changeSpawnerTypeSend(curTowerId, FASTCREEPTOWER);
+					else
+						pMess->setMessage("Not Enough Money!");
 				}
 				if(buttons[14]->isClicked())
 				{
 					buttons[14]->setClick(false);
 					//change spawner to spawn swarm creeps.
+					if(self->getMoney() >= swarmCreepArr[0][4] * 20)
+						changeSpawnerTypeSend(curTowerId, SWARMCREEPTOWER);
+					else
+						pMess->setMessage("Not Enough Money!");
 				}
 				if(buttons[15]->isClicked())
 				{
 					buttons[15]->setClick(false);
 					//change spawner to spawn high health creeps.
+					if(self->getMoney() >= fattyCreepArr[0][4] * 20)
+						changeSpawnerTypeSend(curTowerId,FATTYCREEPTOWER);
+					else
+						pMess->setMessage("Not Enough Money!");
 				}
 				if(buttons[16]->isClicked())
 				{
 					buttons[16]->setClick(false);
 					//change spawner to spawn high armor creeps.
+					if(self->getMoney() >= tankCreepArr[0][4] * 20)
+						changeSpawnerTypeSend(curTowerId, TANKCREEPTOWER);
+					else
+						pMess->setMessage("Not Enough Money!");
 				}
 				if(buttons[17]->isClicked())
 				{
 					buttons[17]->setClick(false);
 					//change spawner to spawn titan creeps.
+					if(self->getMoney() >= titanCreepArr[0][4] * 20)
+						changeSpawnerTypeSend(curTowerId, TITANCREEPTOWER);
+					else
+						pMess->setMessage("Not Enough Money!");
 				}
 				if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
 				{
