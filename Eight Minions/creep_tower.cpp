@@ -61,7 +61,7 @@ bool Creep_Tower::changeType(int newType)
 	int costToSwitch;
 	if(newType >= NORMCREEPTOWER && newType <= FATTYCREEPTOWER && newType != this->getType())
 	{
-		if(updateCost(this->getLevel(), newType) < this->manager->getPlayer(this->getPlayer())->getMoney())
+		if(updateCost(this->getLevel(), newType) =< this->manager->getPlayer(this->getPlayer())->getMoney())
 		{
 			this->manager->getPlayer(this->getPlayer())->spendMoney(updateCost(this->getLevel(), newType));
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel(),gC(this->getX(), this->getY()));
@@ -91,27 +91,27 @@ int Creep_Tower::updateCost(int uLevel, int uType)
 	{
 		if(uType == NORMCREEPTOWER)
 		{
-			return normCreepArr[uLevel][4];
+			return normCreepArr[uLevel][4] * 20;
 		}
 		else if(uType == FASTCREEPTOWER)
 		{
-			return fastCreepArr[uLevel][4];
+			return fastCreepArr[uLevel][4] * 20;
 		}
 		else if(uType == TANKCREEPTOWER)
 		{
-			return tankCreepArr[uLevel][4];
+			return tankCreepArr[uLevel][4] * 20;
 		}
 		else if(uType == SWARMCREEPTOWER)
 		{	
-			return swarmCreepArr[uLevel][4];
+			return swarmCreepArr[uLevel][4] * 20;
 		}
 		else if(uType == TITANCREEPTOWER)
 		{
-			return titanCreepArr[uLevel][4];
+			return titanCreepArr[uLevel][4] * 20;
 		}
 		else if(uType == FATTYCREEPTOWER)
 		{
-			return fattyCreepArr[uLevel][4];
+			return fattyCreepArr[uLevel][4] * 20;
 		}
 		else
 			return 0;
