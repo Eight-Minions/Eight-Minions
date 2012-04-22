@@ -338,6 +338,17 @@ void client::displayUI()
 			SDL_BlitSurface(text[13], NULL, screen, textRects[8]);
 			break;
 		case NORMCREEPTOWER:
+			buttons[13]->display(screen);
+			buttons[14]->display(screen);
+			buttons[15]->display(screen);
+			buttons[16]->display(screen);
+			buttons[17]->display(screen);
+			SDL_BlitSurface(text[26], NULL,screen,textRects[19]);
+			SDL_BlitSurface(text[27], NULL,screen,textRects[20]);
+			SDL_BlitSurface(text[28], NULL,screen,textRects[21]);
+			SDL_BlitSurface(text[29], NULL,screen,textRects[22]);
+			SDL_BlitSurface(text[30], NULL,screen,textRects[23]);
+
 		case FASTCREEPTOWER:
 		case TANKCREEPTOWER:
 		case SWARMCREEPTOWER:
@@ -391,6 +402,11 @@ void client::initButtons()
 	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
 	//13- 18
+	buttons[13] = new Button("images/addFastToTower",690,412,36,36);
+	buttons[14] = new Button("images/addSwarmToTower",690,449,36,36);
+	buttons[15] = new Button("images/addHighHToTower",690,486,36,36);
+	buttons[16] = new Button("images/addHighAToTower",690,523,36,36);
+	buttons[17] = new Button("images/addTitanToTower",690,560,36,36);
 
 	//menu buttons
 	buttons[19] = new Button("images/towerMenuButton",648,57,71,28);
@@ -442,19 +458,33 @@ void client::initText()
 	text[20] = TTF_RenderText_Solid(font, "$10", Cblack);
 
 	textRects[14] = newRect(738,447,0,0); //spawner tower cost text
-	text[21] = TTF_RenderText_Solid(font, "$??", Cblack);
+	text[21] = TTF_RenderText_Solid(font, "$40", Cblack);
 
 	textRects[15] = newRect(738,484,0,0); //fast tower cost text
 	text[22] = TTF_RenderText_Solid(font, "$12", Cblack);
 
 	textRects[16] = newRect(738,521,0,0); //AOE tower cost text
-	text[23] = TTF_RenderText_Solid(font, "$20", Cblack);
+	text[23] = TTF_RenderText_Solid(font, "$45", Cblack);
 
 	textRects[17] = newRect(738,558,0,0); //heavy tower cost text
 	text[24] = TTF_RenderText_Solid(font, "$25", Cblack);
 
 	textRects[18] = newRect(432, 558,0,0); // Base Level
 	text[25] = TTF_RenderText_Solid(font, "Level 1", Cblack);
+
+
+
+	textRects[19] = newRect(727,415,0,0);
+	text[26] = TTF_RenderText_Solid(font10, _itoa(fastCreepArr[0][4] * 20,buff,10), Cblack);
+	textRects[20] = newRect(727,452,0,0);
+	text[27] = TTF_RenderText_Solid(font10, _itoa(swarmCreepArr[0][4] * 20,buff,10), Cblack);
+	textRects[21] = newRect(727,489,0,0);
+	text[28] = TTF_RenderText_Solid(font10, _itoa(fattyCreepArr[0][4] * 20,buff,10), Cblack);
+	textRects[22] = newRect(727,526,0,0);
+	text[29] = TTF_RenderText_Solid(font10, _itoa(tankCreepArr[0][4] * 20,buff,10), Cblack);
+	textRects[23] = newRect(727,563,0,0);
+	text[30] = TTF_RenderText_Solid(font10, _itoa(titanCreepArr[0][4] * 20,buff,10), Cblack);
+	
 }
 
 bool client::boardWasClicked( int x, int y)
@@ -525,6 +555,14 @@ void client::handleInput()
 					buttons[7]->wasClicked(event.button.x, event.button.y);
 					buttons[8]->wasClicked(event.button.x, event.button.y);
 					buttons[9]->wasClicked(event.button.x, event.button.y);
+				}
+				if(curSelectedTowerPtr->getType() == NORMCREEPTOWER)
+				{
+					buttons[13]->wasClicked(event.button.x, event.button.y);
+					buttons[14]->wasClicked(event.button.x, event.button.y);
+					buttons[15]->wasClicked(event.button.x, event.button.y);
+					buttons[16]->wasClicked(event.button.x, event.button.y);
+					buttons[17]->wasClicked(event.button.x, event.button.y);
 				}
 			}
 
@@ -640,6 +678,31 @@ void client::handleInput()
 					//add titan type creep to players spawner
 					addTypeToBaseSend(TITAN);
 				}
+				if(buttons[13]->isClicked())
+				{
+					buttons[13]->setClick(false);
+					//change spawner to spawn fast creeps.
+				}
+				if(buttons[14]->isClicked())
+				{
+					buttons[14]->setClick(false);
+					//change spawner to spawn swarm creeps.
+				}
+				if(buttons[15]->isClicked())
+				{
+					buttons[15]->setClick(false);
+					//change spawner to spawn high health creeps.
+				}
+				if(buttons[16]->isClicked())
+				{
+					buttons[16]->setClick(false);
+					//change spawner to spawn high armor creeps.
+				}
+				if(buttons[17]->isClicked())
+				{
+					buttons[17]->setClick(false);
+					//change spawner to spawn titan creeps.
+				}
 				if(mouseClickMode == SELECT_TOWER_MODE && curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getPlayer() == self->getPnum())
 				{
 					if(buttons[12]->wasClickedState(event.button.x, event.button.y))
@@ -648,7 +711,7 @@ void client::handleInput()
 						toggleTowerSend(curTowerId);
 					}
 				}
-				if(buttons[0]->wasClicked(event.button.x, event.button.y))
+				if(menuMode == 1 && buttons[0]->wasClicked(event.button.x, event.button.y))
 				{
 					if(mouseClickMode != PLACE_FOUNDATION_MODE)
 					{
@@ -660,7 +723,7 @@ void client::handleInput()
 						mouseClickMode = DEFAULT_MODE;
 				}
 
-				if(buttons[1]->wasClicked(event.button.x, event.button.y))
+				if(menuMode == 1 && buttons[1]->wasClicked(event.button.x, event.button.y))
 				{
 					if(mouseClickMode != PLACE_MINE_MODE)
 					{
