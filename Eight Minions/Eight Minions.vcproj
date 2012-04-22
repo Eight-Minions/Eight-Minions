@@ -203,6 +203,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\FadeMessage.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\FPS_Regulator.cpp"
 					>
 				</File>
@@ -302,6 +306,10 @@
 				</File>
 				<File
 					RelativePath=".\creep.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FadeMessage.h"
 					>
 				</File>
 				<File
