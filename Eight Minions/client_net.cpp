@@ -175,7 +175,10 @@ int client::performUpdate(string upd)
 		}
 		else if(update.getVal(0) == TOWERCHANGE)
 		{
-			this->changeTowerRecieve(update.getId1(), update.getVal(1));
+			if(update.getVal(1) >= FASTCREEPTOWER && update.getVal(1) <= FATTYCREEPTOWER)
+				this->changeSpawnerTypeRecieve(update.getId1(), update.getVal(1));
+			else
+				this->changeTowerRecieve(update.getId1(), update.getVal(1));
 		}
 		else if(update.getVal(0) == TOWERTOGGLE)
 		{
@@ -467,4 +470,29 @@ bool client::addTypeToBaseRecieve(int newType)
 	buttons[buttonNum]->setClick(true);
 	buttons[buttonNum]->Lock();
 	return true;
+}
+bool client::changeSpawnerTypeSend(int x, int y, int newType)
+{
+	cListNode<structure*> *curTower = towers.getStart();
+	while (curTower != NULL)
+	{
+		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
+		{
+			if(curTower->getData()->getType() == NORMCREEPTOWER && (newType >= FASTCREEPTOWER && newType <= FATTYCREEPTOWER))
+			{
+				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, curTower->getIndex(), newType).getMT());
+			}
+		}
+		curTower = curTower->getNext();
+	}	
+	return false;
+}
+bool client::changeSpawnerTypeRecieve(int towerID, int newType)
+{
+	if(towers.checkForObjectWithID(towerID))
+	{
+		towers.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
+		return true;
+	}
+	return false;
 }

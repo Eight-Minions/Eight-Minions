@@ -99,22 +99,18 @@ public:
 
 	bool removeTowerSend(int x, int y);
 	bool removeTowerRecieve(int towerID);
-
 	bool upgradeTowerSend(int x, int y);
 	bool upgradeTowerRecieve(int towerID);
-
 	bool changeTowerTypeSend(int Tid, int newType);
 	bool changeTowerRecieve(int towerID, int newType);
-
 	bool toggleTowerSend(int Tid);
 	bool toggleTowerRecieve(int towerID, int newState);
-
 	bool upgradeBaseSend();
 	bool upgradeBaseRecieve();
-
 	bool addTypeToBaseSend(int newType);
 	bool addTypeToBaseRecieve(int newType);
-
+	bool changeSpawnerTypeSend(int x, int y, int newType);
+	bool changeSpawnerTypeRecieve(int towerID, int newType);
 	int gameOverRecieve(int winner);
 
 	void setServerAddress(string);
