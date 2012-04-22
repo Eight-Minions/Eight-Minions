@@ -296,6 +296,7 @@ bool client::removeTowerRecieve(int towerID)
 {
 	if(towers.checkForObjectWithID(towerID))
 	{	
+		pMess->setMessage("Tower Removed.");
 		towers.deleteNode(towerID);
 		return true;
 	}
@@ -434,6 +435,7 @@ bool client::upgradeBaseRecieve()
 	buff += (baseLevel + '0');
 	SDL_FreeSurface(text[25]);
 	text[25] = TTF_RenderText_Solid(font, buff.c_str(), Cblack);
+	pMess->setMessage("Base Upgraded!");
 	return true;
 }
 bool client::addTypeToBaseSend(int newType)
@@ -448,18 +450,23 @@ bool client::addTypeToBaseRecieve(int newType)
 	switch(newType)
 	{
 	case FAST:
+		pMess->setMessage("Fast Creeps Added!");
 		buttonNum = 21;
 		break;
 	case SWARM:
+		pMess->setMessage("Swarm Creeps Added!");
 		buttonNum = 22;
 		break;
 	case FATTY:
+		pMess->setMessage("High Health Creeps Added!");
 		buttonNum = 23;
 		break;
 	case TANK:
+		pMess->setMessage("High Armor Creeps Added!");
 		buttonNum = 24;
 		break;
 	case TITAN:
+		pMess->setMessage("Boss Creeps Added!");
 		buttonNum = 25;
 		break;
 	}
