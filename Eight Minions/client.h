@@ -110,7 +110,7 @@ public:
 	bool upgradeBaseRecieve();
 	bool addTypeToBaseSend(int newType);
 	bool addTypeToBaseRecieve(int newType);
-	bool changeSpawnerTypeSend(int x, int y, int newType);
+	bool changeSpawnerTypeSend(int towerID, int newType);
 	bool changeSpawnerTypeRecieve(int towerID, int newType);
 	int gameOverRecieve(int winner);
 

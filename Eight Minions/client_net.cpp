@@ -422,7 +422,6 @@ int client::gameOverRecieve(int winner)
 	}
 	//display it
 	//wait for some keypress or mouse click to end the game
-
 	return winner;
 }
 
@@ -448,7 +447,6 @@ bool client::addTypeToBaseSend(int newType)
 }
 bool client::addTypeToBaseRecieve(int newType)
 {
-
 	int buttonNum = 0;
 	switch(newType)
 	{
@@ -473,24 +471,18 @@ bool client::addTypeToBaseRecieve(int newType)
 		buttonNum = 25;
 		break;
 	}
-
 	buttons[buttonNum]->setClick(true);
 	buttons[buttonNum]->Lock();
 	return true;
 }
-bool client::changeSpawnerTypeSend(int x, int y, int newType)
+bool client::changeSpawnerTypeSend(int towerID, int newType)
 {
-	cListNode<structure*> *curTower = towers.getStart();
-	while (curTower != NULL)
+	if(this->towers.checkForObjectWithID(towerID)
 	{
-		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
+		if(this->towers.getNodeWithID(towerID)->getData()->getType() == NORMCREEPTOWER && (newType >= FASTCREEPTOWER && newType <= FATTYCREEPTOWER))
 		{
-			if(curTower->getData()->getType() == NORMCREEPTOWER && (newType >= FASTCREEPTOWER && newType <= FATTYCREEPTOWER))
-			{
-				sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, curTower->getIndex(), newType).getMT());
-			}
+			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, towerID, newType).getMT());
 		}
-		curTower = curTower->getNext();
 	}	
 	return false;
 }
