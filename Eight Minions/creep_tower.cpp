@@ -20,6 +20,10 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	this->setPassable(true);
 	
 }
+Creep_Tower::~Creep_Tower()
+{
+	delete cSpawner;
+}
 void Creep_Tower::iterate()
 {
 	if(!this->isPaused())
@@ -35,6 +39,7 @@ bool Creep_Tower::upgrade()
 		{
 			
 			this->manager->getPlayer(this->getPlayer())->spendMoney(cost);
+			delete cSpawner;
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel() + 1, gC(this->getX(), this->getY()));
 			cSpawner->setDelay((delay)*((11-this->getLevel())/10));
 			cost = updateCost(this->getLevel()+1, this->getType());
@@ -64,7 +69,8 @@ bool Creep_Tower::changeType(int newType)
 		if(updateCost(this->getLevel(), newType) <= this->manager->getPlayer(this->getPlayer())->getMoney())
 		{
 			this->manager->getPlayer(this->getPlayer())->spendMoney(updateCost(this->getLevel(), newType));
-			cSpawner = new Spawner(this->manager, this->getPlayer(), true, cSpawner->getType(), cSpawner->getLevel(),gC(this->getX(), this->getY()));
+			delete cSpawner;
+			cSpawner = new Spawner(this->manager, this->getPlayer(), true, newType, cSpawner->getLevel(),gC(this->getX(), this->getY()));
 			cost = updateCost(this->getLevel()+1, newType);
 			this->setType(newType);
 			updateSell();
