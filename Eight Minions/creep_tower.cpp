@@ -66,7 +66,7 @@ bool Creep_Tower::changeType(int newType)
 	int costToSwitch;
 	if(newType >= NORMCREEPTOWER && newType <= FATTYCREEPTOWER && newType != this->getType())
 	{
-		if(updateCost(this->getLevel(), newType) =< this->manager->getPlayer(this->getPlayer())->getMoney())
+		if(updateCost(this->getLevel(), newType) <= this->manager->getPlayer(this->getPlayer())->getMoney())
 		{
 			this->manager->getPlayer(this->getPlayer())->spendMoney(updateCost(this->getLevel(), newType));
 			delete cSpawner;

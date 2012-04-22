@@ -477,7 +477,7 @@ bool client::addTypeToBaseRecieve(int newType)
 }
 bool client::changeSpawnerTypeSend(int towerID, int newType)
 {
-	if(this->towers.checkForObjectWithID(towerID)
+	if(this->towers.checkForObjectWithID(towerID))
 	{
 		if(this->towers.getNodeWithID(towerID)->getData()->getType() == NORMCREEPTOWER && (newType >= FASTCREEPTOWER && newType <= FATTYCREEPTOWER))
 		{
