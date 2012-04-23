@@ -113,7 +113,7 @@ const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 
 //Creep types
 // Health Armor Speed Reward Price Spawn
-const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,2,1,2,2},		{5,1,3,3,5,2},		{8,2,3,6,10,2},		{12,3,4,12,15,2},	{20,4,5,15,20,2}};
+const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,2,2,2,2},		{5,1,3,3,5,2},		{8,2,3,6,10,2},		{12,3,4,12,15,2},	{20,4,5,15,20,2}};
 const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,3,2},		{3,0,5,2,5,2},		{5,1,5,4,8,2},		{8,1,6,8,12,2},		{12,2,7,10,15,2}};
 const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,1,1,2,4,3},		{5,2,1,5,8,3},		{8,3,2,10,16,3},	{12,4,2,15,22,3},	{20,5,3,20,28,3}};
 const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,2,1},		{3,0,3,1,3,1},		{5,1,4,2,4,1},		{8,1,4,2,5,1},		{10,2,5,3,6,1}};
@@ -158,13 +158,18 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{
 
 //Tower Types
 // Damage ArmorPenetration Range Speed Cost
-const int basicArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),60,5},	{3,1,(4 * GRID_SIZE),60,10},		{5,1,(4 * GRID_SIZE),50,22},	{10,2,(5 * GRID_SIZE),45,50},			{20, 3, (int)(5.5 * GRID_SIZE), 35, 120}};
-const int fastArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),40,7},	{2,0,(3 * GRID_SIZE),35,12},		{4,1,(3 * GRID_SIZE),30,24},	{8,1,(4 * GRID_SIZE),25,60},			{15,2,(4 * GRID_SIZE),15,150}};
-const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =	{{1,0,(2 * GRID_SIZE),90,12},	{2,0,(2 * GRID_SIZE),80,20},		{4,1,(2 * GRID_SIZE),75,30},	{6,1,(int)(2.5 * GRID_SIZE),70,70},		{15,2,(3 * GRID_SIZE),55,180}};
-const int heavyArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{2,1,(2 * GRID_SIZE),90,15},	{4,2,(3 * GRID_SIZE),80,25},		{9,3,(4 * GRID_SIZE),70,40},	{13,4,(5 * GRID_SIZE),60,100},			{22,5,(int)(5.5 * GRID_SIZE),50,300}};
+const int basicArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),40,5},	{3,1,(4 * GRID_SIZE),35,10},		{5,1,(4 * GRID_SIZE),30,22},	{10,2,(5 * GRID_SIZE),25,50},			{20, 3, (int)(5.5 * GRID_SIZE), 20, 120}};
+const int fastArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),30,7},	{2,0,(3 * GRID_SIZE),25,12},		{4,1,(3 * GRID_SIZE),20,24},	{8,1,(4 * GRID_SIZE),15,60},			{15,2,(4 * GRID_SIZE),10,150}};
+const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =	{{1,0,(2 * GRID_SIZE),60,12},	{2,0,(2 * GRID_SIZE),54,45},		{4,1,(2 * GRID_SIZE),50,60},	{6,1,(int)(2.5 * GRID_SIZE),45,150},		{15,2,(3 * GRID_SIZE),36,200}};
+const int heavyArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{2,1,(2 * GRID_SIZE),60,15},	{4,2,(3 * GRID_SIZE),54,25},		{9,3,(4 * GRID_SIZE),48,40},	{13,4,(5 * GRID_SIZE),40,100},			{22,5,(int)(5.5 * GRID_SIZE),30,300}};
 const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{5,2,(1 * GRID_SIZE),0,3},		{10,3,((int)(1.5 * GRID_SIZE)),0,5},	{15,4,(2 * GRID_SIZE),0,8},		{20,5,((int)(2.5 * GRID_SIZE)),0,10},		{25,6,(3 * GRID_SIZE),0,15}};
 
-const int towerDelays[5] =			{30,20,10,45,2};
+const int towerArrays[5][MAXTOWERLEVEL][MAXTOWERVARIABLES] = {{{1,0,(3 * GRID_SIZE),40,5},	{3,1,(4 * GRID_SIZE),35,10},		{5,1,(4 * GRID_SIZE),30,22},	{10,2,(5 * GRID_SIZE),25,50},			{20, 3, (int)(5.5 * GRID_SIZE), 20, 120}},
+																{{1,0,(3 * GRID_SIZE),30,7},	{2,0,(3 * GRID_SIZE),25,12},		{4,1,(3 * GRID_SIZE),20,24},	{8,1,(4 * GRID_SIZE),15,60},			{15,2,(4 * GRID_SIZE),10,150}},
+																{{1,0,(2 * GRID_SIZE),60,12},	{2,0,(2 * GRID_SIZE),54,45},		{4,1,(2 * GRID_SIZE),50,60},	{6,1,(int)(2.5 * GRID_SIZE),45,150},		{15,2,(3 * GRID_SIZE),36,200}},
+																{{2,1,(2 * GRID_SIZE),60,15},	{4,2,(3 * GRID_SIZE),54,25},		{9,3,(4 * GRID_SIZE),48,40},	{13,4,(5 * GRID_SIZE),40,100},			{22,5,(int)(5.5 * GRID_SIZE),30,300}},
+																{{5,2,(1 * GRID_SIZE),0,3},		{10,3,((int)(1.5 * GRID_SIZE)),0,5},	{15,4,(2 * GRID_SIZE),0,8},		{20,5,((int)(2.5 * GRID_SIZE)),0,10},		{25,6,(3 * GRID_SIZE),0,15}}};
+const int towerDelays[5] =			{20,15,6,30,2};
 #define BASICATTACKDELAY 30
 #define FASTATTACKDELAY 20
 #define AOEATTACKDELAY 10

@@ -171,7 +171,8 @@ bool Standard_Tower::choose()
 		if(chosenCreeps.size() > 0)
 		{
 			waiting = true;
-			coolDownTick = coolDownDuration;
+			//coolDownTick = coolDownDuration;
+			coolDownTick = towerArrays[this->getType()][this->getLevel()][3];
 			return true;  // Stuff was chosen
 		}
 		else

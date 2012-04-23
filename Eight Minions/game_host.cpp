@@ -426,6 +426,7 @@ bool game_host::changeStructure(int structureID, int newType)
 	int setX = 0;
 	int setY = 0;
 	int playerNumber = 0;
+	int cost = 0;
 	if(towerList.checkForObjectWithID(structureID))
 	{
 		if(towerList.getNodeWithID(structureID)->getData()->getType() == STRUCTURE)
@@ -434,9 +435,32 @@ bool game_host::changeStructure(int structureID, int newType)
 			setX = towerList.getNodeWithID(structureID)->getData()->getX();
 			setY = towerList.getNodeWithID(structureID)->getData()->getY();
 			playerNumber = towerList.getNodeWithID(structureID)->getData()->getPlayer();
+			switch(newType)
+			{
+			case NORMTOWER:
+				cost = basicArr[1][4];
+				break;
+			case FASTTOWER:
+				cost = fastArr[1][4];
+				break;
+			case AOETOWER:
+				cost = areaOfEffectArr[1][4];
+				break;
+			case HEAVYTOWER:
+				cost = heavyArr[1][4];
+				break;
+			case NORMCREEPTOWER:
+				cost = normCreepArr[0][4] * 20;
+				break;
+			default:
+				cout << "tower type not added...";
+			}
 			// Remove the old tower
-			removeTowerLocal(structureID);
-			return placeTowerForced(playerNumber, newType, setX, setY, structureID);
+			if(getPlayer(playerNumber)->getMoney() >= cost)
+			{
+				removeTowerLocal(structureID);
+				return placeTowerForced(playerNumber, newType, setX, setY, structureID);
+			}
 		}
 	}
 	return false;

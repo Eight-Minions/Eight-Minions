@@ -114,18 +114,17 @@ bool Spawner::iterate()
 		if(curDelay <= 0)
 		{
 			int creepIndex;
-			creep *retCreep = SpawnerQueue.front();
-			SpawnerQueue.pop();
-			retCreep->p.genPath(manager->Nodemap, false);
-			creepIndex = manager->creepList.insertInOrder(retCreep);
-			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 			if(SpawnerQueue.empty())
 			{
 				//generate next Spawner, or trigger end-game, or whatever.
 				generateWave();
 			}
+			creep *retCreep = SpawnerQueue.front();
+			SpawnerQueue.pop();
+			retCreep->p.genPath(manager->Nodemap, false);
+			creepIndex = manager->creepList.insertInOrder(retCreep);
+			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
 			curDelay = SpawnerDelay.front();
-
 			SpawnerDelay.pop();
 			return true;
 		}
@@ -155,9 +154,13 @@ void Spawner::generateWave()
 
 	while(!SpawnerDelay.empty())
 		SpawnerDelay.pop();
+	while(!SpawnerQueue.empty())
+		SpawnerQueue.pop();
 	int spawnNum = creepBaseSpawnNum[creepType];
 	//creep number selection.
 	spawnNum /= 2;
+	if(waveNumber < 4)
+		spawnNum -= (4 - waveNumber);
 	if(waveNumber > 10)
 	{
 		spawnNum += (waveNumber - 5) / 5;
@@ -220,7 +223,10 @@ void Spawner::generateWave()
 
 		}
 		if(i == spawnNum - 1)
-			SpawnerDelay.push(25 * MAX_FPS);
+		{
+			curDelay = 20;
+			SpawnerDelay.push(20 * MAX_FPS);
+		}
 
 	}
 }

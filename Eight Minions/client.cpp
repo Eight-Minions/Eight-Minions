@@ -198,7 +198,7 @@ int client::testrun()
 	mouseClickMode = DEFAULT_MODE;
 	menuMode = 1;
 
-	pMess = new FadeMessage(font,50,550,MAX_FPS,1,Cblack);
+	pMess = new FadeMessage(font,30,565,MAX_FPS,1,Cblack);
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
