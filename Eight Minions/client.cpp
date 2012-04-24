@@ -389,18 +389,18 @@ coord client::getClickCoord(int x, int y)
 void client::initButtons()
 {
 
-	buttons[0] = new Button("images/towerButton",648,87,71,62);
+	buttons[0] = new Button("images/towerButton",649,88,71,92);
 	buttons[1] = new Button("images/mineButton",721,87,71,62);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
 	//upgrade button
 	buttons[4] = new Button("images/upgradeButton",754,564,36,36);
 	//change type (for structures)
-	buttons[5] = new Button("images/attackTowerButton",700,410,36,36);
-	buttons[6] = new Button("images/spawnTowerButton",700,447,36,36);
-	buttons[7] = new Button("images/fastTowerButton",700,484,36,36);
-	buttons[8] = new Button("images/AOETowerButton",700,521,36,36);
-	buttons[9] = new Button("images/heavyTowerButton",700,558,36,36);
+	buttons[5] = new Button("images/attackTowerButton",722,88,71,92);
+	buttons[6] = new Button("images/spawnTowerButton",722,276,71,92);
+	buttons[7] = new Button("images/fastTowerButton",722,182,71,92);
+	buttons[8] = new Button("images/AOETowerButton",649,182,71,92);
+	buttons[9] = new Button("images/heavyTowerButton",649,276,71,92);
 	//pause button (for creep towers)
 	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
@@ -412,14 +412,17 @@ void client::initButtons()
 	buttons[17] = new Button("images/addTitanToTower",690,560,36,36);
 
 	//menu buttons
-	buttons[19] = new Button("images/towerMenuButton",648,57,71,28);
-	buttons[20] = new Button("images/baseMenuButton",721,57,71,28);
+	buttons[19] = new Button("images/towerMenuButton",649,58,71,28);
+	buttons[20] = new Button("images/baseMenuButton",722,58,71,28);
 
-	buttons[21] = new Button("images/addFast",648,88,71,62);
-	buttons[22] = new Button("images/addSwarm",721,88,71,62);
-	buttons[23] = new Button("images/addHighH",648,152,71,62);
-	buttons[24] = new Button("images/addHighA",721,152,71,62);
-	buttons[25] = new Button("images/addTitan",648,215,71,62);
+	buttons[21] = new Button("images/addFast",649,88,71,92);
+	buttons[22] = new Button("images/addSwarm",722,88,71,92);
+	buttons[23] = new Button("images/addHighH",649,182,71,92);
+	buttons[24] = new Button("images/addHighA",722,182,71,92);
+	buttons[25] = new Button("images/addTitan",649,276,71,92);
+
+	//Upgrades base creep levels
+	buttons[26] = new Button("images/BaseUpgradeButton", 722,276,71,92);
 
 }
 
