@@ -429,16 +429,16 @@ bool game_host::changeStructure(int structureID, int newType)
 			switch(newType)
 			{
 			case NORMTOWER:
-				cost = basicArr[1][4];
+				cost = basicArr[0][4];
 				break;
 			case FASTTOWER:
-				cost = fastArr[1][4];
+				cost = fastArr[0][4];
 				break;
 			case AOETOWER:
-				cost = areaOfEffectArr[1][4];
+				cost = areaOfEffectArr[0][4];
 				break;
 			case HEAVYTOWER:
-				cost = heavyArr[1][4];
+				cost = heavyArr[0][4];
 				break;
 			case NORMCREEPTOWER:
 				cost = normCreepArr[0][4] * 20;
