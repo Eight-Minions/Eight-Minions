@@ -53,8 +53,8 @@ int game_host::run()
 
 	this->init();
 	this->init_net();
-	this->waitForClients();
-	//this->waitForClient_test();
+	//this->waitForClients();
+	this->waitForClient_test();
 
 	loadMap("TestMap.map");
 	setNodemap();	
@@ -109,7 +109,8 @@ int game_host::run()
 			else
 			{
 				//do any additional operations on creeps here, ie health regen, burning, poison, random splitting etc
-				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), NEWCREEP, cur->getIndex(), cur->getData()->getX(), cur->getData()->getY(), cur->getData()->getHealth(), cur->getData()->getType(), cur->getData()->getLevel()).getMT());
+				sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), CREEP, cur->getIndex(), cur->getData()->getX(), cur->getData()->getY(), cur->getData()->getHealth()).getMT());
+				//sendMessageToQueue(UpdMess(cur->getData()->getPlayer(), NEWCREEP, cur->getIndex(), cur->getData()->getX(), cur->getData()->getY(), cur->getData()->getHealth(), cur->getData()->getType(), cur->getData()->getLevel()).getMT());
 			}
 			temp = cur;
 			cur = cur->getNext();
