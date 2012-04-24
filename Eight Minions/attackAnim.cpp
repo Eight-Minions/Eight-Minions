@@ -2,8 +2,8 @@
 
 attackAnim::attackAnim( int startX, int startY, int nType, int nTick, int nTargetIndex )
 {
-	x = startX;
-	y = startY;
+	x = startX + (GRID_SIZE / 2);
+	y = startY + (GRID_SIZE / 2);
 	type = nType;
 	TickTimer = nTick;
 	animIndex = 0;

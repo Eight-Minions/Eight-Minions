@@ -42,7 +42,7 @@ int client::init()
 
 void client::loadFiles()
 {
-	//loading files here 425 770 7875
+	//loading files here
 	this->background = IMG_Load("images/minions_bg_ui.png");
 	grid = IMG_Load("images/sepGrid.png");
 	SDL_SetAlpha(grid,SDL_SRCALPHA,128);
@@ -773,7 +773,7 @@ void client::handleInput()
 							SDL_FreeSurface(text[19]);
 							text[19] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
 							if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
-								buttons[12]->setClick(!curSelectedTowerPtr->isPaused());
+								buttons[12]->setClick(curSelectedTowerPtr->isPaused());
 						}
 						else
 							mouseClickMode = DEFAULT_MODE;

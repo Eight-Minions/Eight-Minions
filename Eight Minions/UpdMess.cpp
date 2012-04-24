@@ -64,7 +64,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		{
 		}
 	}
-	if(t == TOWER)
+	else if(t == TOWER)
 	{ 
 		var = va_arg(v1, int);
 		if(var == 0)

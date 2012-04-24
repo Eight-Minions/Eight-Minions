@@ -43,22 +43,22 @@ Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, i
 	switch(nCreepType)
 	{
 	case NORM:
-		delay = normCreepArr[this->getLevel()][5] * 15;
+		delay = normCreepArr[this->getLevel() - 1][5] * 15;
 		break;
 	case FAST:
-		delay = fastCreepArr[this->getLevel()][5] * 15;
+		delay = fastCreepArr[this->getLevel() - 1][5] * 15;
 		break;
 	case SWARM:
-		delay = swarmCreepArr[this->getLevel()][5] * 15;
+		delay = swarmCreepArr[this->getLevel() - 1][5] * 15;
 		break;
 	case FATTY:
-		delay = fattyCreepArr[this->getLevel()][5] * 15;
+		delay = fattyCreepArr[this->getLevel() - 1][5] * 15;
 		break;
 	case TANK:
-		delay = tankCreepArr[this->getLevel()][5] * 15;
+		delay = tankCreepArr[this->getLevel() - 1][5] * 15;
 		break;
 	case TITAN:
-		delay = titanCreepArr[this->getLevel()][5] * 15;
+		delay = titanCreepArr[this->getLevel() - 1][5] * 15;
 	}
 	waveNumber = 0;
 	isTower = Tower;
@@ -181,9 +181,11 @@ void Spawner::generateWave()
 	//creep number selection.
 	if(waveNumber < 10)
 	{
-		spawnNum *= ((10 + waveNumber) / 10);
+		spawnNum = ((spawnNum * (10 + waveNumber)) / 10);
 		spawnNum /= 2;		
 	}
+	else
+		spawnNum += 2;
 	if(waveNumber > 10)
 	{
 		spawnNum += (waveNumber - 6) / 2;
@@ -261,6 +263,27 @@ int Spawner::getLevel()
 void Spawner::setLevel(int newLevel)
 {
 	spawnerLevel = newLevel;
+	delay = CREEPTOWERDELAY;
+	switch(this->creepType)
+	{
+	case NORM:
+		delay = normCreepArr[this->getLevel() - 1][5] * 15;
+		break;
+	case FAST:
+		delay = fastCreepArr[this->getLevel() - 1][5] * 15;
+		break;
+	case SWARM:
+		delay = swarmCreepArr[this->getLevel() - 1][5] * 15;
+		break;
+	case FATTY:
+		delay = fattyCreepArr[this->getLevel() - 1][5] * 15;
+		break;
+	case TANK:
+		delay = tankCreepArr[this->getLevel() - 1][5] * 15;
+		break;
+	case TITAN:
+		delay = titanCreepArr[this->getLevel() - 1][5] * 15;
+	}
 }
 int Spawner::getType()
 {

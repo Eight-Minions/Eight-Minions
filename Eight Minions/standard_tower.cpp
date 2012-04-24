@@ -195,7 +195,7 @@ bool Standard_Tower::doDamage()
 	cListNode<creep*> *frontNode= NULL;
 	creep *frontCreep = NULL;
 	
-	if(attackTick <= 0)
+	if(attackTick <= attackDuration - towerDelays[getType()] && cooldown)
 	{
 		while(chosenCreeps.empty() == false)
 		{
@@ -226,9 +226,14 @@ bool Standard_Tower::doDamage()
 			}
 			chosenCreeps.pop();
 		}
+		cooldown = false;
+		return true;
+	}
+	else if(attackTick <= 0)
+	{
 		attackTick = attackDuration;
 		waiting = false;
-		return true;
+		return false;
 	}
 	else
 	{
@@ -342,7 +347,10 @@ void Standard_Tower::iterate()
 		doDamage();
 	}
 	else
+	{
 		choose();
+		cooldown = true;
+	}
 }
 int Standard_Tower::getCost()
 {

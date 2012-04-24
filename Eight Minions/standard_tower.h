@@ -45,6 +45,7 @@ private:
 	int attackDuration;
 
 	bool waiting;
+	bool cooldown;
 };
 
 #endif
