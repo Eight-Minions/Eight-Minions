@@ -230,6 +230,7 @@ int client::recieveMessageToQueue()
 	int i = 0;
 	int len = 0;
 	string temp;
+	int num_updates = 0;
 	while (packData != "NO MESSAGE")
 	{
 		len = packData.length();
@@ -244,12 +245,14 @@ int client::recieveMessageToQueue()
 			else
 			{
 				//cout << temp << "\n";
+				num_updates++;
 				performUpdate(temp);
 				temp = "";
 			}
 		}
 		packData = recieveMessageUDP();
 	}
+	cout << num_updates << " updates this loop.\n";
 	return 0;
 }
 

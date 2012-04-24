@@ -375,6 +375,7 @@ int Standard_Tower::updateCost(int costLevel, int costType)
 	}
 	return 0;
 }
+
 void Standard_Tower::updateSell()
 {
 	int newSell = 1;

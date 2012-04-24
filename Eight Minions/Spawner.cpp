@@ -179,10 +179,14 @@ void Spawner::generateWave()
 		SpawnerQueue.pop();
 	int spawnNum = creepBaseSpawnNum[creepType];
 	//creep number selection.
-	spawnNum /= 2;
+	if(waveNumber < 10)
+	{
+		spawnNum *= ((10 + waveNumber) / 10);
+		spawnNum /= 2;		
+	}
 	if(waveNumber > 10)
 	{
-		spawnNum += (waveNumber - 5) / 5;
+		spawnNum += (waveNumber - 6) / 2;
 	}
 	for(int i = 0; i < spawnNum; i++) 
 	{
