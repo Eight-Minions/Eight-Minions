@@ -398,6 +398,7 @@ bool game_host::isEmptyLocation(int xLoc, int yLoc)
 {
 	cListNode<creep*> *curCreepNode = creepList.getStart();
 	int compX, compY;
+	if(xLoc >= MAPSIZE_X || xLoc < 0 || yLoc >= MAPSIZE_Y || yLoc < 0)
 	while(curCreepNode != NULL)
 	{
 		compX = curCreepNode->getData()->getX();

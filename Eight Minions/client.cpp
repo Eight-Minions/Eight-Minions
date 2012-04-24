@@ -390,7 +390,7 @@ void client::initButtons()
 {
 
 	buttons[0] = new Button("images/towerButton",649,88,71,92);
-	buttons[1] = new Button("images/mineButton",721,87,71,62);
+	buttons[1] = new Button("images/mineButton",573,540,71,62);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
 	//upgrade button
@@ -441,7 +441,7 @@ void client::initText()
 	textRects[4] = newRect(600,16,0,0);
 
 	//for tower display
-	textRects[8] = newRect(650,341,0,0); //where to display tower name
+	textRects[8] = newRect(654,412,0,0); //where to display tower name
 	text[8] = TTF_RenderText_Solid(font, "Structure", Cblack);
 	text[9] = TTF_RenderText_Solid(font, "Basic Tower", Cblack);
 	text[10] = TTF_RenderText_Solid(font, "Spawner Tower", Cblack);
@@ -449,7 +449,7 @@ void client::initText()
 	text[12] = TTF_RenderText_Solid(font, "AOE Tower", Cblack);
 	text[13] = TTF_RenderText_Solid(font, "Heavy Tower", Cblack);
 
-	textRects[9] = newRect(650,360,0,0); //where to display towers owner
+	textRects[9] = newRect(654,427,0,0); //where to display towers owner
 	text[16] = TTF_RenderText_Solid(font, "Player One", Cblack);
 	text[17] = TTF_RenderText_Solid(font, "Player Two", Cblack);
 
@@ -460,19 +460,19 @@ void client::initText()
 	textRects[12] = newRect(755,389,0,0); //where to display the level number
 	text[19] = TTF_RenderText_Solid(font10, "1", Cblack);
 
-	textRects[13] = newRect(738,410,0,0); //standard tower cost text
+	textRects[13] = newRect(727,154,0,0); //standard tower cost text
 	text[20] = TTF_RenderText_Solid(font, "$5", Cblack);
 
-	textRects[14] = newRect(738,447,0,0); //spawner tower cost text
+	textRects[14] = newRect(727,342,0,0); //spawner tower cost text
 	text[21] = TTF_RenderText_Solid(font, "$40", Cblack);
 
-	textRects[15] = newRect(738,484,0,0); //fast tower cost text
+	textRects[15] = newRect(727,248,0,0); //fast tower cost text
 	text[22] = TTF_RenderText_Solid(font, "$7", Cblack);
 
-	textRects[16] = newRect(738,521,0,0); //AOE tower cost text
+	textRects[16] = newRect(654,248,0,0); //AOE tower cost text
 	text[23] = TTF_RenderText_Solid(font, "$30", Cblack);
 
-	textRects[17] = newRect(738,558,0,0); //heavy tower cost text
+	textRects[17] = newRect(654,342,0,0); //heavy tower cost text
 	text[24] = TTF_RenderText_Solid(font, "$15", Cblack);
 
 	textRects[18] = newRect(432, 558,0,0); // Base Level
@@ -503,7 +503,7 @@ bool client::boardWasClicked( int x, int y)
 	//and then place it and subtract the given amount of money
 	//and then recalculate the nodemap and then the creep paths
 	if(x >= BOARD_X_OFFSET && x < BOARD_X_OFFSET + (GRID_SIZE * MAPSIZE_X) &&
-		y >= BOARD_Y_OFFSET && y < BOARD_Y_OFFSET + (GRID_SIZE * MAPSIZE_X))
+		y >= BOARD_Y_OFFSET && y < BOARD_Y_OFFSET + (GRID_SIZE * MAPSIZE_Y))
 		return true;
 	else
 		return false;
