@@ -341,16 +341,19 @@ void client::displayUI()
 			SDL_BlitSurface(text[13], NULL, screen, textRects[8]);
 			break;
 		case NORMCREEPTOWER:
-			buttons[13]->display(screen);
-			buttons[14]->display(screen);
-			buttons[15]->display(screen);
-			buttons[16]->display(screen);
-			buttons[17]->display(screen);
-			SDL_BlitSurface(text[26], NULL,screen,textRects[19]);
-			SDL_BlitSurface(text[27], NULL,screen,textRects[20]);
-			SDL_BlitSurface(text[28], NULL,screen,textRects[21]);
-			SDL_BlitSurface(text[29], NULL,screen,textRects[22]);
-			SDL_BlitSurface(text[30], NULL,screen,textRects[23]);
+			if(curSelectedTowerPtr->getPlayer() == self->getPnum())
+			{
+				buttons[13]->display(screen);
+				buttons[14]->display(screen);
+				buttons[15]->display(screen);
+				buttons[16]->display(screen);
+				buttons[17]->display(screen);
+				SDL_BlitSurface(text[26], NULL,screen,textRects[19]);
+				SDL_BlitSurface(text[27], NULL,screen,textRects[20]);
+				SDL_BlitSurface(text[28], NULL,screen,textRects[21]);
+				SDL_BlitSurface(text[29], NULL,screen,textRects[22]);
+				SDL_BlitSurface(text[30], NULL,screen,textRects[23]);
+			}
 
 		case FASTCREEPTOWER:
 		case TANKCREEPTOWER:
@@ -390,7 +393,7 @@ void client::initButtons()
 {
 
 	buttons[0] = new Button("images/towerButton",649,88,71,92);
-	buttons[1] = new Button("images/mineButton",573,540,71,62);
+	buttons[1] = new Button("images/mineButton",561,552,71,48);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
 	//upgrade button
@@ -490,7 +493,7 @@ void client::initText()
 	text[29] = TTF_RenderText_Solid(font10, _itoa(tankCreepArr[0][4] * 20,buff,10), Cblack);
 	textRects[23] = newRect(727,563,0,0);
 	text[30] = TTF_RenderText_Solid(font10, _itoa(titanCreepArr[0][4] * 20,buff,10), Cblack);
-	
+
 }
 
 bool client::boardWasClicked( int x, int y)
