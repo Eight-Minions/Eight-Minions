@@ -458,19 +458,19 @@ void client::initText()
 	text[19] = TTF_RenderText_Solid(font10, "1", Cblack);
 
 	textRects[13] = newRect(738,410,0,0); //standard tower cost text
-	text[20] = TTF_RenderText_Solid(font, "$10", Cblack);
+	text[20] = TTF_RenderText_Solid(font, "$5", Cblack);
 
 	textRects[14] = newRect(738,447,0,0); //spawner tower cost text
 	text[21] = TTF_RenderText_Solid(font, "$40", Cblack);
 
 	textRects[15] = newRect(738,484,0,0); //fast tower cost text
-	text[22] = TTF_RenderText_Solid(font, "$12", Cblack);
+	text[22] = TTF_RenderText_Solid(font, "$7", Cblack);
 
 	textRects[16] = newRect(738,521,0,0); //AOE tower cost text
-	text[23] = TTF_RenderText_Solid(font, "$45", Cblack);
+	text[23] = TTF_RenderText_Solid(font, "$30", Cblack);
 
 	textRects[17] = newRect(738,558,0,0); //heavy tower cost text
-	text[24] = TTF_RenderText_Solid(font, "$25", Cblack);
+	text[24] = TTF_RenderText_Solid(font, "$15", Cblack);
 
 	textRects[18] = newRect(432, 558,0,0); // Base Level
 	text[25] = TTF_RenderText_Solid(font, "Level 1", Cblack);

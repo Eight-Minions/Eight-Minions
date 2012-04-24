@@ -160,7 +160,7 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{
 // Damage ArmorPenetration Range Speed Cost
 const int basicArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),40,5},	{3,1,(4 * GRID_SIZE),35,10},		{5,1,(4 * GRID_SIZE),30,22},	{10,2,(5 * GRID_SIZE),25,50},			{20, 3, (int)(5.5 * GRID_SIZE), 20, 120}};
 const int fastArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),30,7},	{2,0,(3 * GRID_SIZE),25,12},		{4,1,(3 * GRID_SIZE),20,24},	{8,1,(4 * GRID_SIZE),15,60},			{15,2,(4 * GRID_SIZE),10,150}};
-const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =	{{1,0,(2 * GRID_SIZE),60,12},	{2,0,(2 * GRID_SIZE),54,45},		{4,1,(2 * GRID_SIZE),50,60},	{6,1,(int)(2.5 * GRID_SIZE),45,150},		{15,2,(3 * GRID_SIZE),36,200}};
+const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =	{{1,0,(2 * GRID_SIZE),60,30},	{2,0,(2 * GRID_SIZE),54,45},		{4,1,(2 * GRID_SIZE),50,60},	{6,1,(int)(2.5 * GRID_SIZE),45,150},		{15,2,(3 * GRID_SIZE),36,200}};
 const int heavyArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{2,1,(2 * GRID_SIZE),60,15},	{4,2,(3 * GRID_SIZE),54,25},		{9,3,(4 * GRID_SIZE),48,40},	{13,4,(5 * GRID_SIZE),40,100},			{22,5,(int)(5.5 * GRID_SIZE),30,300}};
 const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{5,2,(1 * GRID_SIZE),0,3},		{10,3,((int)(1.5 * GRID_SIZE)),0,5},	{15,4,(2 * GRID_SIZE),0,8},		{20,5,((int)(2.5 * GRID_SIZE)),0,10},		{25,6,(3 * GRID_SIZE),0,15}};
 

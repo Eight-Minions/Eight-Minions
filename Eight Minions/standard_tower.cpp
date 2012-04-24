@@ -271,7 +271,7 @@ bool Standard_Tower::changeType(int newType)
 	if(getLevel() >= 1 && getLevel() <= 5)
 	{
 		setType(newType);
-		cost = updateCost(getLevel(), getType());
+		cost = updateCost(getLevel() - 1, getType());
 		updateSell();
 		if(newType >= NORMTOWER && newType <= MINETOWER)
 		{

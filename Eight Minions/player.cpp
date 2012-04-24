@@ -4,7 +4,7 @@
 player::player()
 {
 	this->health = 30;
-	this->money = 30;
+	this->money = 35;
 }
 
 int player::getHealth()

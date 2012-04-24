@@ -206,9 +206,10 @@ bool creep::move()
 	}
 	return false;
 }
+
 void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM])
 {
-	if(SDL_GetTicks() - timeOfLastUpdate >= 2000)
+	if(SDL_GetTicks() - timeOfLastUpdate >= 10000)
 	{
 		this->kill();
 	}
