@@ -131,8 +131,8 @@ int Creep_Tower::getCost()
 }
 void Creep_Tower::updateSell()
 {
-	int newSell = 1;
-	for(int i = 0; i < getLevel(); i++)
+	int newSell = 0;
+	for(int i = 1; i =< getLevel(); i++)
 	{
 		newSell += updateCost(i, getType());
 	}
