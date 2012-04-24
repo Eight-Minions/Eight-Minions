@@ -38,7 +38,28 @@ Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, i
 	SpawnerCount = 0;
 	creepType = nCreepType;
 	spawnerLevel = nLevel;
+
 	delay = CREEPTOWERDELAY;
+	switch(nCreepType)
+	{
+	case NORM:
+		delay = normCreepArr[this->getLevel()][5] * 15;
+		break;
+	case FAST:
+		delay = fastCreepArr[this->getLevel()][5] * 15;
+		break;
+	case SWARM:
+		delay = swarmCreepArr[this->getLevel()][5] * 15;
+		break;
+	case FATTY:
+		delay = fattyCreepArr[this->getLevel()][5] * 15;
+		break;
+	case TANK:
+		delay = tankCreepArr[this->getLevel()][5] * 15;
+		break;
+	case TITAN:
+		delay = titanCreepArr[this->getLevel()][5] * 15;
+	}
 	waveNumber = 0;
 	isTower = Tower;
 	if(!isTower)
@@ -115,10 +136,9 @@ bool Spawner::iterate()
 		{
 			int creepIndex;
 			if(SpawnerQueue.empty())
-			{
-				//generate next Spawner, or trigger end-game, or whatever.
 				generateWave();
-			}
+			else
+			{
 			creep *retCreep = SpawnerQueue.front();
 			SpawnerQueue.pop();
 			retCreep->p.genPath(manager->Nodemap, false);
@@ -127,6 +147,7 @@ bool Spawner::iterate()
 			curDelay = SpawnerDelay.front();
 			SpawnerDelay.pop();
 			return true;
+			}
 		}
 		else
 		{
@@ -159,8 +180,6 @@ void Spawner::generateWave()
 	int spawnNum = creepBaseSpawnNum[creepType];
 	//creep number selection.
 	spawnNum /= 2;
-	if(waveNumber < 4)
-		spawnNum -= (4 - waveNumber);
 	if(waveNumber > 10)
 	{
 		spawnNum += (waveNumber - 5) / 5;

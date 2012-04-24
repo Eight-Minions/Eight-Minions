@@ -29,27 +29,19 @@ int game_host::init()
 	pathTestCreep->p.setGoal(Bases[1]);
 	pathTestCreep->p.setStart(Bases[0]);
 
-	//p1Spawner->addCreepType(TANK);
-	//p1Spawner->addCreepType(TITAN);
-	//p2Spawner->addCreepType(FATTY);
-	//p2Spawner->addCreepType(FAST);
-	return 0;
-}
-
-int game_host::run()
-{
-	this->init();
-	this->waitForClients();
-	//this->sendToClients("testing!!!");
-	while(1)
-	{
-		SDL_Delay(30);
-	}
-	//runs the game itself
 	return 0;
 }
 
 int game_host::testrun()
+{
+	this->init();
+	this->waitForClients();
+
+	//runs the game itself
+	return 0;
+}
+
+int game_host::run()
 {
 	cListNode<creep*> *cur = NULL;
 	cListNode<structure*> *curTower = NULL;

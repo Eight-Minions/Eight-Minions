@@ -42,8 +42,11 @@ int client::init()
 
 void client::loadFiles()
 {
-	//loading files here
-	this->background = IMG_Load("images/Minions_UI_ModGrid.png");
+	//loading files here 425 770 7875
+	this->background = IMG_Load("images/minions_bg_ui.png");
+	grid = IMG_Load("images/sepGrid.png");
+	SDL_SetAlpha(grid,SDL_SRCALPHA,128);
+	gridRect = newRect(BOARD_X_OFFSET,BOARD_Y_OFFSET,0,0);
 	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
 	font10 = TTF_OpenFont("pirulen.ttf",10 );
 	string filepath;
@@ -156,7 +159,7 @@ void client::display()
 	SDL_Flip(screen);//displays everything that has been added to the screen
 }
 
-int client::run()
+int client::testrun()
 {
 	if(this->init() == -1)
 	{
@@ -182,7 +185,7 @@ int client::run()
 	return 0;
 }
 
-int client::testrun()
+int client::run()
 {
 	if(this->init() == -1)
 	{

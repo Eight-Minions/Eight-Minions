@@ -47,12 +47,14 @@ private:
 	SDL_Surface* towerImages[2][NUM_TOWERS];
 	SDL_Surface* attackImage;
 	SDL_Surface* text[TEXT_NUM];
+	SDL_Surface* grid;
 	FadeMessage *pMess;
 	
 
 	SDL_Event event;
 	SDL_Rect *SpriteMaps[4][ANIM_NUM];
 	SDL_Rect *textRects[TEXT_NUM];
+	SDL_Rect *gridRect;
 
 	Button *buttons[NUM_BUTTONS];
 
