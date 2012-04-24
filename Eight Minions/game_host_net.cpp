@@ -326,7 +326,12 @@ int game_host::performUpdate(string upd)
 				{
 					return changeStructure(update.getId1(), update.getVal(1));
 				}
-				return towerList.getNodeWithID(update.getId1())->getData()->changeType(update.getVal(1));
+				if(towerList.getNodeWithID(update.getId1())->getData()->changeType(update.getVal(1)))
+				{
+					sendMessageToQueue(UpdMess(update.getPlayer(), TOWER, TOWERCHANGE, update.getId1(),update.getVal(1)).getMT());
+				}
+				else
+					return 0;
 			}
 			return 0;
 		}
