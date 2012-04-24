@@ -265,7 +265,7 @@ UpdMess::UpdMess(int p, int t, ...)
 			}
 		}
 	}
-	else if(t == CREEP || t == NEWCREEP)
+	else if(t == CREEP || t == NEWCREEP || t == CREEPUPDATE)
 	{
 		for(int i = 0; i < 6; i++)
 		{
@@ -389,9 +389,9 @@ UpdMess::UpdMess(string m)
 {
 	p = m[0] - '0';
 	type = m[1] - '0';
-	if(type == CREEP || type == NEWCREEP)
+	if(type == CREEP || type == NEWCREEP || type == CREEPUPDATE)
 	{
-		if (type == NEWCREEP)
+		if (type == NEWCREEP || type == CREEPUPDATE)
 		{
 			val.resize(5);
 			// TYPE

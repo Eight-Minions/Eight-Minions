@@ -151,6 +151,48 @@ int client::performUpdate(string upd)
 		creeps.insertWithID(update.getId1(), new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1)));
 		creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
 	}
+	else if(updateType == CREEPUPDATE)
+	{
+		if(creeps.checkForObjectWithID(update.getId1()))
+		{
+			if(update.getVal(2) <= 0) //delete dead creeps
+			{
+				creeps.deleteNode(update.getId1());
+			}
+			else
+			{
+				creep *temp = creeps.getNodeWithID(update.getId1())->getData();
+				temp->setPlayer(update.getPlayer());
+				int xdif = update.getVal(0) - temp->getX();
+				if( xdif < 0)
+					temp->setDir(0);
+				else if(xdif > 0)
+					temp->setDir(2);
+				else
+				{
+					int ydif = update.getVal(1) - temp->getY();
+					if(ydif < 0)
+						temp->setDir(3);
+					else if(ydif > 0)
+						temp->setDir(1);
+				}
+				temp->setX(update.getVal(0));
+				temp->setY(update.getVal(1));
+				temp->setHealth(update.getVal(2));
+				temp->setUpdateTime(SDL_GetTicks());
+				temp->setType(update.getVal(3));
+				temp->setLevel(update.getVal(4));
+				creeps.deleteNode(update.getId1());
+				creeps.insertWithID(update.getId1(), temp);
+			}
+		}
+		else
+		{
+			creep *temp = new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1));
+			temp->setHealth(update.getVal(2));
+			creeps.insertWithID(update.getId1(), temp);
+		}
+	}
 	else if(updateType == TOWER)
 	{
 		if(update.getVal(0) == TOWERCREATION)

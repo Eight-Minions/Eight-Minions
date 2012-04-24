@@ -61,7 +61,9 @@ public:
 	int getPlayer();
 	void setPlayer(int p);
 	int getType();
+	void setType(int newType);
 	int getLevel();
+	void setLevel(int newLevel);
 	int getArmor();	
 	int getReward();
 	int getPrice();

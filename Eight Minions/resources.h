@@ -29,6 +29,7 @@
 #define TOWER 3 			// For anything to do with a tower
 #define GAMEOVER 4			// Sends the winning player
 #define BASE 5				// Base updates
+#define CREEPUPDATE 5		// Sends a full update of one creep's values
 
 // Base UpdMess Definitions
 #define UPGRADE 0

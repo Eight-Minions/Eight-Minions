@@ -321,3 +321,11 @@ void creep::setUpdateTime( int nTime )
 {
 	timeOfLastUpdate = nTime;
 }
+void creep::setType(int newType)
+{
+	type = newType;
+}
+void creep::setLevel(int newLevel)
+{
+	level = newLevel;
+}
