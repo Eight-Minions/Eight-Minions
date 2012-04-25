@@ -39,7 +39,18 @@ int main(int argc, char* argv[])
 	}
 	else if(c == 3)
 	{
-
+		const int largeNumber = 105;
+		cList<int> testList;
+		list<int> usedIDs;
+		for(int i = 0; i < largeNumber; i++)
+		{	
+			usedIDs.push_front(testList.insertInOrder(i));
+		}
+		while(usedIDs.empty() != true)
+		{
+			cout << "ID: " << usedIDs.front() << " Data: " << testList.getNodeWithID(usedIDs.front())->getData()<< endl;
+			usedIDs.pop_front();
+		}
 	}
 	else if(c == 4)
 	{

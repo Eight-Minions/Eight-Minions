@@ -43,7 +43,7 @@ template <typename T>
 cList<T>::cList ()
 {
 	start = NULL;
-	maxIterator = 100;
+	maxIterator = 99;
 	for(int i = 0; i < 100; i++)
 		freeIterators.push(i);
 	size = 0;
