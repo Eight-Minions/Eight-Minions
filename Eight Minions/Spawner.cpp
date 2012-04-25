@@ -251,7 +251,7 @@ void Spawner::generateWave()
 		if(i == spawnNum - 1)
 		{
 			curDelay = 20;
-			SpawnerDelay.push(20 * MAX_FPS);
+			SpawnerDelay.push(16 * MAX_FPS);
 		}
 
 	}
