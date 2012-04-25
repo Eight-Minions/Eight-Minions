@@ -318,7 +318,7 @@ bool Standard_Tower::changeType(int newType)
 				coolDownDuration =		heavyArr[getLevel() - 1][3];
 				attackDuration =		HEAVYATTACKDELAY;
 				attackType =			ATTACKONECREEP;
-				attackStrategy =		ATTACKCLOSESTTOBASE;
+				attackStrategy =		ATTACKCLOSESTTOTOWER;
 			}
 			else if(getType() == MINETOWER)
 			{

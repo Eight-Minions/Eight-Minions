@@ -71,7 +71,8 @@ void client::loadFiles()
 		temp = filepath + "Minions_Creeps_High-H_Top_Sprite.png";
 		creepImages[i][FATTY] = LoadImageCK(temp);
 
-		towerImages[i][STRUCTURE] = LoadImageCK("images/structure.png");
+		temp = filepath + "Minions_Towers_Foundation_Top.png";
+		towerImages[i][STRUCTURE] = LoadImageCK(temp);
 		temp = filepath + "Minions_Towers_Spawner_Top_Sprite.png";
 		towerImages[i][NORMCREEPTOWER] = LoadImageCK(temp);
 		temp = filepath + "Minions_Towers_Normal_Top.png";
@@ -348,6 +349,7 @@ void client::displayUI()
 		case NORMCREEPTOWER:
 			if(curSelectedTowerPtr->getPlayer() == self->getPnum())
 			{
+				
 				buttons[13]->display(screen);
 				buttons[14]->display(screen);
 				buttons[15]->display(screen);
@@ -426,11 +428,11 @@ void client::initButtons()
 	buttons[19] = new Button("images/towerMenuButton",649,58,71,28);
 	buttons[20] = new Button("images/baseMenuButton",722,58,71,28);
 
-	buttons[21] = new Button("images/addFast",649,88,71,92);
-	buttons[22] = new Button("images/addSwarm",722,88,71,92);
-	buttons[23] = new Button("images/addHighH",649,182,71,92);
-	buttons[24] = new Button("images/addHighA",722,182,71,92);
-	buttons[25] = new Button("images/addTitan",649,276,71,92);
+	buttons[21] = new Button("images/Minions_UI_Buttons_Creep_Fast_",649,88,71,92);
+	buttons[22] = new Button("images/Minions_UI_Buttons_Creep_Swarm_",722,88,71,92);
+	buttons[23] = new Button("images/Minions_UI_Buttons_Creep_High-H_",649,182,71,92);
+	buttons[24] = new Button("images/Minions_UI_Buttons_Creep_High-A_",722,182,71,92);
+	buttons[25] = new Button("images/Minions_UI_Buttons_Creep_Boss_",649,276,71,92);
 
 	//Upgrades base creep levels
 	buttons[26] = new Button("images/BaseUpgradeButton", 722,276,71,92);
