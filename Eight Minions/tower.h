@@ -16,8 +16,12 @@ private:
 	double y;
 
 	bool alive;
+
 protected:
 	bool paused;
+	int anim_delay;
+	int animIndex;
+
 public:
 	structure();
 	structure(int level, int player, int type, int x, int y);
@@ -37,6 +41,7 @@ public:
 	int getCost();
 	void setSellReward(int newReward);
 	int getSellReward();
+	SDL_Rect *getr();
 
 	int calculateCost(int cType);
 
@@ -59,7 +64,7 @@ public:
 
 	bool isAlive();
 
-
+	SDL_Rect * animRects[4];
 	void displayTower(SDL_Surface *screen, SDL_Surface* image);
 };
 #endif 

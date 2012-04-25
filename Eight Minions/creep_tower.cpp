@@ -18,7 +18,7 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, 
 	updateSell();
 	this->unpause();
 	this->setPassable(true);
-	
+
 }
 Creep_Tower::~Creep_Tower()
 {
@@ -150,4 +150,16 @@ void Creep_Tower::pause()
 void Creep_Tower::unpause()
 {
 	paused = false;
+}
+
+void Creep_Tower::displayTower(SDL_Surface *screen, SDL_Surface *image)
+{
+
+
+	if(image != NULL)
+	{
+		getr()->x = (GRID_SIZE * this->getX()) + BOARD_X_OFFSET;
+		getr()->y = (GRID_SIZE * this->getY()) + BOARD_Y_OFFSET;
+		SDL_BlitSurface(image, animRects[animIndex], screen, getr());
+	}
 }

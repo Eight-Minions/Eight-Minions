@@ -72,8 +72,8 @@ void client::loadFiles()
 		creepImages[i][FATTY] = LoadImageCK(temp);
 
 		towerImages[i][STRUCTURE] = LoadImageCK("images/structure.png");
-		//temp = filepath + "Minions_Towers_Spawner_Top_Sprite.png";
-		towerImages[i][NORMCREEPTOWER] = LoadImageCK("images/spawnTower.png");
+		temp = filepath + "Minions_Towers_Spawner_Top_Sprite.png";
+		towerImages[i][NORMCREEPTOWER] = LoadImageCK(temp);
 		temp = filepath + "Minions_Towers_Normal_Top.png";
 		towerImages[i][NORMTOWER] = LoadImageCK(temp);
 		temp = filepath + "Minions_Towers_Fast_Top.png";
@@ -370,7 +370,10 @@ void client::displayUI()
 
 		}
 		SDL_BlitSurface(text[15 + curSelectedTowerPtr->getPlayer()], NULL, screen, textRects[9]); //player number
-		SDL_BlitSurface(towerImages[curSelectedTowerPtr->getPlayer() - 1][curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
+		if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER && curSelectedTowerPtr->getType() <= FATTYCREEPTOWER)
+			SDL_BlitSurface(towerImages[curSelectedTowerPtr->getPlayer()][NORMCREEPTOWER], curSelectedTowerPtr->animRects[0], screen, textRects[10]);
+		else
+			SDL_BlitSurface(towerImages[curSelectedTowerPtr->getPlayer() - 1][curSelectedTowerPtr->getType()], NULL, screen, textRects[10]); //tower image
 		SDL_BlitSurface(text[18], NULL, screen, textRects[11]);
 		SDL_BlitSurface(text[19], NULL, screen, textRects[12]);
 	}

@@ -14,6 +14,15 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	r = new SDL_Rect;
 	sellReward = 1;
 	alive = true;
+	anim_delay = 3;
+	animIndex = 0;
+	if(type >= NORMCREEPTOWER && type <= FATTYCREEPTOWER)
+	{
+		animRects[0] = newRect(0,0,24,24);
+		animRects[1] = newRect(24,0,24,24);
+		animRects[2] = newRect(48,0,24,24);
+		animRects[3] = newRect(72,0,24,24);
+	}
 }
 structure::~structure()
 {
@@ -53,15 +62,34 @@ int structure::setType(int newType)
 	type = newType;
 	return type;
 }
+
 void structure::displayTower(SDL_Surface *screen, SDL_Surface *image)
 {
+	if(type >= NORMCREEPTOWER && type <= FATTYCREEPTOWER)
+	{
+	if (anim_delay <= 0)
+	{
+		anim_delay = 3;
+		animIndex++;
+		if(animIndex >= 4)
+		{
+			animIndex = 0;
+		}
+	}
+	else
+		anim_delay--;
+	}
 	if(image != NULL)
 	{
 		this->r->x = (GRID_SIZE * this->getX()) + BOARD_X_OFFSET;
 		this->r->y = (GRID_SIZE * this->getY()) + BOARD_Y_OFFSET;
-		SDL_BlitSurface(image, NULL, screen, r);
+		if(type >= NORMCREEPTOWER && type <= FATTYCREEPTOWER)
+			SDL_BlitSurface(image, animRects[animIndex], screen, r);
+		else
+			SDL_BlitSurface(image, NULL, screen, r);
 	}
 }
+
 int structure::getPlayer(){
 	return player;
 }
@@ -178,4 +206,9 @@ void structure::kill()
 bool structure::isAlive()
 {
 	return alive;
+}
+
+SDL_Rect * structure::getr()
+{
+	return r;
 }

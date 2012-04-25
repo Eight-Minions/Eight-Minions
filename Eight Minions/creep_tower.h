@@ -21,15 +21,20 @@ public:
 	int updateCost(int uLevel, int uType);
 	int getCost();
 	void updateSell();
+	void displayTower(SDL_Surface *screen, SDL_Surface *image);
 
 	
 	bool isPaused();
 	void pause();
 	void unpause();
-	
+
+
 private:
 	Spawner *cSpawner;
 	game_host *manager;
+	SDL_Rect *animRects[4];
+	unsigned int animIndex;
+	int anim_delay;
 
 	int cost;
 	int creepType;
