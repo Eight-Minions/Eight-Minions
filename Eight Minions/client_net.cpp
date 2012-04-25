@@ -153,6 +153,11 @@ int client::performUpdate(string upd)
 	}
 	else if(updateType == CREEPUPDATE)
 	{
+		int tVal0 = update.getVal(0);	// X
+		int tVal1 = update.getVal(1);	// Y
+		int	tVal2 = update.getVal(2);	// Health 
+		int tVal3 = update.getVal(3);	// Type
+		int tVal4 = update.getVal(4);	// Level
 		if(creeps.checkForObjectWithID(update.getId1()))
 		{
 			if(update.getVal(2) <= 0) //delete dead creeps

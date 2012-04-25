@@ -114,12 +114,12 @@ const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 
 //Creep types
 // Health Armor Speed Reward Price Spawn
-const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,2,2,2,2},		{5,1,3,3,5,2},		{8,2,3,6,10,2},		{12,3,4,12,15,2},	{20,4,5,15,20,2}};
-const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,3,2},		{3,0,5,2,5,2},		{5,1,5,4,8,2},		{8,1,6,8,12,2},		{12,2,7,10,15,2}};
-const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,1,1,2,4,3},		{5,2,1,5,8,3},		{8,3,2,10,16,3},	{12,4,2,15,22,3},	{20,5,3,20,28,3}};
-const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,2,1},		{3,0,3,1,3,1},		{5,1,4,2,4,1},		{8,1,4,2,5,1},		{10,2,5,3,6,1}};
-const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,3,3},		{8,1,1,5,7,3},		{11,2,2,10,15,3},	{15,3,2,15,21,3},	{25,4,3,20,27,3}};
-const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,10,5},	{20,3,2,15,25,5},	{35,4,3,25,50,5},	{50,5,3,50,100,5},	{100,7,4,100,250,5}};
+const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,2,2,1,2},		{5,1,3,3,2,2},		{8,2,3,6,4,2},		{12,3,4,12,6,2},	{20,4,5,15,8,2}};
+const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,4,1,1,2},		{3,0,5,2,2,2},		{5,1,5,4,4,2},		{8,1,6,8,6,2},		{12,2,7,10,8,2}};
+const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,1,1,2,2,3},		{5,2,1,5,3,3},		{8,3,2,10,6,3}, 	{12,4,2,15,12,3},	{20,5,3,20,16,3}};
+const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,1,1},		{3,0,3,1,1,1},		{5,1,4,2,2,1},		{8,1,4,2,3,1},		{10,2,5,3,4,1}};
+const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,0,1,2,1,3},		{8,1,1,5,3,3},		{11,2,2,10,6,3},	{15,3,2,15,10,3},	{25,4,3,20,14,3}};
+const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{10,2,2,5,6,5},	{20,3,2,15,14,5},	{35,4,3,25,25,5},	{50,5,3,50,50,5},	{100,7,4,100,150,5}};
 
 //Map Constants
 #define MAPSIZE_X 26
