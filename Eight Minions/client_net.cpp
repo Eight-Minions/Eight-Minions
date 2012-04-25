@@ -400,6 +400,8 @@ bool client::changeTowerRecieve(int towerID, int newType)
 	if(towers.checkForObjectWithID(towerID))
 	{
 		towers.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
+		if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+			pMess->setMessage("Tower Type Changed!");
 		return true;
 	}
 	return false;
@@ -427,9 +429,17 @@ bool client::toggleTowerRecieve(int towerID, int newState)
 	if(towers.checkForObjectWithID(towerID))
 	{
 		if(newState == true)
+		{
 			towers.getNodeWithID(towerID)->getData()->pause();
+			if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+				pMess->setMessage("Tower Paused.");
+		}
 		else
+		{
 			towers.getNodeWithID(towerID)->getData()->unpause();
+			if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+				pMess->setMessage("Spawning Resumed.");
+		}
 		return true;
 	}
 	return false;
@@ -554,6 +564,8 @@ bool client::changeSpawnerTypeRecieve(int towerID, int newType)
 	if(towers.checkForObjectWithID(towerID))
 	{
 		towers.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
+		if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+			pMess->setMessage("Spawner Type Changed");
 		return true;
 	}
 	return false;
