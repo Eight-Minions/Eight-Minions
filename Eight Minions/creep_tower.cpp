@@ -70,7 +70,7 @@ bool Creep_Tower::changeType(int newType)
 		{
 			this->manager->getPlayer(this->getPlayer())->spendMoney(updateCost(this->getLevel(), newType));
 			delete cSpawner;
-			cSpawner = new Spawner(this->manager, this->getPlayer(), true, newType, this->getLevel(),gC(this->getX(), this->getY()));
+			cSpawner = new Spawner(this->manager, this->getPlayer(), true, newType - GETCREEPTYPE, this->getLevel(),gC(this->getX(), this->getY()));
 			this->cost = updateCost(this->getLevel()+1, newType);
 			this->setType(newType);
 			updateSell();

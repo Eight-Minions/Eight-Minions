@@ -250,7 +250,7 @@ int client::performUpdate(string upd)
 	else if(updateType == BASE)
 	{
 		if(update.getVal(0) == UPGRADE)
-			this->upgradeBaseRecieve();
+			this->upgradeBaseRecieve(update.getPlayer());
 		else if(update.getVal(0) == ADDTYPE)
 			this->addTypeToBaseRecieve(update.getPlayer(), update.getVal(1));
 	}
@@ -480,15 +480,20 @@ bool client::upgradeBaseSend()
 	sendToServerUDP(UpdMess(this->self->getPnum(), BASE, UPGRADE).getMT());
 	return true;
 }
-bool client::upgradeBaseRecieve()
+bool client::upgradeBaseRecieve(int player)
 {
-	this->baseLevel += 1;
-	string buff = "Level ";
-	buff += (baseLevel + '0');
-	SDL_FreeSurface(text[25]);
-	text[25] = TTF_RenderText_Solid(font, buff.c_str(), Cblack);
-	pMess->setMessage("Base Upgraded!");
-	return true;
+	if(player == this->self->getPnum())
+	{
+		this->baseLevel += 1;
+		string buff = "Level ";
+		buff += (baseLevel + '0');
+		SDL_FreeSurface(text[25]);
+		text[25] = TTF_RenderText_Solid(font, buff.c_str(), Cblack);
+		pMess->setMessage("Base Upgraded!");
+		return true;
+	}
+	else 
+		return false;
 }
 bool client::addTypeToBaseSend(int newType)
 {
