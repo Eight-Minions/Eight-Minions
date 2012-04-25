@@ -205,7 +205,7 @@ int client::run()
 	mouseClickMode = DEFAULT_MODE;
 	menuMode = 1;
 
-	pMess = new FadeMessage(font,30,565,MAX_FPS,1,Cblack);
+	pMess = new FadeMessage(font,10,578,MAX_FPS,1,Cwhite);
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
 
@@ -301,6 +301,7 @@ void client::displayUI()
 		buttons[24]->display(screen);
 		buttons[25]->display(screen);
 		buttons[26]->display(screen);
+		SDL_BlitSurface(text[31], NULL, screen, textRects[24]);
 	}
 
 	if(mouseClickMode == SELECT_TOWER_MODE)
@@ -407,7 +408,7 @@ void client::initButtons()
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
 	//upgrade button
-	buttons[4] = new Button("images/upgradeButton",754,564,36,36);
+	buttons[4] = new Button("images/upgradeButton",649,528,36,36);
 	//change type (for structures)
 	buttons[5] = new Button("images/attackTowerButton",722,88,71,92);
 	buttons[6] = new Button("images/spawnTowerButton",722,276,71,92);
@@ -442,13 +443,13 @@ void client::initButtons()
 void client::initText()
 {
 	char buff[8];
-	textRects[0] = newRect(10,10,0,0);
+	textRects[0] = newRect(10,554,0,0);
 	text[0] = TTF_RenderText_Solid( font, "Current Health: ", Cwhite);
-	textRects[1] = newRect(200,10,0,0);
+	textRects[1] = newRect(200,554,0,0);
 	text[1] = TTF_RenderText_Solid( font, _itoa(self->getHealth(),buff,10), Cwhite);
-	textRects[2] = newRect(240,10,0,0);
+	textRects[2] = newRect(240,554,0,0);
 	text[2] = TTF_RenderText_Solid( font, "Money:", Cblack);
-	textRects[3] = newRect(325,10,0,0);
+	textRects[3] = newRect(325,554,0,0);
 	text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
 
 	textRects[4] = newRect(600,16,0,0);
@@ -512,7 +513,8 @@ void client::initText()
 	text[30] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 
 	//Base Upgrade Cost
-
+	textRects[24] = newRect(726,326,0,0);
+	text[31] = TTF_RenderText_Solid(font10, "$200", Cblack);
 }
 
 bool client::boardWasClicked( int x, int y)
@@ -799,6 +801,8 @@ void client::handleInput()
 						if (towerExistsAt(curSelectedTower))
 						{
 							mouseClickMode = SELECT_TOWER_MODE;
+							menuMode = 1;
+							buttons[19]->setClick(true);
 							char buff[5];
 							SDL_FreeSurface(text[19]);
 							text[19] = TTF_RenderText_Solid(font10, _itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);

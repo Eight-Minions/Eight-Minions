@@ -385,7 +385,7 @@ bool client::upgradeTowerRecieve(int towerID)
 			towers.getNodeWithID(towerID)->getData()->setLevel(towers.getNodeWithID(towerID)->getData()->getLevel() + 1);
 		char buff[4];
 		SDL_FreeSurface(text[19]);
-		text[19] = TTF_RenderText_Solid(font10, itoa(towers.getNodeWithID(towerID)->getData()->getLevel(),buff,10), Cblack);
+		text[19] = TTF_RenderText_Solid(font10, _itoa(towers.getNodeWithID(towerID)->getData()->getLevel(),buff,10), Cblack);
 		return true;
 	}
 	return false;
@@ -489,6 +489,10 @@ bool client::upgradeBaseRecieve(int player)
 		buff += (baseLevel + '0');
 		SDL_FreeSurface(text[25]);
 		text[25] = TTF_RenderText_Solid(font, buff.c_str(), Cblack);
+		char temp[5];
+		buff = "$";
+		buff += _itoa(BASEUPGRADECOST * (baseLevel + 1),temp,10);
+		text[31] = TTF_RenderText_Solid(font10, buff.c_str(), Cblack);
 		pMess->setMessage("Base Upgraded!");
 		return true;
 	}

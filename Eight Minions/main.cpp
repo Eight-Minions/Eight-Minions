@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 	cout << "Host or Connect to host? (host-1, connect-2) SOMEONE BUILD A NICER MENU\n>";
 	int c = 0;
 	cin >> c;
-	if(c == 1)
+	if(c == 1 || c == 9)
 	{
 		unsigned int port;
 
@@ -18,7 +18,10 @@ int main(int argc, char* argv[])
 		server.setPort(port);
 		cout << "port set\n";
 		//do other server things, namely...
-		server.run();
+		if(c == 9)
+			server.run(true);
+		else
+			server.run(false);
 		cout << "finished running\n";
 	}
 	else if(c == 2)

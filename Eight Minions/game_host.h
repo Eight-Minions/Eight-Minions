@@ -54,7 +54,7 @@ public:
 	int waitForClients();
 	int waitForClient_test();
 
-	int run(); //runs the game itself - use test run until we finish the engine
+	int run(bool debug); //runs the game itself - use test run until we finish the engine
 	int testrun();
 
 	void setNodemap();

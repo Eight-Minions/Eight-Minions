@@ -41,7 +41,7 @@ int game_host::testrun()
 	return 0;
 }
 
-int game_host::run()
+int game_host::run( bool debug )
 {
 	cListNode<creep*> *cur = NULL;
 	cListNode<structure*> *curTower = NULL;
@@ -53,8 +53,10 @@ int game_host::run()
 
 	this->init();
 	this->init_net();
-	this->waitForClients();
-	//this->waitForClient_test();
+	if(debug)
+		this->waitForClient_test();
+	else
+		this->waitForClients();
 
 	loadMap("TestMap.map");
 	setNodemap();	
