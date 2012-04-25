@@ -130,7 +130,7 @@ void client::cleanup()
 	creeps.~cList();
 	towers.~cList();
 
-	for(int i = 0; i < attacks.size(); i++)
+	for(unsigned int i = 0; i < attacks.size(); i++)
 	{
 		if(attacks[i] != NULL)
 			delete attacks[i];
@@ -254,7 +254,7 @@ void client::displayTowers()
 
 void client::displayMisc()
 {
-	for(int i = 0; i < attacks.size(); i++)
+	for(unsigned int i = 0; i < attacks.size(); i++)
 	{
 		//CHECK IF TARGET CREEP STILL EXISTS
 		if(creeps.checkForObjectWithID(attacks[i]->getTarget()))
@@ -492,17 +492,26 @@ void client::initText()
 	text[25] = TTF_RenderText_Solid(font, "Level 1", Cblack);
 
 
-
+	//Spawn tower change type costs
+	string t;
+	string money = "$";
 	textRects[19] = newRect(727,415,0,0);
-	text[26] = TTF_RenderText_Solid(font10, _itoa(fastCreepArr[0][4] * 20,buff,10), Cblack);
+	t = money + _itoa(fastCreepArr[0][4] * 20,buff,10);
+	text[26] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[20] = newRect(727,452,0,0);
-	text[27] = TTF_RenderText_Solid(font10, _itoa(swarmCreepArr[0][4] * 20,buff,10), Cblack);
+	t = money + _itoa(swarmCreepArr[0][4] * 20,buff,10);
+	text[27] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[21] = newRect(727,489,0,0);
-	text[28] = TTF_RenderText_Solid(font10, _itoa(fattyCreepArr[0][4] * 20,buff,10), Cblack);
+	t = money + _itoa(fattyCreepArr[0][4] * 20,buff,10);
+	text[28] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[22] = newRect(727,526,0,0);
-	text[29] = TTF_RenderText_Solid(font10, _itoa(tankCreepArr[0][4] * 20,buff,10), Cblack);
+	t = money + _itoa(tankCreepArr[0][4] * 20,buff,10);
+	text[29] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[23] = newRect(727,563,0,0);
-	text[30] = TTF_RenderText_Solid(font10, _itoa(titanCreepArr[0][4] * 20,buff,10), Cblack);
+	t = money + _itoa(titanCreepArr[0][4] * 20,buff,10);
+	text[30] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
+
+	//Base Upgrade Cost
 
 }
 
@@ -792,7 +801,7 @@ void client::handleInput()
 							mouseClickMode = SELECT_TOWER_MODE;
 							char buff[5];
 							SDL_FreeSurface(text[19]);
-							text[19] = TTF_RenderText_Solid(font10, itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
+							text[19] = TTF_RenderText_Solid(font10, _itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
 							if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
 								buttons[12]->setClick(curSelectedTowerPtr->isPaused());
 						}

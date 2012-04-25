@@ -363,16 +363,18 @@ int game_host::performUpdate(string upd)
 			{
 				if(update.getPlayer() == 1)
 				{
-					if(this->p1Spawner->getLevel() < 5)
+					if(this->p1Spawner->getLevel() < 5 && players[0].getMoney() >= (p1Spawner->getLevel() + 1) * BASEUPGRADECOST)
 					{
+						players[0].spendMoney((p1Spawner->getLevel() + 1) * BASEUPGRADECOST);
 						this->p1Spawner->setLevel(this->p1Spawner->getLevel() + 1);
 						sendMessageToQueue(UpdMess(1, BASE, UPGRADE).getMT());
 					}
 				}
 				else if(update.getPlayer() == 2)
 				{
-					if(this->p2Spawner->getLevel() < 5)
+					if(this->p2Spawner->getLevel() < 5 && players[1].getMoney() >= (p2Spawner->getLevel() + 1) * BASEUPGRADECOST)
 					{
+						players[1].spendMoney((p2Spawner->getLevel() + 1) * BASEUPGRADECOST);
 						this->p2Spawner->setLevel(this->p2Spawner->getLevel() + 1);
 						sendMessageToQueue(UpdMess(2, BASE, UPGRADE).getMT());
 					}
