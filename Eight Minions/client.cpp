@@ -402,7 +402,7 @@ coord client::getClickCoord(int x, int y)
 void client::initButtons()
 {
 
-	buttons[0] = new Button("images/towerButton",649,88,71,92);
+	buttons[0] = new Button("images/Minions_UI_Buttons_Foundation_",649,88,71,92);
 	buttons[1] = new Button("images/mineButton",561,552,71,48);
 	//sell button
 	buttons[3] = new Button("images/sellButton",649,564,36,36);
@@ -435,7 +435,7 @@ void client::initButtons()
 	buttons[25] = new Button("images/Minions_UI_Buttons_Creep_Boss_",649,276,71,92);
 
 	//Upgrades base creep levels
-	buttons[26] = new Button("images/BaseUpgradeButton", 722,276,71,92);
+	buttons[26] = new Button("images/Minions_UI_Buttons_Upgrade_", 722,276,71,92);
 
 }
 
