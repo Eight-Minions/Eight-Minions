@@ -302,10 +302,10 @@ bool Standard_Tower::changeType(int newType)
 			}
 			else if(getType() == AOETOWER)
 			{
-				damageValue =			fastArr[getLevel() - 1][0];
-				armorPenetration =		fastArr[getLevel() - 1][1];
-				range =					fastArr[getLevel() - 1][2];
-				coolDownDuration =		fastArr[getLevel() - 1][3];
+				damageValue =			areaOfEffectArr[getLevel() - 1][0];
+				armorPenetration =		areaOfEffectArr[getLevel() - 1][1];
+				range =					areaOfEffectArr[getLevel() - 1][2];
+				coolDownDuration =		areaOfEffectArr[getLevel() - 1][3];
 				attackDuration =		AOEATTACKDELAY;
 				attackType =			AREAOFEFFECT;
 				attackStrategy =		ATTACKCLOSESTTOTOWER;
@@ -318,7 +318,7 @@ bool Standard_Tower::changeType(int newType)
 				coolDownDuration =		heavyArr[getLevel() - 1][3];
 				attackDuration =		HEAVYATTACKDELAY;
 				attackType =			ATTACKONECREEP;
-				attackStrategy =		ATTACKCLOSESTTOTOWER;
+				attackStrategy =		ATTACKCLOSESTTOBASE;
 			}
 			else if(getType() == MINETOWER)
 			{
