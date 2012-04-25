@@ -325,13 +325,12 @@ void client::displayUI()
 					buttons[7]->display(screen);
 					buttons[8]->display(screen);
 					buttons[9]->display(screen);
+					SDL_BlitSurface(text[20], NULL, screen, textRects[13]);
+					SDL_BlitSurface(text[21], NULL, screen, textRects[14]);
+					SDL_BlitSurface(text[22], NULL, screen, textRects[15]);
+					SDL_BlitSurface(text[23], NULL, screen, textRects[16]);
+					SDL_BlitSurface(text[24], NULL, screen, textRects[17]);
 				}
-
-				SDL_BlitSurface(text[20], NULL, screen, textRects[13]);
-				SDL_BlitSurface(text[21], NULL, screen, textRects[14]);
-				SDL_BlitSurface(text[22], NULL, screen, textRects[15]);
-				SDL_BlitSurface(text[23], NULL, screen, textRects[16]);
-				SDL_BlitSurface(text[24], NULL, screen, textRects[17]);
 			}
 			break;
 		case NORMTOWER:
@@ -599,6 +598,7 @@ void client::handleInput()
 				menuMode = 1;
 				buttons[19]->setClick(true);
 				buttons[20]->setClick(false);
+				mouseClickMode = DEFAULT_MODE;
 			}
 			if(buttons[20]->wasClicked(event.button.x, event.button.y))
 			{
