@@ -141,11 +141,11 @@ bool Standard_Tower::choose()
 			{
 				if(this->getPlayer() == 1) // Don't know if this is correct
 				{
-					//this->chooseNeighborsNearPosition(range, gC(PLAYERONEX, PLAYERONEY)); // Attack near own base
+					this->chooseNeighborsNearPosition(range, gC(PLAYERONEX, PLAYERONEY)); // Attack near own base
 				}
 				else if(this->getPlayer() == 2)
 				{
-					//this->chooseNeighborsNearPosition(range, gC(PLAYERTWOX, PLAYERTWOY));  // Attack near own base
+					this->chooseNeighborsNearPosition(range, gC(PLAYERTWOX, PLAYERTWOY));  // Attack near own base
 				}
 				else 
 					return false;
@@ -154,11 +154,11 @@ bool Standard_Tower::choose()
 			{
 				if(this->getPlayer() == 1)
 				{
-					//this->chooseClosestCreepToPosition(range, gC(PLAYERONEX, PLAYERTWOY)); // Attack near own base
+					this->chooseClosestCreepToPosition(range, gC(PLAYERONEX, PLAYERTWOY)); // Attack near own base
 				}	
 				else if(this->getPlayer() == 2)
 				{
-					//this->chooseClosestCreepToPosition(range, gC(PLAYERONEX, PLAYERTWOY)); // Attack near own base
+					this->chooseClosestCreepToPosition(range, gC(PLAYERONEX, PLAYERTWOY)); // Attack near own base
 				}
 				else 
 					return false;
