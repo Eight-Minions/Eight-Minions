@@ -155,6 +155,7 @@ bool Spawner::iterate()
 			return false;
 		}
 	}
+	return false;
 }
 
 
