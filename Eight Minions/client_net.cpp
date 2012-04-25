@@ -252,7 +252,7 @@ int client::performUpdate(string upd)
 		if(update.getVal(0) == UPGRADE)
 			this->upgradeBaseRecieve();
 		else if(update.getVal(0) == ADDTYPE)
-			this->addTypeToBaseRecieve(update.getVal(1));
+			this->addTypeToBaseRecieve(update.getPlayer(), update.getVal(1));
 	}
 	else
 	{
@@ -495,35 +495,39 @@ bool client::addTypeToBaseSend(int newType)
 	sendToServerUDP(UpdMess(this->self->getPnum(), BASE, ADDTYPE, newType).getMT());
 	return true;
 }
-bool client::addTypeToBaseRecieve(int newType)
+bool client::addTypeToBaseRecieve(int player, int newType)
 {
-	int buttonNum = 0;
-	switch(newType)
+	if(this->self->getPnum() == player)
 	{
-	case FAST:
-		pMess->setMessage("Fast Creeps Added!");
-		buttonNum = 21;
-		break;
-	case SWARM:
-		pMess->setMessage("Swarm Creeps Added!");
-		buttonNum = 22;
-		break;
-	case FATTY:
-		pMess->setMessage("High Health Creeps Added!");
-		buttonNum = 23;
-		break;
-	case TANK:
-		pMess->setMessage("High Armor Creeps Added!");
-		buttonNum = 24;
-		break;
-	case TITAN:
-		pMess->setMessage("Boss Creeps Added!");
-		buttonNum = 25;
-		break;
+		int buttonNum = 0;
+		switch(newType)
+		{
+		case FAST:
+			pMess->setMessage("Fast Creeps Added!");
+			buttonNum = 21;
+			break;
+		case SWARM:
+			pMess->setMessage("Swarm Creeps Added!");
+			buttonNum = 22;
+			break;
+		case FATTY:
+			pMess->setMessage("High Health Creeps Added!");
+			buttonNum = 23;
+			break;
+		case TANK:
+			pMess->setMessage("High Armor Creeps Added!");
+			buttonNum = 24;
+			break;
+		case TITAN:
+			pMess->setMessage("Boss Creeps Added!");
+			buttonNum = 25;
+			break;
+		}
+		buttons[buttonNum]->setClick(true);
+		buttons[buttonNum]->Lock();
+		return true;
 	}
-	buttons[buttonNum]->setClick(true);
-	buttons[buttonNum]->Lock();
-	return true;
+	return false;
 }
 bool client::changeSpawnerTypeSend(int towerID, int newType)
 {
