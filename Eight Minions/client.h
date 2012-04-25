@@ -109,9 +109,9 @@ public:
 	bool toggleTowerSend(int Tid);
 	bool toggleTowerRecieve(int towerID, int newState);
 	bool upgradeBaseSend();
-	bool upgradeBaseRecieve();
+	bool upgradeBaseRecieve(int player);
 	bool addTypeToBaseSend(int newType);
-	bool addTypeToBaseRecieve(int newType);
+	bool addTypeToBaseRecieve(int player, int newType);
 	bool changeSpawnerTypeSend(int towerID, int newType);
 	bool changeSpawnerTypeRecieve(int towerID, int newType);
 	int gameOverRecieve(int winner);
