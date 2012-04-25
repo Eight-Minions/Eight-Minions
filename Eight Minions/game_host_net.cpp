@@ -288,18 +288,14 @@ int game_host::performUpdate(string upd)
 			if(isEmptyLocation(update.getVal(1), update.getVal(2)))
 			{
 				placeTower(update.getPlayer(), STRUCTURE, update.getVal(1), update.getVal(2));
-				return 1;
 			}
-			return 0;
 		}	
 		else if(subType == MINEPLACE)
 		{
 			if(isEmptyLocation(update.getVal(1), update.getVal(2)))
 			{
 				placeTower(update.getPlayer(), MINETOWER, update.getVal(1), update.getVal(2));
-				return 1;
 			}
-			return 0;
 		}
 		//Tower Upgrade:			UpdMess(Player[1], TOWER, TOWERUPGRADE[2], TowerID[4]);
 		else if(subType == TOWERUPGRADE)
@@ -311,11 +307,9 @@ int game_host::performUpdate(string upd)
 					if(towerList.getNodeWithID(update.getId1())->getData()->upgrade())
 					{
 						sendMessageToQueue(UpdMess(update.getPlayer(), TOWER, TOWERUPGRADE, update.getId1()).getMT());
-						return 1;
 					}
 				}
 			}
-			return 0;
 		}
 		//Tower ChangeType:		UpdMess(Player[1], TOWER, TOWERCHANGE[2], TowerID[4], newType[2]);	
 		else if(subType == TOWERCHANGE)
@@ -332,13 +326,8 @@ int game_host::performUpdate(string upd)
 					{
 						sendMessageToQueue(UpdMess(update.getPlayer(), TOWER, TOWERCHANGE, update.getId1(),update.getVal(1)).getMT());
 					}
-					else
-						return 0;
 				}
-				else
-					return 0;
 			}
-			return 0;
 		}
 		//Tower Toggle Pause:		UpdMess(Player[1], TOWER, TOWERTOGGLE[2], TowerID[4], newValue);
 		else if(subType == TOWERTOGGLE)
@@ -355,7 +344,6 @@ int game_host::performUpdate(string upd)
 					sendMessageToQueue(UpdMess(towerList.getNodeWithID(update.getId1())->getData()->getPlayer(), TOWER, TOWERTOGGLE, update.getId1(), towerList.getNodeWithID(update.getId1())->getData()->isPaused()).getMT());
 				}
 			}
-			return 0;
 		}
 		else if(subType == TOWERDELETE)
 		{	
@@ -380,8 +368,6 @@ int game_host::performUpdate(string upd)
 						this->p1Spawner->setLevel(this->p1Spawner->getLevel() + 1);
 						sendMessageToQueue(UpdMess(1, BASE, UPGRADE).getMT());
 					}
-					else 
-						return -1;
 				}
 				else if(update.getPlayer() == 2)
 				{
@@ -390,11 +376,7 @@ int game_host::performUpdate(string upd)
 						this->p2Spawner->setLevel(this->p2Spawner->getLevel() + 1);
 						sendMessageToQueue(UpdMess(2, BASE, UPGRADE).getMT());
 					}
-					else
-						return -1;
 				}
-				else
-					return -1;
 			}
 		}
 		else if(subType == ADDTYPE)

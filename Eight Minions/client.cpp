@@ -47,7 +47,7 @@ void client::loadFiles()
 	grid = IMG_Load("images/sepGrid.png");
 	SDL_SetAlpha(grid,SDL_SRCALPHA,128);
 	gridRect = newRect(BOARD_X_OFFSET,BOARD_Y_OFFSET,0,0);
-	font = TTF_OpenFont( "pirulen.ttf", 14 ); //create a font of the type in the file, and of size 14
+	font = TTF_OpenFont( "pirulen.ttf", 13 ); //create a font of the type in the file, and of size 14
 	font10 = TTF_OpenFont("pirulen.ttf",10 );
 	string filepath;
 	string temp;
@@ -71,16 +71,19 @@ void client::loadFiles()
 		temp = filepath + "Minions_Creeps_High-H_Top_Sprite.png";
 		creepImages[i][FATTY] = LoadImageCK(temp);
 
-
 		towerImages[i][STRUCTURE] = LoadImageCK("images/structure.png");
+		//temp = filepath + "Minions_Towers_Spawner_Top_Sprite.png";
 		towerImages[i][NORMCREEPTOWER] = LoadImageCK("images/spawnTower.png");
 		temp = filepath + "Minions_Towers_Normal_Top.png";
 		towerImages[i][NORMTOWER] = LoadImageCK(temp);
-		towerImages[i][FASTTOWER] = LoadImageCK("images/fastTower.png");
+		temp = filepath + "Minions_Towers_Fast_Top.png";
+		towerImages[i][FASTTOWER] = LoadImageCK(temp);
 		temp = filepath + "Minions_Towers_AOE_Top.png";
 		towerImages[i][AOETOWER] = LoadImageCK(temp);
-		towerImages[i][HEAVYTOWER] = LoadImageCK("images/heavyTower.png");
-		towerImages[i][MINETOWER] = LoadImageCK("images/mineTower.png");
+		temp = filepath + "Minions_Towers_Heavy_Top.png";
+		towerImages[i][HEAVYTOWER] = LoadImageCK(temp);
+		temp = filepath + "Minions_Towers_Mine_Top.png";
+		towerImages[i][MINETOWER] = LoadImageCK(temp);
 		towerImages[i][OBSTACLE] = LoadImageCK("images/rock.png");
 	}
 	attackImage = LoadImageCK("images/attackAnimSprites.png");
