@@ -55,7 +55,10 @@ bool Button::isClicked()
 
 void Button::setClick( bool nPress )
 {
-	isPressed = nPress;
+	if(nPress)
+		isPressed = 1;
+	else
+		isPressed = 0;
 }
 
 void Button::Lock()
