@@ -287,19 +287,19 @@ void client::displayUI()
 	buttons[19]->display(screen);
 	buttons[20]->display(screen);
 
-	if(menuMode == 1)
+	if(menuMode == 1) //tower place mode
 	{
 		buttons[0]->display(screen);
 		buttons[1]->display(screen);
 	}
-	else if(menuMode == 2)
+	else if(menuMode == 2) //creep add mode
 	{
 		buttons[21]->display(screen);
 		buttons[22]->display(screen);
 		buttons[23]->display(screen);
 		buttons[24]->display(screen);
 		buttons[25]->display(screen);
-
+		buttons[26]->display(screen);
 	}
 
 	if(mouseClickMode == SELECT_TOWER_MODE)
@@ -318,11 +318,14 @@ void client::displayUI()
 			SDL_BlitSurface(text[8], NULL, screen, textRects[8]);
 			if(curSelectedTowerPtr->getPlayer() == self->getPnum())
 			{
-				buttons[5]->display(screen);
-				buttons[6]->display(screen);
-				buttons[7]->display(screen);
-				buttons[8]->display(screen);
-				buttons[9]->display(screen);
+				if(menuMode == 1)
+				{
+					buttons[5]->display(screen);
+					buttons[6]->display(screen);
+					buttons[7]->display(screen);
+					buttons[8]->display(screen);
+					buttons[9]->display(screen);
+				}
 
 				SDL_BlitSurface(text[20], NULL, screen, textRects[13]);
 				SDL_BlitSurface(text[21], NULL, screen, textRects[14]);
@@ -473,7 +476,7 @@ void client::initText()
 	text[20] = TTF_RenderText_Solid(font, "$5", Cblack);
 
 	textRects[14] = newRect(727,342,0,0); //spawner tower cost text
-	text[21] = TTF_RenderText_Solid(font, "$40", Cblack);
+	text[21] = TTF_RenderText_Solid(font, "$20", Cblack);
 
 	textRects[15] = newRect(727,248,0,0); //fast tower cost text
 	text[22] = TTF_RenderText_Solid(font, "$7", Cblack);
@@ -588,6 +591,7 @@ void client::handleInput()
 				buttons[23]->wasClicked(event.button.x, event.button.y);
 				buttons[24]->wasClicked(event.button.x, event.button.y);
 				buttons[25]->wasClicked(event.button.x, event.button.y);
+				buttons[26]->wasClicked(event.button.x, event.button.y);
 			}
 
 			if(buttons[19]->wasClicked(event.button.x, event.button.y))
@@ -692,6 +696,12 @@ void client::handleInput()
 					buttons[25]->setClick(false);
 					//add titan type creep to players spawner
 					addTypeToBaseSend(TITAN);
+				}
+				if (buttons[26]->isClicked())
+				{
+					buttons[26]->setClick(false);
+					//upgrade base spawner level
+					upgradeBaseSend();
 				}
 				if(buttons[13]->isClicked())
 				{

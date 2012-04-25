@@ -64,7 +64,7 @@ public:
 
 	bool isAlive();
 
-	SDL_Rect * animRects[4];
+	SDL_Rect *animRects[4];
 	void displayTower(SDL_Surface *screen, SDL_Surface* image);
 };
 #endif 

@@ -59,7 +59,7 @@
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
 // Base Definitions
-#define BASEUPGRADECOST 500
+#define BASEUPGRADECOST 220
 #define ADDFAST 40
 #define ADDTANK 90
 #define ADDSWARM 50
