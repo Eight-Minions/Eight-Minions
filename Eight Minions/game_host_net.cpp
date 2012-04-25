@@ -46,7 +46,7 @@ int game_host::init_net()
 	}
 
 	socketset = SDLNet_AllocSocketSet(4);
-
+	messageSizeMod = 0;
 	cout << "Init completed\n";
 
 	return 0; // temporary
@@ -225,7 +225,7 @@ string game_host::recieveMessagep2()
 
 void game_host::sendMessageToQueue(string mess)
 {
-	if(this->updateCollection.length() + mess.length() + 1 > MAX_MESSAGE_LENGTH || mess == "SEND")
+	if(this->updateCollection.length() + mess.length() + 1 > MAX_MESSAGE_LENGTH + messageSizeMod || mess == "SEND")
 	{
 		//cout << updateCollection << endl;
 		if(updateCollection != "") //ensure a NULL message is not sent

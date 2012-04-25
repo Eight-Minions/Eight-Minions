@@ -27,6 +27,8 @@ private:
 	UDPpacket *UDPpack1, *UDPpack2, *UDPrpack;
 	string updateCollection;
 
+	int messageSizeMod;
+
 protected:
 	string mapName;
 

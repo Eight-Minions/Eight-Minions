@@ -117,7 +117,7 @@ const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,2,2,1,2},		{8,1,3,3,2,2},		{12,2,3,6,4,2},		{20,3,4,12,6,2},	{30,4,5,15,8,2}};
 const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,4,1,1,2},		{4,0,5,2,2,2},		{9,1,5,4,4,2},		{12,1,6,8,6,2},		{18,2,7,10,8,2}};
 const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,1,1,2,2,3},		{8,2,1,5,3,3},		{12,3,2,10,6,3}, 	{20,4,2,15,12,3},	{36,5,3,20,16,3}};
-const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,1,1},		{3,0,3,1,1,1},		{5,1,4,2,2,1},		{8,1,5,2,3,1},		{15,2,6,3,4,1}};
+const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,1,1},		{3,0,3,1,1,1},		{5,1,4,2,2,1},		{10,1,5,3,3,1},		{20,2,6,4,4,1}};
 const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{12,0,1,2,1,3},	{18,1,1,5,3,3},		{22,2,2,10,6,3},	{35,3,2,15,10,3},	{50,4,3,20,14,3}};
 const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{15,2,2,5,6,5},	{25,3,2,15,14,5},	{50,4,3,25,25,5},	{80,5,3,50,50,5},	{120,7,4,100,150,5}};
 
