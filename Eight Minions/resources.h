@@ -116,7 +116,7 @@ const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
 // Health Armor Speed Reward Price Spawn
 const int normCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{2,0,2,2,1,2},		{8,1,3,3,2,2},		{12,2,3,6,4,2},		{20,3,4,12,6,2},	{30,4,5,15,8,2}};
 const int fastCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{3,0,4,1,1,2},		{4,0,5,2,2,2},		{9,1,5,4,4,2},		{12,1,6,8,6,2},		{18,2,7,10,8,2}};
-const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,1,1,2,2,3},		{8,2,1,5,3,3},		{12,3,2,10,6,3}, 	{20,4,2,15,12,3},	{36,5,3,20,16,3}};
+const int tankCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{5,1,1,2,2,3},		{10,2,1,5,3,3},		{16,3,2,10,6,3}, 	{25,4,2,15,12,3},	{38,5,3,20,16,3}};
 const int swarmCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES]=		{{2,0,3,1,1,1},		{3,0,3,1,1,1},		{5,1,4,2,2,1},		{10,1,5,3,3,1},		{20,2,6,4,4,1}};
 const int fattyCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{12,0,1,2,1,3},	{18,1,1,5,3,3},		{22,2,2,10,6,3},	{35,3,2,15,10,3},	{50,4,3,20,14,3}};
 const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{15,2,2,5,6,5},	{25,3,2,15,14,5},	{50,4,3,25,25,5},	{80,5,3,50,50,5},	{120,7,4,100,150,5}};
@@ -136,7 +136,7 @@ const int titanCreepArr[MAXCREEPLEVEL][MAXCREEPVARIABLES] =		{{15,2,2,5,6,5},	{2
 #define NUM_BUTTONS 30
 
 //Number of text objects
-#define TEXT_NUM 35
+#define TEXT_NUM 45
 
 //Movement Constant
 #define CLOCK_CAP .45
@@ -163,7 +163,7 @@ const int basicArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),4
 const int fastArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{1,0,(3 * GRID_SIZE),30,7},	{2,0,(3 * GRID_SIZE),25,12},			{4,1,(3 * GRID_SIZE),20,24},	{8,1,(4 * GRID_SIZE),15,60},			{15,2,(4 * GRID_SIZE),10,150}};
 const int areaOfEffectArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =	{{1,0,(2 * GRID_SIZE),80,30},	{2,0,(2 * GRID_SIZE),70,45},			{4,1,(2 * GRID_SIZE),60,60},	{6,1,(int)(2.5 * GRID_SIZE),50,150},	{15,2,(3 * GRID_SIZE),45,200}};
 const int heavyArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{2,1,(2 * GRID_SIZE),60,15},	{4,2,(3 * GRID_SIZE),54,25},			{9,3,(4 * GRID_SIZE),48,40},	{13,4,(5 * GRID_SIZE),40,100},			{22,5,(int)(5.5 * GRID_SIZE),30,300}};
-const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{5,2,(1 * GRID_SIZE),0,3},		{10,3,((int)(1.5 * GRID_SIZE)),0,5},	{15,4,(2 * GRID_SIZE),0,8},		{20,5,((int)(2.5 * GRID_SIZE)),0,10},	{25,6,(3 * GRID_SIZE),0,15}};
+const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{5,2,(1 * GRID_SIZE),3,3},		{10,3,((int)(1.5 * GRID_SIZE)),3,5},	{15,4,(2 * GRID_SIZE),3,8},		{20,5,((int)(2.5 * GRID_SIZE)),3,10},	{25,6,(3 * GRID_SIZE),3,15}};
 
 
 #define basicArrd			{{1,0,(3 * GRID_SIZE),40,5},	{3,1,(4 * GRID_SIZE),35,10},			{5,1,(4 * GRID_SIZE),30,22},	{10,2,(5 * GRID_SIZE),25,50},			{20, 3, (int)(5.5 * GRID_SIZE), 20, 120}}
@@ -181,7 +181,7 @@ const int mineArr[MAXTOWERLEVEL][MAXTOWERVARIABLES] =			{{5,2,(1 * GRID_SIZE),0,
 
 */
 const int towerArrays[5][MAXTOWERLEVEL][MAXTOWERVARIABLES] =	{basicArrd,fastArrd,areaOfEffectArrd,heavyArrd,mineArrd};
-const int towerDelays[5] =			{20,15,6,30,2};
+const int towerDelays[5] =			{15,5,6,20,2};
 #define BASICATTACKDELAY 30
 #define FASTATTACKDELAY 20
 #define AOEATTACKDELAY 10

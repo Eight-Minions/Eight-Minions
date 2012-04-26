@@ -88,6 +88,8 @@ void client::loadFiles()
 		towerImages[i][OBSTACLE] = LoadImageCK("images/rock.png");
 	}
 	attackImage = LoadImageCK("images/attackAnimSprites.png");
+	selectedOverlay = LoadImageCK("images/select.png");
+	SDL_SetAlpha(selectedOverlay, SDL_SRCALPHA, 128);
 
 	for(int i = 0; i < 4; i++)
 	{
@@ -270,6 +272,11 @@ void client::displayMisc()
 				attacks[i]->display(screen,attackImage);
 		}
 	}
+
+	if(mouseClickMode == SELECT_TOWER_MODE)
+	{
+		SDL_BlitSurface(selectedOverlay,NULL,screen, textRects[25]);
+	}
 }
 
 void client::displayUI()
@@ -314,6 +321,11 @@ void client::displayUI()
 				buttons[4]->display(screen);
 			}
 		}
+		if(curSelectedTowerPtr->getType() <= NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
+		{
+			for(int i = 0; i < 8; i++)
+				SDL_BlitSurface(text[32 + i], NULL, screen, textRects[26 + i]);
+		}
 		switch(curSelectedTowerPtr->getType())
 		{
 		case STRUCTURE:
@@ -350,7 +362,7 @@ void client::displayUI()
 		case NORMCREEPTOWER:
 			if(curSelectedTowerPtr->getPlayer() == self->getPnum())
 			{
-				
+
 				buttons[13]->display(screen);
 				buttons[14]->display(screen);
 				buttons[15]->display(screen);
@@ -515,6 +527,27 @@ void client::initText()
 	//Base Upgrade Cost
 	textRects[24] = newRect(726,326,0,0);
 	text[31] = TTF_RenderText_Solid(font10, "$200", Cblack);
+
+	textRects[25] = newRect(0,0,0,0); //reserved for select cursor
+
+	//tower stats!
+	textRects[26] = newRect(656,445,0,0); //towers attack damage
+	text[32] = TTF_RenderText_Solid(font10, "Damage:", Cblack);
+	textRects[27] = newRect(750,445,0,0);
+	text[33] = TTF_RenderText_Solid(font10, "0", Cblack);
+	textRects[28] = newRect(656,456,0,0); //towers armor penetration
+	text[34] = TTF_RenderText_Solid(font10, "Pierce:", Cblack);
+	textRects[29] = newRect(750,456,0,0);
+	text[35] = TTF_RenderText_Solid(font10, "0", Cblack);
+	textRects[30] = newRect(656,467,0,0); //towers speed
+	text[36] = TTF_RenderText_Solid(font10, "Speed:", Cblack);
+	textRects[31] = newRect(750,467,0,0);
+	text[37] = TTF_RenderText_Solid(font10, "0", Cblack);
+	textRects[32] = newRect(656,478,0,0); //tower range
+	text[38] = TTF_RenderText_Solid(font10, "Range:", Cblack);
+	textRects[33] = newRect(750,478,0,0);
+	text[39] = TTF_RenderText_Solid(font10, "0", Cblack);
+
 }
 
 bool client::boardWasClicked( int x, int y)
@@ -606,14 +639,14 @@ void client::handleInput()
 				buttons[26]->wasClicked(event.button.x, event.button.y);
 			}
 
-			if(buttons[19]->wasClicked(event.button.x, event.button.y))
+			if(buttons[19]->wasClickedState(event.button.x, event.button.y))
 			{
 				menuMode = 1;
 				buttons[19]->setClick(true);
 				buttons[20]->setClick(false);
 				mouseClickMode = DEFAULT_MODE;
 			}
-			if(buttons[20]->wasClicked(event.button.x, event.button.y))
+			if(buttons[20]->wasClickedState(event.button.x, event.button.y))
 			{
 				menuMode = 2;
 				buttons[20]->setClick(true);
@@ -803,7 +836,10 @@ void client::handleInput()
 							mouseClickMode = SELECT_TOWER_MODE;
 							menuMode = 1;
 							buttons[19]->setClick(true);
+							textRects[25]->x = (curSelectedTower.x * GRID_SIZE) + BOARD_X_OFFSET;
+							textRects[25]->y = (curSelectedTower.y * GRID_SIZE) + BOARD_Y_OFFSET;
 							char buff[5];
+							recalcTowerInfo();
 							SDL_FreeSurface(text[19]);
 							text[19] = TTF_RenderText_Solid(font10, _itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
 							if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
@@ -861,5 +897,21 @@ void client::handleInput()
 				///////////////////////////////////////////////////////////////
 			}
 		}
+	}
+}
+
+void client::recalcTowerInfo()
+{
+	char buff[5];
+	if(curSelectedTowerPtr->getType() <= NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
+	{
+		SDL_FreeSurface(text[33]);
+		text[33] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][0], buff, 10), Cblack); //damage
+		SDL_FreeSurface(text[35]);
+		text[35] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][1], buff, 10), Cblack); //armor pen
+		SDL_FreeSurface(text[37]);
+		text[37] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][3], buff, 10), Cblack); //speed
+		SDL_FreeSurface(text[39]);
+		text[39] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][2], buff, 10), Cblack); //range
 	}
 }

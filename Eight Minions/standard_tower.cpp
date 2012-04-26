@@ -172,7 +172,7 @@ bool Standard_Tower::choose()
 		{
 			waiting = true;
 			//coolDownTick = coolDownDuration;
-			coolDownTick = towerArrays[this->getType()][this->getLevel()][3];
+			coolDownTick = towerArrays[this->getType() - 1][this->getLevel() - 1][3];
 			return true;  // Stuff was chosen
 		}
 		else
@@ -231,7 +231,7 @@ bool Standard_Tower::doDamage()
 	}
 	else if(attackTick <= 0)
 	{
-		attackTick = attackDuration;
+		attackTick = coolDownDuration;
 		waiting = false;
 		return false;
 	}

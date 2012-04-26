@@ -48,6 +48,7 @@ private:
 	SDL_Surface* attackImage;
 	SDL_Surface* text[TEXT_NUM];
 	SDL_Surface* grid;
+	SDL_Surface* selectedOverlay;
 	FadeMessage *pMess;
 	
 
@@ -128,7 +129,7 @@ public:
 
 	void savePlayerProfile();
 	bool towerExistsAt( coord curSelectedTower );
-
+	void recalcTowerInfo();
 	//this function will take any of the players individual stats, experience, purchased upgrades, and any other
 	//relevant data, save it to a file, lock it with the players password, and encrypt it so they cant cheat and modify it.
 };
