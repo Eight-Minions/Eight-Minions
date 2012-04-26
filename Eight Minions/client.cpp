@@ -884,17 +884,6 @@ void client::handleInput()
 							pMess->setMessage("Not Enough Money for Mine...");
 					}
 				}
-
-				//////////////////////////////////////////////////////////////
-				//Your goal, using this information, make the game do things
-				//when you click, i.e. clicking a tower displays info about it
-				//clicking the 'buy' menu (or whatever we decide to have) opens 
-				//a menu of things to buy. clicking a tower to buy and clicking a 
-				//spot on the map checks if the tower can go there and then puts it 
-				//there, subtracts money, and any other tasks that need to be done
-				//some of this will require server message which i will explain/help
-				//with, but i dont want to do everything. so this is not my task
-				///////////////////////////////////////////////////////////////
 			}
 		}
 	}

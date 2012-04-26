@@ -386,6 +386,8 @@ bool client::upgradeTowerRecieve(int towerID)
 		SDL_FreeSurface(text[19]);
 		text[19] = TTF_RenderText_Solid(font10, _itoa(towers.getNodeWithID(towerID)->getData()->getLevel(),buff,10), Cblack);
 		recalcTowerInfo();
+		if(towers.getNodeWithID(towerID)->getData()->getPlayer() ==  self->getPnum())
+			pMess->setMessage("Tower Upgraded!");
 		return true;
 	}
 	return false;
