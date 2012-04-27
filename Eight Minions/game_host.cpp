@@ -58,6 +58,9 @@ int game_host::run( bool debug )
 	else
 		this->waitForClients();
 
+	if(debug)
+		players[0].setMoney(2000);
+
 	loadMap("TestMap.map");
 	setNodemap();	
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);

@@ -168,6 +168,7 @@ bool cList<T>::deleteList ()
 		delete del;
 		success = true;
 	}
+	setStart(NULL);
 	return success;
 }
 // Delete a node

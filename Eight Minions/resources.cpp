@@ -44,3 +44,10 @@ SDL_Surface *LoadImageCK(string filename)
 		return NULL;
 	}
 }
+
+string itos( int n )
+{
+ stringstream s;
+ s << n;
+ return s.str();
+}

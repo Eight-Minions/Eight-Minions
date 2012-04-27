@@ -47,7 +47,7 @@ void client::loadFiles()
 	grid = IMG_Load("images/sepGrid.png");
 	SDL_SetAlpha(grid,SDL_SRCALPHA,128);
 	gridRect = newRect(BOARD_X_OFFSET,BOARD_Y_OFFSET,0,0);
-	font = TTF_OpenFont( "pirulen.ttf", 13 ); //create a font of the type in the file, and of size 14
+	font = TTF_OpenFont( "pirulen.ttf", 13 ); //create a font of the type in the file, and of size 13
 	font10 = TTF_OpenFont("pirulen.ttf",10 );
 	string filepath;
 	string temp;
@@ -58,6 +58,8 @@ void client::loadFiles()
 		filepath += ('1' + i);
 		filepath += '/';
 
+		for(int j = 0; j < NUM_CREEPS; j++)
+			creepImages[i][j] = NULL;
 		temp = filepath + "norm.png";
 		creepImages[i][NORM] = LoadImageCK(temp);
 		temp = filepath + "Minions_Creeps_Fast_Top_Sprite.png";
@@ -70,6 +72,9 @@ void client::loadFiles()
 		creepImages[i][TITAN] = LoadImageCK(temp);
 		temp = filepath + "Minions_Creeps_High-H_Top_Sprite.png";
 		creepImages[i][FATTY] = LoadImageCK(temp);
+
+		for(int j = 0; j < NUM_TOWERS; j++)
+			towerImages[i][j] = NULL;
 
 		temp = filepath + "Minions_Towers_Foundation_Top.png";
 		towerImages[i][STRUCTURE] = LoadImageCK(temp);
@@ -123,8 +128,12 @@ void client::cleanup()
 	}
 
 	for(int i = 0; i < TEXT_NUM; i++)
+	{
 		if(text[i] != NULL)
+		{
 			SDL_FreeSurface(text[i]);
+		}
+	}
 
 	if(attackImage != NULL)
 		SDL_FreeSurface(attackImage);
@@ -137,11 +146,9 @@ void client::cleanup()
 		if(attacks[i] != NULL)
 			delete attacks[i];
 	}
+	attacks.~vector();
 
-	delete self;
-
-	SDL_free(font);
-	SDL_free(font10);
+	delete self; //how sad...
 
 	// Close our server socket, cleanup SDL_net and finish!
 	SDLNet_TCP_Close(sd);
@@ -150,8 +157,9 @@ void client::cleanup()
 
 	SDLNet_Quit();
 
-	SDL_free(screen);
-	SDL_free(background);
+	SDL_FreeSurface(selectedOverlay);
+	SDL_FreeSurface(screen);
+	SDL_FreeSurface(background);
 	SDL_Quit();
 }
 void client::display()
@@ -321,7 +329,7 @@ void client::displayUI()
 				buttons[4]->display(screen);
 			}
 		}
-		if(curSelectedTowerPtr->getType() <= NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
+		if(curSelectedTowerPtr->getType() < NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
 		{
 			for(int i = 0; i < 8; i++)
 				SDL_BlitSurface(text[32 + i], NULL, screen, textRects[26 + i]);
@@ -368,11 +376,9 @@ void client::displayUI()
 				buttons[15]->display(screen);
 				buttons[16]->display(screen);
 				buttons[17]->display(screen);
-				SDL_BlitSurface(text[26], NULL,screen,textRects[19]);
-				SDL_BlitSurface(text[27], NULL,screen,textRects[20]);
-				SDL_BlitSurface(text[28], NULL,screen,textRects[21]);
-				SDL_BlitSurface(text[29], NULL,screen,textRects[22]);
-				SDL_BlitSurface(text[30], NULL,screen,textRects[23]);
+				if(text[40] != NULL)
+					SDL_BlitSurface(text[40], NULL,screen,textRects[34]);
+
 			}
 
 		case FASTCREEPTOWER:
@@ -431,11 +437,11 @@ void client::initButtons()
 	buttons[12] = new Button("images/pauseButton",649,465,36,36);
 	//change type (for creep towers)
 	//13- 18
-	buttons[13] = new Button("images/addFastToTower",690,412,36,36);
-	buttons[14] = new Button("images/addSwarmToTower",690,449,36,36);
-	buttons[15] = new Button("images/addHighHToTower",690,486,36,36);
-	buttons[16] = new Button("images/addHighAToTower",690,523,36,36);
-	buttons[17] = new Button("images/addTitanToTower",690,560,36,36);
+	buttons[13] = new Button("images/addFastToTower",727,490,36,36);
+	buttons[14] = new Button("images/addSwarmToTower",727,527,36,36);
+	buttons[15] = new Button("images/addHighHToTower",690,490,36,36);
+	buttons[16] = new Button("images/addHighAToTower",690,527,36,36);
+	buttons[17] = new Button("images/addTitanToTower",690,564,36,36);
 
 	//menu buttons
 	buttons[19] = new Button("images/towerMenuButton",649,58,71,28);
@@ -454,15 +460,20 @@ void client::initButtons()
 
 void client::initText()
 {
+	for(int i = 0; i < TEXT_NUM; i++)
+	{
+		text[i] = NULL;
+		textRects[i] = NULL;
+	}
 	char buff[8];
 	textRects[0] = newRect(10,554,0,0);
 	text[0] = TTF_RenderText_Solid( font, "Current Health: ", Cwhite);
 	textRects[1] = newRect(200,554,0,0);
-	text[1] = TTF_RenderText_Solid( font, _itoa(self->getHealth(),buff,10), Cwhite);
+	text[1] = TTF_RenderText_Solid( font, itos(self->getHealth()).c_str(), Cwhite);
 	textRects[2] = newRect(240,554,0,0);
 	text[2] = TTF_RenderText_Solid( font, "Money:", Cblack);
 	textRects[3] = newRect(325,554,0,0);
-	text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
+	text[3] = TTF_RenderText_Solid(font, itos(self->getMoney()).c_str(), Cblack);
 
 	textRects[4] = newRect(600,16,0,0);
 
@@ -509,19 +520,19 @@ void client::initText()
 	string t;
 	string money = "$";
 	textRects[19] = newRect(727,415,0,0);
-	t = money + _itoa(fastCreepArr[0][4] * 20,buff,10);
+	t = money + itos(fastCreepArr[0][4] * 20);
 	text[26] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[20] = newRect(727,452,0,0);
-	t = money + _itoa(swarmCreepArr[0][4] * 20,buff,10);
+	t = money + itos(swarmCreepArr[0][4] * 20);
 	text[27] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[21] = newRect(727,489,0,0);
-	t = money + _itoa(fattyCreepArr[0][4] * 20,buff,10);
+	t = money + itos(fattyCreepArr[0][4] * 20);
 	text[28] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[22] = newRect(727,526,0,0);
-	t = money + _itoa(tankCreepArr[0][4] * 20,buff,10);
+	t = money + itos(tankCreepArr[0][4] * 20);
 	text[29] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 	textRects[23] = newRect(727,563,0,0);
-	t = money + _itoa(titanCreepArr[0][4] * 20,buff,10);
+	t = money + itos(titanCreepArr[0][4] * 20);
 	text[30] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
 
 	//Base Upgrade Cost
@@ -547,6 +558,9 @@ void client::initText()
 	text[38] = TTF_RenderText_Solid(font10, "Range:", Cblack);
 	textRects[33] = newRect(750,478,0,0);
 	text[39] = TTF_RenderText_Solid(font10, "0", Cblack);
+
+	textRects[34] = newRect(740,575,0,0);
+	text[40] = NULL; //for creep tower upgrades.
 
 }
 
@@ -591,6 +605,33 @@ void client::handleInput()
 		if( event.type == SDL_MOUSEMOTION )
 		{
 			pMess->checkMouseover(event.button.x, event.button.y);
+			if(mouseClickMode == SELECT_TOWER_MODE)
+			{
+				if(curSelectedTowerPtr->getType() == NORMCREEPTOWER)
+				{
+					if(buttons[13]->wasClickedState(event.button.x,event.button.y))
+					{
+						text[40] = text[26];
+					}
+					if(buttons[14]->wasClickedState(event.button.x,event.button.y))
+					{
+						text[40] = text[27];
+					}
+					if(buttons[15]->wasClickedState(event.button.x,event.button.y))
+					{
+						text[40] = text[28];
+					}
+					if(buttons[16]->wasClickedState(event.button.x,event.button.y))
+					{
+						text[40] = text[29];
+					}
+					if(buttons[17]->wasClickedState(event.button.x,event.button.y))
+					{
+						text[40] = text[30];
+					}
+				}
+
+			}
 		}
 		if(event.type == SDL_KEYDOWN)
 		{
@@ -841,7 +882,7 @@ void client::handleInput()
 							char buff[5];
 							recalcTowerInfo();
 							SDL_FreeSurface(text[19]);
-							text[19] = TTF_RenderText_Solid(font10, _itoa(curSelectedTowerPtr->getLevel(),buff,10),Cblack);
+							text[19] = TTF_RenderText_Solid(font10, itos(curSelectedTowerPtr->getLevel()).c_str(),Cblack);
 							if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
 								buttons[12]->setClick(curSelectedTowerPtr->isPaused());
 						}
@@ -892,7 +933,7 @@ void client::handleInput()
 void client::recalcTowerInfo()
 {
 	char buff[5];
-	if(curSelectedTowerPtr->getType() <= NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
+	if(curSelectedTowerPtr->getType() < NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
 	{
 		SDL_FreeSurface(text[33]);
 		text[33] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][0], buff, 10), Cblack); //damage

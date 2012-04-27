@@ -9,6 +9,7 @@
 #include <cmath>
 #include <cstdarg>
 #include <vector>
+#include <sstream>
 
 #include "SDL.h"
 #include "SDL_net.h"
@@ -17,6 +18,7 @@
 #include "UpdMess.h"
 #include "path.h"
 #include "FadeMessage.h"
+
 
 //to calculate total number of lines, press ctrl + shift + f and search .cpp and .h files for the regular expression ^:b*[^:b#/]+.*$
 
@@ -68,7 +70,7 @@
 const int addSpawnArr[NUM_CREEPS] = {0, ADDFAST, ADDTANK, ADDSWARM, ADDTITAN, ADDFATTY};
 
 // Tower Type Constants
-#define NUM_TOWERS 12
+#define NUM_TOWERS 25
 // Structure 
 #define STRUCTURE 0
 //
@@ -84,7 +86,7 @@ const int addSpawnArr[NUM_CREEPS] = {0, ADDFAST, ADDTANK, ADDSWARM, ADDTITAN, AD
 //
 #define STANDARDTOWERSTARTLEVEL 1
 //*******Spawners and Spawner Towers*******
-const int creepBaseSpawnNum[NUM_CREEPS] = {8,9,5,8,2,5};
+const int creepBaseSpawnNum[NUM_CREEPS] = {10,9,5,8,2,5};
 //Spawn Tower Definitions
 #define NORMCREEPTOWER 6
 #define FASTCREEPTOWER 7
@@ -200,10 +202,12 @@ using std::vector;
 using std::fstream;
 using std::ofstream;
 using std::ifstream;
+using std::stringstream;
 
 SDL_Rect *newRect(int x, int y, int w, int h);
 SDL_Color makeColor(int r, int g, int b);
 SDL_Surface *LoadImageCK(string filename);
+string itos(int n);
 
 class structure;
 class game_host;
