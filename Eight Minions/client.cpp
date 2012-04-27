@@ -596,7 +596,7 @@ bool client::towerExistsAt( coord curSelectedTower )
 
 void client::handleInput()
 {
-	if( SDL_PollEvent( &event ) )
+	while( SDL_PollEvent( &event ) )
 	{
 		if(event.type == SDL_QUIT)
 		{
@@ -936,12 +936,12 @@ void client::recalcTowerInfo()
 	if(curSelectedTowerPtr->getType() < NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
 	{
 		SDL_FreeSurface(text[33]);
-		text[33] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][0], buff, 10), Cblack); //damage
+		text[33] = TTF_RenderText_Solid(font10, itos(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][0]).c_str(), Cblack); //damage
 		SDL_FreeSurface(text[35]);
-		text[35] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][1], buff, 10), Cblack); //armor pen
+		text[35] = TTF_RenderText_Solid(font10, itos(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][1]).c_str(), Cblack); //armor pen
 		SDL_FreeSurface(text[37]);
-		text[37] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][3], buff, 10), Cblack); //speed
+		text[37] = TTF_RenderText_Solid(font10, itos(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][3]).c_str(), Cblack); //speed
 		SDL_FreeSurface(text[39]);
-		text[39] = TTF_RenderText_Solid(font10, _itoa(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][2], buff, 10), Cblack); //range
+		text[39] = TTF_RenderText_Solid(font10, itos(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][2]).c_str(), Cblack); //range
 	}
 }

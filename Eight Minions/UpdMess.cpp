@@ -23,7 +23,6 @@ UpdMess::UpdMess(int p, int t, ...)
 		Game Over:				UpdMess(Player[1], GAMEOVER, Winner[1]);
 	*/	
 	int var;
-	char buff[8];
 	va_list v1;	
 	va_start(v1, t);
 
@@ -42,7 +41,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		{
 			if(var < 10)
 				messText += '0';
-			messText += itoa(var,buff,10);
+			messText += itos(var);
 		}
 		if(var == ADDTYPE)
 		{
@@ -53,7 +52,7 @@ UpdMess::UpdMess(int p, int t, ...)
 			{
 				if(var < 10)
 					messText += '0';
-				messText += itoa(var,buff,10);
+				messText += itos(var);
 			}
 		}
 		else if(var == UPGRADE)
@@ -73,7 +72,7 @@ UpdMess::UpdMess(int p, int t, ...)
 		{
 			if(var < 10)
 				messText += '0';
-			messText += itoa(var,buff,10);
+			messText += itos(var);
 		}
 		if(var == TOWERATTACK)
 		{
@@ -91,7 +90,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 				// i = 2 AttackedID[4]
@@ -105,7 +104,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 				else
@@ -129,7 +128,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 				// i = 1 X
@@ -142,7 +141,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 			}
@@ -162,7 +161,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 			}
@@ -183,7 +182,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 			}
@@ -204,7 +203,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 				else if(i == 1)
@@ -215,7 +214,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						if(var < 10)
 							messText += '0';
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 			}
@@ -236,7 +235,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 				else if(i == 1)
@@ -245,7 +244,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						messText += "0";
 					else
 					{
-						messText += itoa(var,buff,10);
+						messText += itos(var);
 					}
 				}
 			}
@@ -261,7 +260,7 @@ UpdMess::UpdMess(int p, int t, ...)
 				{
 					messText += '0';
 				}
-				messText += itoa(var,buff,10);
+				messText += itos(var);
 			}
 		}
 	}
@@ -285,7 +284,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += itos(var);
 				}
 			
 			}
@@ -300,7 +299,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += itos(var);
 				}
 			}
 			// Creep Type
@@ -311,7 +310,7 @@ UpdMess::UpdMess(int p, int t, ...)
 				{
 					if(var < 10)
 						messText += '0';
-					messText += itoa(var,buff,10);
+					messText += itos(var);
 				}
 			}
 			// Creep Level
@@ -325,7 +324,7 @@ UpdMess::UpdMess(int p, int t, ...)
 						{
 							messText += '0';
 						}
-					messText += itoa(var,buff,10);
+					messText += itos(var);
 				}
 			}
 			else
@@ -350,7 +349,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += itos(var);
 				}
 			}
 			// Money
@@ -364,7 +363,7 @@ UpdMess::UpdMess(int p, int t, ...)
 					{
 						messText += '0';
 					}
-					messText += itoa(var,buff,10);
+					messText += itos(var);
 				}
 			}
 			else
@@ -376,7 +375,7 @@ UpdMess::UpdMess(int p, int t, ...)
 	else if(t == GAMEOVER)
 	{
 		var = va_arg(v1, int);
-		messText += itoa(var,buff,10);
+		messText += itos(var);
 	}
 	else{
 		// ERROR

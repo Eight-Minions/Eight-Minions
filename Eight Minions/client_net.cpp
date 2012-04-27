@@ -239,8 +239,8 @@ int client::performUpdate(string upd)
 			self->setHealth(update.getVal(0));
 			self->setMoney(update.getVal(1));
 			char buff[8];
-			text[1] = TTF_RenderText_Solid( font, _itoa(self->getHealth(),buff,10), Cwhite);
-			text[3] = TTF_RenderText_Solid(font, _itoa(self->getMoney(),buff,10), Cblack);
+			text[1] = TTF_RenderText_Solid( font, itos(self->getHealth()).c_str(), Cwhite);
+			text[3] = TTF_RenderText_Solid(font, itos(self->getMoney()).c_str(), Cblack);
 		}
 	}
 	else if(updateType == GAMEOVER)
@@ -384,7 +384,7 @@ bool client::upgradeTowerRecieve(int towerID)
 			towers.getNodeWithID(towerID)->getData()->setLevel(towers.getNodeWithID(towerID)->getData()->getLevel() + 1);
 		char buff[4];
 		SDL_FreeSurface(text[19]);
-		text[19] = TTF_RenderText_Solid(font10, _itoa(towers.getNodeWithID(towerID)->getData()->getLevel(),buff,10), Cblack);
+		text[19] = TTF_RenderText_Solid(font10, itos(towers.getNodeWithID(towerID)->getData()->getLevel()).c_str(), Cblack);
 		recalcTowerInfo();
 		if(towers.getNodeWithID(towerID)->getData()->getPlayer() ==  self->getPnum())
 			pMess->setMessage("Tower Upgraded!");
@@ -503,7 +503,7 @@ bool client::upgradeBaseRecieve(int player)
 		text[25] = TTF_RenderText_Solid(font, buff.c_str(), Cblack);
 		char temp[5];
 		buff = "$";
-		buff += _itoa(BASEUPGRADECOST * (baseLevel + 1),temp,10);
+		buff += itos(BASEUPGRADECOST * (baseLevel + 1));
 		text[31] = TTF_RenderText_Solid(font10, buff.c_str(), Cblack);
 		pMess->setMessage("Base Upgraded!");
 		return true;
