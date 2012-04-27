@@ -1,8 +1,13 @@
 #ifndef FADEMESSAGE_H
 #define FADEMESSAGE_H
 
+#ifdef WIN32
 #include "SDL.h"
 #include "SDL_ttf.h"
+#else
+#include "SDL/SDL.h"
+#include "SDL/SDL_ttf.h"
+#endif
 #include <string>
 
 using std::string;

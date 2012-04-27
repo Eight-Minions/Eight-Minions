@@ -94,7 +94,7 @@ public:
 	string getMapName();
 	bool loadMap(string filename);
 
-	friend Spawner;
+	friend class Spawner;
 };
 
 #endif

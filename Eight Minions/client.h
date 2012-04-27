@@ -2,7 +2,11 @@
 #define CLIENT_H
 
 #include "resources.h"
+#ifdef WIN32
 #include "SDL_ttf.h"
+#else
+#include "SDL/SDL_ttf.h"
+#endif
 #include "creep.h"
 #include "tower.h"
 #include "obstacle.h"

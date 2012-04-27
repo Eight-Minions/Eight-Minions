@@ -11,9 +11,15 @@
 #include <vector>
 #include <sstream>
 
+#ifdef WIN32
 #include "SDL.h"
 #include "SDL_net.h"
 #include "SDL_image.h"
+#else
+#include "SDL/SDL.h"
+#include "SDL/SDL_net.h"
+#include "SDL/SDL_image.h"
+#endif
 #include "c_list.h"
 #include "UpdMess.h"
 #include "path.h"
