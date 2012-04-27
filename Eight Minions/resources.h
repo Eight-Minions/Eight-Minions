@@ -10,6 +10,7 @@
 #include <cstdarg>
 #include <vector>
 #include <sstream>
+#include <list>
 
 #ifdef WIN32
 #include "SDL.h"

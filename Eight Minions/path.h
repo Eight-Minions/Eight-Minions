@@ -1,6 +1,7 @@
 #ifndef PATH_H
 #define PATH_H
 #include <vector>
+#include <list>
 #include <stack>
 #include <queue>
 #include <math.h>
@@ -15,6 +16,7 @@
 using std::vector;
 using std::stack;
 using std::queue;
+using std::list;
 
 typedef struct coord
 {

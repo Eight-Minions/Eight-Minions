@@ -25,6 +25,8 @@
 #define PLACE_MINE_MODE 2
 #define SELECT_TOWER_MODE 3
 
+using std::list;
+
 class client
 {
 private:
@@ -67,7 +69,7 @@ private:
 	cList<structure*> towers;
 
 
-	vector<attackAnim*> attacks;
+	list<attackAnim*> attacks;
 
 	string updateQueue;
 
@@ -132,10 +134,12 @@ public:
 	int sendToServerUDP(string mess);
 
 	void savePlayerProfile();
-	bool towerExistsAt( coord curSelectedTower );
-	void recalcTowerInfo();
 	//this function will take any of the players individual stats, experience, purchased upgrades, and any other
 	//relevant data, save it to a file, lock it with the players password, and encrypt it so they cant cheat and modify it.
+
+	bool towerExistsAt( coord curSelectedTower );
+	void recalcTowerInfo();
+
 };
 
 #endif

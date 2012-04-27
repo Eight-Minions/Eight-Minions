@@ -141,12 +141,17 @@ void client::cleanup()
 	creeps.~cList();
 	towers.~cList();
 
-	for(unsigned int i = 0; i < attacks.size(); i++)
+	/*for(unsigned int i = 0; i < attacks.size(); i++)
 	{
 		if(attacks[i] != NULL)
 			delete attacks[i];
+	}*/
+	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
+	{
+		if(*i != NULL)
+			delete *i;
 	}
-	attacks.~vector();
+	attacks.~list();
 
 	delete self; //how sad...
 
@@ -264,20 +269,26 @@ void client::displayTowers()
 
 void client::displayMisc()
 {
-	for(unsigned int i = 0; i < attacks.size(); i++)
+	list<attackAnim*>::iterator tempIT;
+	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
 	{
 		//CHECK IF TARGET CREEP STILL EXISTS
-		if(creeps.checkForObjectWithID(attacks[i]->getTarget()))
+		if(creeps.checkForObjectWithID((*i)->getTarget()))
 		{
-			if(attacks[i]->update(creeps.getObjectWithID(attacks[i]->getTarget())->getX(),creeps.getObjectWithID(attacks[i]->getTarget())->getY()))
+			if((*i)->update(creeps.getObjectWithID((*i)->getTarget())->getX(),creeps.getObjectWithID((*i)->getTarget())->getY()))
 			{
-				attacks[i]->display(screen,attackImage);
-				attackAnim *temp = attacks[i];
-				attacks.erase(attacks.begin() + i);
+				(*i)->display(screen,attackImage);
+				attackAnim *temp = (*i);
+				tempIT = i;
+				if(i != attacks.end())
+					i++;
+				attacks.erase(tempIT);
 				delete temp;
+				if(i == attacks.end())
+					break;
 			}
 			else
-				attacks[i]->display(screen,attackImage);
+				(*i)->display(screen,attackImage);
 		}
 	}
 
