@@ -68,6 +68,7 @@ public:
 	int getReward();
 	int getPrice();
 	int getDir();
+	coord getPrev();
 
 	int getTimeout();
 	void setUpdateTime(int nTime);

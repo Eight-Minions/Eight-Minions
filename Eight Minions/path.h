@@ -26,10 +26,12 @@ typedef struct coord
 typedef struct aStarNode
 {
 	coord parent;
+	aStarNode* parentPtr;
 	int parent_index;
 	coord self;
 	int pathLength;
 	int aproxLengthToGoal;
+	int hueristic;
 	bool expanded;
 }aStarNode;
 
@@ -38,20 +40,24 @@ class Path
 private:
 	vector<vector<bool> > Nodemap;
 	coord start;
+	coord specRecalc;
 	coord goal;
 	stack<coord> p;
 	coord mapsize;
 	vector<aStarNode> aStar;
+	list<aStarNode*> openList;
+	list<aStarNode*> closedList;
 public:
 	Path();
 	Path(int x, int y);
 
 	vector<coord> fPath;
 
-	int genPath(vector<vector<bool> > nMap, bool recalc);
-	bool expand( aStarNode n, int n_index);
+	int genPath(vector<vector<bool> > nMap, int recalc);
+	bool expand( aStarNode *n);
 	coord move(coord cur); //possibly redundant at this point.
 	void setStart(coord s);
+	void setSpec(coord s);
 	void setGoal(coord g);
 	void setNodemap(vector<vector<bool> > nMap);
 	int numPaths(coord c);
@@ -59,10 +65,10 @@ public:
 	coord getNext();
 	bool isEmpty();
 	void pop();
+	void insertInOrder(aStarNode *nNode);
 };
 
-aStarNode makeAstar(coord nSelf, coord nParent, int Nlength, int nTogo, int parent_i);
+aStarNode* makeAstar(coord nSelf, aStarNode *nParent, int Nlength, int nTogo);
 coord gC( int x, int y );
 int intDist(coord a, int x, int y); //for the A* algorithm
-
 #endif

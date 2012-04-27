@@ -308,6 +308,7 @@ bool game_host::placeTowerForced(int playerNumber, int towerType, int x, int y, 
 		{
 			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
 			sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
+			this->towerList.deleteNode(towerID);
 			this->towerList.insertWithID(towerID, newTower);
 			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
@@ -404,19 +405,17 @@ bool game_host::isEmptyLocation(int xLoc, int yLoc)
 	cListNode<creep*> *curCreepNode = creepList.getStart();
 	int compX, compY;
 	if(xLoc >= MAPSIZE_X || xLoc < 0 || yLoc >= MAPSIZE_Y || yLoc < 0)
-	while(curCreepNode != NULL)
-	{
-		compX = curCreepNode->getData()->getX();
-		if((compX - BOARD_X_OFFSET > (xLoc - 1) * GRID_SIZE) && (compX - BOARD_X_OFFSET < (xLoc + 1) * GRID_SIZE))
-		{
-			compY = curCreepNode->getData()->getY();
-			if((compY - BOARD_Y_OFFSET > (yLoc - 1) * GRID_SIZE) && (compY - BOARD_Y_OFFSET < (yLoc + 1) * GRID_SIZE))
-				return false;
-		}
-		curCreepNode = curCreepNode->getNext();
-	}
+		return false;
 	if(Tmap[xLoc][yLoc] != NULL)
 		return false;
+	while(curCreepNode != NULL)
+	{
+		if(xLoc == curCreepNode->getData()->p.getNext().x && yLoc == curCreepNode->getData()->p.getNext().y)
+			return false;
+		if(xLoc == curCreepNode->getData()->getPrev().x && yLoc == curCreepNode->getData()->getPrev().y)
+			return false;
+		curCreepNode = curCreepNode->getNext();
+	}
 	return true;
 }
 bool game_host::changeStructure(int structureID, int newType)

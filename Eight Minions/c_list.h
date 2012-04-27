@@ -139,7 +139,8 @@ bool cList<T>::insertWithID(int set_id, T newData)
 			newNode->setNext(cur->getNext());
 			this->setStart(newNode);
 		}
-		else {
+		else 
+		{
 			while ((cur != NULL) && (cur->getIndex() <= newNode->getIndex())) 
 			{
 				prev = cur;

@@ -211,7 +211,7 @@ void creep::displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spri
 {
 	if(SDL_GetTicks() - timeOfLastUpdate >= 10000)
 	{
-		this->kill();
+		//this->kill();
 	}
 	if(image != NULL)
 	{
@@ -237,8 +237,18 @@ void creep::updateAnim()
 }
 void creep::recalcPath( vector<vector<bool> > nMap )
 {
-	p.setStart(p.getNext());
-	p.genPath(nMap,true);
+	if(nMap[p.getNext().x][p.getNext().y])
+	{
+		p.setStart(p.getNext());
+		p.setSpec(prevPos);
+		p.genPath(nMap,2);
+	}
+	else
+	{
+		p.setStart(p.getNext());
+		p.genPath(nMap,1);
+	}
+	
 }
 int creep::getHealth()
 {
@@ -328,4 +338,9 @@ void creep::setType(int newType)
 void creep::setLevel(int newLevel)
 {
 	level = newLevel;
+}
+
+coord creep::getPrev()
+{
+	return prevPos;
 }
