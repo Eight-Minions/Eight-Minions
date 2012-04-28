@@ -140,6 +140,7 @@ public:
 	bool towerExistsAt( coord curSelectedTower );
 	void recalcTowerInfo();
 	void updateKillcount();
+	void updateUpgradeCost();
 };
 
 #endif

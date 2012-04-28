@@ -487,6 +487,8 @@ void client::initText()
 
 	textRects[4] = newRect(600,16,0,0);
 
+	text[4] = TTF_RenderText_Solid(font10, "Cant Upgrade", Cblack);
+
 	//for tower display
 	textRects[8] = newRect(654,412,0,0); //where to display tower name
 	text[8] = TTF_RenderText_Solid(font, "Structure", Cblack);
@@ -544,6 +546,8 @@ void client::initText()
 	textRects[23] = newRect(727,563,0,0);
 	t = money + itos(titanCreepArr[0][4] * 20);
 	text[30] = TTF_RenderText_Solid(font10, t.c_str(), Cblack);
+
+
 
 	//Base Upgrade Cost
 	textRects[24] = newRect(726,326,0,0);
@@ -642,6 +646,10 @@ void client::handleInput()
 					else if(buttons[17]->wasClickedState(event.button.x,event.button.y))
 					{
 						text[42] = text[30];
+					}
+					else if(buttons[4]->wasClickedState(event.button.x,event.button.y))
+					{
+						text[42] = text[4];
 					}
 					else
 					{
@@ -898,6 +906,7 @@ void client::handleInput()
 							textRects[25]->x = (curSelectedTower.x * GRID_SIZE) + BOARD_X_OFFSET;
 							textRects[25]->y = (curSelectedTower.y * GRID_SIZE) + BOARD_Y_OFFSET;
 							recalcTowerInfo();
+							updateUpgradeCost();
 							SDL_FreeSurface(text[19]);
 							text[19] = TTF_RenderText_Solid(font10, itos(curSelectedTowerPtr->getLevel()).c_str(),Cblack);
 							if(curSelectedTowerPtr->getType() >= NORMCREEPTOWER)
@@ -966,4 +975,13 @@ void client::updateKillcount()
 {
 	SDL_FreeSurface(text[40]);
 	text[40] = TTF_RenderText_Solid(font10, itos(curSelectedTowerPtr->getKillcount()).c_str() , Cblack);
+}
+
+void client::updateUpgradeCost()
+{
+	SDL_FreeSurface(text[4]);
+	string n = "$";
+	int cost = curSelectedTowerPtr->updateCost(curSelectedTowerPtr->getLevel(), curSelectedTowerPtr->getType());
+	n += itos(cost);
+	text[4] = TTF_RenderText_Solid(font10,n.c_str(),Cblack);
 }

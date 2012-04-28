@@ -386,6 +386,7 @@ bool client::upgradeTowerRecieve(int towerID)
 		recalcTowerInfo();
 		if(towers.getNodeWithID(towerID)->getData()->getPlayer() ==  self->getPnum())
 			pMess->setMessage("Tower Upgraded!");
+		updateUpgradeCost();
 		return true;
 	}
 	return false;

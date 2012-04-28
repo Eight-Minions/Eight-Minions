@@ -6,8 +6,7 @@ class structure
 {	
 private:
 	int player;
-	int level;
-	int type;
+
 	int cost;
 	int sellReward; 
 	SDL_Rect *r; 
@@ -18,6 +17,9 @@ private:
 
 
 protected:
+	int level;
+	int type;
+
 	bool paused;
 	int anim_delay;
 	int animIndex;
@@ -39,7 +41,7 @@ public:
 	int getType();
 	int setType(int newType);
 	int getPlayer();
-	int getCost();
+	virtual int getCost();
 	void setSellReward(int newReward);
 	int getSellReward();
 	SDL_Rect *getr();
@@ -68,5 +70,6 @@ public:
 	SDL_Rect *animRects[4];
 	void displayTower(SDL_Surface *screen, SDL_Surface* image);
 	int getKillcount();
+	int updateCost(int uLevel, int uType);
 };
 #endif 

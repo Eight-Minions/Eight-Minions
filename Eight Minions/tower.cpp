@@ -91,6 +91,42 @@ void structure::displayTower(SDL_Surface *screen, SDL_Surface *image)
 	}
 }
 
+int structure::updateCost(int uLevel, int uType)
+{
+	uLevel = uLevel - 1;
+	if(uLevel < 5 && uLevel >= 0)
+	{
+		if(uType == NORMCREEPTOWER)
+		{
+			return normCreepArr[uLevel][4] * 20;
+		}
+		else if(uType == FASTCREEPTOWER)
+		{
+			return fastCreepArr[uLevel][4] * 20;
+		}
+		else if(uType == TANKCREEPTOWER)
+		{
+			return tankCreepArr[uLevel][4] * 20;
+		}
+		else if(uType == SWARMCREEPTOWER)
+		{	
+			return swarmCreepArr[uLevel][4] * 20;
+		}
+		else if(uType == TITANCREEPTOWER)
+		{
+			return titanCreepArr[uLevel][4] * 20;
+		}
+		else if(uType == FATTYCREEPTOWER)
+		{
+			return fattyCreepArr[uLevel][4] * 20;
+		}
+		else
+			return 0;
+	}
+	else 
+		return 0;
+}
+
 int structure::getPlayer(){
 	return player;
 }

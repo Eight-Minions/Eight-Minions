@@ -90,6 +90,7 @@ bool Creep_Tower::changeTypeClient(int newType)
 	}
 	return false;
 }
+
 int Creep_Tower::updateCost(int uLevel, int uType)
 {
 	uLevel = uLevel - 1;
@@ -125,10 +126,7 @@ int Creep_Tower::updateCost(int uLevel, int uType)
 	else 
 		return 0;
 }
-int Creep_Tower::getCost()
-{
-	return this->cost;
-}
+
 void Creep_Tower::updateSell()
 {
 	int newSell = 0;
@@ -162,4 +160,9 @@ void Creep_Tower::displayTower(SDL_Surface *screen, SDL_Surface *image)
 		getr()->y = (GRID_SIZE * this->getY()) + BOARD_Y_OFFSET;
 		SDL_BlitSurface(image, animRects[animIndex], screen, getr());
 	}
+}
+
+int Creep_Tower::getCost()
+{
+	return updateCost(this->level + 1, this->type);
 }
