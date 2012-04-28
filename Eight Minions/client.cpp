@@ -342,7 +342,7 @@ void client::displayUI()
 		}
 		if(curSelectedTowerPtr->getType() < NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
 		{
-			for(int i = 0; i < 8; i++)
+			for(int i = 0; i < 9; i++)
 				SDL_BlitSurface(text[32 + i], NULL, screen, textRects[26 + i]);
 		}
 		switch(curSelectedTowerPtr->getType())
@@ -387,8 +387,8 @@ void client::displayUI()
 				buttons[15]->display(screen);
 				buttons[16]->display(screen);
 				buttons[17]->display(screen);
-				if(text[40] != NULL)
-					SDL_BlitSurface(text[40], NULL,screen,textRects[34]);
+				if(text[42] != NULL)
+					SDL_BlitSurface(text[42], NULL,screen,textRects[36]);
 
 			}
 
@@ -476,7 +476,6 @@ void client::initText()
 		text[i] = NULL;
 		textRects[i] = NULL;
 	}
-	char buff[8];
 	textRects[0] = newRect(10,554,0,0);
 	text[0] = TTF_RenderText_Solid( font, "Current Health: ", Cwhite);
 	textRects[1] = newRect(200,554,0,0);
@@ -569,9 +568,13 @@ void client::initText()
 	text[38] = TTF_RenderText_Solid(font10, "Range:", Cblack);
 	textRects[33] = newRect(750,478,0,0);
 	text[39] = TTF_RenderText_Solid(font10, "0", Cblack);
+	textRects[34] = newRect(656,489,0,0);
+	text[40] = TTF_RenderText_Solid(font10, "Killcount:", Cblack);
+	textRects[35] = newRect(750,489,0,0);
+	text[41] = TTF_RenderText_Solid(font10, "0", Cblack);
 
-	textRects[34] = newRect(740,575,0,0);
-	text[40] = NULL; //for creep tower upgrades.
+	textRects[36] = newRect(740,575,0,0);
+	text[42] = NULL; //for creep tower upgrades.
 
 }
 
@@ -622,27 +625,27 @@ void client::handleInput()
 				{
 					if(buttons[13]->wasClickedState(event.button.x,event.button.y))
 					{
-						text[40] = text[26];
+						text[42] = text[26];
 					}
 					else if(buttons[14]->wasClickedState(event.button.x,event.button.y))
 					{
-						text[40] = text[27];
+						text[42] = text[27];
 					}
 					else if(buttons[15]->wasClickedState(event.button.x,event.button.y))
 					{
-						text[40] = text[28];
+						text[42] = text[28];
 					}
 					else if(buttons[16]->wasClickedState(event.button.x,event.button.y))
 					{
-						text[40] = text[29];
+						text[42] = text[29];
 					}
 					else if(buttons[17]->wasClickedState(event.button.x,event.button.y))
 					{
-						text[40] = text[30];
+						text[42] = text[30];
 					}
 					else
 					{
-						text[40] = NULL;
+						text[42] = NULL;
 					}
 				}
 
@@ -894,7 +897,6 @@ void client::handleInput()
 							buttons[19]->setClick(true);
 							textRects[25]->x = (curSelectedTower.x * GRID_SIZE) + BOARD_X_OFFSET;
 							textRects[25]->y = (curSelectedTower.y * GRID_SIZE) + BOARD_Y_OFFSET;
-							char buff[5];
 							recalcTowerInfo();
 							SDL_FreeSurface(text[19]);
 							text[19] = TTF_RenderText_Solid(font10, itos(curSelectedTowerPtr->getLevel()).c_str(),Cblack);
@@ -947,7 +949,6 @@ void client::handleInput()
 
 void client::recalcTowerInfo()
 {
-	char buff[5];
 	if(curSelectedTowerPtr->getType() < NORMCREEPTOWER && curSelectedTowerPtr->getType() > STRUCTURE)
 	{
 		SDL_FreeSurface(text[33]);
@@ -959,4 +960,10 @@ void client::recalcTowerInfo()
 		SDL_FreeSurface(text[39]);
 		text[39] = TTF_RenderText_Solid(font10, itos(towerArrays[curSelectedTowerPtr->getType() - 1][curSelectedTowerPtr->getLevel() - 1][2]).c_str(), Cblack); //range
 	}
+}
+
+void client::updateKillcount()
+{
+	SDL_FreeSurface(text[40]);
+	text[40] = TTF_RenderText_Solid(font10, itos(curSelectedTowerPtr->getKillcount()).c_str() , Cblack);
 }

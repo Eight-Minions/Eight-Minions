@@ -16,6 +16,7 @@ structure::structure(int l, int p, int t, int set_x, int set_y)
 	alive = true;
 	anim_delay = 3;
 	animIndex = 0;
+	killcount = 0;
 	if(type >= NORMCREEPTOWER && type <= FATTYCREEPTOWER)
 	{
 		animRects[0] = newRect(0,0,24,24);
@@ -211,4 +212,9 @@ bool structure::isAlive()
 SDL_Rect * structure::getr()
 {
 	return r;
+}
+
+int structure::getKillcount()
+{
+	return killcount;
 }

@@ -64,7 +64,6 @@ bool Creep_Tower::upgradeClient()
 }
 bool Creep_Tower::changeType(int newType)
 {
-	int costToSwitch;
 	if(newType >= NORMCREEPTOWER && newType <= FATTYCREEPTOWER && newType != this->getType())
 	{
 		if(updateCost(this->getLevel(), newType) <= this->manager->getPlayer(this->getPlayer())->getMoney())

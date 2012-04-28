@@ -17,6 +17,7 @@ private:
 	int price;
 
 	bool alive;
+	creepStatus cStat;
 
 	int timeOfLastUpdate;
 
@@ -56,6 +57,8 @@ public:
 
 	void displayCreep(SDL_Surface *screen, SDL_Surface *image, SDL_Rect *spriteMap[ANIM_NUM]);
 	void updateAnim();
+	void updateStatus();
+	void setStatus(creepStatus newStat);
 
 	int getHealth();
 	int setHealth(int newHealth);

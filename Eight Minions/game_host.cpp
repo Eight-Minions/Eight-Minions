@@ -403,7 +403,6 @@ player * game_host::getPlayer(int playerNumber)
 bool game_host::isEmptyLocation(int xLoc, int yLoc)
 {
 	cListNode<creep*> *curCreepNode = creepList.getStart();
-	int compX, compY;
 	if(xLoc >= MAPSIZE_X || xLoc < 0 || yLoc >= MAPSIZE_Y || yLoc < 0)
 		return false;
 	if(Tmap[xLoc][yLoc] != NULL)

@@ -43,7 +43,6 @@ private:
 	int attackTick;
 	int attackStrategy;
 	int attackDuration;
-	int killcount;
 
 	bool waiting;
 	bool cooldown;

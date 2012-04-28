@@ -238,7 +238,6 @@ int client::performUpdate(string upd)
 		{
 			self->setHealth(update.getVal(0));
 			self->setMoney(update.getVal(1));
-			char buff[8];
 			text[1] = TTF_RenderText_Solid( font, itos(self->getHealth()).c_str(), Cwhite);
 			text[3] = TTF_RenderText_Solid(font, itos(self->getMoney()).c_str(), Cblack);
 		}
@@ -382,7 +381,6 @@ bool client::upgradeTowerRecieve(int towerID)
 	{
 		if(towers.getNodeWithID(towerID)->getData()->getLevel() < 5)
 			towers.getNodeWithID(towerID)->getData()->setLevel(towers.getNodeWithID(towerID)->getData()->getLevel() + 1);
-		char buff[4];
 		SDL_FreeSurface(text[19]);
 		text[19] = TTF_RenderText_Solid(font10, itos(towers.getNodeWithID(towerID)->getData()->getLevel()).c_str(), Cblack);
 		recalcTowerInfo();
@@ -501,7 +499,6 @@ bool client::upgradeBaseRecieve(int player)
 		buff += (baseLevel + '0');
 		SDL_FreeSurface(text[25]);
 		text[25] = TTF_RenderText_Solid(font, buff.c_str(), Cblack);
-		char temp[5];
 		buff = "$";
 		buff += itos(BASEUPGRADECOST * (baseLevel + 1));
 		text[31] = TTF_RenderText_Solid(font10, buff.c_str(), Cblack);

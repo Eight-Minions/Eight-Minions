@@ -14,13 +14,14 @@ private:
 	bool passable;
 	double x;
 	double y;
-
 	bool alive;
+
 
 protected:
 	bool paused;
 	int anim_delay;
 	int animIndex;
+	int killcount;
 
 public:
 	structure();
@@ -66,5 +67,6 @@ public:
 
 	SDL_Rect *animRects[4];
 	void displayTower(SDL_Surface *screen, SDL_Surface* image);
+	int getKillcount();
 };
 #endif 
