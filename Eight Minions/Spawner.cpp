@@ -49,7 +49,7 @@ Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, i
 		delay = fastCreepArr[this->getLevel() - 1][5] * 15;
 		break;
 	case SWARM:
-		delay = swarmCreepArr[this->getLevel() - 1][5] * 15;
+		delay = swarmCreepArr[this->getLevel() - 1][5] * 10;
 		break;
 	case FATTY:
 		delay = fattyCreepArr[this->getLevel() - 1][5] * 15;
@@ -58,7 +58,7 @@ Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, i
 		delay = tankCreepArr[this->getLevel() - 1][5] * 15;
 		break;
 	case TITAN:
-		delay = titanCreepArr[this->getLevel() - 1][5] * 15;
+		delay = titanCreepArr[this->getLevel() - 1][5] * 16;
 	}
 	waveNumber = 0;
 	isTower = Tower;
@@ -295,6 +295,7 @@ void Spawner::setDelay(int newDelay)
 {
 	delay = newDelay;
 }
+
 
 //add creep type
 //author: Jeromy Johnson

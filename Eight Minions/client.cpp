@@ -624,21 +624,25 @@ void client::handleInput()
 					{
 						text[40] = text[26];
 					}
-					if(buttons[14]->wasClickedState(event.button.x,event.button.y))
+					else if(buttons[14]->wasClickedState(event.button.x,event.button.y))
 					{
 						text[40] = text[27];
 					}
-					if(buttons[15]->wasClickedState(event.button.x,event.button.y))
+					else if(buttons[15]->wasClickedState(event.button.x,event.button.y))
 					{
 						text[40] = text[28];
 					}
-					if(buttons[16]->wasClickedState(event.button.x,event.button.y))
+					else if(buttons[16]->wasClickedState(event.button.x,event.button.y))
 					{
 						text[40] = text[29];
 					}
-					if(buttons[17]->wasClickedState(event.button.x,event.button.y))
+					else if(buttons[17]->wasClickedState(event.button.x,event.button.y))
 					{
 						text[40] = text[30];
+					}
+					else
+					{
+						text[40] = NULL;
 					}
 				}
 

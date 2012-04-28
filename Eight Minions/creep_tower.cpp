@@ -42,7 +42,7 @@ bool Creep_Tower::upgrade()
 			int tempType = cSpawner->getType();
 			delete cSpawner;
 			cSpawner = new Spawner(this->manager, this->getPlayer(), true, tempType, this->getLevel() + 1, gC(this->getX(), this->getY()));
-			cSpawner->setDelay((delay)*((11-this->getLevel())/10));
+			//cSpawner->setDelay((delay * (11 - getLevel())) / 10);
 			cost = updateCost(this->getLevel()+1, this->getType());
 			this->setLevel(this->getLevel() + 1);
 			updateSell();

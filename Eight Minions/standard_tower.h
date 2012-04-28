@@ -29,7 +29,7 @@ public:
 	void updateSell();
 private:
 	game_host *manager;
-	queue<int> chosenCreeps;
+	vector<int> chosenCreeps;
 
 	int attackType;
 	int damageValue;
@@ -43,6 +43,7 @@ private:
 	int attackTick;
 	int attackStrategy;
 	int attackDuration;
+	int killcount;
 
 	bool waiting;
 	bool cooldown;

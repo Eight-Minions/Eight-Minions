@@ -8,6 +8,7 @@ class creep
 private:
 	int player;
 	int health;
+	int tempHealth;
 	int armor;
 	int speed;
 	int level;
@@ -76,6 +77,8 @@ public:
 	bool isAlive();
 	void setDir( int nDir );
 	int getDispDir();
+	int getTempHealth();
+	int tempDamage(int d, int a);
 };
 
 #endif

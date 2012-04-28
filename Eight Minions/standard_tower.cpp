@@ -10,6 +10,7 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : stru
 	coolDownTick = coolDownDuration;
 	this->setPassable(false);
 	updateSell();
+	killcount = 0;
 }
 Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : structure(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
@@ -19,6 +20,7 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_h
 	coolDownTick = coolDownDuration;
 	this->setPassable(false);
 	updateSell();
+	killcount = 0;
 }
 void Standard_Tower::chooseClosestCreep(double radius)
 {
@@ -31,11 +33,14 @@ void Standard_Tower::chooseClosestCreep(double radius)
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
-			if(currentDistance < distanceClosest)
+			if(cur->getData()->getTempHealth() > 0)
 			{
-				closestCreep = cur;
-				distanceClosest = currentDistance;
+				double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
+				if(currentDistance < distanceClosest)
+				{
+					closestCreep = cur;
+					distanceClosest = currentDistance;
+				}
 			}
 		}
 		cur = cur->getNext();
@@ -43,7 +48,7 @@ void Standard_Tower::chooseClosestCreep(double radius)
 	if(closestCreep != NULL)
 	{
 		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
-		chosenCreeps.push(closestCreep->getIndex());
+		chosenCreeps.push_back(closestCreep->getIndex());
 	}
 }
 
@@ -70,7 +75,7 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, coord position)
 	if(closestCreep != NULL)
 	{
 		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
-		chosenCreeps.push(closestCreep->getIndex());
+		chosenCreeps.push_back(closestCreep->getIndex());
 	}
 }
 
@@ -82,11 +87,14 @@ void Standard_Tower::chooseNeighbors(double radius)
 	{
 		if(cur->getData()->getPlayer() != this->getPlayer())
 		{
-			double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
-			if(currentDistance < radius)
+			if(cur->getData()->getTempHealth() > 0)
 			{
-				manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
-				chosenCreeps.push(cur->getIndex());
+				double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
+				if(currentDistance < radius)
+				{
+					manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
+					chosenCreeps.push_back(cur->getIndex());
+				}
 			}
 		}
 		cur = cur->getNext();
@@ -106,7 +114,7 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)
 			{
 				//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
 				manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
-				chosenCreeps.push(cur->getIndex());
+				chosenCreeps.push_back(cur->getIndex());
 			}
 		}
 		cur = cur->getNext();
@@ -114,9 +122,9 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)
 }
 
 /*
-	choses creeps if the cool down is 0
-	returns true if something was chosen
-	returns false if nothing was chosen or the tick is not up.
+choses creeps if the cool down is 0
+returns true if something was chosen
+returns false if nothing was chosen or the tick is not up.
 */
 bool Standard_Tower::choose()
 {
@@ -173,6 +181,11 @@ bool Standard_Tower::choose()
 			waiting = true;
 			//coolDownTick = coolDownDuration;
 			coolDownTick = towerArrays[this->getType() - 1][this->getLevel() - 1][3];
+			for(int i = 0; i < chosenCreeps.size(); i++)
+			{
+				manager->getCreepList()->getNodeWithID(chosenCreeps[i])->getData()->tempDamage(damageValue,armorPenetration);
+			}
+
 			return true;  // Stuff was chosen
 		}
 		else
@@ -185,21 +198,21 @@ bool Standard_Tower::choose()
 	}
 }
 /*
-	Does damage to creeps if the tick is 0
-	Returns true if it should damage the creeps;
-	Returns false if it needs to go to the next iteration
+Does damage to creeps if the tick is 0
+Returns true if it should damage the creeps;
+Returns false if it needs to go to the next iteration
 */
 bool Standard_Tower::doDamage()
 {
 	int frontNodeID = 0;
 	cListNode<creep*> *frontNode= NULL;
 	creep *frontCreep = NULL;
-	
+
 	if((attackTick <= attackDuration - towerDelays[getType()] || attackTick <= 0 )&& cooldown)
 	{
 		while(chosenCreeps.empty() == false)
 		{
-			frontNodeID = chosenCreeps.front();
+			frontNodeID = chosenCreeps.back();
 			if(this->manager->getCreepList()->checkForObjectWithID(frontNodeID) == true)
 			{
 				frontNode = this->manager->getCreepList()->getNodeWithID(frontNodeID);
@@ -212,6 +225,7 @@ bool Standard_Tower::doDamage()
 						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 						if(frontCreep->isAlive() == false)
 						{
+							this->killcount++;
 							int reward = frontCreep->getReward();
 							int curMoney = manager->getPlayer(this->getPlayer())->getMoney();
 							manager->getPlayer(this->getPlayer())->addMoney(frontCreep->getReward());
@@ -224,7 +238,7 @@ bool Standard_Tower::doDamage()
 					}
 				}
 			}
-			chosenCreeps.pop();
+			chosenCreeps.pop_back();
 		}
 		cooldown = false;
 		return true;

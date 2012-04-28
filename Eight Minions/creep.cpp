@@ -85,7 +85,7 @@ creep::creep(int t, int p, int l, int set_x, int set_y)
 		reward = 0;
 		price = 0;
 	}
-
+	tempHealth = health;
 	timeOfLastUpdate = SDL_GetTicks() + 500;
 }
 creep::~creep()
@@ -130,8 +130,31 @@ int creep::damage(int d, int a)
 		alive = false;
 		return 0;
 	}
+	tempHealth = health;
 	return health;
 }
+
+int creep::tempDamage(int d, int a)
+{
+	int calcD = d;
+	if(a >= this->armor)
+	{
+		calcD = calcD - (this->getArmor() - a);
+	}
+	else
+	{
+		calcD = 0;
+	}
+	this->tempHealth = this->health - calcD;
+	if(tempHealth <= 0)
+	{
+		tempHealth = 0;
+		alive = false;
+		return 0;
+	}
+	return tempHealth;
+}
+
 bool creep::move()
 {
 	//moves creep towards its goal along its generated path by one unit of its speed
@@ -254,9 +277,16 @@ int creep::getHealth()
 {
 	return health;
 }
+
+int creep::getTempHealth()
+{
+	return tempHealth;
+}
+
 int creep::setHealth(int newHealth)
 {
 	health = newHealth;
+	tempHealth = health;
 	return health;
 }
 void creep::setPlayer( int p )
