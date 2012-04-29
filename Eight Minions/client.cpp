@@ -148,8 +148,8 @@ void client::cleanup()
 	}*/
 	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
 	{
-		if(*i != NULL)
-			delete *i;
+		if((*i) != NULL)
+			delete (*i);
 	}
 	attacks.~list();
 

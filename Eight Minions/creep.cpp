@@ -374,3 +374,22 @@ coord creep::getPrev()
 {
 	return prevPos;
 }
+
+void creep::updateStatus()
+{
+	switch(cStat.type)
+	{
+	case STAT_NORMAL:
+		break;
+	case STAT_BURNING:
+		//decrement health every n game loops
+		break;
+	case STAT_SLOW:
+		//lower creep speed by amount for a given period of time
+		//reset speed to normal afterwards
+		break;
+	case STAT_REGEN:
+		//increase creeps health up to its maximum as per its level
+		break;
+	}
+}

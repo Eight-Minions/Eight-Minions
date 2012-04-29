@@ -12,7 +12,8 @@
 #include "obstacle.h"
 #include "mine.h"
 #include "player.h"
-#include "attackAnim.h"
+#include "projectileAnim.h"
+#include "aoeAnim.h"
 #include "button.h"
 
 #define CONNECTION_SUCCESSFUL 1

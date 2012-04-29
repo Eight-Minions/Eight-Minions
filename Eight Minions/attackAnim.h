@@ -6,22 +6,22 @@
 
 class attackAnim
 {
-private:
+protected:
 	int x, y;
 	int TickTimer;
 	int type;
 	int animIndex;
 	int animMax;
 	int targetIndex;
+	int animSize;
 
 	SDL_Rect *place_r;
 	SDL_Rect *sprite_r;
 
 public:
-	attackAnim(int x, int y, int type, int nTick, int nTargetIndex);
 	~attackAnim();
 
-	bool update(int targetX, int targetY);
+	virtual bool update(int targetX, int targetY)=0;
 
 	void animUpdate();
 

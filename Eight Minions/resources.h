@@ -67,6 +67,12 @@
 #define TITAN 4 // high armor, high health, average speed, very low numbers
 #define FATTY 5 // low armor, high health, low speed, medium numbers (could probably come up with a better name)
 
+//Creep Status Constants
+#define STAT_NORMAL 0
+#define STAT_BURNING 1
+#define STAT_SLOW 2
+#define STAT_REGEN 3
+
 // Base Definitions
 #define BASEUPGRADECOST 220
 #define ADDFAST 40
@@ -216,6 +222,7 @@ typedef struct creepStatus
 	int type;
 	int amount;
 	int timeRemaining;
+	int speed;
 }creepStatus;
 
 SDL_Rect *newRect(int x, int y, int w, int h);

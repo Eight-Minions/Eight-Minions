@@ -210,7 +210,17 @@ int client::performUpdate(string upd)
 		}
 		else if(update.getVal(0) == TOWERATTACK)
 		{
-			attacks.push_back(new attackAnim(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(3)],update.getId1()));
+			switch(update.getVal(3))
+			{
+			case ATTACKONECREEP:
+				attacks.push_back(new projectileAnimation(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(3)],update.getId1()));
+				break;
+			case AREAOFEFFECT:
+				attacks.push_back(new AoeAnimation(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,1));
+				break;
+			default:
+				cout << "no animation for this tower\n";
+			}
 		}
 		else if(update.getVal(0) == TOWERDELETE)
 		{
@@ -375,6 +385,7 @@ bool client::upgradeTowerSend(int x, int y)
 	}	
 	return false;
 }
+
 bool client::upgradeTowerRecieve(int towerID)
 {
 	if(towers.checkForObjectWithID(towerID))
