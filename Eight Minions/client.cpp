@@ -26,7 +26,7 @@ int client::init()
 	//Sets window caption
 	SDL_WM_SetCaption( "Eight Minions", NULL );
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
-	screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,32,SDL_SWSURFACE);
+	screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,32,SDL_DOUBLEBUF | SDL_HWSURFACE); //end flag was just SDL_SWSURFACE
 
 	Cblack = makeColor(0,0,0);
 	Cwhite = makeColor(255,255,255);
@@ -142,17 +142,11 @@ void client::cleanup()
 	creeps.~cList();
 	towers.~cList();
 
-	/*for(unsigned int i = 0; i < attacks.size(); i++)
-	{
-		if(attacks[i] != NULL)
-			delete attacks[i];
-	}*/
 	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
 	{
 		if((*i) != NULL)
 			delete (*i);
 	}
-	attacks.~list();
 
 	delete self; //how sad...
 

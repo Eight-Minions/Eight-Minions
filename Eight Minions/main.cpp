@@ -61,15 +61,7 @@ int main(int argc, char* argv[])
 	}
 	else if(c == 4)
 	{
-		cout << "To do list:\n";
-		cout << ">allow for players to place towers\n";
-		cout << ">change the creeps so that the creeps dont load their own images\n\tinstead, have the client load them all\n";
-		cout << ">find a way to keep track of players, money, health, upgrades, etc\n";
-		cout << ">once we have more creeps and towers and things happening\n\ttest increasing the maximum UDP message length\n";
-		cout << ">clean out old commented code\n";
-		cout << ">make client throw out all creeps every so often and remake them as they receive updates\n\tthis ensures no artifacts\n";
-		cout << ">low precedence: search for memory leaks\n";
-		cout << ">rewrite connection function, make more readable and less ugly\n";
+
 	}
 	system("pause");
 	return 0;
