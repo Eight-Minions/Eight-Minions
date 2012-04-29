@@ -28,6 +28,6 @@ public:
 	void display(SDL_Surface *screen, SDL_Surface *sprites);
 
 	int getTarget();
-
+	int getType();
 };
 #endif

@@ -9,8 +9,9 @@ projectileAnimation::projectileAnimation( int startX, int startY, int nType, int
 	animIndex = 0;
 	animMax = 4;
 	targetIndex = nTargetIndex;
-	sprite_r = newRect(0,ANIM_SIZE * type,ANIM_SIZE,ANIM_SIZE);
-	place_r = newRect(x,y,ANIM_SIZE,ANIM_SIZE);
+	animSize = 12;
+	sprite_r = newRect(0,0,animSize,animSize);
+	place_r = newRect(x,y,animSize,animSize);
 }
 
 bool projectileAnimation::update( int targetX, int targetY )

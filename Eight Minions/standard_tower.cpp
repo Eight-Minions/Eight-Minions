@@ -90,13 +90,14 @@ void Standard_Tower::chooseNeighbors(double radius)
 				double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
 				if(currentDistance < radius)
 				{
-					manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
 					chosenCreeps.push_back(cur->getIndex());
 				}
 			}
 		}
 		cur = cur->getNext();
 	}
+	if(!chosenCreeps.empty())
+		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), 0, AREAOFEFFECT).getMT());
 }
 
 void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)

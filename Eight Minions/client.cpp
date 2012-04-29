@@ -92,7 +92,8 @@ void client::loadFiles()
 		towerImages[i][MINETOWER] = LoadImageCK(temp);
 		towerImages[i][OBSTACLE] = LoadImageCK("images/rock.png");
 	}
-	attackImage = LoadImageCK("images/attackAnimSprites.png");
+	projectileAttack = LoadImageCK("images/attackAnimSprites.png");
+	aoeAttack = LoadImageCK("images/aoeAttack.png");
 	selectedOverlay = LoadImageCK("images/select.png");
 	SDL_SetAlpha(selectedOverlay, SDL_SRCALPHA, 128);
 
@@ -135,8 +136,8 @@ void client::cleanup()
 		}
 	}
 
-	if(attackImage != NULL)
-		SDL_FreeSurface(attackImage);
+	if(projectileAttack != NULL)
+		SDL_FreeSurface(projectileAttack);
 
 	creeps.~cList();
 	towers.~cList();
@@ -270,14 +271,32 @@ void client::displayTowers()
 void client::displayMisc()
 {
 	list<attackAnim*>::iterator tempIT;
+	bool check;
 	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
 	{
 		//CHECK IF TARGET CREEP STILL EXISTS
-		if(creeps.checkForObjectWithID((*i)->getTarget()))
+		if(creeps.checkForObjectWithID((*i)->getTarget()) || (*i)->getType() == AREAOFEFFECT)
 		{
-			if((*i)->update(creeps.getObjectWithID((*i)->getTarget())->getX(),creeps.getObjectWithID((*i)->getTarget())->getY()))
+			switch((*i)->getType())
 			{
-				(*i)->display(screen,attackImage);
+			case AREAOFEFFECT:
+				check = (*i)->update(0,0);
+				break;
+			case ATTACKONECREEP:
+				check = (*i)->update(creeps.getObjectWithID((*i)->getTarget())->getX(),creeps.getObjectWithID((*i)->getTarget())->getY());
+				break;
+			}
+			if(check)
+			{
+				switch((*i)->getType())
+				{
+				case AREAOFEFFECT:
+					(*i)->display(screen,aoeAttack);
+					break;
+				case ATTACKONECREEP:
+					(*i)->display(screen,projectileAttack);
+					break;
+				}				
 				attackAnim *temp = (*i);
 				tempIT = i;
 				if(i != attacks.end())
@@ -288,7 +307,17 @@ void client::displayMisc()
 					break;
 			}
 			else
-				(*i)->display(screen,attackImage);
+			{
+				switch((*i)->getType())
+				{
+				case AREAOFEFFECT:
+					(*i)->display(screen,aoeAttack);
+					break;
+				case ATTACKONECREEP:
+					(*i)->display(screen,projectileAttack);
+					break;
+				}	
+			}
 		}
 	}
 

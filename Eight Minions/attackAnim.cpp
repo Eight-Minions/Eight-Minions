@@ -35,3 +35,8 @@ attackAnim::~attackAnim()
 	delete place_r;
 	delete sprite_r;
 }
+
+int attackAnim::getType()
+{
+	return type;
+}

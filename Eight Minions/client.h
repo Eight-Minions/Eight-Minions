@@ -52,7 +52,8 @@ private:
 	SDL_Surface* background;
 	SDL_Surface* creepImages[2][NUM_CREEPS]; //holds sprite sheets for each creep
 	SDL_Surface* towerImages[2][NUM_TOWERS];
-	SDL_Surface* attackImage;
+	SDL_Surface* projectileAttack;
+	SDL_Surface* aoeAttack;
 	SDL_Surface* text[TEXT_NUM];
 	SDL_Surface* grid;
 	SDL_Surface* selectedOverlay;

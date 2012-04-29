@@ -10,8 +10,9 @@ AoeAnimation::AoeAnimation( int towerX, int towerY, int speed )
 	TickTimer = 5;
 	animIndex = 0;
 	animMax = 5;
-	sprite_r = newRect(0,72 * type,72,72);
-	place_r = newRect(x,y,72,72);
+	animSize = 72;
+	sprite_r = newRect(0,0,animSize,animSize);
+	place_r = newRect(x,y,animSize,animSize);
 }
 
 bool AoeAnimation::update( int targetX, int targetY )
