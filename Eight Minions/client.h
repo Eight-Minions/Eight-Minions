@@ -7,10 +7,7 @@
 #else
 #include "SDL/SDL_ttf.h"
 #endif
-#include "creep.h"
-#include "tower.h"
-#include "obstacle.h"
-#include "mine.h"
+
 #include "player.h"
 #include "projectileAnim.h"
 #include "aoeAnim.h"
