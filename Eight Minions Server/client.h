@@ -15,7 +15,6 @@
 #include "projectileAnim.h"
 #include "aoeAnim.h"
 #include "button.h"
-#include "enemy.h"
 
 #define CONNECTION_SUCCESSFUL 1
 #define CONNECTION_FAILURE 0 //generic error
@@ -28,8 +27,6 @@
 #define SELECT_TOWER_MODE 3
 
 using std::list;
-
-class EMenemy;
 
 class client
 {
@@ -95,7 +92,6 @@ public:
 	client();
 	int init();
 	void handleInput();
-	void handleInputSingle();
 	void loadFiles();
 	void initButtons();
 	void initText();
@@ -106,10 +102,7 @@ public:
 	void displayMisc();
 	void displayUI();
 
-	int run(bool single);
-	int runSingle();
-	int runMulti();
-
+	int run();
 	int testrun();
 
 	coord getClickCoord(int x, int y);

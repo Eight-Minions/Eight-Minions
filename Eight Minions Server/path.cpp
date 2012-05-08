@@ -98,15 +98,6 @@ int Path::genPath(vector<vector<bool> > nMap, int recalc)
 	if(recalc != 1)
 		pop();
 
-	/*test code*/
-	for(int i = 0; i < fPath.size();i++)
-	{
-		if(Nodemap[fPath[i].x][fPath[i].y])
-		{
-			printf("PATH OBSTRUCTED!\n");
-		}
-	}
-
 	return 1;
 }
 

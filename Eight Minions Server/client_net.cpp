@@ -82,9 +82,6 @@ int client::connectToServer()
 	//should create connection to given address on given port
 	//class needs to keep track of the socket and have dedicated function to read from it
 
-	socketset = SDLNet_AllocSocketSet(1);
-	SDLNet_TCP_AddSocket(socketset, this->sd);
-
 	return 1;
 }
 
