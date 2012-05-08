@@ -7,7 +7,7 @@ class game_host;
 class Spawner
 {
 private:
-	game_host *manager; //a pointer to THE game_host
+	client *manager; //a pointer to THE game_host
 	int nPlayer; //index of the player to spawn creeps for
 	queue<creep*> SpawnerQueue; //the queue of creeps to spawn, only for generating waves of creeps for the base (not for creep towers)
 	queue<int> SpawnerDelay; //the queue of delays between spawns, also only for spawning from base (not for creep towers)

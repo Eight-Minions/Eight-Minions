@@ -110,6 +110,9 @@ public:
 	int runSingle();
 	int runMulti();
 
+	void moveCreeps();
+	void iterateTowers();
+
 	int testrun();
 
 	coord getClickCoord(int x, int y);

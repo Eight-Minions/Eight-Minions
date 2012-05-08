@@ -12,7 +12,7 @@ Spawner::Spawner()
 //	nManager - a pointer to THE game_host object that is running the game
 //	nPlayer - the player who will own the creeps that are spawned
 //	isTower - whether or not this spawner will be part of a creep tower
-Spawner::Spawner(game_host *nManager, int Player, bool Tower, coord nLoc)
+Spawner::Spawner(client *nManager, int Player, bool Tower, coord nLoc)
 {
 	manager = nManager;
 	nPlayer = Player;
@@ -30,7 +30,8 @@ Spawner::Spawner(game_host *nManager, int Player, bool Tower, coord nLoc)
 	}
 
 }
-Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, int nLevel, coord nLoc)
+
+Spawner::Spawner( client* nManager, int Player, bool Tower, int nCreepType, int nLevel, coord nLoc)
 {
 	Loc = nLoc;
 	manager = nManager;
@@ -67,7 +68,7 @@ Spawner::Spawner( game_host* nManager, int Player, bool Tower, int nCreepType, i
 		generateWave();
 		curDelay = 200;
 	}
-	
+
 }
 
 void Spawner::testing()
@@ -107,15 +108,13 @@ bool Spawner::iterate()
 		{
 			int creepIndex;
 			creep *retCreep = new creep(creepType,nPlayer,spawnerLevel,Loc.x,Loc.y);
-			if(retCreep->getPrice() <= manager->getPlayer(nPlayer)->getMoney())
+			if(retCreep->getPrice() <= manager->self->getMoney())
 			{
 				retCreep->p.setGoal(manager->Bases[nPlayer % 2]);
 				retCreep->p.genPath(manager->Nodemap, false);
-				manager->getPlayer(nPlayer)->spendMoney(retCreep->getPrice());
+				manager->self->spendMoney(retCreep->getPrice());
 				creepIndex = manager->creepList.insertInOrder(retCreep);
-				manager->sendMessageToQueue(UpdMess(nPlayer, PLAYERUPDATE, manager->getPlayer(nPlayer)->getHealth(), manager->getPlayer(nPlayer)->getMoney()).getMT());
-				manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
-
+				
 				//CHANGES NEEDED HERE
 				curDelay = delay;
 
@@ -139,14 +138,13 @@ bool Spawner::iterate()
 				generateWave();
 			else
 			{
-			creep *retCreep = SpawnerQueue.front();
-			SpawnerQueue.pop();
-			retCreep->p.genPath(manager->Nodemap, false);
-			creepIndex = manager->creepList.insertInOrder(retCreep);
-			manager->sendMessageToQueue(UpdMess(nPlayer,NEWCREEP,creepIndex,retCreep->getX(),retCreep->getY(),retCreep->getHealth(),retCreep->getType(),retCreep->getLevel()).getMT());
-			curDelay = SpawnerDelay.front();
-			SpawnerDelay.pop();
-			return true;
+				creep *retCreep = SpawnerQueue.front();
+				SpawnerQueue.pop();
+				retCreep->p.genPath(manager->Nodemap, false);
+				creepIndex = manager->creepList.insertInOrder(retCreep);
+				curDelay = SpawnerDelay.front();
+				SpawnerDelay.pop();
+				return true;
 			}
 		}
 		else
