@@ -3,15 +3,15 @@
 
 #include "resources.h"
 #include "tower.h"
-#include "game_host.h"
 #include "Spawner.h"
+#include "gameMap.h"
 
 class Creep_Tower : public structure
 {
 public:
 	Creep_Tower();
 	Creep_Tower(int level, int player, int type, int newX, int newY);						//Client Constructor
-	Creep_Tower(int level, int player, int type, int newX, int newY, game_host *nManager);	//Server Constructor
+	Creep_Tower(int level, int player, int type, int newX, int newY, gameMap *nManager);	//Server Constructor
 	~Creep_Tower();
 	void iterate();
 	bool upgrade();
@@ -31,7 +31,7 @@ public:
 
 private:
 	Spawner *cSpawner;
-	game_host *manager;
+	gameMap *manager;
 	SDL_Rect *animRects[4];
 	unsigned int animIndex;
 	int anim_delay;

@@ -7,7 +7,7 @@
 #else
 #include "SDL/SDL_ttf.h"
 #endif
-
+#include "gameMap.h"
 #include "player.h"
 #include "projectileAnim.h"
 #include "aoeAnim.h"
@@ -27,6 +27,7 @@
 using std::list;
 
 class EMenemy;
+class gameMap;
 
 class client
 {
@@ -67,10 +68,7 @@ private:
 
 	Button *buttons[NUM_BUTTONS];
 
-	cList<creep*> creeps;
-	cList<structure*> towers;
-
-
+	gameMap *gMap;
 	list<attackAnim*> attacks;
 
 	string updateQueue;
@@ -89,7 +87,7 @@ private:
 	SDL_Color Cblue;
 
 protected:
-	coord Bases[2]; //more modular
+	
 	player *self;
 public:
 	client();

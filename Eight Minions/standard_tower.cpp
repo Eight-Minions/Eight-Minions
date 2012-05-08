@@ -11,7 +11,7 @@ Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y) : stru
 	this->setPassable(false);
 	updateSell();
 }
-Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager) : structure(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
+Standard_Tower::Standard_Tower(int l, int p, int t, int set_x, int set_y, gameMap *nManager) : structure(STANDARDTOWERSTARTLEVEL, p, t, set_x, set_y)
 {
 	manager = nManager;
 	changeType(t);

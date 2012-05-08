@@ -2,15 +2,17 @@
 #define STANDARD_TOWER_H
 #include "resources.h"
 #include "tower.h"
-#include "game_host.h"
 #include "UpdMess.h"
+#include "gameMap.h"
+
+class gameMap;
 
 class Standard_Tower : public structure
 {
 public:
 	Standard_Tower();
 	Standard_Tower(int l, int p, int t, int set_x, int set_y);
-	Standard_Tower(int l, int p, int t, int set_x, int set_y, game_host *nManager);
+	Standard_Tower(int l, int p, int t, int set_x, int set_y, gameMap *nManager);
 	void chooseClosestCreep(double radius);
 	void chooseClosestCreepToPosition(double radius, coord position);
 	void chooseNeighbors(double radius);
@@ -28,7 +30,7 @@ public:
 	int updateCost(int costLevel, int costType);
 	void updateSell();
 private:
-	game_host *manager;
+	gameMap *manager;
 	vector<int> chosenCreeps;
 
 	int attackType;

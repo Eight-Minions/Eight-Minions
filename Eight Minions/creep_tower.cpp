@@ -9,7 +9,7 @@ Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y) 
 	this->unpause();
 	updateSell();
 }
-Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, game_host *nManager) : structure (level, player, type, new_x, new_y)
+Creep_Tower::Creep_Tower(int level, int player, int type, int new_x, int new_y, gameMap *nManager) : structure (level, player, type, new_x, new_y)
 {
 	manager = nManager;
 	cost = updateCost(level, type);

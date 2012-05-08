@@ -4,12 +4,14 @@
 #include "resources.h"
 #include "standard_tower.h"
 
+class gameMap;
+
 class Mine : public structure
 {
 public:
 	Mine();
 	Mine(int level, int player, int type, int set_x, int set_y);
-	Mine(int level, int player, int type, int set_x, int set_y, game_host *nManager);
+	Mine(int level, int player, int type, int set_x, int set_y, gameMap *nManager);
 	~Mine();
 
 	void iterate();
@@ -24,7 +26,7 @@ public:
 	int getCost();
 
 private:
-	game_host *manager;
+	gameMap *manager;
 	queue<int> chosenCreeps;
 
 	int cost;

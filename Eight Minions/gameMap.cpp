@@ -3,6 +3,12 @@
 gameMap::gameMap()
 {
 
+
+	//set the location of each players bases, these are used as goals for the creeps pathfinding
+	Bases[0].x = PLAYERONEX;
+	Bases[0].y = PLAYERONEY;
+	Bases[1].x = PLAYERTWOX;
+	Bases[1].y = PLAYERTWOY;
 }
 
 bool gameMap::isEmptyLocation(int xLoc, int yLoc)
@@ -32,7 +38,7 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 		{
 			if(Tmap[x][y] == NULL)
 			{
-				if(2 <= this->getPlayer(playerNumber)->getMoney())
+				if(2 <= Pl->getMoney())
 				{
 					Nodemap[x][y] = true;
 					if(!pathTestCreep->p.genPath(Nodemap, false))
@@ -41,8 +47,7 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 						return 0;
 					}
 					structure *newStructure = new structure(STRUCTURESTARTLEVEL, playerNumber, towerType, x, y);
-					this->getPlayer(playerNumber)->spendMoney(2);
-					sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
+					Pl->spendMoney(2);
 					newTowerID = this->towerList.insertInOrder(newStructure);
 					Tmap[x][y] = newStructure;
 				}
@@ -57,9 +62,9 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 			if(Tmap[x][y] == NULL)
 			{
 				Standard_Tower *newTower = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
-				if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+				if(newTower->getCost() <= Pl->getMoney())
 				{
-					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+					Pl->spendMoney(newTower->getCost());
 					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
@@ -73,9 +78,9 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 			if(Tmap[x][y] == NULL)
 			{
 				Mine *newTower = new Mine(MINETOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
-				if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+				if(newTower->getCost() <= Pl->getMoney())
 				{
-					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+					Pl->spendMoney(newTower->getCost());
 					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
@@ -100,10 +105,10 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 			if(Tmap[x][y] == NULL)
 			{
 				Creep_Tower *newTower = new Creep_Tower(CREEPTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
-				if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+				if(newTower->getCost() <= Pl->getMoney())
 				{
 					int newCost = newTower->getCost();
-					this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+					Pl->spendMoney(newTower->getCost());
 					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
@@ -157,7 +162,7 @@ bool gameMap::changeStructure(int structureID, int newType)
 				cout << "tower type not added...";
 			}
 			// Remove the old tower
-			if(getPlayer(playerNumber)->getMoney() >= cost)
+			if(Pl->getMoney() >= cost)
 			{
 				removeTowerLocal(structureID);
 				return placeTowerForced(playerNumber, newType, setX, setY, structureID);

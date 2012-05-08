@@ -23,12 +23,6 @@ int client::init()
 		return -1;   
 	}
 
-	//set the location of each players bases, these are used as goals for the creeps pathfinding
-	Bases[0].x = PLAYERONEX;
-	Bases[0].y = PLAYERONEY;
-	Bases[1].x = PLAYERTWOX;
-	Bases[1].y = PLAYERTWOY;
-
 	//Sets window caption
 	SDL_WM_SetCaption( "Eight Minions", NULL );
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
@@ -143,8 +137,7 @@ void client::cleanup()
 	if(projectileAttack != NULL)
 		SDL_FreeSurface(projectileAttack);
 
-	creeps.~cList();
-	towers.~cList();
+	delete gMap;
 
 	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
 	{
@@ -282,7 +275,7 @@ int client::runMulti()
 
 void client::displayCreeps()
 {
-	cListNode<creep*> *cur = creeps.getStart();
+	cListNode<creep*> *cur = gMap->creepList.getStart();
 	cListNode<creep*> *temp;
 	while(cur != NULL)
 	{
@@ -290,7 +283,7 @@ void client::displayCreeps()
 		if(!cur->getData()->isAlive())
 		{
 			temp = cur->getNext();
-			creeps.deleteNode(cur->getIndex());
+			gMap->creepList.deleteNode(cur->getIndex());
 			cur = temp;
 		}
 		else
@@ -300,7 +293,7 @@ void client::displayCreeps()
 
 void client::displayTowers()
 {
-	cListNode<structure*> *cur = towers.getStart();
+	cListNode<structure*> *cur = gMap->towerList.getStart();
 	while (cur != NULL)
 	{
 		cur->getData()->displayTower(screen, towerImages[cur->getData()->getPlayer() - 1][cur->getData()->getType()]);
@@ -315,7 +308,7 @@ void client::displayMisc()
 	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
 	{
 		//CHECK IF TARGET CREEP STILL EXISTS
-		if(creeps.checkForObjectWithID((*i)->getTarget()) || (*i)->getType() == AREAOFEFFECT)
+		if(gMap->creepList.checkForObjectWithID((*i)->getTarget()) || (*i)->getType() == AREAOFEFFECT)
 		{
 			switch((*i)->getType())
 			{
@@ -324,7 +317,7 @@ void client::displayMisc()
 				(*i)->display(screen,aoeAttack);
 				break;
 			case ATTACKONECREEP:
-				check = (*i)->update(creeps.getObjectWithID((*i)->getTarget())->getX(),creeps.getObjectWithID((*i)->getTarget())->getY());
+				check = (*i)->update(gMap->creepList.getObjectWithID((*i)->getTarget())->getX(),gMap->creepList.getObjectWithID((*i)->getTarget())->getY());
 				(*i)->display(screen,projectileAttack);
 				break;
 			}
@@ -650,7 +643,7 @@ bool client::boardWasClicked( int x, int y)
 
 bool client::towerExistsAt( coord curSelectedTower )
 {
-	for(cListNode<structure*> *cur = towers.getStart(); cur != NULL; cur = cur->getNext())
+	for(cListNode<structure*> *cur = gMap->towerList.getStart(); cur != NULL; cur = cur->getNext())
 	{
 		if(cur->getData()->getX() == curSelectedTower.x && cur->getData()->getY() == curSelectedTower.y)
 		{
@@ -869,7 +862,7 @@ void client::handleInput()
 				if(buttons[13]->isClicked())
 				{
 					buttons[13]->setClick(false);
-					//change spawner to spawn fast creeps.
+					//change spawner to spawn fast gMap->creepList.
 					if(self->getMoney() >= fastCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, FASTCREEPTOWER);
 					else
@@ -878,7 +871,7 @@ void client::handleInput()
 				if(buttons[14]->isClicked())
 				{
 					buttons[14]->setClick(false);
-					//change spawner to spawn swarm creeps.
+					//change spawner to spawn swarm gMap->creepList.
 					if(self->getMoney() >= swarmCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, SWARMCREEPTOWER);
 					else
@@ -887,7 +880,7 @@ void client::handleInput()
 				if(buttons[15]->isClicked())
 				{
 					buttons[15]->setClick(false);
-					//change spawner to spawn high health creeps.
+					//change spawner to spawn high health gMap->creepList.
 					if(self->getMoney() >= fattyCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId,FATTYCREEPTOWER);
 					else
@@ -896,7 +889,7 @@ void client::handleInput()
 				if(buttons[16]->isClicked())
 				{
 					buttons[16]->setClick(false);
-					//change spawner to spawn high armor creeps.
+					//change spawner to spawn high armor gMap->creepList.
 					if(self->getMoney() >= tankCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, TANKCREEPTOWER);
 					else
@@ -905,7 +898,7 @@ void client::handleInput()
 				if(buttons[17]->isClicked())
 				{
 					buttons[17]->setClick(false);
-					//change spawner to spawn titan creeps.
+					//change spawner to spawn titan gMap->creepList.
 					if(self->getMoney() >= titanCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, TITANCREEPTOWER);
 					else
@@ -1243,7 +1236,7 @@ void client::handleInputSingle()
 				if(buttons[13]->isClicked())
 				{
 					buttons[13]->setClick(false);
-					//change spawner to spawn fast creeps.
+					//change spawner to spawn fast gMap->creepList.
 					if(self->getMoney() >= fastCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, FASTCREEPTOWER);
 					else
@@ -1252,7 +1245,7 @@ void client::handleInputSingle()
 				if(buttons[14]->isClicked())
 				{
 					buttons[14]->setClick(false);
-					//change spawner to spawn swarm creeps.
+					//change spawner to spawn swarm gMap->creepList.
 					if(self->getMoney() >= swarmCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, SWARMCREEPTOWER);
 					else
@@ -1261,7 +1254,7 @@ void client::handleInputSingle()
 				if(buttons[15]->isClicked())
 				{
 					buttons[15]->setClick(false);
-					//change spawner to spawn high health creeps.
+					//change spawner to spawn high health gMap->creepList.
 					if(self->getMoney() >= fattyCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId,FATTYCREEPTOWER);
 					else
@@ -1270,7 +1263,7 @@ void client::handleInputSingle()
 				if(buttons[16]->isClicked())
 				{
 					buttons[16]->setClick(false);
-					//change spawner to spawn high armor creeps.
+					//change spawner to spawn high armor gMap->creepList.
 					if(self->getMoney() >= tankCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, TANKCREEPTOWER);
 					else
@@ -1279,7 +1272,7 @@ void client::handleInputSingle()
 				if(buttons[17]->isClicked())
 				{
 					buttons[17]->setClick(false);
-					//change spawner to spawn titan creeps.
+					//change spawner to spawn titan gMap->creepList.
 					if(self->getMoney() >= titanCreepArr[0][4] * 20)
 						changeSpawnerTypeSend(curTowerId, TITANCREEPTOWER);
 					else

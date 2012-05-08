@@ -113,15 +113,15 @@ int client::performUpdate(string upd)
 	updateType = update.getType();
 	if(updateType == CREEP)
 	{
-		if(creeps.checkForObjectWithID(update.getId1()))
+		if(gMap->creepList.checkForObjectWithID(update.getId1()))
 		{
 			if(update.getVal(2) <= 0) //delete dead creeps
 			{
-				creeps.deleteNode(update.getId1());
+				gMap->creepList.deleteNode(update.getId1());
 			}
 			else
 			{
-				creep *temp = creeps.getObjectWithID(update.getId1());
+				creep *temp = gMap->creepList.getObjectWithID(update.getId1());
 				temp->setPlayer(update.getPlayer());
 				int xdif = update.getVal(0) - temp->getX();
 
@@ -151,8 +151,8 @@ int client::performUpdate(string upd)
 	}
 	else if(updateType == NEWCREEP)
 	{
-		creeps.insertWithID(update.getId1(), new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1)));
-		creeps.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
+		gMap->creepList.insertWithID(update.getId1(), new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1)));
+		gMap->creepList.getObjectWithID(update.getId1())->setHealth(update.getVal(2));
 	}
 	else if(updateType == CREEPUPDATE)
 	{
@@ -161,15 +161,15 @@ int client::performUpdate(string upd)
 		int	tVal2 = update.getVal(2);	// Health 
 		int tVal3 = update.getVal(3);	// Type
 		int tVal4 = update.getVal(4);	// Level
-		if(creeps.checkForObjectWithID(update.getId1()))
+		if(gMap->creepList.checkForObjectWithID(update.getId1()))
 		{
 			if(update.getVal(2) <= 0) //delete dead creeps
 			{
-				creeps.deleteNode(update.getId1());
+				gMap->creepList.deleteNode(update.getId1());
 			}
 			else
 			{
-				creep *temp = creeps.getNodeWithID(update.getId1())->getData();
+				creep *temp = gMap->creepList.getNodeWithID(update.getId1())->getData();
 				temp->setPlayer(update.getPlayer());
 				int xdif = update.getVal(0) - temp->getX();
 				if( xdif < 0)
@@ -190,26 +190,26 @@ int client::performUpdate(string upd)
 				temp->setUpdateTime(SDL_GetTicks());
 				temp->setType(update.getVal(3));
 				temp->setLevel(update.getVal(4));
-				creeps.deleteNode(update.getId1());
-				creeps.insertWithID(update.getId1(), temp);
+				gMap->creepList.deleteNode(update.getId1());
+				gMap->creepList.insertWithID(update.getId1(), temp);
 			}
 		}
 		else
 		{
 			creep *temp = new creep(update.getVal(3), update.getPlayer(), update.getVal(4), update.getVal(0), update.getVal(1));
 			temp->setHealth(update.getVal(2));
-			creeps.insertWithID(update.getId1(), temp);
+			gMap->creepList.insertWithID(update.getId1(), temp);
 		}
 	}
 	else if(updateType == TOWER)
 	{
 		if(update.getVal(0) == TOWERCREATION)
 		{
-			if(towers.checkForObjectWithID(update.getId1()))
+			if(gMap->towerList.checkForObjectWithID(update.getId1()))
 			{
-				towers.deleteNode(update.getId1());
+				gMap->towerList.deleteNode(update.getId1());
 			}
-			towers.insertWithID(update.getId1(), new structure(1 ,update.getPlayer(), update.getVal(3),update.getVal(1),update.getVal(2)));
+			gMap->towerList.insertWithID(update.getId1(), new structure(1 ,update.getPlayer(), update.getVal(3),update.getVal(1),update.getVal(2)));
 		}
 		else if(update.getVal(0) == TOWERATTACK)
 		{
@@ -345,7 +345,7 @@ int client::sendToServerUDP( string mess )
 
 bool client::removeTowerSend(int x, int y) // Accepts Grid X and Grid Y
 {
-	cListNode<structure*> *curTower = towers.getStart();
+	cListNode<structure*> *curTower = gMap->towerList.getStart();
 	while (curTower != NULL)
 	{
 		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
@@ -359,17 +359,17 @@ bool client::removeTowerSend(int x, int y) // Accepts Grid X and Grid Y
 }
 bool client::removeTowerRecieve(int towerID)
 {
-	if(towers.checkForObjectWithID(towerID))
+	if(gMap->towerList.checkForObjectWithID(towerID))
 	{	
 		pMess->setMessage("Tower Removed.");
-		towers.deleteNode(towerID);
+		gMap->towerList.deleteNode(towerID);
 		return true;
 	}
 	return false;
 }
 bool client::upgradeTowerSend(int x, int y)
 {
-	cListNode<structure*> *curTower = towers.getStart();
+	cListNode<structure*> *curTower = gMap->towerList.getStart();
 	while (curTower != NULL)
 	{
 		if(curTower->getData()->getX() == x && curTower->getData()->getY() == y)
@@ -391,14 +391,14 @@ bool client::upgradeTowerSend(int x, int y)
 
 bool client::upgradeTowerRecieve(int towerID)
 {
-	if(towers.checkForObjectWithID(towerID))
+	if(gMap->towerList.checkForObjectWithID(towerID))
 	{
-		if(towers.getNodeWithID(towerID)->getData()->getLevel() < 5)
-			towers.getNodeWithID(towerID)->getData()->setLevel(towers.getNodeWithID(towerID)->getData()->getLevel() + 1);
+		if(gMap->towerList.getNodeWithID(towerID)->getData()->getLevel() < 5)
+			gMap->towerList.getNodeWithID(towerID)->getData()->setLevel(gMap->towerList.getNodeWithID(towerID)->getData()->getLevel() + 1);
 		SDL_FreeSurface(text[19]);
-		text[19] = TTF_RenderText_Solid(font10, itos(towers.getNodeWithID(towerID)->getData()->getLevel()).c_str(), Cblack);
+		text[19] = TTF_RenderText_Solid(font10, itos(gMap->towerList.getNodeWithID(towerID)->getData()->getLevel()).c_str(), Cblack);
 		recalcTowerInfo();
-		if(towers.getNodeWithID(towerID)->getData()->getPlayer() ==  self->getPnum())
+		if(gMap->towerList.getNodeWithID(towerID)->getData()->getPlayer() ==  self->getPnum())
 			pMess->setMessage("Tower Upgraded!");
 		updateUpgradeCost();
 		return true;
@@ -412,10 +412,10 @@ bool client::changeTowerTypeSend( int Tid, int newType )
 }
 bool client::changeTowerRecieve(int towerID, int newType)
 {
-	if(towers.checkForObjectWithID(towerID))
+	if(gMap->towerList.checkForObjectWithID(towerID))
 	{
-		towers.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
-		if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+		gMap->towerList.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
+		if(gMap->towerList.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
 			pMess->setMessage("Tower Type Changed!");
 		return true;
 	}
@@ -423,36 +423,36 @@ bool client::changeTowerRecieve(int towerID, int newType)
 }
 bool client::toggleTowerSend(int Tid)
 {
-	if(towers.getNodeWithID(Tid)->getData()->getType() >= NORMCREEPTOWER && towers.getNodeWithID(Tid)->getData()->getType() <= FATTYCREEPTOWER)
+	if(gMap->towerList.getNodeWithID(Tid)->getData()->getType() >= NORMCREEPTOWER && gMap->towerList.getNodeWithID(Tid)->getData()->getType() <= FATTYCREEPTOWER)
 	{
-		if(towers.getNodeWithID(Tid)->getData()->isPaused())
+		if(gMap->towerList.getNodeWithID(Tid)->getData()->isPaused())
 		{
 			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, Tid, false).getMT());
-			towers.getNodeWithID(Tid)->getData()->unpause();
+			gMap->towerList.getNodeWithID(Tid)->getData()->unpause();
 			return false;
 		}
 		else
 		{
 			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERTOGGLE, Tid, true).getMT());
-			towers.getNodeWithID(Tid)->getData()->pause();
+			gMap->towerList.getNodeWithID(Tid)->getData()->pause();
 			return true;
 		}
 	}
 }
 bool client::toggleTowerRecieve(int towerID, int newState)
 {
-	if(towers.checkForObjectWithID(towerID))
+	if(gMap->towerList.checkForObjectWithID(towerID))
 	{
 		if(newState == true)
 		{
-			towers.getNodeWithID(towerID)->getData()->pause();
-			if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+			gMap->towerList.getNodeWithID(towerID)->getData()->pause();
+			if(gMap->towerList.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
 				pMess->setMessage("Tower Paused.");
 		}
 		else
 		{
-			towers.getNodeWithID(towerID)->getData()->unpause();
-			if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+			gMap->towerList.getNodeWithID(towerID)->getData()->unpause();
+			if(gMap->towerList.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
 				pMess->setMessage("Spawning Resumed.");
 		}
 		return true;
@@ -564,9 +564,9 @@ bool client::addTypeToBaseRecieve(int player, int newType)
 }
 bool client::changeSpawnerTypeSend(int towerID, int newType)
 {
-	if(this->towers.checkForObjectWithID(towerID))
+	if(this->gMap->towerList.checkForObjectWithID(towerID))
 	{
-		if(this->towers.getNodeWithID(towerID)->getData()->getType() == NORMCREEPTOWER && (newType >= FASTCREEPTOWER && newType <= FATTYCREEPTOWER))
+		if(this->gMap->towerList.getNodeWithID(towerID)->getData()->getType() == NORMCREEPTOWER && (newType >= FASTCREEPTOWER && newType <= FATTYCREEPTOWER))
 		{
 			sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, towerID, newType).getMT());
 		}
@@ -575,10 +575,10 @@ bool client::changeSpawnerTypeSend(int towerID, int newType)
 }
 bool client::changeSpawnerTypeRecieve(int towerID, int newType)
 {
-	if(towers.checkForObjectWithID(towerID))
+	if(gMap->towerList.checkForObjectWithID(towerID))
 	{
-		towers.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
-		if(towers.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
+		gMap->towerList.getNodeWithID(towerID)->getData()->changeTypeClient(newType);
+		if(gMap->towerList.getNodeWithID(towerID)->getData()->getPlayer() == self->getPnum())
 			pMess->setMessage("Spawner Type Changed");
 		return true;
 	}

@@ -3,11 +3,13 @@
 #include "client.h"
 
 class client;
+class player;
+class gameMap;
 
 class Spawner
 {
 private:
-	client *manager; //a pointer to THE game_host
+	gameMap *gMap; //a pointer to THE game_host
 	int nPlayer; //index of the player to spawn creeps for
 	queue<creep*> SpawnerQueue; //the queue of creeps to spawn, only for generating waves of creeps for the base (not for creep towers)
 	queue<int> SpawnerDelay; //the queue of delays between spawns, also only for spawning from base (not for creep towers)
@@ -35,8 +37,8 @@ private:
 
 public:
 	Spawner();
-	Spawner(game_host *nManager, int nPlayer, bool isTower, coord nLoc);
-	Spawner(game_host* nManager, int nPlayer, bool isTower, int nCreepType, int nLevel, coord nLoc); //manager is the object that this Spawner class will manage spawning creeps for
+	Spawner(gameMap *nMap, int nPlayer, bool isTower, coord nLoc);
+	Spawner(gameMap *nMap, int nPlayer, bool isTower, int nCreepType, int nLevel, coord nLoc); //manager is the object that this Spawner class will manage spawning creeps for
 	
 	void testing();
 
