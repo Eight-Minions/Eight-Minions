@@ -303,13 +303,14 @@ void Spawner::addCreepType(int nCreepType)
 {
 	spawnableCreeps.push(nCreepType);
 }
+
 bool Spawner::isInSpawner(int checkType)
 {
 	int curType = -1;
 	for(int i = 0; i < this->spawnableCreeps.size(); i++)
 	{
 		curType = this->spawnableCreeps.front();
-		if(checkType ==  curType)
+		if(checkType == curType)
 			return true;
 		this->spawnableCreeps.pop();
 		this->spawnableCreeps.push(curType);

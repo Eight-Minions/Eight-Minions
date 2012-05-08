@@ -1,8 +1,8 @@
 #ifndef Spawner_H
 #define Spawner_H
-#include "game_host.h"
+#include "client.h"
 
-class game_host;
+class client;
 
 class Spawner
 {

@@ -80,7 +80,7 @@ private:
 
 	int run_game;
 
-	player *self;
+
 
 	//Fonts here.
 	TTF_Font *font; //testing font
@@ -91,6 +91,9 @@ private:
 	SDL_Color Cwhite;
 	SDL_Color Cblue;
 
+protected:
+	coord Bases[2]; //more modular
+	player *self;
 public:
 	client();
 	int init();

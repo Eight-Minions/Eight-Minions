@@ -23,6 +23,12 @@ int client::init()
 		return -1;   
 	}
 
+	//set the location of each players bases, these are used as goals for the creeps pathfinding
+	Bases[0].x = PLAYERONEX;
+	Bases[0].y = PLAYERONEY;
+	Bases[1].x = PLAYERTWOX;
+	Bases[1].y = PLAYERTWOY;
+
 	//Sets window caption
 	SDL_WM_SetCaption( "Eight Minions", NULL );
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
@@ -223,7 +229,7 @@ int client::runSingle()
 	pMess = new FadeMessage(font,10,578,MAX_FPS,1,Cwhite);
 
 	FPS_Regulator *reg = new FPS_Regulator(MAX_FPS);
-	EMenemy *enemyManager = new EMenemy(1);
+	EMenemy *enemyManager = new EMenemy(this,1);
 
 	pMess->setMessage("Play Game!");
 
