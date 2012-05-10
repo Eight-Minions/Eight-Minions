@@ -19,7 +19,7 @@ protected:
 	cList<structure*> towerList;
 
 	creep *pathTestCreep;
-	player *Pl;
+	player *p[2];
 
 	coord Bases[2]; //more modular
 public:
@@ -30,6 +30,8 @@ public:
 	int placeTower(int playerNumber, int towerType, int x, int y);
 	bool changeStructure(int structureID, int newType);
 	void updatePaths(int newX, int newY);
+
+	player *getPlayer(int pnum);
 
 	friend class client;
 	friend class game_host;

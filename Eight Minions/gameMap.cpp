@@ -38,7 +38,7 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 		{
 			if(Tmap[x][y] == NULL)
 			{
-				if(2 <= Pl->getMoney())
+				if(2 <= p[playerNumber - 1]->getMoney())
 				{
 					Nodemap[x][y] = true;
 					if(!pathTestCreep->p.genPath(Nodemap, false))
@@ -47,7 +47,7 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 						return 0;
 					}
 					structure *newStructure = new structure(STRUCTURESTARTLEVEL, playerNumber, towerType, x, y);
-					Pl->spendMoney(2);
+					p[playerNumber - 1]->spendMoney(2);
 					newTowerID = this->towerList.insertInOrder(newStructure);
 					Tmap[x][y] = newStructure;
 				}
@@ -62,9 +62,9 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 			if(Tmap[x][y] == NULL)
 			{
 				Standard_Tower *newTower = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
-				if(newTower->getCost() <= Pl->getMoney())
+				if(newTower->getCost() <= p[playerNumber - 1]->getMoney())
 				{
-					Pl->spendMoney(newTower->getCost());
+					p[playerNumber - 1]->spendMoney(newTower->getCost());
 					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
@@ -78,9 +78,9 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 			if(Tmap[x][y] == NULL)
 			{
 				Mine *newTower = new Mine(MINETOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
-				if(newTower->getCost() <= Pl->getMoney())
+				if(newTower->getCost() <= p[playerNumber - 1]->getMoney())
 				{
-					Pl->spendMoney(newTower->getCost());
+					p[playerNumber - 1]->spendMoney(newTower->getCost());
 					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
@@ -105,10 +105,10 @@ int gameMap::placeTower(int playerNumber, int towerType, int x, int y)
 			if(Tmap[x][y] == NULL)
 			{
 				Creep_Tower *newTower = new Creep_Tower(CREEPTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
-				if(newTower->getCost() <= Pl->getMoney())
+				if(newTower->getCost() <= p[playerNumber - 1]->getMoney())
 				{
 					int newCost = newTower->getCost();
-					Pl->spendMoney(newTower->getCost());
+					p[playerNumber - 1]->spendMoney(newTower->getCost());
 					newTowerID = this->towerList.insertInOrder(newTower);
 					Tmap[x][y] = newTower;
 				}
@@ -162,7 +162,7 @@ bool gameMap::changeStructure(int structureID, int newType)
 				cout << "tower type not added...";
 			}
 			// Remove the old tower
-			if(Pl->getMoney() >= cost)
+			if(p[playerNumber - 1]->getMoney() >= cost)
 			{
 				removeTowerLocal(structureID);
 				return placeTowerForced(playerNumber, newType, setX, setY, structureID);
@@ -193,4 +193,9 @@ void gameMap::updatePaths(int newX, int newY)
 			temp->recalcPath(Nodemap);		
 	}
 	cout << "done!\n";
+}
+
+player * gameMap::getPlayer( int pnum )
+{
+	return p[pnum - 1];
 }

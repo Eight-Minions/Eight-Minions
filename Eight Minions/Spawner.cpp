@@ -108,11 +108,11 @@ bool Spawner::iterate()
 		{
 			int creepIndex;
 			creep *retCreep = new creep(creepType,nPlayer,spawnerLevel,Loc.x,Loc.y);
-			if(retCreep->getPrice() <= Pl->getMoney())
+			if(retCreep->getPrice() <= p[nPlayer - 1]->getMoney())
 			{
 				retCreep->p.setGoal(gMap->Bases[nPlayer % 2]);
 				retCreep->p.genPath(gMap->Nodemap, false);
-				Pl->spendMoney(retCreep->getPrice());
+				p[nPlayer - 1]->spendMoney(retCreep->getPrice());
 				creepIndex = gMap->creepList.insertInOrder(retCreep);
 				
 				//CHANGES NEEDED HERE
