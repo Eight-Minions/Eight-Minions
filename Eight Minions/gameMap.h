@@ -35,6 +35,8 @@ public:
 
 	player *getPlayer(int pnum);
 	cList<creep*> *getCreepList();
+	bool removeTowerLocal(int towerID);
+	bool placeTowerForced(int playerNumber, int towerType, int x, int y, int towerID);
 
 	friend class client;
 	friend class game_host;

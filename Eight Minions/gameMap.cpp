@@ -204,3 +204,77 @@ cList<creep*> * gameMap::getCreepList()
 {
 	return &creepList;
 }
+
+bool gameMap::removeTowerLocal(int towerID)
+{
+	if(towerList.checkForObjectWithID(towerID))
+	{
+		Tmap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = NULL;
+		Nodemap[towerList.getNodeWithID(towerID)->getData()->getX()][towerList.getNodeWithID(towerID)->getData()->getY()] = false;
+		towerList.deleteNode(towerID);
+		return true;
+	}
+	return false;
+}
+
+bool gameMap::placeTowerForced(int playerNumber, int towerType, int x, int y, int towerID)
+{
+	if(towerType >= NORMTOWER && towerType <= HEAVYTOWER)
+	{
+		Standard_Tower *newTower = new Standard_Tower(STANDARDTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+		{
+			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+			sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
+			this->towerList.deleteNode(towerID);
+			this->towerList.insertWithID(towerID, newTower);
+			Nodemap[newTower->getX()][newTower->getY()] = true;
+			Tmap[x][y] = newTower;
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+			return true;
+		}
+		else
+			return false;
+	}
+	else if(towerType == OBSTACLE)
+	{
+		Obstacle *newTower = new Obstacle(OBSTACLE, x, y);
+		this->towerList.insertWithID(towerID, newTower);
+		Nodemap[newTower->getX()][newTower->getY()] = true;
+		Tmap[x][y] = newTower;
+		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+	}
+	else if(towerType == MINETOWER)
+	{
+		Mine *newTower = new Mine(MINETOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+		{
+			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+			this->towerList.insertWithID(towerID, newTower);
+			Nodemap[newTower->getX()][newTower->getY()] = true;
+			Tmap[x][y] = newTower;
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+			return true;
+		}
+		else
+			return false;
+	}
+	else if(towerType >= NORMCREEPTOWER && towerType <= FATTYCREEPTOWER)
+	{
+		Creep_Tower *newTower = new Creep_Tower(CREEPTOWERSTARTLEVEL, playerNumber, towerType, x, y, this);
+		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
+		{
+			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
+			this->towerList.insertWithID(towerID, newTower);
+			Nodemap[newTower->getX()][newTower->getY()] = true;
+			Tmap[x][y] = newTower;
+			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+			return true;
+		}
+		else 
+			return false;
+	}
+	else
+		return false;
+	return false;
+}
