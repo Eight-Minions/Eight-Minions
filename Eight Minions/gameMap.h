@@ -5,6 +5,8 @@
 #include "tower.h"
 #include "obstacle.h"
 #include "mine.h"
+#include "creep_tower.h"
+#include "player.h"
 
 class player;
 
@@ -32,6 +34,7 @@ public:
 	void updatePaths(int newX, int newY);
 
 	player *getPlayer(int pnum);
+	cList<creep*> *getCreepList();
 
 	friend class client;
 	friend class game_host;

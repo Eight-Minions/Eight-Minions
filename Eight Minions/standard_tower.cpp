@@ -182,7 +182,7 @@ bool Standard_Tower::choose()
 			coolDownTick = towerArrays[this->getType() - 1][this->getLevel() - 1][3];
 			for(int i = 0; i < chosenCreeps.size(); i++)
 			{
-				manager->creepList->getNodeWithID(chosenCreeps[i])->getData()->tempDamage(damageValue,armorPenetration);
+				manager->getCreepList()->getNodeWithID(chosenCreeps[i])->getData()->tempDamage(damageValue,armorPenetration);
 			}
 
 			return true;  // Stuff was chosen

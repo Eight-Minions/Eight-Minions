@@ -11,7 +11,7 @@ Mine::Mine(int level, int player, int type, int set_x, int set_y) : structure(le
 	this->setSellReward(0);
 
 }
-Mine::Mine(int level, int player, int type, int set_x, int set_y, game_host *nManager) : structure(level, player, type, set_x, set_y)
+Mine::Mine(int level, int player, int type, int set_x, int set_y, gameMap *nManager) : structure(level, player, type, set_x, set_y)
 {
 	manager = nManager;
 	cost = updateCost(level);

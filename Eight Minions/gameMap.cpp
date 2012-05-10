@@ -199,3 +199,8 @@ player * gameMap::getPlayer( int pnum )
 {
 	return p[pnum - 1];
 }
+
+cList<creep*> * gameMap::getCreepList()
+{
+	return &creepList;
+}
