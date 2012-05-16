@@ -45,7 +45,7 @@ void Standard_Tower::chooseClosestCreep(double radius)
 	}
 	if(closestCreep != NULL)
 	{
-		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
+		//manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
 		chosenCreeps.push_back(closestCreep->getIndex());
 	}
 }
@@ -72,7 +72,8 @@ void Standard_Tower::chooseClosestCreepToPosition(double radius, coord position)
 	}
 	if(closestCreep != NULL)
 	{
-		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
+		//manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), closestCreep->getIndex(), this->attackType).getMT());
+		manager->addAttackAnim(this->getPlayer(),this->getX(), this->getY(), closestCreep->getIndex(), this->attackType);
 		chosenCreeps.push_back(closestCreep->getIndex());
 	}
 }
@@ -97,7 +98,7 @@ void Standard_Tower::chooseNeighbors(double radius)
 		cur = cur->getNext();
 	}
 	if(!chosenCreeps.empty())
-		manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), 0, AREAOFEFFECT).getMT());
+		manager->addAttackAnim(this->getPlayer(),this->getX(), this->getY(), 0, AREAOFEFFECT);
 }
 
 void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)
@@ -112,7 +113,8 @@ void Standard_Tower::chooseNeighborsNearPosition(double radius, coord position)
 			if(currentDistance < radius)
 			{
 				//Tower Attack:	UpdMess(Player[1], TOWERATTACK, AttackerX[2], AttackerY[2], AttackedID[4], AttackType[2]);
-				manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
+				//manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), this->attackType).getMT());
+				manager->addAttackAnim(this->getPlayer(), this->getX(), this->getY(), cur->getIndex(), this->attackType);
 				chosenCreeps.push_back(cur->getIndex());
 			}
 		}
@@ -221,7 +223,7 @@ bool Standard_Tower::doDamage()
 					if(frontCreep->isAlive() == true)
 					{
 						frontCreep->damage(this->damageValue, this->armorPenetration);
-						manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
+						//manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 						if(frontCreep->isAlive() == false)
 						{
 							killcount++;
@@ -231,7 +233,7 @@ bool Standard_Tower::doDamage()
 							// Update money value for player based on reward for killing the creep
 							int newMony = this->manager->getPlayer(this->getPlayer())->getMoney();
 							cout << "creep killed, new money " << newMony << " player " << this->getPlayer() << endl;
-							manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
+							//manager->sendMessageToQueue(UpdMess(this->getPlayer(), PLAYERUPDATE, manager->getPlayer(this->getPlayer())->getHealth(), manager->getPlayer(this->getPlayer())->getMoney()).getMT());
 
 						}
 					}

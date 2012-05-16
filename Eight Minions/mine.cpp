@@ -73,7 +73,7 @@ void Mine::choose()
 			double currentDistance = sqrt(pow(cur->getData()->getXd() - (this->getX() * GRID_SIZE + BOARD_X_OFFSET),2) + pow(cur->getData()->getYd() - (this->getY() * GRID_SIZE + BOARD_Y_OFFSET),2));
 			if(currentDistance < range)
 			{
-				manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), AREAOFEFFECT).getMT());
+				//manager->sendMessageToQueue(UpdMess(this->getPlayer(),TOWER, TOWERATTACK, this->getX(), this->getY(), cur->getIndex(), AREAOFEFFECT).getMT());
 				chosenCreeps.push(cur->getIndex());
 			}
 		}
@@ -98,7 +98,7 @@ void Mine::doDamage()
 				if(frontCreep->isAlive() == true)
 				{
 					frontCreep->damage(this->damageValue, this->armorPen);
-					manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
+					//manager->sendMessageToQueue(UpdMess(frontCreep->getPlayer(), CREEP, frontNodeID, frontCreep->getX(), frontCreep->getY(), frontCreep->getHealth()).getMT());
 				}
 			}
 		}

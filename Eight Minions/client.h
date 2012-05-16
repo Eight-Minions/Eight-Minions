@@ -69,11 +69,12 @@ private:
 	Button *buttons[NUM_BUTTONS];
 
 	gameMap *gMap;
-	list<attackAnim*> attacks;
+	
 
 	string updateQueue;
 
 	int run_game;
+	int gameType;
 
 
 

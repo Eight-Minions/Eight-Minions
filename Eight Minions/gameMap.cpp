@@ -11,6 +11,25 @@ gameMap::gameMap()
 	Bases[1].y = PLAYERTWOY;
 }
 
+gameMap::gameMap( player *clientA )
+{
+	p[0] = clientA;
+	p[1] = new player;
+	p[1]->setPnum(2);
+
+	Bases[0].x = PLAYERONEX;
+	Bases[0].y = PLAYERONEY;
+	Bases[1].x = PLAYERTWOX;
+	Bases[1].y = PLAYERTWOY;
+
+	p1Spawner = new Spawner(this, 1, false, Bases[0]);
+	p2Spawner = new Spawner(this, 2, false, Bases[1]);
+
+	pathTestCreep = new creep(0, 1, 1, Bases[0].x, Bases[0].y);
+	pathTestCreep->p.setGoal(Bases[1]);
+	pathTestCreep->p.setStart(Bases[0]);
+}
+
 bool gameMap::isEmptyLocation(int xLoc, int yLoc)
 {
 	cListNode<creep*> *curCreepNode = creepList.getStart();
@@ -225,12 +244,12 @@ bool gameMap::placeTowerForced(int playerNumber, int towerType, int x, int y, in
 		if(newTower->getCost() <= this->getPlayer(playerNumber)->getMoney())
 		{
 			this->getPlayer(playerNumber)->spendMoney(newTower->getCost());
-			sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
+			//sendMessageToQueue(UpdMess(playerNumber, PLAYERUPDATE, getPlayer(playerNumber)->getHealth(), getPlayer(playerNumber)->getMoney()).getMT());
 			this->towerList.deleteNode(towerID);
 			this->towerList.insertWithID(towerID, newTower);
 			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
-			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+			//sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
 			return true;
 		}
 		else
@@ -242,7 +261,7 @@ bool gameMap::placeTowerForced(int playerNumber, int towerType, int x, int y, in
 		this->towerList.insertWithID(towerID, newTower);
 		Nodemap[newTower->getX()][newTower->getY()] = true;
 		Tmap[x][y] = newTower;
-		sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+		//sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
 	}
 	else if(towerType == MINETOWER)
 	{
@@ -253,7 +272,7 @@ bool gameMap::placeTowerForced(int playerNumber, int towerType, int x, int y, in
 			this->towerList.insertWithID(towerID, newTower);
 			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
-			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+			//sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
 			return true;
 		}
 		else
@@ -268,7 +287,7 @@ bool gameMap::placeTowerForced(int playerNumber, int towerType, int x, int y, in
 			this->towerList.insertWithID(towerID, newTower);
 			Nodemap[newTower->getX()][newTower->getY()] = true;
 			Tmap[x][y] = newTower;
-			sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
+			//sendMessageToQueue(UpdMess(playerNumber, TOWER, TOWERCREATION, towerID, x, y, towerType).getMT());
 			return true;
 		}
 		else 
@@ -277,4 +296,19 @@ bool gameMap::placeTowerForced(int playerNumber, int towerType, int x, int y, in
 	else
 		return false;
 	return false;
+}
+
+void gameMap::addAttackAnim( int pNum,int x,int y, int creepNum, int attackType )
+{
+	switch(attackType)
+	{
+	case ATTACKONECREEP:
+		attacks.push_back(new projectileAnimation(x * GRID_SIZE + BOARD_X_OFFSET,y * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[attackType],creepNum));
+		break;
+	case AREAOFEFFECT:
+		attacks.push_back(new AoeAnimation(x * GRID_SIZE + BOARD_X_OFFSET,y * GRID_SIZE + BOARD_Y_OFFSET,1));
+		break;
+	default:
+		cout << "no animation for this tower\n";
+	}
 }

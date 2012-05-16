@@ -27,7 +27,10 @@ int client::init()
 	SDL_WM_SetCaption( "Eight Minions", NULL );
 	//create screen, params are width in pixels, height in pixels, bpp, and flags
 	screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,32,SDL_DOUBLEBUF | SDL_HWSURFACE); //end flag was just SDL_SWSURFACE
-
+	this->self = new player;
+	if(gameType == 1)
+		self->setPnum(1);
+	gMap = new gameMap(self);
 	Cblack = makeColor(0,0,0);
 	Cwhite = makeColor(255,255,255);
 	Cblue = makeColor(30,70,255);
@@ -139,7 +142,7 @@ void client::cleanup()
 
 	delete gMap;
 
-	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
+	for(list<attackAnim*>::iterator i = gMap->attacks.begin(); i != gMap->attacks.end(); i++)
 	{
 		if((*i) != NULL)
 			delete (*i);
@@ -206,6 +209,7 @@ int client::run(bool single)
 
 int client::runSingle()
 {
+	gameType = 1;
 	if(this->init() == -1)
 	{
 		cout << "Function Init failed to complete.\n";
@@ -305,7 +309,7 @@ void client::displayMisc()
 {
 	list<attackAnim*>::iterator tempIT;
 	bool check;
-	for(list<attackAnim*>::iterator i = attacks.begin(); i != attacks.end(); i++)
+	for(list<attackAnim*>::iterator i = gMap->attacks.begin(); i != gMap->attacks.end(); i++)
 	{
 		//CHECK IF TARGET CREEP STILL EXISTS
 		if(gMap->creepList.checkForObjectWithID((*i)->getTarget()) || (*i)->getType() == AREAOFEFFECT)
@@ -325,11 +329,11 @@ void client::displayMisc()
 			{	
 				attackAnim *temp = (*i);
 				tempIT = i;
-				if(i != attacks.end())
+				if(i != gMap->attacks.end())
 					i++;
-				attacks.erase(tempIT);
+				gMap->attacks.erase(tempIT);
 				delete temp;
-				if(i == attacks.end())
+				if(i == gMap->attacks.end())
 					break;
 			}
 		}

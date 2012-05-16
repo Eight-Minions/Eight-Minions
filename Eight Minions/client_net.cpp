@@ -60,7 +60,6 @@ int client::connectToServer()
 	}
 	this->UDPpack = SDLNet_AllocPacket(512);
 
-	this->self = new player;
 	/* test sending something to the server */
 	string buff = "Client Connected!";
 
@@ -216,10 +215,10 @@ int client::performUpdate(string upd)
 			switch(update.getVal(3))
 			{
 			case ATTACKONECREEP:
-				attacks.push_back(new projectileAnimation(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(3)],update.getId1()));
+				gMap->attacks.push_back(new projectileAnimation(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,0,towerDelays[update.getVal(3)],update.getId1()));
 				break;
 			case AREAOFEFFECT:
-				attacks.push_back(new AoeAnimation(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,1));
+				gMap->attacks.push_back(new AoeAnimation(update.getVal(1) * GRID_SIZE + BOARD_X_OFFSET,update.getVal(2) * GRID_SIZE + BOARD_Y_OFFSET,1));
 				break;
 			default:
 				cout << "no animation for this tower\n";
