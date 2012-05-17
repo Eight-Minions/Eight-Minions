@@ -406,7 +406,10 @@ bool client::upgradeTowerRecieve(int towerID)
 }
 bool client::changeTowerTypeSend( int Tid, int newType )
 {
-	sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, Tid, newType).getMT());
+	if(gameType == 1)
+		changeTowerRecieve(Tid, newType);
+	else if(gameType == 2)
+		sendToServerUDP(UpdMess(this->self->getPnum(), TOWER, TOWERCHANGE, Tid, newType).getMT());
 	return true;
 }
 bool client::changeTowerRecieve(int towerID, int newType)
@@ -420,6 +423,7 @@ bool client::changeTowerRecieve(int towerID, int newType)
 	}
 	return false;
 }
+
 bool client::toggleTowerSend(int Tid)
 {
 	if(gMap->towerList.getNodeWithID(Tid)->getData()->getType() >= NORMCREEPTOWER && gMap->towerList.getNodeWithID(Tid)->getData()->getType() <= FATTYCREEPTOWER)

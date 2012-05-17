@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Eight Minions"
+	Name="Eight Minions Client"
 	ProjectGUID="{BA7F7C15-2F40-4DB1-A03D-02461BA4B8E2}"
 	RootNamespace="EightMinions"
 	Keyword="Win32Proj"
@@ -176,10 +176,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\game_host.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -203,11 +199,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\enemy.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\FadeMessage.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\FPS_Regulator.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\gameMap.cpp"
 					>
 				</File>
 				<File
@@ -230,6 +234,10 @@
 					Name="Subclasses"
 					>
 					<File
+						RelativePath=".\aoeAnim.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\creep_tower.cpp"
 						>
 					</File>
@@ -239,6 +247,10 @@
 					</File>
 					<File
 						RelativePath=".\obstacle.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\projectileAnim.cpp"
 						>
 					</File>
 					<File
@@ -252,10 +264,6 @@
 				>
 				<File
 					RelativePath=".\client_net.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\game_host_net.cpp"
 					>
 				</File>
 				<File
@@ -282,10 +290,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\game_host.h"
-				>
-			</File>
-			<File
 				RelativePath=".\resources.h"
 				>
 			</File>
@@ -309,11 +313,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\enemy.h"
+					>
+				</File>
+				<File
 					RelativePath=".\FadeMessage.h"
 					>
 				</File>
 				<File
 					RelativePath=".\FPS_Regulator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\gameMap.h"
 					>
 				</File>
 				<File
@@ -336,6 +348,10 @@
 					Name="Subclasses"
 					>
 					<File
+						RelativePath=".\aoeAnim.h"
+						>
+					</File>
+					<File
 						RelativePath=".\creep_tower.h"
 						>
 					</File>
@@ -345,6 +361,10 @@
 					</File>
 					<File
 						RelativePath=".\obstacle.h"
+						>
+					</File>
+					<File
+						RelativePath=".\projectileAnim.h"
 						>
 					</File>
 					<File

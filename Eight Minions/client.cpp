@@ -245,11 +245,13 @@ int client::runSingle()
 
 int client::runMulti()
 {
+	gameType = 2;
 	if(this->init() == -1)
 	{
 		cout << "Function Init failed to complete.\n";
 		return -1;
 	}
+	
 	//main run loop
 	run_game = 1;
 	string temp;
@@ -1352,7 +1354,10 @@ void client::handleInputSingle()
 									valid = true;
 							//Tower Placement:		UpdMess(Player[1], TOWER, TOWERPLACE[2], TowerX[2], Tower[Y]);
 							if(valid)
-								sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
+							{
+								//sendToServerUDP(UpdMess(self->getPnum(),TOWER, TOWERPLACE,placeC.x,placeC.y).getMT());
+								gMap->towerList.insertInOrder(new structure(1 ,self->getPnum(), STRUCTURE ,placeC.x,placeC.y));
+							}
 						}
 						else
 							pMess->setMessage("Not Enough Money...");
